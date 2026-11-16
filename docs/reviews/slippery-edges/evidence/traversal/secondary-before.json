@@ -1,0 +1,173 @@
+{
+  "source": "6761077583b402b3edbacc1fab41ef42b60a0b09",
+  "vehicle": {
+    "initial": {
+      "min": {
+        "x": 6.15,
+        "y": 7.015,
+        "h": 0
+      },
+      "max": {
+        "x": 10.25,
+        "y": 8.985,
+        "h": 1.46
+      }
+    },
+    "wall": {
+      "min": {
+        "x": 6.205,
+        "y": 9.02,
+        "h": 0
+      },
+      "max": {
+        "x": 6.22,
+        "y": 9.025,
+        "h": 2
+      }
+    },
+    "result": {
+      "ok": true,
+      "vehicle": {
+        "id": "compact",
+        "body": "hatchback",
+        "finish": "sage",
+        "floorId": "floor-0",
+        "position": {
+          "x": 8.160074317551357,
+          "y": 8.140294456566858,
+          "h": 0
+        },
+        "headingRad": 1.5707963267948966,
+        "speedMps": 8,
+        "steeringRad": 0,
+        "distanceM": 0.009277229852294922,
+        "wheelAngleRad": 1.3793103448275863,
+        "revision": 1,
+        "wheelbaseM": 2.21
+      },
+      "contacts": [
+        {
+          "id": "corner-actor",
+          "normal": {
+            "x": -0.6811510417522323,
+            "y": 0.7321429220581518
+          },
+          "depthM": 2.4826139699563043e-8
+        }
+      ],
+      "distanceM": 0.2152439655207243,
+      "blocked": true
+    },
+    "endpointOverlap": null,
+    "secondarySweptOverlap": {
+      "id": "secondary-wall",
+      "normal": {
+        "x": 0.6811510417522334,
+        "y": -0.7321429220581508
+      },
+      "depthM": 0.01573637587215525
+    }
+  },
+  "simultaneous": {
+    "state": {
+      "revision": 3,
+      "occupancyRevision": 2,
+      "vehicles": [
+        {
+          "id": "compact",
+          "body": "hatchback",
+          "finish": "sage",
+          "floorId": "floor-0",
+          "position": {
+            "x": 8.160074317551357,
+            "y": 8.140294456566858,
+            "h": 0
+          },
+          "headingRad": 1.5707963267948966,
+          "speedMps": 4.304879310414486,
+          "steeringRad": 0,
+          "distanceM": 0.2152439655207241,
+          "wheelAngleRad": 0.7422205707611177,
+          "revision": 1,
+          "wheelbaseM": 2.21
+        },
+        {
+          "id": "other",
+          "body": "hatchback",
+          "finish": "sage",
+          "floorId": "floor-0",
+          "position": {
+            "x": 4.511076678515173,
+            "y": 10.075593968345325,
+            "h": 0
+          },
+          "headingRad": 1.5707963267948966,
+          "speedMps": 5.670746377496975,
+          "steeringRad": 0,
+          "distanceM": 0.28353731887484857,
+          "wheelAngleRad": 0.9777148926718917,
+          "revision": 1,
+          "wheelbaseM": 2.21
+        }
+      ],
+      "occupancy": [
+        {
+          "actorId": "player",
+          "vehicleId": "compact",
+          "seatId": "driver"
+        },
+        {
+          "actorId": "driver-b",
+          "vehicleId": "other",
+          "seatId": "driver"
+        }
+      ],
+      "obstructions": [
+        {
+          "vehicleId": "compact",
+          "code": "VEHICLE_CONTACT",
+          "reason": "Contact with corner-a."
+        },
+        {
+          "vehicleId": "other",
+          "code": "VEHICLE_CONTACT",
+          "reason": "Contact with corner-b."
+        }
+      ],
+      "observerErrors": 0,
+      "contacts": [
+        {
+          "id": "corner-a",
+          "normal": {
+            "x": -0.6811510417522323,
+            "y": 0.7321429220581518
+          },
+          "depthM": 2.4826139699563043e-8,
+          "vehicleId": "compact",
+          "distanceM": 0.2152439655207243,
+          "requestedDistanceM": 0.40000000000000036
+        },
+        {
+          "id": "corner-b",
+          "normal": {
+            "x": -0.4503397288378355,
+            "y": -0.8928572834615087
+          },
+          "depthM": 4.409352222234375e-8,
+          "vehicleId": "other",
+          "distanceM": 0.2835373188748488,
+          "requestedDistanceM": 0.40000000000000036
+        }
+      ],
+      "collisionProfile": "oriented-slide-v1"
+    },
+    "overlap": {
+      "id": "other",
+      "normal": {
+        "x": 2.559555975206746e-14,
+        "y": -1
+      },
+      "depthM": 0.0347004882215316
+    }
+  }
+}

@@ -1,0 +1,21 @@
+import fs from 'node:fs';import path from 'node:path';import assert from 'node:assert/strict';
+import {withArtReview,projectRoot} from '../../tools/art-review-browser.mjs';
+const installed=JSON.parse(fs.readFileSync(path.join(projectRoot,'artifacts/night-ledger-installed/latest.json'))),groups=[];
+await withArtReview('Installed Night Ledger touch steering at multiple headings and stale-widget retirement',async({browser,baseURL,out})=>{
+ const context=await browser.newContext({viewport:{width:390,height:844},hasTouch:true,isMobile:true,deviceScaleFactor:1}),page=await context.newPage();
+ try{await page.goto(baseURL+installed.consumerURL);await page.waitForFunction(()=>window.testGround,{timeout:90000});const cdp=await context.newCDPSession(page);
+ for(const fixtureId of ['golden-road-handling','golden-road-gap'])for(const side of [-1,1]){
+  assert.ok((await page.evaluate(fixtureId=>testGround.dispatch({version:1,type:'try',fixtureId}),fixtureId)).ok);await page.getByRole('button',{name:'Enter Compact hatchback · driver',exact:true}).click();await page.waitForFunction(()=>testGround.host.readPose().mode==='driver');
+  const before=await page.evaluate(()=>testGround.host.read().vehicles.vehicles[0]),r=await page.getByRole('application',{name:/Car joystick/}).boundingBox(),x=r.x+r.width/2,y=r.y+r.height/2;
+  await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x,y,id:1}]});await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:x+side*r.width*.2,y:y-r.width*.28,id:1}]});await page.waitForFunction(({heading,side})=>(testGround.host.read().vehicles.vehicles[0].headingRad-heading)*side<-.03,{heading:before.headingRad,side});
+  const after=await page.evaluate(()=>testGround.host.read().vehicles.vehicles[0]),right={x:-Math.cos(before.headingRad),y:Math.sin(before.headingRad)},travelRight=(after.position.x-before.position.x)*right.x+(after.position.y-before.position.y)*right.y;assert.ok(travelRight*side>0);await cdp.send('Input.dispatchTouchEvent',{type:'touchCancel',touchPoints:[]});await page.waitForFunction(()=>testGround.host.read().vehicles.vehicles[0].speedMps===0);assert.equal(await page.evaluate(()=>testGround.host.connector.readForActor('player').lease),null);groups.push({fixtureId,side,before,after,travelRight});
+ }
+ // A real old ElementHandle stays old when the layout creates a replacement.
+ const joystick=await page.getByRole('application',{name:/Car joystick/}).elementHandle(),r=await joystick.boundingBox(),x=r.x+r.width/2,y=r.y+r.height/2;
+ await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x,y,id:2}]});await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x,y:y-r.width*.25,id:2}]});await page.waitForFunction(()=>testGround.host.connector.readForActor('player').lease!==null);
+ await page.getByRole('button',{name:'Open player setup',exact:true}).click();await page.locator('[data-component="player.shell"][data-setting="layout"]').selectOption('desktop');await page.getByRole('button',{name:'Apply & try',exact:true}).click();await page.waitForFunction(()=>testGround.setup.readConfiguration().components.find(c=>c.id==='player.shell').settings.layout==='desktop');
+ await joystick.evaluate(e=>{for(const type of ['pointermove','pointerup'])e.dispatchEvent(new PointerEvent(type,{pointerId:99,pointerType:'touch',clientX:100,clientY:100,bubbles:true}));});assert.equal(await page.evaluate(()=>testGround.host.connector.readForActor('player').lease),null);await cdp.send('Input.dispatchTouchEvent',{type:'touchCancel',touchPoints:[]});groups.push({name:'retired old car widget cannot reacquire the retained driver after generated layout replacement'});
+ await page.screenshot({path:path.join(out,'touch-steering-retirement.png')});await cdp.detach();await page.evaluate(()=>testGround.dispose());fs.writeFileSync(path.join(out,'browser.json'),JSON.stringify({status:'passed',groups,package:installed.package,physicalHandset:false},null,2)+'\n');
+ }finally{await page.evaluate(()=>testGround?.dispose()).catch(()=>{});await context.close();}
+},{source:true,owner:'01a1810c-62da-7210-a1ca-b72b449ce024',output:'traversal-touch',timeoutMs:300000});
+console.log(JSON.stringify({status:'passed',groups:groups.length}));

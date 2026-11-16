@@ -5,9 +5,37 @@ on:
 permissions:
   contents: read
 jobs:
-  map-workshop:
+  road-vehicles:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Fetch the fixed approved road artwork
+        run: git fetch --no-tags --depth=1 origin 5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: node tools/vehicle-art/intake.mjs --verify
+      - run: node --test --test-concurrency=2 tests/vehicles.test.mjs tests/vehicle-visuals.test.mjs tests/vehicle-follow.test.mjs tests/traversal-contacts.test.mjs tests/vehicle-contacts.test.mjs tests/traversal-registration.test.mjs
+      - name: Prepare pinned public declaration compiler
+        run: npm install --prefix "$RUNNER_TEMP/road-types" --no-save --package-lock=false --ignore-scripts --no-audit --no-fund typescript@5.9.3
+      - run: node tools/test-road-vehicles-package.mjs --typescript "$RUNNER_TEMP/road-types/node_modules/typescript/lib/tsc.js"
+      - run: node apps/test-ground/tools/install.mjs --fresh
+      - run: node apps/test-ground/tools/focused.mjs "$RUNNER_TEMP/road-types/node_modules/typescript/lib/tsc.js"
+      - run: node apps/test-ground/tools/run.mjs --output artifacts/night-ledger-agent.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: installed-road-vehicle-proof
+          path: |
+            artifacts/road-installed/latest.json
+            artifacts/night-ledger-installed/latest.json
+            artifacts/night-ledger-focused/
+            artifacts/night-ledger-agent.json
+  map-workshop:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - name: Fetch immutable source-review commits
@@ -38,6 +66,7 @@ jobs:
           d869410625b246cfff2b51089e7878c31951775c
           43227894c50ec62b71806978195fff2c650eb388
           3df11ce6e62fb94806e30652b87168949f8ef4dd
+          e17360b3041215cf2a6d1ea3dfb7a8ef76ae7e35
           eedfc0149cbaa5715445ed2dc909c2d694a81d50
           fac180e2909ba499146bb8e4560c79cf4794ca93
           08540b0ec8acd1be8b9d9929187d82a7300a59c2
@@ -52,6 +81,20 @@ jobs:
           f94b57b2cebce55fc27cc94dea7a9fe39ec20193
           f9ea6ce0ad5600ce07f4be634a29b699d61790f8
           fd8885aa584f2f13057bb8b5f5c5e0597be6db27
+          5577773727b757c3142cb2ded0a10315e25cd41d
+          004d244397fc88a2c411388dd9046858772c020e
+          d99fcf85256c90474cf570185159669caaed8070
+          3165bd2741884f67030f034f056b6fa6abd6e9e7
+          62f2fe90210b10985f80d75d9e4425f424a51c6b
+          578a86113395ea3ebcb76c636ce8f0882600d03e
+          579706bf415a9664e4541db9ec6b5fe6adb334d7
+          7234f1c963099046a405183591bd161c1a410797
+          98064c34c7bb4fc3c1343f2e450d570ec38615f2
+          09efd6580023ab4bca263fb9d7538858b0eaac1e
+          df22699032263e4489cc6c0128bf8e0570688de3
+          0e527697121e2ce60e5ddf02919b4e49424bc62f
+          41398076ae39915cf833ed31efc610a78ddd3ee8
+          a06e80b0312fa259a9c983fa81aa7ca6e669bfeb
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -60,6 +103,7 @@ jobs:
       - run: npm run test:upstream
       - run: npm run build
       - run: npm run test:package
+      - run: node tools/test-train-controls-package.mjs
       - run: npm run test:grenade-renderer
       - run: npm run test:game-ui-package
       - run: npm run test:doors
@@ -132,6 +176,7 @@ jobs:
           d869410625b246cfff2b51089e7878c31951775c
           43227894c50ec62b71806978195fff2c650eb388
           3df11ce6e62fb94806e30652b87168949f8ef4dd
+          e17360b3041215cf2a6d1ea3dfb7a8ef76ae7e35
           eedfc0149cbaa5715445ed2dc909c2d694a81d50
           fac180e2909ba499146bb8e4560c79cf4794ca93
           08540b0ec8acd1be8b9d9929187d82a7300a59c2
@@ -146,12 +191,34 @@ jobs:
           f94b57b2cebce55fc27cc94dea7a9fe39ec20193
           f9ea6ce0ad5600ce07f4be634a29b699d61790f8
           fd8885aa584f2f13057bb8b5f5c5e0597be6db27
+          3165bd2741884f67030f034f056b6fa6abd6e9e7
+          62f2fe90210b10985f80d75d9e4425f424a51c6b
+          578a86113395ea3ebcb76c636ce8f0882600d03e
+          579706bf415a9664e4541db9ec6b5fe6adb334d7
+          7234f1c963099046a405183591bd161c1a410797
+          98064c34c7bb4fc3c1343f2e450d570ec38615f2
+          09efd6580023ab4bca263fb9d7538858b0eaac1e
+          df22699032263e4489cc6c0128bf8e0570688de3
+          0e527697121e2ce60e5ddf02919b4e49424bc62f
+          41398076ae39915cf833ed31efc610a78ddd3ee8
+          a06e80b0312fa259a9c983fa81aa7ca6e669bfeb
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
       - run: npm install --no-save --package-lock=false --ignore-scripts playwright@1.62.1
       - run: npx playwright install --with-deps chromium
       - run: npm run build
+      - run: node tools/review-player-yard.mjs --built
+        env:
+          NAUTILUS_REVIEW_CHANNEL: chromium
+          CODEX_THREAD_ID: github-player-yard
+      - name: Prepare pinned player type-checking tool
+        run: npm install --prefix "$RUNNER_TEMP/player-types" --no-save --package-lock=false --ignore-scripts --no-audit --no-fund typescript@5.9.3
+      - run: node tools/test-player-setup-package.mjs --typescript "$RUNNER_TEMP/player-types/node_modules/typescript/lib/tsc.js"
+      - run: node tools/review-player-installed.mjs
+        env:
+          NAUTILUS_REVIEW_CHANNEL: chromium
+          CODEX_THREAD_ID: github-player-installed
       - run: npm run review:integration
         env:
           NAUTILUS_REVIEW_CHANNEL: chromium
@@ -233,6 +300,9 @@ jobs:
         with:
           name: authoring-browser-evidence
           path: |
+            artifacts/player-setup-yard-built/
+            artifacts/player-setup-installed-full/
+            artifacts/installed-player-setup/latest.json
             artifacts/tile-visuals-source/
             artifacts/tile-visuals-built/
             artifacts/tile-visuals-installed/
@@ -296,6 +366,7 @@ jobs:
           d869410625b246cfff2b51089e7878c31951775c
           43227894c50ec62b71806978195fff2c650eb388
           3df11ce6e62fb94806e30652b87168949f8ef4dd
+          e17360b3041215cf2a6d1ea3dfb7a8ef76ae7e35
           eedfc0149cbaa5715445ed2dc909c2d694a81d50
           fac180e2909ba499146bb8e4560c79cf4794ca93
           08540b0ec8acd1be8b9d9929187d82a7300a59c2
@@ -310,6 +381,17 @@ jobs:
           f94b57b2cebce55fc27cc94dea7a9fe39ec20193
           f9ea6ce0ad5600ce07f4be634a29b699d61790f8
           fd8885aa584f2f13057bb8b5f5c5e0597be6db27
+          3165bd2741884f67030f034f056b6fa6abd6e9e7
+          62f2fe90210b10985f80d75d9e4425f424a51c6b
+          578a86113395ea3ebcb76c636ce8f0882600d03e
+          579706bf415a9664e4541db9ec6b5fe6adb334d7
+          7234f1c963099046a405183591bd161c1a410797
+          98064c34c7bb4fc3c1343f2e450d570ec38615f2
+          09efd6580023ab4bca263fb9d7538858b0eaac1e
+          df22699032263e4489cc6c0128bf8e0570688de3
+          0e527697121e2ce60e5ddf02919b4e49424bc62f
+          41398076ae39915cf833ed31efc610a78ddd3ee8
+          a06e80b0312fa259a9c983fa81aa7ca6e669bfeb
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -367,6 +449,7 @@ jobs:
           d869410625b246cfff2b51089e7878c31951775c
           43227894c50ec62b71806978195fff2c650eb388
           3df11ce6e62fb94806e30652b87168949f8ef4dd
+          e17360b3041215cf2a6d1ea3dfb7a8ef76ae7e35
           eedfc0149cbaa5715445ed2dc909c2d694a81d50
           fac180e2909ba499146bb8e4560c79cf4794ca93
           08540b0ec8acd1be8b9d9929187d82a7300a59c2
@@ -381,6 +464,17 @@ jobs:
           f94b57b2cebce55fc27cc94dea7a9fe39ec20193
           f9ea6ce0ad5600ce07f4be634a29b699d61790f8
           fd8885aa584f2f13057bb8b5f5c5e0597be6db27
+          3165bd2741884f67030f034f056b6fa6abd6e9e7
+          62f2fe90210b10985f80d75d9e4425f424a51c6b
+          578a86113395ea3ebcb76c636ce8f0882600d03e
+          579706bf415a9664e4541db9ec6b5fe6adb334d7
+          7234f1c963099046a405183591bd161c1a410797
+          98064c34c7bb4fc3c1343f2e450d570ec38615f2
+          09efd6580023ab4bca263fb9d7538858b0eaac1e
+          df22699032263e4489cc6c0128bf8e0570688de3
+          0e527697121e2ce60e5ddf02919b4e49424bc62f
+          41398076ae39915cf833ed31efc610a78ddd3ee8
+          a06e80b0312fa259a9c983fa81aa7ca6e669bfeb
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -441,6 +535,7 @@ jobs:
           d869410625b246cfff2b51089e7878c31951775c
           43227894c50ec62b71806978195fff2c650eb388
           3df11ce6e62fb94806e30652b87168949f8ef4dd
+          e17360b3041215cf2a6d1ea3dfb7a8ef76ae7e35
           eedfc0149cbaa5715445ed2dc909c2d694a81d50
           fac180e2909ba499146bb8e4560c79cf4794ca93
           08540b0ec8acd1be8b9d9929187d82a7300a59c2
@@ -455,6 +550,17 @@ jobs:
           f94b57b2cebce55fc27cc94dea7a9fe39ec20193
           f9ea6ce0ad5600ce07f4be634a29b699d61790f8
           fd8885aa584f2f13057bb8b5f5c5e0597be6db27
+          3165bd2741884f67030f034f056b6fa6abd6e9e7
+          62f2fe90210b10985f80d75d9e4425f424a51c6b
+          578a86113395ea3ebcb76c636ce8f0882600d03e
+          579706bf415a9664e4541db9ec6b5fe6adb334d7
+          7234f1c963099046a405183591bd161c1a410797
+          98064c34c7bb4fc3c1343f2e450d570ec38615f2
+          09efd6580023ab4bca263fb9d7538858b0eaac1e
+          df22699032263e4489cc6c0128bf8e0570688de3
+          0e527697121e2ce60e5ddf02919b4e49424bc62f
+          41398076ae39915cf833ed31efc610a78ddd3ee8
+          a06e80b0312fa259a9c983fa81aa7ca6e669bfeb
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -512,6 +618,7 @@ jobs:
           d869410625b246cfff2b51089e7878c31951775c
           43227894c50ec62b71806978195fff2c650eb388
           3df11ce6e62fb94806e30652b87168949f8ef4dd
+          e17360b3041215cf2a6d1ea3dfb7a8ef76ae7e35
           eedfc0149cbaa5715445ed2dc909c2d694a81d50
           fac180e2909ba499146bb8e4560c79cf4794ca93
           08540b0ec8acd1be8b9d9929187d82a7300a59c2
@@ -526,6 +633,17 @@ jobs:
           f94b57b2cebce55fc27cc94dea7a9fe39ec20193
           f9ea6ce0ad5600ce07f4be634a29b699d61790f8
           fd8885aa584f2f13057bb8b5f5c5e0597be6db27
+          3165bd2741884f67030f034f056b6fa6abd6e9e7
+          62f2fe90210b10985f80d75d9e4425f424a51c6b
+          578a86113395ea3ebcb76c636ce8f0882600d03e
+          579706bf415a9664e4541db9ec6b5fe6adb334d7
+          7234f1c963099046a405183591bd161c1a410797
+          98064c34c7bb4fc3c1343f2e450d570ec38615f2
+          09efd6580023ab4bca263fb9d7538858b0eaac1e
+          df22699032263e4489cc6c0128bf8e0570688de3
+          0e527697121e2ce60e5ddf02919b4e49424bc62f
+          41398076ae39915cf833ed31efc610a78ddd3ee8
+          a06e80b0312fa259a9c983fa81aa7ca6e669bfeb
       - uses: actions/setup-node@v4
         with:
           node-version: '24'

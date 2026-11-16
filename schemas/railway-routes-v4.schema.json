@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nautilus:schema:railway-routes:4",
+  "title": "Nautilus ground railway with a train",
+  "type": "object",
+  "required": ["version", "routes", "train"],
+  "additionalProperties": false,
+  "properties": {
+    "version": {"const": 4},
+    "routes": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 64,
+      "items": {"$ref": "urn:nautilus:schema:railway-routes:2#/properties/routes/items"}
+    },
+    "train": {
+      "type": "object",
+      "required": ["routeId", "stock", "departure", "switchPosition"],
+      "additionalProperties": false,
+      "properties": {
+        "routeId": {"type": "string", "pattern": "^[a-zA-Z0-9_-]{1,64}$"},
+        "stock": {"enum": ["steam", "electric"]},
+        "departure": {"enum": ["start", "end", "branch"]},
+        "switchPosition": {"enum": ["main", "branch"]}
+      }
+    }
+  },
+  "$comment": "The route must exist and the selected itinerary must fit the full consist. Saves retain the authored starting position and switch, without the live playback position."
+}

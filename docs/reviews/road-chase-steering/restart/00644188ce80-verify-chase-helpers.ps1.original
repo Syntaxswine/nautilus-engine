@@ -1,0 +1,17 @@
+$taskRecords = Get-Content -LiteralPath 'artifacts/chase-helper-lifetimes.json' -Raw | ConvertFrom-Json
+$taskRows = foreach ($taskRecord in $taskRecords) {
+  $taskIdentities = foreach ($taskIdentity in @($taskRecord.process,$taskRecord.browser)) {
+    $taskProcess = Get-Process -Id $taskIdentity.pid -ErrorAction SilentlyContinue
+    $taskSame = $false
+    $taskError = $null
+    if ($null -ne $taskProcess) { try { $taskSame = $taskProcess.StartTime.ToUniversalTime().ToFileTimeUtc().ToString() -eq $taskIdentity.creationFiletime } catch { $taskError = $_.Exception.Message } }
+    [pscustomobject]@{pid=$taskIdentity.pid;creationFiletime=$taskIdentity.creationFiletime;executable=$taskIdentity.executable;originalExited=($null -eq $taskProcess -or (-not $taskSame -and $null -eq $taskError));pidReused=($null -ne $taskProcess -and -not $taskSame -and $null -eq $taskError);identityError=$taskError}
+  }
+  $taskListeners = @(Get-NetTCPConnection -State Listen -LocalPort $taskRecord.port -ErrorAction SilentlyContinue)
+  [pscustomobject]@{folder=$taskRecord.folder;owner=$taskRecord.owner;purpose=$taskRecord.purpose;port=$taskRecord.port;startedAt=$taskRecord.startedAt;expiresAt=$taskRecord.expiresAt;identities=$taskIdentities;receipt=$taskRecord.receipt;originalListenerAbsent=($taskIdentities[0].originalExited -or @($taskListeners | Where-Object {$_.OwningProcess -eq $taskRecord.process.pid}).Count -eq 0);portCurrentlyFree=($taskListeners.Count -eq 0);method='Read-only recorded PID plus creation-time verification in the same host permission context as launch. No process termination. An exited original lifetime cannot retain its listener; unrelated rebinding is preserved.'}
+}
+$taskReport = [pscustomobject]@{version=1;checkedAt=(Get-Date).ToUniversalTime().ToString('o');lifetimes=@($taskRows);retainedHelpers=@()}
+[System.IO.File]::WriteAllText((Join-Path (Get-Location) 'artifacts/chase-helper-verification.json'),($taskReport | ConvertTo-Json -Depth 14),[System.Text.UTF8Encoding]::new($false))
+$taskUnresolved = @($taskRows | Where-Object {@($_.identities | Where-Object {-not $_.originalExited}).Count -gt 0 -or -not $_.originalListenerAbsent -or -not $_.receipt.httpClosed -or -not $_.receipt.browserClosed})
+[pscustomobject]@{lifetimes=@($taskRows).Count;unresolved=$taskUnresolved.Count;retained=0} | ConvertTo-Json -Compress
+if ($taskUnresolved.Count -gt 0) { exit 1 }

@@ -1,0 +1,111 @@
+/* Adapted from Tinderbox fb0628605c274550ff8abad50b151843f08747d1 train-control.css.
+   Original source/resources/licenses remain byte-preserved in the pinned vendor closure. */
+@font-face {
+  font-family:NautilusCompactBesley;
+  src:url('../../vendor/tinderbox-train-controls/fb0628605c274550ff8abad50b151843f08747d1/assets/art/ui/typography/besley/Besley[wght].ttf') format('truetype');
+  font-style:normal;font-weight:400 900;font-display:swap;
+}
+@font-face {
+  font-family:NautilusCompactOldStandard;
+  src:url('../../vendor/tinderbox-train-controls/fb0628605c274550ff8abad50b151843f08747d1/assets/art/ui/typography/oldstandardtt/OldStandard-Regular.ttf') format('truetype');
+  font-style:normal;font-weight:400;font-display:swap;
+}
+.nautilus-train-controls .compact-chain-art {display:none}
+.nautilus-train-controls[data-steam-profile=compact-notched] {
+  --compact-size:138px;--compact-grip:80px;--compact-label:NautilusCompactBesley,Georgia,serif;
+  --compact-wood:url('../../vendor/tinderbox-train-controls/fb0628605c274550ff8abad50b151843f08747d1/vendor/farmyard-commando/30a3b8cae5f36bb0c1df3685b7fba16f701c2083/sites/tactical-animal/dist/aft/assets/environment/hybrid-surfaces/wood-factory-v2.png');
+}
+.nautilus-train-controls [data-profile=compact-notched].train-panel {
+  display:grid;grid-template-columns:var(--compact-size) minmax(0,1fr);gap:5px 9px;
+  width:100%;padding:0;border:0;border-radius:0;background:none;box-shadow:none;
+}
+.nautilus-train-controls [data-profile=compact-notched].train-panel::before,
+.nautilus-train-controls [data-profile=compact-notched].train-panel::after,
+.nautilus-train-controls [data-profile=compact-notched] :is(.speed-instrument,.direction-gate,.power-row,.key-guide) {display:none}
+.nautilus-train-controls [data-profile=compact-notched] .panel-heading {
+  grid-column:2;grid-row:1;margin:0;padding:6px 8px;border:1px solid #be9b5a88;border-radius:5px;
+  background:#302217ed;box-shadow:inset 0 1px #edcf9344;min-width:0;
+}
+.nautilus-train-controls [data-profile=compact-notched] .panel-heading h2 {font:650 14px/1.2 var(--compact-label);text-shadow:0 1px #170d08}
+.nautilus-train-controls [data-profile=compact-notched] .panel-heading .plate {font-size:7px;letter-spacing:.08em;margin-bottom:3px}
+.nautilus-train-controls [data-profile=compact-notched] .cab-facing {display:none}
+.nautilus-train-controls [data-profile=compact-notched] .instrument-row {
+  grid-column:1;grid-row:1 / span 3;align-self:end;position:relative;display:block;
+  width:var(--compact-size);height:var(--compact-size);padding:0;border:3px ridge #9d7c45;border-radius:8px;
+  background:linear-gradient(110deg,#4b2a18d9,#21140ce8),var(--compact-wood) center/cover;
+  box-shadow:0 3px #140c07,inset 0 0 0 1px #1e130b,inset 0 0 12px #0b0807b3;
+  color:#f5dfac;overflow:hidden;touch-action:none;user-select:none;
+}
+.nautilus-train-controls [data-profile=compact-notched] .instrument-row::before {
+  content:'';position:absolute;inset:4px;border:1px solid #ba9550;border-radius:4px;
+  background:linear-gradient(105deg,#a1743770,#34261c66 48%,#c9973933);pointer-events:none;
+}
+.nautilus-train-controls .compact-lever {position:absolute;inset:0 44px 0 0;cursor:grab;touch-action:none}
+.nautilus-train-controls .compact-lever:active {cursor:grabbing}
+.nautilus-train-controls .compact-lever:focus-visible {outline:2px solid #fff0bd;outline-offset:-4px;border-radius:6px}
+.nautilus-train-controls .compact-lever[aria-disabled=true] {opacity:.5;cursor:default}
+.nautilus-train-controls .compact-gate {position:absolute;inset:16px 0;pointer-events:none}
+.nautilus-train-controls .compact-gate::before {
+  content:'';position:absolute;left:calc(50% - 4.5px);top:-4px;bottom:-4px;width:9px;
+  border:2px solid #b49257;border-radius:7px;background:#100f0e;box-shadow:inset 2px 0 3px #000,1px 0 #efd49c66;
+}
+.nautilus-train-controls .compact-stop {position:absolute;left:0;right:0;top:var(--stop);height:1px}
+.nautilus-train-controls .compact-stop>b {position:absolute;left:4px;top:0;transform:translateY(-50%);font:700 10px/1 var(--compact-label);letter-spacing:.2px;color:#e8c985;text-shadow:0 1px #25170d}
+.nautilus-train-controls .compact-stop>i {position:absolute;top:-1px;left:calc(50% - 1px);width:10px;height:3px;border-block:1px solid #cfad6f;background:#1e1a13}
+.nautilus-train-controls .compact-knob {
+  position:absolute;top:var(--notch-position,66.666%);left:50%;width:var(--compact-grip);max-width:calc(100% - 4px);height:32px;
+  transform:translate(-50%,-50%);border:1px solid #2b170e;border-radius:13px;
+  background:radial-gradient(ellipse at 24% 8%,#f6d7a055,transparent 58%),linear-gradient(#b27b49 0%,#86512f 19%,#61351f 48%,#321a10 75%,#6c3d22 100%);
+  box-shadow:0 7px 5px #08050399,0 2px 1px #120a06,inset 0 1px 1px #f9db9ba6,inset 2px 0 3px #f3bd7540,inset -3px -3px 4px #1d0e08;
+  transition:top 95ms cubic-bezier(.25,1.5,.6,1);
+}
+.nautilus-train-controls .compact-knob::before {
+  content:'N';position:absolute;inset:3px 5px 8px;display:grid;place-items:center;border:1px solid #e9bf784d;border-bottom-color:#25130c66;border-radius:10px;
+  background:linear-gradient(#f6d6a02b,#371b0e14),repeating-linear-gradient(176deg,#edbd7614 0 1px,transparent 2px 4px);
+  color:#ffe4ac;font:700 9px/1 var(--compact-label);letter-spacing:.5px;text-shadow:0 1px 1px #211006,0 -1px #633b235c;box-shadow:inset 0 2px 2px #f4d69a26;
+}
+.nautilus-train-controls [data-notch="0"] .compact-knob::before {content:'F II'}
+.nautilus-train-controls [data-notch="1"] .compact-knob::before {content:'F I'}
+.nautilus-train-controls [data-notch="3"] .compact-knob::before {content:'R'}
+.nautilus-train-controls .compact-knob::after {
+  content:'';position:absolute;left:4px;right:4px;bottom:-5px;height:10px;z-index:-1;border:1px solid #29160d;border-top:0;border-radius:0 0 12px 12px;
+  background:linear-gradient(#6d3d23,#32190f 78%,#1d100a);box-shadow:0 2px 2px #08050380,inset 0 -1px #b47e4747;
+}
+.nautilus-train-controls .compact-knob>i {position:absolute;left:50%;bottom:-11px;width:10px;height:12px;transform:translateX(-50%);z-index:-2;border:1px solid #4c3822;background:linear-gradient(90deg,#5c482e,#f4dfab 42%,#b79b65 65%,#49351e);box-shadow:1px 2px 2px #090604b3}
+.nautilus-train-controls [data-profile=compact-notched] .brake-column {position:absolute;inset:0 0 0 auto;width:44px}
+.nautilus-train-controls [data-profile=compact-notched] .brake-column :is(.control-label,small,.brake-chain,.brake-paddle,kbd) {display:none}
+.nautilus-train-controls [data-profile=compact-notched] .brake-column button {
+  position:absolute;inset:0;width:44px;height:100%;min-height:44px;padding:0;color:#ebcb8a;background:none;
+  border:0;border-left:1px solid #2b1c14;border-radius:0;box-shadow:none;text-shadow:0 1px #130b06;overflow:hidden;
+}
+.nautilus-train-controls [data-profile=compact-notched] .brake-column button[aria-pressed=true] {box-shadow:inset 0 0 0 2px #d5ae6580}
+.nautilus-train-controls [data-profile=compact-notched] .brake-column strong {position:absolute;left:0;right:0;bottom:7px;padding:0;background:none;font:700 7px/1 var(--compact-label);letter-spacing:.6px;text-transform:uppercase}
+.nautilus-train-controls [data-profile=compact-notched] .compact-chain-art {display:block;position:absolute;inset:0}
+.nautilus-train-controls .compact-anchor {position:absolute;width:24px;height:8px;left:10px;top:10px;border:1px solid #2b1b0d;background:linear-gradient(#bda06e,#786039,#ddc494);box-shadow:0 2px 2px #0008;border-radius:2px}
+.nautilus-train-controls .compact-chain {position:absolute;left:13px;top:16px;width:18px;height:calc(100% - 47px);transform:translateY(var(--chain-pull,0px));transition:transform 90ms ease-out}
+.nautilus-train-controls .compact-chain>i {display:block;margin:-2px auto 0;width:8px;height:calc((100% - 25px)/5 + 3px);border:2px solid #c3a874;border-right-color:#675331;border-bottom-color:#715b36;border-radius:50%;box-shadow:1px 1px 1px #160e08,inset 1px 0 #f5dea45c}
+.nautilus-train-controls .compact-chain>i:nth-child(even) {width:5px;border-left-color:#f0d5a0}
+.nautilus-train-controls .compact-ring {display:block;width:28px;height:30px;margin:-2px 0 0 -5px;border:4px solid #b8a06c;border-right-color:#6a542e;border-bottom-color:#796039;border-radius:48%;box-shadow:1px 3px 2px #0c0908b3,inset 1px 1px #efdbad}
+.nautilus-train-controls [data-profile=compact-notched] .compact-status {grid-column:2;grid-row:2;padding:5px 8px;border-left:2px solid #bb9555;background:#2b1c13e8;border-radius:3px;min-width:0}
+.nautilus-train-controls .compact-status output {font:650 21px/1 system-ui,sans-serif;font-variant-numeric:tabular-nums;color:#ffe9b3}
+.nautilus-train-controls .compact-status p {margin:4px 0 0;font:12px/1.2 NautilusCompactOldStandard,Georgia,serif;color:#f3dfb1}
+.nautilus-train-controls [data-profile=compact-notched] .panel-footer {grid-column:2;grid-row:3;justify-content:start;align-items:center;gap:6px;margin:0;padding:0;border:0;box-shadow:none}
+.nautilus-train-controls [data-profile=compact-notched] .panel-footer .sound-toggle {background:#2b1c13ed;width:44px;height:44px;border-color:#c79d5b}
+.nautilus-train-controls [data-profile=compact-notched] .sound-toggle span {display:none}
+.nautilus-train-controls [data-profile=compact-notched] .panel-footer .exit-actions button {background:#2b1c13ed;border-color:#c79d5b;max-width:130px}
+.nautilus-train-controls [data-profile=compact-notched] :is(.signal-line,.request-status) {grid-column:1 / -1;margin:3px 0;background:#2b1c13ee}
+@media(max-width:355px) {.nautilus-train-controls[data-steam-profile=compact-notched] {--compact-size:124px;--compact-grip:70px}.nautilus-train-controls [data-profile=compact-notched] .panel-heading h2 {font-size:12px}}
+@media(max-height:580px) and (min-width:600px) {
+  .nautilus-train-controls[data-steam-profile=compact-notched] {--compact-size:96px;--compact-grip:42px}
+  .nautilus-train-controls .compact-stop>b {font-size:7.5px}
+  .nautilus-train-controls .compact-knob {height:24px;border-radius:10px}
+  .nautilus-train-controls .compact-knob::before {inset:2px 3px 6px;font-size:8px;border-radius:8px}
+  .nautilus-train-controls .compact-knob::after {bottom:-4px;height:8px;border-radius:0 0 9px 9px}
+  .nautilus-train-controls .compact-knob>i {bottom:-9px;height:10px;width:8px}
+}
+@media(prefers-reduced-motion:reduce) {.nautilus-train-controls .compact-knob,.nautilus-train-controls .compact-chain {transition:none}}
+@media(forced-colors:active) {
+  .nautilus-train-controls [data-profile=compact-notched] :is(.instrument-row,.compact-knob,.compact-gate::before,.panel-heading,.compact-status,.panel-footer button) {background:Canvas;border-color:CanvasText;color:CanvasText}
+  .nautilus-train-controls :is(.compact-stop>b,.compact-knob::before,.compact-status p,.compact-status output) {color:CanvasText}
+  .nautilus-train-controls :is(.compact-stop>i,.compact-chain>i,.compact-ring) {border-color:CanvasText}
+}

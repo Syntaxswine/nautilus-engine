@@ -1,0 +1,13 @@
+import fs from 'node:fs';import path from 'node:path';import {fileURLToPath} from 'node:url';
+const root=fileURLToPath(new URL('../',import.meta.url));
+export const VEHICLE_ART_PIN='5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee';
+export const VEHICLE_BASE='579706bf415a9664e4541db9ec6b5fe6adb334d7';
+export const VEHICLE_ART_ROOT='vendor/nautilus-road-vehicles/'+VEHICLE_ART_PIN;
+const entries={'./vehicles':'./packages/vehicle-core/index.js','./vehicles/three':'./packages/vehicle-visuals/three.js','./vehicles/legacy':'./packages/vehicle-visuals/legacy.js','./vehicles/browser':'./packages/vehicle-ui/yard.js'};
+export function vehicleExports(profile){const keys=profile==='core'?['./vehicles']:profile==='renderer'?['./vehicles','./vehicles/three','./vehicles/legacy']:profile==='compatibility'?Object.keys(entries):[];return Object.fromEntries(keys.map(k=>[k,entries[k]]));}
+export function withVehicleExports(exports,profile){return {...Object.fromEntries(Object.entries(exports).filter(([key])=>!Object.hasOwn(entries,key))),...vehicleExports(profile)};}
+const names=['hatchback','sedan','pickup','crew-pickup','cargo-van','passenger-van','utility-suv','crossover'];
+export function vehiclePayloads(){return [...names.map(id=>'packages/vehicle-visuals/meshes/'+id+'.json'),...[...names,'running-gear'].flatMap(id=>['packages/vehicle-visuals/skins/game/'+id+'.png',VEHICLE_ART_ROOT+'/packages/vehicle-visuals/skins/'+id+'.png'])];}
+export function vehiclePackageFiles(profile){return ['docs/road-vehicles.md','packages/vehicle-core/README.md','packages/vehicle-core/usage-card.json','packages/vehicle-core/contract.json','packages/vehicle-core/index.d.ts',VEHICLE_ART_ROOT+'/vendor/meshoptimizer/7b2d4f4c817aea55d74dcd65d9763ac2ca608026/LICENSE.md',...(profile==='renderer'||profile==='compatibility'?['packages/vehicle-visuals/three.d.ts','packages/vehicle-visuals/legacy.d.ts','packages/vehicle-visuals/profiles.json',...vehiclePayloads()]:[]),...(profile==='compatibility'?['packages/vehicle-ui/yard.d.ts']:[])];}
+export function vehicleStaticFiles(){return [...vehiclePayloads(),...['catalogue.js','sculpt.js','three.js','reduced.js','reduced-data.js'].map(f=>VEHICLE_ART_ROOT+'/packages/vehicle-visuals/'+f),...vehiclePackageFiles('compatibility').filter(f=>!f.endsWith('.d.ts'))];}
+export function vehicleRecordedFiles(){const walk=folder=>fs.readdirSync(path.join(root,folder),{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(folder+'/'+e.name):[folder+'/'+e.name]);return ['packages/vehicle-core','packages/vehicle-ui','packages/vehicle-visuals',VEHICLE_ART_ROOT,'tools/vehicle-art','examples/vehicle-yard'].flatMap(walk).sort();}

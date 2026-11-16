@@ -1,10 +1,12 @@
 import assert from 'node:assert/strict';
+import {npmFilePatterns} from './npm-files.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 import {root,moduleClosure,distribution} from './distribution.mjs';
+import {historicalRailwayRouteBytes} from './railway-route-registration.mjs';
 import {withoutTileStackRegistration} from './tile-stack-registration.mjs';
 import {checkTileAuthoringRegistration} from './tile-authoring-registration.mjs';
 import {tileSurfaceCorrection,TILE_SURFACE_PREPARE_PATH,TILE_SURFACE_METADATA_PATH} from './tile-surface-corrections.mjs';
@@ -38,7 +40,7 @@ export function checkTileVisualsSource(projectRoot=root,{tracked=null}={}){
     assert.ok(git('show',':'+file).equals(expected),'The index changes reviewed bytes: '+file);
   };
   const unchanged=(file,commit)=>{
-    const expected=object(commit,file);assert.ok(read(file).equals(expected),'Reviewed bytes changed: '+file);indexed(file,expected);return record(file,expected);
+    const expected=object(commit,file),actual=read(file);assert.ok(historicalRailwayRouteBytes(object,file,actual).equals(expected),'Reviewed bytes changed: '+file);indexed(file,actual);return record(file,expected);
   };
   const approvedRuntime=git('ls-tree','-r','--name-only',TILE_ART_ACCEPTED_SOURCE,'packages/tile-visuals').toString().trim().split('\n').filter(file=>file.endsWith('.js')).sort();
   assert.equal(approvedRuntime.length,6);
@@ -70,7 +72,7 @@ export function checkTileVisualsSource(projectRoot=root,{tracked=null}={}){
   });
   unchanged('packages/tiles-core/NOTICE.md',TILE_ART_ROOT_BASE);
   unchanged('packages/map-core/contract-manifest.js',TILE_ART_ROOT_BASE);
-  const currentUpstream=json('upstream.json'),baseUpstream=JSON.parse(object(TILE_ART_ROOT_BASE,'upstream.json'));
+  const currentUpstream=JSON.parse(historicalRailwayRouteBytes(object,'upstream.json',read('upstream.json'))),baseUpstream=JSON.parse(object(TILE_ART_ROOT_BASE,'upstream.json'));
   assert.deepEqual(currentUpstream,baseUpstream,'This registration adds no donor/game pin.');
   const optionalRegistration=checkTileAuthoringRegistration({object,read,indexed,moduleClosure,distribution});
   const basePackage=JSON.parse(object(TILE_ART_ROOT_BASE,'package.json')),pkg=json('package.json'),priorExports=withoutTileStackRegistration(optionalRegistration.historicalView.exports);
@@ -117,7 +119,7 @@ export function checkTileVisualsSource(projectRoot=root,{tracked=null}={}){
     }
     profiles[profile]={files:d.files.length,providerFiles:wanted};
   }
-  assert.deepEqual(pkg.files,distribution().files,'Root whitelist must match the exact computed distribution.');
+  assert.deepEqual(pkg.files,npmFilePatterns(distribution().files),'Root whitelist must match the exact computed distribution.');
   const families=Object.values(Object.groupBy(studies.studies,study=>study.family)).map(list=>({id:list[0].family,count:list.length}));
   return {status:'pass',registered:true,id,policy,acceptedProvider:TILE_ART_ACCEPTED_SOURCE,integrationBase:TILE_ART_ROOT_BASE,preservedArtCheckpoint:TILE_ART_PRESERVED_STUDIES,canonicalCoreCheckpoint:historicalCore,acceptedRuntime,runtime,metadataAdaptations:[adaptation],runtimeCorrections,coreFiles,packageSupport:[...support],entries,atlas,threeNotice,immutableProofs,preservedArtFiles:artPaths.length,studies:294,families,profiles,optionalRegistration,publicExportsChanged:true,publicWhitelistChanged:true,newSchemaOrCapability:false,editorAdopted:false,gameAdopted:false,requiredGitCommits:[...new Set([TILE_ART_ACCEPTED_SOURCE,TILE_ART_ROOT_BASE,TILE_ART_PRESERVED_STUDIES,optionalRegistration.base,...optionalRegistration.requiredGitCommits,...surfaceCorrection.requiredGitCommits])]};
 }

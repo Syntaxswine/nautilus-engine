@@ -1,0 +1,11 @@
+import {planRailwayRoute,planRailwayTurnout} from '../railway-visuals/route.js';
+import {clone} from './data.js';
+// Measurements from source shared node IDs, before any fitted geometry.
+const joins=[{id:'western-loop-junction',node:4977559644,sector:'B04',at:[462.5725,813.581],incomingFrom:[438.5408,800.2812],mainTo:[485.5654,826.375],branchTo:[476.9134,819.6014],renderedEnd:[479.2026,820.465],gapM:17.998602223783962},{id:'eastern-loop-junction',node:4977559639,sector:'C04',at:[599.93,885.7826],incomingFrom:[625.1067,900.1972],mainTo:[564.5588,867.8159],branchTo:[581.9475,873.8741],renderedEnd:[585.2964,876.0918],gapM:17.551463004547497}];
+const unit=(a,b)=>{const n=Math.hypot(b[0]-a[0],b[1]-a[1]);return [(b[0]-a[0])/n,(b[1]-a[1])/n];},extend=(p,u,d)=>[p[0]+u[0]*d,p[1]+u[1]*d];
+export function mountDoraRailConnections(){return clone(joins).map(j=>({...j,mainTrack:'osm-way-146637676',branchTrack:'osm-way-508450239',sourceStatus:'disused',frame:'town east/south metres; game subtract(.5,.5) once'}));}
+export function planMountDoraRailGap(id){const join=joins.find(j=>j.id===id);if(!join)throw Error('MOUNT_DORA_RAIL_JOIN');const main=planRailwayRoute([join.incomingFrom,join.at,join.mainTo],16,'surveyed-v1'),turnout=planRailwayTurnout(main,{at:join.at,end:join.renderedEnd});return {join:clone(join),main,turnout};}
+/** Independent operating study: exact source bearings at each node, translated
+ * to an editable240m yard. Straight approaches are extended for train clearance;
+ * this is not an operational full-town passing-loop network. */
+export function mountDoraRailStudy(id){const join=joins.find(j=>j.id===id);if(!join)throw Error('MOUNT_DORA_RAIL_JOIN');const at=[100,100],incoming=unit(join.incomingFrom,join.at),outgoing=unit(join.at,join.mainTo),branch=unit(join.at,join.branchTo),route={id:'measured-'+(id.startsWith('western')?'west':'east'),geometryProfile:'surveyed-v1',radiusM:16,waypoints:[extend(at,incoming,-70),at,extend(at,outgoing,90)],turnout:{at,end:extend(at,branch,100)}};return {id,sourceNode:join.node,sourceStatus:'disused',configuration:'separate operating study; extended straight approaches, not mapped town infrastructure',route,placement:{routeId:route.id,stock:'steam',profile:'world',departure:'start',switchPosition:'main'}};}

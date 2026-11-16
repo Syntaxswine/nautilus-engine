@@ -1,0 +1,1371 @@
+{
+  "version": 1,
+  "source": "06e8e14d4fc6a71cbbab3338db6274a54232f2fa",
+  "installed": {
+    "file": "artifacts/distribution/nautilus-engine-map-core-0.10.0.tgz",
+    "sha256": "84da1f940511c0ce10dc3e4185590f546e72cbc04cbcb2e807a5cdee316a187a",
+    "bytes": 74088655,
+    "files": 555,
+    "publicExports": 65,
+    "payloadSHA256": "6aa7a1e0c8feba13d1aa2f6749d3fb8d76246bd44acbc99a26ff56df11ba08be"
+  },
+  "results": [
+    {
+      "name": "startup",
+      "read": {
+        "state": {
+          "revision": 0,
+          "occupancyRevision": 0,
+          "vehicles": [
+            {
+              "id": "compact",
+              "body": "hatchback",
+              "finish": "sage",
+              "floorId": "floor-0",
+              "position": {
+                "x": 6,
+                "y": 7,
+                "h": 0
+              },
+              "headingRad": 0,
+              "speedMps": 0,
+              "steeringRad": 0,
+              "distanceM": 0,
+              "wheelAngleRad": 0,
+              "revision": 0,
+              "wheelbaseM": 2.21
+            },
+            {
+              "id": "truck",
+              "body": "pickup",
+              "finish": "oxide",
+              "floorId": "floor-0",
+              "position": {
+                "x": 15,
+                "y": 8,
+                "h": 0
+              },
+              "headingRad": 0,
+              "speedMps": 0,
+              "steeringRad": 0,
+              "distanceM": 0,
+              "wheelAngleRad": 0,
+              "revision": 0,
+              "wheelbaseM": 3
+            }
+          ],
+          "occupancy": [],
+          "obstructions": [],
+          "observerErrors": 0
+        },
+        "player": {
+          "configuration": {
+            "kind": "nautilus-player-setup",
+            "version": 1,
+            "engine": {
+              "package": "@nautilus-engine/map-core",
+              "version": "0.10.0",
+              "sourcePin": "7f50cb2a48aef87a16fc0465997549be9ed88dc2"
+            },
+            "content": {
+              "id": "nautilus-road-yard",
+              "version": 1,
+              "sourcePin": "06e8e14d4fc6a71cbbab3338db6274a54232f2fa"
+            },
+            "actorId": "player",
+            "components": [
+              {
+                "id": "player.shell",
+                "version": 1,
+                "settings": {
+                  "skin": "farmyard",
+                  "layout": "auto",
+                  "actions": "icon-text"
+                }
+              },
+              {
+                "id": "player.walking",
+                "version": 1,
+                "settings": {
+                  "pace": 1
+                }
+              },
+              {
+                "id": "player.vehicles",
+                "version": 1,
+                "settings": {}
+              },
+              {
+                "id": "player.camera",
+                "version": 1,
+                "settings": {
+                  "mode": "follow",
+                  "zoom": 1
+                }
+              },
+              {
+                "id": "setup.runtime",
+                "version": 1,
+                "settings": {}
+              },
+              {
+                "id": "setup.actor",
+                "version": 1,
+                "settings": {
+                  "model": "goat",
+                  "motion": "native-gait"
+                }
+              }
+            ],
+            "bindings": {
+              "nautilus.setup-ui": "setup.shell",
+              "nautilus.setup-clock": "retained.vehicle-yard",
+              "nautilus.render-surface": "retained.vehicle-yard",
+              "nautilus.native-actor-view": "setup.actor",
+              "nautilus.player-scene": "retained.vehicle-yard",
+              "nautilus.ui-pause": "retained.vehicle-yard",
+              "nautilus.hud-bounds": "setup.camera",
+              "nautilus.walk-intent": "retained.vehicle-yard",
+              "nautilus.road-vehicle-connector": "retained.vehicle-yard",
+              "nautilus.camera-settings": "setup.camera",
+              "nautilus.actor-pose": "retained.vehicle-yard"
+            }
+          },
+          "actor": {
+            "actorId": "player",
+            "revision": 0,
+            "position": {
+              "x": 4.15,
+              "y": 7.35,
+              "h": 0
+            },
+            "mode": "on-foot"
+          },
+          "native": {
+            "kind": "nautilus-native-pose",
+            "version": 1,
+            "model": "goat",
+            "actorId": "player",
+            "motion": "native-gait",
+            "distanceM": 0,
+            "heading": 0,
+            "blend": 0,
+            "last": {
+              "actorId": "player",
+              "revision": 0,
+              "position": {
+                "x": 4.15,
+                "y": 7.35,
+                "h": 0
+              },
+              "mode": "on-foot"
+            }
+          },
+          "camera": {
+            "settings": {
+              "mode": "follow",
+              "zoom": 1
+            },
+            "bounds": {
+              "version": 1,
+              "viewport": {
+                "x": 0,
+                "y": 0,
+                "width": 1600,
+                "height": 1100
+              },
+              "occlusions": [
+                {
+                  "id": "status",
+                  "x": 18,
+                  "y": 18,
+                  "width": 183.0625,
+                  "height": 57.59375
+                },
+                {
+                  "id": "tools",
+                  "x": 1468.40625,
+                  "y": 18,
+                  "width": 113.59375,
+                  "height": 44
+                },
+                {
+                  "id": "actions",
+                  "x": 1216,
+                  "y": 833.21875,
+                  "width": 362,
+                  "height": 100.78125
+                },
+                {
+                  "id": "controls",
+                  "x": 1216,
+                  "y": 944,
+                  "width": 362,
+                  "height": 134
+                }
+              ],
+              "safe": {
+                "x": 0,
+                "y": 83.59375,
+                "width": 1208,
+                "height": 1016.40625
+              }
+            }
+          },
+          "screenPoint": {
+            "x": 799.9999999999998,
+            "y": 554.6926579444837
+          },
+          "sharedOwnedProviders": 1
+        },
+        "visuals": {
+          "status": "ready",
+          "failure": null,
+          "profile": "game",
+          "geometry": "game",
+          "bodies": [
+            "hatchback",
+            "pickup"
+          ],
+          "requests": [
+            {
+              "kind": "texture",
+              "id": "running-gear",
+              "profile": "game",
+              "url": "http://127.0.0.1:58720/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/vehicle-visuals/skins/game/running-gear.png"
+            },
+            {
+              "kind": "texture",
+              "id": "hatchback",
+              "profile": "game",
+              "url": "http://127.0.0.1:58720/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/vehicle-visuals/skins/game/hatchback.png"
+            },
+            {
+              "kind": "texture",
+              "id": "pickup",
+              "profile": "game",
+              "url": "http://127.0.0.1:58720/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/vehicle-visuals/skins/game/pickup.png"
+            },
+            {
+              "kind": "mesh",
+              "id": "hatchback",
+              "profile": "game",
+              "url": "http://127.0.0.1:58720/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/vehicle-visuals/meshes/hatchback.json"
+            },
+            {
+              "kind": "mesh",
+              "id": "pickup",
+              "profile": "game",
+              "url": "http://127.0.0.1:58720/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/vehicle-visuals/meshes/pickup.json"
+            }
+          ],
+          "ownedResources": 24,
+          "instances": 2,
+          "submissionsPerInstance": {
+            "parked": 2,
+            "driving": 6
+          }
+        },
+        "clock": {
+          "elapsedSeconds": 0,
+          "blocked": false
+        }
+      }
+    },
+    {
+      "name": "hatchback-forward",
+      "motion": {
+        "distanceM": 1.5,
+        "alongM": 1.5,
+        "speedMps": 2.999999999999999
+      },
+      "state": {
+        "mode": "driver",
+        "vehicle": {
+          "id": "compact",
+          "body": "hatchback",
+          "finish": "sage",
+          "floorId": "floor-0",
+          "position": {
+            "x": 6,
+            "y": 8.5,
+            "h": 0
+          },
+          "headingRad": 0,
+          "speedMps": 2.999999999999999,
+          "steeringRad": 0,
+          "distanceM": 1.4999999999999998,
+          "wheelAngleRad": 5.172413793103449,
+          "revision": 20,
+          "wheelbaseM": 2.21
+        },
+        "lease": {
+          "id": "a3a05207-cc1f-44dd-bfba-2c3546fd0e74/1",
+          "owner": "vehicle-ui/a15d20ca-cb84-4001-bee8-0fd0002d7a70",
+          "actorId": "player"
+        },
+        "actor": {
+          "id": "player",
+          "revision": 21,
+          "position": {
+            "x": 5.54,
+            "y": 8.85,
+            "h": 0.4
+          },
+          "floorId": "floor-0",
+          "radiusM": 0.28,
+          "heightM": 1.8,
+          "speedMps": 3,
+          "traversal": null
+        },
+        "resources": {
+          "health": 37,
+          "ap": 3,
+          "stamina": 11,
+          "inventory": [
+            {
+              "id": "yard-key",
+              "count": 1
+            }
+          ]
+        },
+        "visible": false
+      }
+    },
+    {
+      "name": "symmetric-brake-through-zero",
+      "forwardToReverse": [
+        2.499999999999999,
+        2.099999999999999,
+        1.6999999999999993,
+        1.2999999999999994,
+        0.8999999999999994,
+        0.49999999999999933,
+        0.09999999999999931,
+        0,
+        -0.15000000000000002,
+        -0.30000000000000004,
+        -0.45000000000000007,
+        -0.6000000000000001,
+        -0.7500000000000001,
+        -0.9000000000000001,
+        -1.0500000000000003,
+        -1.2000000000000002,
+        -1.35,
+        -1.5,
+        -1.65,
+        -1.7999999999999998,
+        -1.9499999999999997,
+        -2.0999999999999996,
+        -2.2499999999999996,
+        -2.3999999999999995,
+        -2.5499999999999994,
+        -2.6999999999999993,
+        -2.849999999999999,
+        -2.999999999999999,
+        -3,
+        -3
+      ],
+      "reverseToForward": [
+        -2.6,
+        -2.2,
+        -1.8000000000000003,
+        -1.4000000000000004,
+        -1.0000000000000004,
+        -0.6000000000000004,
+        -0.2000000000000004,
+        0,
+        0.15000000000000002,
+        0.30000000000000004,
+        0.45000000000000007,
+        0.6000000000000001,
+        0.7500000000000001,
+        0.9000000000000001,
+        1.0500000000000003,
+        1.2000000000000002,
+        1.35,
+        1.5,
+        1.65,
+        1.7999999999999998,
+        1.9499999999999997,
+        2.0999999999999996,
+        2.2499999999999996,
+        2.3999999999999995,
+        2.5499999999999994,
+        2.6999999999999993,
+        2.849999999999999,
+        2.999999999999999,
+        3.149999999999999,
+        3.299999999999999
+      ]
+    },
+    {
+      "name": "blur-cancels-pending-reversal"
+    },
+    {
+      "name": "touch-steering",
+      "motion": {
+        "distanceM": 1.2063658155073527,
+        "alongM": 1.1839649247280057,
+        "speedMps": 2.3961352657004826
+      },
+      "state": {
+        "mode": "driver",
+        "vehicle": {
+          "id": "compact",
+          "body": "hatchback",
+          "finish": "sage",
+          "floorId": "floor-0",
+          "position": {
+            "x": 6.23139908780833,
+            "y": 10.491464924728009,
+            "h": 0
+          },
+          "headingRad": 0.13817776128386333,
+          "speedMps": 2.3961352657004826,
+          "steeringRad": 0.24957365149290775,
+          "distanceM": 3.505567632850242,
+          "wheelAngleRad": 5.804978944028143,
+          "revision": 110,
+          "wheelbaseM": 2.21
+        },
+        "lease": {
+          "id": "a3a05207-cc1f-44dd-bfba-2c3546fd0e74/3",
+          "owner": "vehicle-ui/a15d20ca-cb84-4001-bee8-0fd0002d7a70",
+          "actorId": "player"
+        },
+        "actor": {
+          "id": "player",
+          "revision": 111,
+          "position": {
+            "x": 5.823991982584708,
+            "y": 10.901488644302022,
+            "h": 0.4
+          },
+          "floorId": "floor-0",
+          "radiusM": 0.28,
+          "heightM": 1.8,
+          "speedMps": 3,
+          "traversal": null
+        },
+        "resources": {
+          "health": 37,
+          "ap": 3,
+          "stamina": 11,
+          "inventory": [
+            {
+              "id": "yard-key",
+              "count": 1
+            }
+          ]
+        },
+        "visible": false
+      }
+    },
+    {
+      "name": "pause-stale-context-and-active-component-retirement"
+    },
+    {
+      "name": "held-key-autorepeat-cannot-reacquire-after-pause"
+    },
+    {
+      "name": "visual-quality-independent-and-cancelled-replacement"
+    },
+    {
+      "name": "native-attachment-failure-preserves-accepted-vehicles"
+    },
+    {
+      "name": "exact-complete-reload",
+      "checkpoint": {
+        "kind": "nautilus-playable-vehicle-yard",
+        "version": 1,
+        "host": {
+          "kind": "nautilus-vehicle-yard",
+          "version": 1,
+          "content": {
+            "id": "nautilus-road-yard",
+            "version": 1,
+            "sourcePin": "06e8e14d4fc6a71cbbab3338db6274a54232f2fa"
+          },
+          "world": {
+            "kind": "nautilus-extended-world",
+            "version": 1,
+            "id": "road-yard",
+            "name": "Road vehicle yard",
+            "profileId": "native-metres-v1",
+            "bounds": {
+              "widthM": 32,
+              "depthM": 32,
+              "minHeightM": 0,
+              "heightM": 6
+            },
+            "floors": [
+              {
+                "id": "floor-0",
+                "index": 0,
+                "label": "1",
+                "elevationM": 0
+              }
+            ],
+            "surfaces": [
+              {
+                "id": "course",
+                "floorId": "floor-0",
+                "role": "floor",
+                "bounds": {
+                  "min": {
+                    "x": 0,
+                    "y": 0,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 32,
+                    "y": 32,
+                    "h": 0
+                  }
+                },
+                "supports": true,
+                "supportFloorId": "floor-0"
+              },
+              {
+                "id": "wall",
+                "floorId": "floor-0",
+                "role": "solid",
+                "bounds": {
+                  "min": {
+                    "x": 3,
+                    "y": 23,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 14,
+                    "y": 23.35,
+                    "h": 2
+                  }
+                },
+                "supports": false,
+                "supportFloorId": null
+              },
+              {
+                "id": "barrier",
+                "floorId": "floor-0",
+                "role": "solid",
+                "bounds": {
+                  "min": {
+                    "x": 18,
+                    "y": 14,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 22,
+                    "y": 14.35,
+                    "h": 1
+                  }
+                },
+                "supports": false,
+                "supportFloorId": null
+              }
+            ],
+            "entities": [],
+            "links": []
+          },
+          "interactions": {
+            "kind": "nautilus-standard-interactions",
+            "version": 1,
+            "profile": "bounded-kinematic-v1",
+            "worldId": "road-yard",
+            "revision": 0,
+            "doors": [],
+            "stairs": []
+          },
+          "actors": [
+            {
+              "id": "player",
+              "revision": 131,
+              "position": {
+                "x": 5.9092434477713125,
+                "y": 11.514526524726515,
+                "h": 0.4
+              },
+              "floorId": "floor-0",
+              "radiusM": 0.28,
+              "heightM": 1.8,
+              "speedMps": 3,
+              "traversal": null
+            },
+            {
+              "id": "observer",
+              "revision": 0,
+              "position": {
+                "x": 12,
+                "y": 20,
+                "h": 0
+              },
+              "floorId": "floor-0",
+              "radiusM": 0.28,
+              "heightM": 1.8,
+              "speedMps": 3,
+              "traversal": null
+            }
+          ],
+          "resources": {
+            "player": {
+              "health": 37,
+              "ap": 3,
+              "stamina": 11,
+              "inventory": [
+                {
+                  "id": "yard-key",
+                  "count": 1
+                }
+              ]
+            },
+            "observer": {
+              "health": 29,
+              "ap": 2,
+              "inventory": []
+            }
+          },
+          "vehicles": {
+            "kind": "nautilus-road-vehicles",
+            "version": 1,
+            "id": "nautilus-road-yard",
+            "revision": 131,
+            "occupancyRevision": 1,
+            "vehicles": [
+              {
+                "id": "compact",
+                "body": "hatchback",
+                "finish": "sage",
+                "floorId": "floor-0",
+                "position": {
+                  "x": 6.316650552994934,
+                  "y": 11.104502805152501,
+                  "h": 0
+                },
+                "headingRad": 0.13817776128386333,
+                "speedMps": 0,
+                "steeringRad": 0,
+                "distanceM": 4.124504830917876,
+                "wheelAngleRad": 1.6560598370817738,
+                "revision": 130,
+                "wheelbaseM": 2.21
+              },
+              {
+                "id": "truck",
+                "body": "pickup",
+                "finish": "oxide",
+                "floorId": "floor-0",
+                "position": {
+                  "x": 15,
+                  "y": 8,
+                  "h": 0
+                },
+                "headingRad": 0,
+                "speedMps": 0,
+                "steeringRad": 0,
+                "distanceM": 0,
+                "wheelAngleRad": 0,
+                "revision": 0,
+                "wheelbaseM": 3
+              }
+            ],
+            "occupancy": [
+              {
+                "actorId": "player",
+                "vehicleId": "compact",
+                "seatId": "driver"
+              }
+            ]
+          }
+        },
+        "setup": {
+          "kind": "nautilus-player-setup-checkpoint",
+          "version": 1,
+          "configuration": {
+            "kind": "nautilus-player-setup",
+            "version": 1,
+            "engine": {
+              "package": "@nautilus-engine/map-core",
+              "version": "0.10.0",
+              "sourcePin": "7f50cb2a48aef87a16fc0465997549be9ed88dc2"
+            },
+            "content": {
+              "id": "nautilus-road-yard",
+              "version": 1,
+              "sourcePin": "06e8e14d4fc6a71cbbab3338db6274a54232f2fa"
+            },
+            "actorId": "player",
+            "components": [
+              {
+                "id": "player.shell",
+                "version": 1,
+                "settings": {
+                  "skin": "farmyard",
+                  "layout": "auto",
+                  "actions": "icon-text"
+                }
+              },
+              {
+                "id": "player.walking",
+                "version": 1,
+                "settings": {
+                  "pace": 1
+                }
+              },
+              {
+                "id": "player.vehicles",
+                "version": 1,
+                "settings": {}
+              },
+              {
+                "id": "player.camera",
+                "version": 1,
+                "settings": {
+                  "mode": "follow",
+                  "zoom": 1
+                }
+              },
+              {
+                "id": "setup.runtime",
+                "version": 1,
+                "settings": {}
+              },
+              {
+                "id": "setup.actor",
+                "version": 1,
+                "settings": {
+                  "model": "goat",
+                  "motion": "native-gait"
+                }
+              }
+            ],
+            "bindings": {
+              "nautilus.setup-ui": "setup.shell",
+              "nautilus.setup-clock": "retained.vehicle-yard",
+              "nautilus.render-surface": "retained.vehicle-yard",
+              "nautilus.native-actor-view": "setup.actor",
+              "nautilus.player-scene": "retained.vehicle-yard",
+              "nautilus.ui-pause": "retained.vehicle-yard",
+              "nautilus.hud-bounds": "setup.camera",
+              "nautilus.walk-intent": "retained.vehicle-yard",
+              "nautilus.road-vehicle-connector": "retained.vehicle-yard",
+              "nautilus.camera-settings": "setup.camera",
+              "nautilus.actor-pose": "retained.vehicle-yard"
+            }
+          },
+          "ownedWorld": null,
+          "native": {
+            "kind": "nautilus-native-pose",
+            "version": 1,
+            "model": "goat",
+            "actorId": "player",
+            "motion": "native-gait",
+            "distanceM": 0,
+            "heading": 0,
+            "blend": 0,
+            "last": {
+              "actorId": "player",
+              "revision": 131,
+              "position": {
+                "x": 5.9092434477713125,
+                "y": 11.514526524726515,
+                "h": 0.4
+              },
+              "mode": "driver"
+            }
+          },
+          "clock": null
+        },
+        "clock": {
+          "elapsedSeconds": 13.650000000000059,
+          "blocked": false
+        },
+        "visuals": {
+          "profile": "full"
+        }
+      }
+    },
+    {
+      "name": "safe-exit-restores-native-visibility"
+    },
+    {
+      "name": "pickup-forward-steering",
+      "motion": {
+        "distanceM": 0.5846570679167307,
+        "alongM": 0.5708624749151774,
+        "speedMps": 1.5336850626844911
+      },
+      "state": {
+        "mode": "driver",
+        "vehicle": {
+          "id": "truck",
+          "body": "pickup",
+          "finish": "oxide",
+          "floorId": "floor-0",
+          "position": {
+            "x": 14.87374659688267,
+            "y": 8.570862474915177,
+            "h": 0
+          },
+          "headingRad": -0.07148374501008989,
+          "speedMps": 1.5336850626844911,
+          "steeringRad": -0.3569047204333332,
+          "distanceM": 0.5751318985066842,
+          "wheelAngleRad": 1.6432339957333837,
+          "revision": 15,
+          "wheelbaseM": 3
+        },
+        "lease": {
+          "id": "9ed33167-7a1e-4f51-8d82-9ba6175c529f/1",
+          "owner": "vehicle-ui/7864786b-041d-411a-ac26-75c4f7a21a68",
+          "actorId": "player"
+        },
+        "actor": {
+          "id": "player",
+          "revision": 311,
+          "position": {
+            "x": 14.368496506704181,
+            "y": 9.18634793077472,
+            "h": 0.4
+          },
+          "floorId": "floor-0",
+          "radiusM": 0.28,
+          "heightM": 1.8,
+          "speedMps": 3,
+          "traversal": null
+        },
+        "resources": {
+          "health": 37,
+          "ap": 3,
+          "stamina": 11,
+          "inventory": [
+            {
+              "id": "yard-key",
+              "count": 1
+            }
+          ]
+        },
+        "visible": false
+      }
+    },
+    {
+      "name": "pickup-reverse-steering",
+      "motion": {
+        "distanceM": 0.5846570679167339,
+        "alongM": -0.5784219452498431,
+        "speedMps": -1.5336850626844911
+      },
+      "state": {
+        "mode": "driver",
+        "vehicle": {
+          "id": "truck",
+          "body": "pickup",
+          "finish": "oxide",
+          "floorId": "floor-0",
+          "position": {
+            "x": 14.819519527135332,
+            "y": 8.135851398115918,
+            "h": 0
+          },
+          "headingRad": -0.14296749002017978,
+          "speedMps": -1.5336850626844911,
+          "steeringRad": 0.3569047204333332,
+          "distanceM": 0.1483948859697859,
+          "wheelAngleRad": 0.4239853884851029,
+          "revision": 34,
+          "wheelbaseM": 3
+        },
+        "lease": {
+          "id": "9ed33167-7a1e-4f51-8d82-9ba6175c529f/2",
+          "owner": "vehicle-ui/7864786b-041d-411a-ac26-75c4f7a21a68",
+          "actorId": "player"
+        },
+        "actor": {
+          "id": "player",
+          "revision": 330,
+          "position": {
+            "x": 14.271600038040713,
+            "y": 8.71367856385866,
+            "h": 0.4
+          },
+          "floorId": "floor-0",
+          "radiusM": 0.28,
+          "heightM": 1.8,
+          "speedMps": 3,
+          "traversal": null
+        },
+        "resources": {
+          "health": 37,
+          "ap": 3,
+          "stamina": 11,
+          "inventory": [
+            {
+              "id": "yard-key",
+              "count": 1
+            }
+          ]
+        },
+        "visible": false
+      }
+    },
+    {
+      "name": "ordinary-passenger-and-driver-only-authority"
+    },
+    {
+      "name": "acknowledged-but-unmoved-control-rejected",
+      "before": {
+        "mode": "driver",
+        "vehicle": {
+          "id": "compact",
+          "body": "hatchback",
+          "finish": "sage",
+          "floorId": "floor-0",
+          "position": {
+            "x": 6,
+            "y": 7,
+            "h": 0
+          },
+          "headingRad": 0,
+          "speedMps": 0,
+          "steeringRad": 0,
+          "distanceM": 0,
+          "wheelAngleRad": 0,
+          "revision": 0,
+          "wheelbaseM": 2.21
+        },
+        "lease": null,
+        "actor": {
+          "id": "player",
+          "revision": 1,
+          "position": {
+            "x": 5.54,
+            "y": 7.35,
+            "h": 0.4
+          },
+          "floorId": "floor-0",
+          "radiusM": 0.28,
+          "heightM": 1.8,
+          "speedMps": 3,
+          "traversal": null
+        },
+        "resources": {
+          "health": 37,
+          "ap": 3,
+          "stamina": 11,
+          "inventory": [
+            {
+              "id": "yard-key",
+              "count": 1
+            }
+          ]
+        },
+        "visible": false
+      },
+      "after": {
+        "mode": "driver",
+        "vehicle": {
+          "id": "compact",
+          "body": "hatchback",
+          "finish": "sage",
+          "floorId": "floor-0",
+          "position": {
+            "x": 6,
+            "y": 7,
+            "h": 0
+          },
+          "headingRad": 0,
+          "speedMps": 0,
+          "steeringRad": 0,
+          "distanceM": 0,
+          "wheelAngleRad": 0,
+          "revision": 0,
+          "wheelbaseM": 2.21
+        },
+        "lease": null,
+        "actor": {
+          "id": "player",
+          "revision": 1,
+          "position": {
+            "x": 5.54,
+            "y": 7.35,
+            "h": 0.4
+          },
+          "floorId": "floor-0",
+          "radiusM": 0.28,
+          "heightM": 1.8,
+          "speedMps": 3,
+          "traversal": null
+        },
+        "resources": {
+          "health": 37,
+          "ap": 3,
+          "stamina": 11,
+          "inventory": [
+            {
+              "id": "yard-key",
+              "count": 1
+            }
+          ]
+        },
+        "visible": false
+      }
+    },
+    {
+      "name": "blocked-exit-preserves-occupancy-and-exact-resources",
+      "receipt": {
+        "version": 1,
+        "ok": false,
+        "committed": false,
+        "code": "VEHICLE_EXIT_BLOCKED",
+        "reason": "The way is blocked by exit-wall."
+      }
+    },
+    {
+      "name": "swept-vehicle-stops-before-visible-native-actor",
+      "state": {
+        "mode": "driver",
+        "vehicle": {
+          "id": "compact",
+          "body": "hatchback",
+          "finish": "sage",
+          "floorId": "floor-0",
+          "position": {
+            "x": 6,
+            "y": 10.870000000000001,
+            "h": 0
+          },
+          "headingRad": 0,
+          "speedMps": 0,
+          "steeringRad": 0,
+          "distanceM": 3.869999999999999,
+          "wheelAngleRad": 0.778456971847725,
+          "revision": 39,
+          "wheelbaseM": 2.21
+        },
+        "lease": {
+          "id": "370aa410-656b-475c-8b5e-d973b638284b/1",
+          "owner": "vehicle-ui/25ff5267-5d52-400c-a73c-aa46f505eca5",
+          "actorId": "player"
+        },
+        "actor": {
+          "id": "player",
+          "revision": 40,
+          "position": {
+            "x": 5.54,
+            "y": 11.22,
+            "h": 0.4
+          },
+          "floorId": "floor-0",
+          "radiusM": 0.28,
+          "heightM": 1.8,
+          "speedMps": 3,
+          "traversal": null
+        },
+        "resources": {
+          "health": 37,
+          "ap": 3,
+          "stamina": 11,
+          "inventory": [
+            {
+              "id": "yard-key",
+              "count": 1
+            }
+          ]
+        },
+        "visible": false
+      },
+      "obstructions": [
+        {
+          "vehicleId": "compact",
+          "code": "VEHICLE_ACTOR_BLOCKED",
+          "reason": "The swept vehicle is blocked by actor observer."
+        }
+      ]
+    },
+    {
+      "name": "mixed-components-select-exact-car-input-owner",
+      "motion": {
+        "distanceM": 0.3750000000000009,
+        "alongM": 0.3750000000000009,
+        "speedMps": 1.5
+      }
+    },
+    {
+      "name": "mixed-controls-retire-only-the-actual-owner",
+      "result": {
+        "removedInactive": {
+          "version": 1,
+          "ok": true,
+          "committed": true,
+          "code": null,
+          "reason": null,
+          "observerErrors": 0
+        },
+        "removedOwner": {
+          "version": 1,
+          "ok": false,
+          "committed": false,
+          "code": "CONTROL_COMPONENT_REQUIRED",
+          "reason": "Exit the occupied transport before removing player.vehicles."
+        },
+        "controls": {
+          "version": 1,
+          "context": {
+            "version": 1,
+            "revision": 1,
+            "mode": "driver",
+            "actorId": "player",
+            "contextId": "[\"nautilus-road-yard\",\"player\",\"compact\",\"driver\",1]",
+            "token": "1/[\"driver\",\"player\",\"[\\\"nautilus-road-yard\\\",\\\"player\\\",\\\"compact\\\",\\\"driver\\\",1]\"]",
+            "blocked": false
+          },
+          "train": null,
+          "vehicle": {
+            "version": 1,
+            "blocked": false,
+            "owner": "vehicle-ui/1fdce002-41d5-4eed-94f2-17fc7bb9928c",
+            "snapshot": {
+              "version": 1,
+              "connectorId": "nautilus-road-yard",
+              "actorId": "player",
+              "mode": "driver",
+              "contextId": "[\"nautilus-road-yard\",\"player\",\"compact\",\"driver\",1]",
+              "position": {
+                "x": 5.54,
+                "y": 7.8675000000000015,
+                "h": 0.4
+              },
+              "floorId": "floor-0",
+              "walkingAllowed": false,
+              "vehicle": {
+                "id": "compact",
+                "body": "hatchback",
+                "finish": "sage",
+                "floorId": "floor-0",
+                "position": {
+                  "x": 6,
+                  "y": 7.517500000000002,
+                  "h": 0
+                },
+                "headingRad": 0,
+                "speedMps": 0,
+                "steeringRad": 0,
+                "distanceM": 0.5175000000000001,
+                "wheelAngleRad": 1.7844827586206904,
+                "revision": 14,
+                "wheelbaseM": 2.21
+              },
+              "vehicleId": "compact",
+              "seatId": "driver",
+              "expected": {
+                "actorRevision": 15,
+                "occupancyRevision": 1,
+                "vehicleId": "compact",
+                "seatId": "driver",
+                "leaseId": null
+              },
+              "lease": null
+            },
+            "offer": "{\"actorRevision\":15,\"occupancyRevision\":1,\"vehicleId\":\"compact\",\"seatId\":\"driver\",\"leaseId\":null}"
+          },
+          "inputOwner": "road-vehicle"
+        },
+        "old": {
+          "version": 1,
+          "ok": false,
+          "committed": false,
+          "code": "DISPOSED",
+          "reason": "Player setup retired."
+        },
+        "commands": 0,
+        "mode": "driver",
+        "lease": null
+      }
+    },
+    {
+      "name": "direct-human-preview-normal-clock-and-real-touch",
+      "motion": {
+        "distanceM": 0.5073404164022132,
+        "alongM": 0.5032858203067816,
+        "speedMps": 1.5939593326034172
+      },
+      "state": {
+        "mode": "driver",
+        "vehicle": {
+          "id": "compact",
+          "body": "hatchback",
+          "finish": "sage",
+          "floorId": "floor-0",
+          "position": {
+            "x": 6.064013132975203,
+            "y": 7.503285820306782,
+            "h": 0
+          },
+          "headingRad": 0.04806154109001061,
+          "speedMps": 1.5939593326034172,
+          "steeringRad": 0.20741586638341425,
+          "distanceM": 0.5047272226688724,
+          "wheelAngleRad": 1.7404386988581808,
+          "revision": 34,
+          "wheelbaseM": 2.21
+        },
+        "lease": {
+          "id": "37cb9c19-1351-4625-a977-6019c9e46cb7/1",
+          "owner": "vehicle-ui/a54222fb-a137-4651-a058-799019f7458c",
+          "actorId": "player"
+        },
+        "actor": {
+          "id": "player",
+          "revision": 35,
+          "position": {
+            "x": 5.621359374498214,
+            "y": 7.874981462070571,
+            "h": 0.4
+          },
+          "floorId": "floor-0",
+          "radiusM": 0.28,
+          "heightM": 1.8,
+          "speedMps": 3,
+          "traversal": null
+        },
+        "resources": {
+          "health": 37,
+          "ap": 3,
+          "stamina": 11,
+          "inventory": [
+            {
+              "id": "yard-key",
+              "count": 1
+            }
+          ]
+        },
+        "visible": false
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    }
+  ],
+  "requested": [
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/main.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/package-provenance.json",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/game-ui/style.css",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/game-ui/title.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/interactions/actions.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/interactions/index.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/interactions/queries.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/interactions/state.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/map-core/railway-traffic.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/map-core/railway-train.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/native-actors/body.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/native-actors/catalogue.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/native-actors/data.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/native-actors/index.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/native-actors/locomotion.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/native-actors/three.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/player-setup/browser.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/player-setup/clock.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/player-setup/configuration.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/player-setup/index.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/player-setup/retained.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/player-setup/styles.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/player-setup/surface.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/player-setup/world.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/player-ui/actions.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/player-ui/configuration.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/player-ui/context.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/player-ui/data.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/player-ui/descriptors.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/player-ui/hud-bounds.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/player-ui/index.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/player-ui/menu.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/player-ui/resources.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/player-ui/style.css",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/player-ui/train-provider.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/player-ui/transport.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/player-ui/vehicle-provider.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/player-ui/view.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/player-ui/walking.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/railway-visuals/catalogue.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/railway-visuals/entrances.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/railway-visuals/route.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/railway-visuals/stock-profile.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/render-effects/three.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/runtime-core/index.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/runtime-core/lifecycle.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/runtime-core/planner.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/train-core/circuit-traffic.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/train-core/contract.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/train-core/data.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/train-core/index.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/train-ui/compact-input.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/train-ui/compact-model.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/train-ui/compact.css",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/train-ui/feedback.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/train-ui/index.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/train-ui/reverse-intent.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/train-ui/style.css",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/train-ui/view.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/vehicle-core/catalogue.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/vehicle-core/data.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/vehicle-core/example.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/vehicle-core/index.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/vehicle-core/motion.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/vehicle-core/queries.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/vehicle-core/session.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/vehicle-core/yard.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/vehicle-ui/index.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/vehicle-ui/yard.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/vehicle-visuals/meshes/hatchback.json",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/vehicle-visuals/meshes/pickup.json",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/vehicle-visuals/sculpt.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/vehicle-visuals/skin.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/vehicle-visuals/skins/game/hatchback.png",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/vehicle-visuals/skins/game/pickup.png",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/vehicle-visuals/skins/game/running-gear.png",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/vehicle-visuals/three.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/world-core/index.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/world-core/legacy.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/world-core/parts-refusal.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/world-core/queries.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/world-core/state.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/packages/world-core/validation.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/assets/characters/lowpoly-proof/donkey-worker-model-paint-v1.png",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/assets/characters/lowpoly-proof/goat-worker-model-paint-v1.png",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/animal-motion-paint.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/animal-motion-repair-paint.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/cow-neck-paint.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/dog-motion-paint.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/dog-paint-layers.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/donkey-10k-data.json",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/donkey-hawaiian.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/donkey-straw-hat.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/donkey-worker.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/goat-10k-data.json",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/goat-worker.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/hen-paint-layers.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-graphic-paint.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-grip-hand-data.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-grip-hand.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-light-model.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-model-paint.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-rifle.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/rabbit-paint-layers.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/red-hat-tailored-paint.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/red-hat-uniform.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/sheep-paint-layers.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.core.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.module.js",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/vendor/farmyard/b2f2b6bd033cc3dbc8b572caa251244d283829c8/sites/tactical-animal/dist/assets/ui/industrial-switches/switch-skins-v2.webp",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/vendor/nautilus-road-vehicles/5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee/packages/vehicle-visuals/skins/hatchback.png",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/vendor/nautilus-road-vehicles/5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee/packages/vehicle-visuals/skins/pickup.png",
+    "/artifacts/road-installed/84da1f940511c0ce-1794498551551/node_modules/@nautilus-engine/map-core/vendor/nautilus-road-vehicles/5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee/packages/vehicle-visuals/skins/running-gear.png"
+  ],
+  "nativeVerifiedPaintBlobRequests": 14,
+  "limits": [
+    "Phone viewport/touch emulation; no handset FPS measurement."
+  ]
+}

@@ -1,5 +1,7 @@
 // Guarded build adapters applied after the existing wall and prefab adapters.
 // The byte-preserved donor editor is never edited in place.
+import {adaptEditorRailway} from './editor-railway-adapter.mjs';
+
 export function adaptEditorRoofs(name,text,once) {
   const change=(needle,replacement,label)=>{text=once(text,needle,replacement,'sloped roofs: '+label);};
   const core='../../../../../packages/map-core/',app='../../../../../app/';
@@ -35,5 +37,5 @@ export function adaptEditorRoofs(name,text,once) {
     change("['roofs','⌑','Roofs',['roof-tile']]","['roofs','⌑','Roofs',['roof-tile','sloped-roof']]",'roof modes');
     change("showFor(['wall-run-options'],['wall-run']);","showFor(['wall-run-options'],['wall-run']);showFor(['sloped-roof-options'],['sloped-roof']);",'roof options visibility');
   }
-  return text;
+  return adaptEditorRailway(name,text,once);
 }

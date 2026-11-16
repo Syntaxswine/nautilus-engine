@@ -1,0 +1,2824 @@
+{
+  "schemaVersion": 1,
+  "profile": "compatibility",
+  "version": "0.10.0",
+  "source": {
+    "kind": "git-worktree",
+    "commit": "427d60b16f0af85a3c329c0c797742c18ee8c53e",
+    "tree": "e72f77f428fab3b682a122723c7e807595234fbf",
+    "dirty": false,
+    "payloadSHA256": "0ff1da540575f50c5d798e2a549a82b1229be805b6a304d349d28a4c9faeecb8"
+  },
+  "files": [
+    {
+      "path": "CHANGELOG.md",
+      "bytes": 11133,
+      "sha256": "ea49eb34550737c3e9ddb23039d7f03c2f3253446faf710088510521ad2b9407"
+    },
+    {
+      "path": "NOTICE.md",
+      "bytes": 8811,
+      "sha256": "d6b2035207f19e3e9b95c72282e6140ad6b01ade274c6f458bf124e984c32ccd"
+    },
+    {
+      "path": "README.md",
+      "bytes": 17965,
+      "sha256": "aae1d6d21618419d99f946393829c4c82c21cc8b28b0d45f77742a4249193fda"
+    },
+    {
+      "path": "assets/artwork/local-graphics-v1/PROVENANCE.md",
+      "bytes": 2042,
+      "sha256": "d428625c41658da78adc6a3f7650b3dfb7e2fd9403a93bc3bc768f67abd28cf6"
+    },
+    {
+      "path": "assets/artwork/local-graphics-v1/prompts/organic-marks-v1.txt",
+      "bytes": 2068,
+      "sha256": "6b467032954d815c31f9f92f900e64fdd5aba01c25ab80633be31467264e8a98"
+    },
+    {
+      "path": "assets/artwork/local-graphics-v1/resources.json",
+      "bytes": 39166,
+      "sha256": "914ab6b9e514a1e627c91eddc48fb34c3c5d4b7f7e77d601158fc5ea690a1baa"
+    },
+    {
+      "path": "assets/artwork/local-graphics-v1/resources/organic-marks-v1.png",
+      "bytes": 2481966,
+      "sha256": "9042b2b0e9ae9a04dd0429dd3645eea85073e210c5a3500ac9a7e30265965aa6"
+    },
+    {
+      "path": "assets/artwork/local-graphics-v1/resources/road-marks-v1.png",
+      "bytes": 78234,
+      "sha256": "aad9c89ee7be91579cbde662012b76c611eeb8ed75249969d34b0fbff4880633"
+    },
+    {
+      "path": "assets/artwork/local-graphics-v1/resources/road-marks-v1.svg",
+      "bytes": 4858,
+      "sha256": "e030d1df567b0434a1a3c3d86f577ce68ebe47140ae57e0f7618af62cb1dba90"
+    },
+    {
+      "path": "assets/buildings/painted-materials-v2.png",
+      "bytes": 2558637,
+      "sha256": "bbe33709a63362a13e509131c11f358d286b3d55ffcb86ca0ca1def4934ccdb2"
+    },
+    {
+      "path": "docs/adapters/farmyard-doors.md",
+      "bytes": 24265,
+      "sha256": "476106b907aa00dde6365bb914c13c42de258bf11ffa9cfe2e207c6c8f96268c"
+    },
+    {
+      "path": "docs/adapters/farmyard-rules.md",
+      "bytes": 8017,
+      "sha256": "ac01fd86765e861b07cde38534eafbc29736624b275cbd0df690699fe36f9b2c"
+    },
+    {
+      "path": "docs/adapters/farmyard-window-impacts.md",
+      "bytes": 14738,
+      "sha256": "99932ff990afcf805ec935c67dba09f347dbdd311125c070f61017407ca8ba2b"
+    },
+    {
+      "path": "docs/asset-handoffs.md",
+      "bytes": 3661,
+      "sha256": "d86a06dfcc95b0d13611ab6fcfa019aee32909cf610e4b08d827e17d6bacf70a"
+    },
+    {
+      "path": "docs/compatibility.md",
+      "bytes": 11369,
+      "sha256": "b1b13cdb256ce8f176407c2769199bc985aeaa41ba7d75321e8b143e7d33ff07"
+    },
+    {
+      "path": "docs/distribution.md",
+      "bytes": 15684,
+      "sha256": "d66904d1626a331b0fa1b3f05c8477f0bf137213b1773afd6bf00c154fcec02e"
+    },
+    {
+      "path": "docs/drivable-trains.md",
+      "bytes": 16345,
+      "sha256": "262d43e8bc786d6314f8872f80f933a2fe3a32e57d1af827fa72d69864b1a629"
+    },
+    {
+      "path": "docs/extended-world-core.md",
+      "bytes": 17926,
+      "sha256": "a511c3b6eedf73ee03982b2a900850ef5f1149b12c6d4524c05ce65e631d9194"
+    },
+    {
+      "path": "docs/floor-navigation.md",
+      "bytes": 7960,
+      "sha256": "f1a8b133fa6abb0d29e901abffc08c4d61b0311608c58be98b48f9995260b54f"
+    },
+    {
+      "path": "docs/functional-parts.md",
+      "bytes": 22854,
+      "sha256": "7c106b80b45f80c56fe4f95f88b11fa82e7c910af161a4a7c6d3686d90cc6925"
+    },
+    {
+      "path": "docs/game-title.md",
+      "bytes": 10429,
+      "sha256": "7ea7207a5b8a840d0d880df2bee30505985ca788c72ffd20ef2ed87bfcfa8fce"
+    },
+    {
+      "path": "docs/grenades.md",
+      "bytes": 13717,
+      "sha256": "493ea2de0f411431a82372fe64630f2774e2b070785078eb457709988315b9ca"
+    },
+    {
+      "path": "docs/modular-foundation.md",
+      "bytes": 6167,
+      "sha256": "21d4b560a1da093740bcb3ad88e32bc5ff90af47ba69b592a25f420fb634bb64"
+    },
+    {
+      "path": "docs/player-setup.md",
+      "bytes": 3583,
+      "sha256": "3b4d1f9a925ec37ec857afe138bdf387ebb2844ef634895cf07c593c43b580b0"
+    },
+    {
+      "path": "docs/procedural-tiles.md",
+      "bytes": 18799,
+      "sha256": "a539c85a4a28d7ce67a649061d14073e9e4fe8acddaab2440d059a2912ea117e"
+    },
+    {
+      "path": "docs/progression.md",
+      "bytes": 7435,
+      "sha256": "99d8311a84ceaea054c2a3030746d9542e65b15ecd25152cbc7ae26cb829f52c"
+    },
+    {
+      "path": "docs/projects/player-setup-composition.md",
+      "bytes": 13783,
+      "sha256": "a1214f6a41baaaaa5544cff28318a67f280c1e12e4fab2ff4ee78a334395dcc7"
+    },
+    {
+      "path": "docs/proposals/procedural-tiles-v1.md",
+      "bytes": 4556,
+      "sha256": "956687a23e631d483259c3d2158e2ea12b27bcd0ef717042857fc338887a2e0f"
+    },
+    {
+      "path": "docs/railway-track-kit.md",
+      "bytes": 12104,
+      "sha256": "1625b93e5f9db781ebb8a1938c37855f52f677bb3be7d0d4d82b05e84c0f9c78"
+    },
+    {
+      "path": "docs/reviews/2026-10-29-basic-progression.md",
+      "bytes": 5481,
+      "sha256": "26b2e6289698e8eb5fcf508dd610a7ff047f13b204e9f3fbf10509727a3868d4"
+    },
+    {
+      "path": "docs/reviews/2026-10-29-basic-progression.sources.json",
+      "bytes": 1380,
+      "sha256": "0e023cdd224c654a13dda5ced32916a5be27eec5baf54ba3c318f52f8db47de6"
+    },
+    {
+      "path": "docs/reviews/2026-10-29-farmyard-grenades.sources.json",
+      "bytes": 149703,
+      "sha256": "876f261e70a319e2097bf36bf14978d6301b136bc007ad7bed4ec4e11c474149"
+    },
+    {
+      "path": "docs/reviews/2026-10-29-farmyard-rules.sources.json",
+      "bytes": 3233,
+      "sha256": "e49ec98dfd2d970ad2d45029934432202ef9f715ce5efd77fab425c5f864624c"
+    },
+    {
+      "path": "docs/reviews/2026-10-29-rock-distraction.sources.json",
+      "bytes": 4404,
+      "sha256": "8f631629794777372f4abee3f9cfa7dd669b528c7093dee43125f8edfcd18631"
+    },
+    {
+      "path": "docs/reviews/2026-10-30-farmyard-window-integration.md",
+      "bytes": 6039,
+      "sha256": "f657341ddb30f0a8d673bbbb4bd7ef19f6aa6ed0d5cc07a670905275ba4ad37d"
+    },
+    {
+      "path": "docs/reviews/2026-11-10-drivable-train-playtest.md",
+      "bytes": 9278,
+      "sha256": "5949827064764b0213378dc6b0340723ebeeb636962c4262ac97665dad65c124"
+    },
+    {
+      "path": "docs/reviews/2026-11-10-drivable-trains.md",
+      "bytes": 5013,
+      "sha256": "72547c6b601f3575480efdbb1effbecf2f0602b4cbdde475a85ed0a49b871f0b"
+    },
+    {
+      "path": "docs/reviews/2026-11-11-tinderbox-train-controls.md",
+      "bytes": 8503,
+      "sha256": "ae24ebb7c84c6014d37e57dd65ec601b615b390ed116825319c603f189de6a55"
+    },
+    {
+      "path": "docs/reviews/farmyard-doors.sources.json",
+      "bytes": 8357,
+      "sha256": "4bb10d1ae185ccf1d1280cc0f0aea06909a8fdf66cc6b860f8c9b49cde98111b"
+    },
+    {
+      "path": "docs/reviews/farmyard-doors/integration-request.json",
+      "bytes": 3133,
+      "sha256": "bbd32e94cfb4907b8d2a3855447ad186539562755ff69d7d34048faabc0748a6"
+    },
+    {
+      "path": "docs/reviews/farmyard-windows/impact-registration-request.json",
+      "bytes": 5499,
+      "sha256": "f177e0ed98a20f731ccf2708f396b2a657e79854c5e142368be8c28a4c54cdb3"
+    },
+    {
+      "path": "docs/reviews/farmyard-windows/source-audit.json",
+      "bytes": 14618,
+      "sha256": "65f109234cfe6629e2b9f8f771df4ab57409ed9571602c29d825eab585c396f3"
+    },
+    {
+      "path": "docs/reviews/grenade-presentation/provider.md",
+      "bytes": 17434,
+      "sha256": "51394a31c9b526cf547673fcdd1d873fdc22a3e17d5a5e534bce7ef968a47b5d"
+    },
+    {
+      "path": "docs/reviews/procedural-tiles/registration-request.json",
+      "bytes": 3298,
+      "sha256": "6c1df50bfbc23f0bc21e9b63e7775054bf8cc62401da6213322529df0e0ceea2"
+    },
+    {
+      "path": "docs/reviews/procedural-tiles/source-audit.json",
+      "bytes": 4240,
+      "sha256": "e28c485de6cd0d6c4696e3611ed079427ea2ceb79d20a582617262291cd2d7ff"
+    },
+    {
+      "path": "docs/reviews/window-authoring/dependencies.json",
+      "bytes": 1439,
+      "sha256": "56296e6d21c2888ecda742019ae946d9e241a24cb8dc887b6c3734d726b330cb"
+    },
+    {
+      "path": "docs/reviews/window-authoring/registration-request.json",
+      "bytes": 3418,
+      "sha256": "56875298772b5bb257cdaebe8b1758ff140ff49fc53950ee104a4abd281f1d66"
+    },
+    {
+      "path": "docs/road-vehicles.md",
+      "bytes": 15340,
+      "sha256": "31b28c80b1ee3b366166abf67ca3e051ef05c03a58d83b97e40664635daaaf8b"
+    },
+    {
+      "path": "docs/rock-distraction.md",
+      "bytes": 18057,
+      "sha256": "e83c1eb4193ad5d7598d7cb87723a38559be278b0247c25de5b80cbb44680087"
+    },
+    {
+      "path": "docs/runtime-modules.md",
+      "bytes": 9687,
+      "sha256": "b1c3deddcd73d19c97c2417f6d29216bef1503a817a9623d796eebc224ce8a03"
+    },
+    {
+      "path": "docs/shared-artwork.md",
+      "bytes": 6092,
+      "sha256": "3d093e32f4a77e8c6277b50ba3d6603ab802296ce786943ba3630ed0f6a1c2f4"
+    },
+    {
+      "path": "docs/stacked-tiles.md",
+      "bytes": 8174,
+      "sha256": "50431e591ebb6856c295ef2c39ad6a48a283f6608cbe502b55a5df67aceb9ac4"
+    },
+    {
+      "path": "docs/standard-interactions.md",
+      "bytes": 17565,
+      "sha256": "dabab2860fbfdb1872b75b7168ea5c774a9de836339c499015f854dd736158a5"
+    },
+    {
+      "path": "docs/tile-authoring.md",
+      "bytes": 9202,
+      "sha256": "4fff62285ac6fa18b5a6b9f597d2f5348526619e7486e1eecdbda7564bde08e8"
+    },
+    {
+      "path": "docs/train-controls.md",
+      "bytes": 8444,
+      "sha256": "c676e8e9567910a737943d67f4c0c7109e7d7e71ba1277dd88ccc8066f9b4ab5"
+    },
+    {
+      "path": "docs/ui/grenade-controls.md",
+      "bytes": 16217,
+      "sha256": "23bab1c6328980db70f726f25fb8766f06cc6cf56759f8536e828997b89ab3f3"
+    },
+    {
+      "path": "docs/ui/grenade-controls.sources.json",
+      "bytes": 3375,
+      "sha256": "39f95348428e1a8243c2786e6befcd4a5c8b81dbcd8373795feb771ab62bb4f2"
+    },
+    {
+      "path": "docs/ui/grenade-existing-assets.json",
+      "bytes": 2383,
+      "sha256": "254307b17b04e0fcdef7aee269cbb77fc08c01526c2024b5b64a091b7c413506"
+    },
+    {
+      "path": "docs/window-authoring.md",
+      "bytes": 15458,
+      "sha256": "b4a6d000257eaab9a092bb77a071ce23c82c5a476895c2954ce085de985e94b3"
+    },
+    {
+      "path": "packages/adapters/farmyard/doors.js",
+      "bytes": 946,
+      "sha256": "281865d49cdb1b52efdc44e08a77741c39ec4c0905b8c3e195348b16fdf98540"
+    },
+    {
+      "path": "packages/adapters/farmyard/doors/data.js",
+      "bytes": 5565,
+      "sha256": "99347d5fe6daced8305d15d09718af52d6782ea5fd0c34c9f591a48879862b28"
+    },
+    {
+      "path": "packages/adapters/farmyard/doors/door-host-save-v1.schema.json",
+      "bytes": 1508,
+      "sha256": "c1ca9fb5dfc567c90f617b5bc854c823bd764e64633e37270356b9727a7ad61d"
+    },
+    {
+      "path": "packages/adapters/farmyard/doors/door-state-v1.schema.json",
+      "bytes": 57340,
+      "sha256": "f426e829f56cbf555f27999c7116094cbf9dcc95b295ec493cf0d3953f2edaa7"
+    },
+    {
+      "path": "packages/adapters/farmyard/doors/host.js",
+      "bytes": 15702,
+      "sha256": "813ad8235608d9da9eccd2d3daa6c01a1b6ecd3bf72b2178991dc610a66eeddb"
+    },
+    {
+      "path": "packages/adapters/farmyard/doors/mechanics.js",
+      "bytes": 3344,
+      "sha256": "c97451eb3737b51d333474d52c897f962b99f20684f4d04a452e3a14afca7da0"
+    },
+    {
+      "path": "packages/adapters/farmyard/doors/model.js",
+      "bytes": 8474,
+      "sha256": "3a7f3a10ab362fbc6658959263ac18ff8a5a5252b93e92eb63e8244a9abe2907"
+    },
+    {
+      "path": "packages/adapters/farmyard/doors/profile.js",
+      "bytes": 2828,
+      "sha256": "8d9f939c98281f0ba92c89d8060e22b7ce2ddec2e3d41533a22a11526b0fd652"
+    },
+    {
+      "path": "packages/adapters/farmyard/doors/projection.js",
+      "bytes": 10337,
+      "sha256": "56f5e9de8008c864d35857e7cebd4f596578caf3f9d8e92eac23a024bd6fbaf7"
+    },
+    {
+      "path": "packages/adapters/farmyard/doors/state.js",
+      "bytes": 7253,
+      "sha256": "ff13a6f380ef1d4932b3185a01bc8a187c147851fde4a5194cffe98e9bc8e0fc"
+    },
+    {
+      "path": "packages/adapters/farmyard/doors/world.js",
+      "bytes": 5632,
+      "sha256": "56e2d96128d43b2f69b60535683e76e8cbff33d2c5688217b2f2b85d722213e1"
+    },
+    {
+      "path": "packages/adapters/farmyard/rules.js",
+      "bytes": 6855,
+      "sha256": "71ccd2b31a2a5de806967ba729a06443da2a4fff102abc8d4c0e5ef5a5545405"
+    },
+    {
+      "path": "packages/adapters/farmyard/windows.js",
+      "bytes": 5511,
+      "sha256": "3efcb20364ec83474ebf6c3aa0118bb50107d579cb5531a2da02c824a9fe4c4d"
+    },
+    {
+      "path": "packages/adapters/farmyard/windows/NOTICE.md",
+      "bytes": 1359,
+      "sha256": "e8cafaf27165ab89b4eb8b210c8c6ac27d80c13bcb8138b60489e25bef0bf090"
+    },
+    {
+      "path": "packages/adapters/farmyard/windows/host.js",
+      "bytes": 23823,
+      "sha256": "a5110a5f93671e5251f6374b39ce8b529733bf417b8cc5df3a5343cd240e43ae"
+    },
+    {
+      "path": "packages/adapters/farmyard/windows/window-host-save-v1.schema.json",
+      "bytes": 9253,
+      "sha256": "262792e58369df57d66c56cd57cc88cd056731d6c585669417f4d70c834de577"
+    },
+    {
+      "path": "packages/adapters/tinderbox/index.js",
+      "bytes": 15528,
+      "sha256": "87f6a27ecd5574a89bc5d04cd7d10e8961905a92e45fa5f3a28806ba01219b8e"
+    },
+    {
+      "path": "packages/assets/artwork-source.json",
+      "bytes": 4884,
+      "sha256": "474298169f841ab65897d457eeb301991e10e2cc0d397f061ee1649a5ce2c20b"
+    },
+    {
+      "path": "packages/assets/artwork.d.ts",
+      "bytes": 1704,
+      "sha256": "792fa8f195659cffd9e98a800211735625c2328941ed2b762fafb1d6df5b9060"
+    },
+    {
+      "path": "packages/assets/artwork.js",
+      "bytes": 213358,
+      "sha256": "c5122e96520a09bf1da0b6be11a6ac9f09476df7410357a240c6eb6ac1309b9e"
+    },
+    {
+      "path": "packages/assets/catalogue.js",
+      "bytes": 236752,
+      "sha256": "b95803c9e5ef8c02cfd2d91d8e5e2d1b441f19dba36ef07967b438a3756107e4"
+    },
+    {
+      "path": "packages/assets/index.d.ts",
+      "bytes": 873,
+      "sha256": "ba107f9a692c8fadcdf6b7692352419c5168ed7cff35e2bcf0ab791df8db4b36"
+    },
+    {
+      "path": "packages/assets/index.js",
+      "bytes": 593,
+      "sha256": "bd66b5fe9ec2f959c2592bb31b4f10745a6c2384e726eeaaee13f5476033e2c0"
+    },
+    {
+      "path": "packages/assets/three.js",
+      "bytes": 2312,
+      "sha256": "cff28d3720287dfeeb62816b11e68752dba6541ef95fedbe20964539031dd6a6"
+    },
+    {
+      "path": "packages/building-catalog/designs.js",
+      "bytes": 12266,
+      "sha256": "87b20add713c321ac7a69a1ff16365c07657929d2200b7e82ba520f752bb24f6"
+    },
+    {
+      "path": "packages/building-catalog/index.js",
+      "bytes": 11005,
+      "sha256": "6a13677421fe00a22e5cec55a29b7012b65566006e6b2a413866943c83fd9108"
+    },
+    {
+      "path": "packages/building-catalog/three.js",
+      "bytes": 21570,
+      "sha256": "a6a71831c674c28b48ac25d4675708f9069329a759067ac08c5727002b38c6ba"
+    },
+    {
+      "path": "packages/door-visuals/three.js",
+      "bytes": 13064,
+      "sha256": "ad53568eeeaa5b7b25318cb224bd89352abffecc7d5e1a1b72ac8c37b43b8228"
+    },
+    {
+      "path": "packages/floor-navigation/dom.js",
+      "bytes": 5334,
+      "sha256": "cee14d8c517b024227ce637a6ba35f037354488376914c1f55170655b99457c7"
+    },
+    {
+      "path": "packages/floor-navigation/index.js",
+      "bytes": 6336,
+      "sha256": "e4cd51314d634494b0cd7cfcc7b0733dacd7d07a55af9df1e245611d2632968d"
+    },
+    {
+      "path": "packages/floor-navigation/style.css",
+      "bytes": 3011,
+      "sha256": "3d20868bc3fcfabc9e313d15051e9f7c3b0a653cbc51c3d331aec01fe6ce8eda"
+    },
+    {
+      "path": "packages/game-ui/index.js",
+      "bytes": 1580,
+      "sha256": "cabc745318a761f82c9447bbbf33a96fa09decfb1d627f28240db90d664f2e9a"
+    },
+    {
+      "path": "packages/game-ui/style.css",
+      "bytes": 3705,
+      "sha256": "719d89bd8eaeb2e0f62c79b5c94aa7cda4770d328459f382dd5bc2423508e0b4"
+    },
+    {
+      "path": "packages/game-ui/title.js",
+      "bytes": 9430,
+      "sha256": "3f05ba81787c852846321e4f69336cdc1a9198ec016984dabe97c5d2823cc87d"
+    },
+    {
+      "path": "packages/grenade-ui/controls.js",
+      "bytes": 15860,
+      "sha256": "1229e302e5af1befd006db755221ec5c67d2c6280559eca0ea3c47d433bd4077"
+    },
+    {
+      "path": "packages/grenade-ui/style.css",
+      "bytes": 2671,
+      "sha256": "5824960272be5b31406c3860eda4cd2f0743c1e42375eab3a0c05c6433113e5d"
+    },
+    {
+      "path": "packages/grenade-ui/view.js",
+      "bytes": 4187,
+      "sha256": "86a6957f0a5971f46dfdc4ea07ff0636ba25d665a687c07c0edbf23c74aeb897"
+    },
+    {
+      "path": "packages/grenade-visuals/README.md",
+      "bytes": 1141,
+      "sha256": "a2416c4d7dced5c2f16535f7cf1689a8b73a810d2e105b44b87e42783aab259f"
+    },
+    {
+      "path": "packages/grenade-visuals/horse-balance.js",
+      "bytes": 48967,
+      "sha256": "1efdd676bbc51546e66f07d84d1262cd3042c8646d1172a7f1b30736068f34e8"
+    },
+    {
+      "path": "packages/grenade-visuals/paint.js",
+      "bytes": 4204,
+      "sha256": "492f582852f54d34e04f3bda2dd5a43e79f992fae90dc4461396e244039a3a60"
+    },
+    {
+      "path": "packages/grenade-visuals/source.json",
+      "bytes": 917,
+      "sha256": "beba14c59df020bd0fc1e54710a9f00baa0bfa771fcd64ebc3396b5e0355391c"
+    },
+    {
+      "path": "packages/grenade-visuals/three.js",
+      "bytes": 17914,
+      "sha256": "fa985505f6563458cfc5f2f059df0e5c29fa43deb59cdf4266c8328366d67478"
+    },
+    {
+      "path": "packages/grenade-visuals/throw-motion.js",
+      "bytes": 41285,
+      "sha256": "cf944b32ead565b4f47b065c8fb38c03ab0b34867374499acf8efef11448265c"
+    },
+    {
+      "path": "packages/grenades-core/aim.js",
+      "bytes": 3299,
+      "sha256": "9261d57bcd9838eff21e3359ea20cd561fa3459a9af7e11015a3d04f3de2709d"
+    },
+    {
+      "path": "packages/grenades-core/example.js",
+      "bytes": 1194,
+      "sha256": "3de77a10e4e24d7dc999d90e309a53e9ae4ff01e7311c5901ec79b5709ec9620"
+    },
+    {
+      "path": "packages/grenades-core/farmyard.js",
+      "bytes": 10011,
+      "sha256": "c46f3f62ecfbe44307ac9dc7fd447ca3cba6ec31bbe943b1e3f688faaf61f2c6"
+    },
+    {
+      "path": "packages/grenades-core/geometry.js",
+      "bytes": 3318,
+      "sha256": "7dd1f2a04625034648653d3d0e32eab3adbc17904ba34f69784281b721ae3526"
+    },
+    {
+      "path": "packages/grenades-core/index.js",
+      "bytes": 622,
+      "sha256": "d5868b208c40ff01061c8f35724b5892798f96d47d81183de132b650848c7883"
+    },
+    {
+      "path": "packages/grenades-core/mechanics.js",
+      "bytes": 6918,
+      "sha256": "e030033935054e988c9e10d275ad3c6d743508c759750144da273a024bdd6615"
+    },
+    {
+      "path": "packages/grenades-core/model.js",
+      "bytes": 7924,
+      "sha256": "c4b9e9445dcb48e0ba0f8fc3242259c75459544f6dec40ca9d8d7b8064374569"
+    },
+    {
+      "path": "packages/grenades-core/profile.js",
+      "bytes": 2472,
+      "sha256": "df51312a207d896623de1b1f8848b6b8962889acc411262043f14b5bccad52bf"
+    },
+    {
+      "path": "packages/grenades-core/state.js",
+      "bytes": 10091,
+      "sha256": "f89e9fde410b6a1824695432def3943d750faf8930c6fe3921a21f5acc8b2aa2"
+    },
+    {
+      "path": "packages/grenades-core/validation.js",
+      "bytes": 5298,
+      "sha256": "1e0935ac2a9592a328ef8a254ad02a1efdcea1b5e7c2b63a412525296686794f"
+    },
+    {
+      "path": "packages/interactions/actions.js",
+      "bytes": 10479,
+      "sha256": "d12cec043b46b3019744d3b978783612bf88caffa8f5270ad31f690225dc3dca"
+    },
+    {
+      "path": "packages/interactions/index.js",
+      "bytes": 384,
+      "sha256": "19524b172b83bf5f832f0c8ee72cd259c10cb9471706da28534718eeb40b9dd0"
+    },
+    {
+      "path": "packages/interactions/queries.js",
+      "bytes": 11569,
+      "sha256": "405db17fb852314fbf3c5a7fd741699ac8c1afd8e5841f546a7065cedea6e9e6"
+    },
+    {
+      "path": "packages/interactions/state.js",
+      "bytes": 9356,
+      "sha256": "0bde0c86fd8a8040c93c3b04cafeea0c41e4829777cfa6f356be3527f993a2ca"
+    },
+    {
+      "path": "packages/item-visuals/rock.js",
+      "bytes": 3586,
+      "sha256": "c60f3ea05657a79642b39042bf3e88ed96f20c809a527c51d5b549e29f0bcab0"
+    },
+    {
+      "path": "packages/items-core/actions.js",
+      "bytes": 3420,
+      "sha256": "ffdbbb27ff9d407194e555e9b21f3a6e17dad9c9c20a25690254e0e84861974b"
+    },
+    {
+      "path": "packages/items-core/flight.js",
+      "bytes": 5214,
+      "sha256": "6c60e5d16134c08a504bb5ce890b25b65913c8d8d797362107d4367939c182c4"
+    },
+    {
+      "path": "packages/items-core/index.js",
+      "bytes": 364,
+      "sha256": "0d571cb37622d731393032fda29687008951a7c0d673001e4655b5966fbbc29f"
+    },
+    {
+      "path": "packages/items-core/lob.js",
+      "bytes": 1261,
+      "sha256": "095aa05a4c9c9162f6ba2b2b29df56c265c5d3a8f8735ed951ae29b186bb50ff"
+    },
+    {
+      "path": "packages/items-core/noise.js",
+      "bytes": 2058,
+      "sha256": "33bfcadf18a4ad086dc88377b0aa7b240f5bd34884f560a0fe03a64ae5bc887f"
+    },
+    {
+      "path": "packages/items-core/profile.js",
+      "bytes": 1580,
+      "sha256": "ab0587943de648c10cf92f48f6d500223f08e48670a3b1d613f8cfc477b7e0ea"
+    },
+    {
+      "path": "packages/items-core/state.js",
+      "bytes": 7268,
+      "sha256": "ff50d256f03c8a71a60f0683423f5d90fcfa9d74bb56d080b59a9e45a03ef1a2"
+    },
+    {
+      "path": "packages/items-core/transactions.js",
+      "bytes": 1275,
+      "sha256": "55e6413ee20d45900aeca6bdd905f88670aa08154e1e2a854c0e1b97ec0c8079"
+    },
+    {
+      "path": "packages/items-core/validation.js",
+      "bytes": 2402,
+      "sha256": "1a32d4bfd0ce07fbcd5c53b027550ecc07c560c6ebeebf8d5c6038086ee279c7"
+    },
+    {
+      "path": "packages/map-core/blocks.js",
+      "bytes": 5257,
+      "sha256": "103bfe375a41738cd989e770f53519805c219a55033dfe4d9e5a4332ff052ebb"
+    },
+    {
+      "path": "packages/map-core/capabilities.js",
+      "bytes": 1248,
+      "sha256": "9d7e5ec44a0028b0281b336fdf9b94e4567a7a8238868b3a4f933fa90b8fa001"
+    },
+    {
+      "path": "packages/map-core/contract-manifest.js",
+      "bytes": 13164,
+      "sha256": "62860c74c08c66e1e81d795a0f81494bedca0d0031d56d3283f6454e5ddf229d"
+    },
+    {
+      "path": "packages/map-core/document.js",
+      "bytes": 6854,
+      "sha256": "80416a2d09f2b7a23d5a1241315bd7f32ef97936c23e1832ef1eac8c578554ec"
+    },
+    {
+      "path": "packages/map-core/editing-document.js",
+      "bytes": 26714,
+      "sha256": "77cc0f80981fc06301e28cc35211fae222255ae854863e0e6a0c95f3362a2786"
+    },
+    {
+      "path": "packages/map-core/generator.js",
+      "bytes": 4346,
+      "sha256": "b9b3ec1a00d39606dc1eb6d8943e172ac3b566cdd45ffa2ea4c8e52d27fabf98"
+    },
+    {
+      "path": "packages/map-core/index.js",
+      "bytes": 3935,
+      "sha256": "b6e20b8ca8070fdd9ea7af30e8bb8130ecc37069c6b15ba012f6eeebc3ac212c"
+    },
+    {
+      "path": "packages/map-core/inspection.js",
+      "bytes": 5159,
+      "sha256": "29125e7c4bcf866a4509f70f653be46037946cb595563092b296390cd90fd4e3"
+    },
+    {
+      "path": "packages/map-core/maps.js",
+      "bytes": 3184,
+      "sha256": "e6e6f15d650aa46b03fc4f043b4f9e748a3684d1e787dde48cc9cfc08f555756"
+    },
+    {
+      "path": "packages/map-core/persistence.js",
+      "bytes": 8118,
+      "sha256": "f5f279d16f4ce1d28584c66f15cdee6abf8745880818a2e88bc6ed2ae409a578"
+    },
+    {
+      "path": "packages/map-core/prefab-blocks.js",
+      "bytes": 705,
+      "sha256": "6591d82c2c6cd21183e18c1e3011a09860d1a0ac2b6b071ef3cbc876f19a55f5"
+    },
+    {
+      "path": "packages/map-core/prefab-document.js",
+      "bytes": 3442,
+      "sha256": "3ec21d4bab1eeb214d5a7a4d66eb83f44e99022fbd292c8ca6a13838a2cc1fc7"
+    },
+    {
+      "path": "packages/map-core/prefab-generator.js",
+      "bytes": 266,
+      "sha256": "5131c2b257d251f35017bce74103858624254d86b0516c6a23f093ee304c8dea"
+    },
+    {
+      "path": "packages/map-core/prefab-maps.js",
+      "bytes": 1754,
+      "sha256": "aef8569da8d3a4313350029754c712614e54d6af390bfea7efef5e41cd88cfb9"
+    },
+    {
+      "path": "packages/map-core/prefab-rotation.js",
+      "bytes": 220,
+      "sha256": "983b0fade849222d1c7910ba362f1bdc33248a6277a90085934e5207e8fb76f8"
+    },
+    {
+      "path": "packages/map-core/railway-document.js",
+      "bytes": 6041,
+      "sha256": "2de3c970ac55f58bd430aaf90a9554a20ce195eeb86b8e0eab3afd16af657203"
+    },
+    {
+      "path": "packages/map-core/railway-map.js",
+      "bytes": 4160,
+      "sha256": "5f3f2f1ebd90a6e2c057d93d2c37cf44b793fb48a0b21e517cb7e081af7c30f9"
+    },
+    {
+      "path": "packages/map-core/railway-routes.js",
+      "bytes": 11604,
+      "sha256": "ff91552f23ad70e77c8f100297e28f679e1c86304c1af2991261eecfb27303ca"
+    },
+    {
+      "path": "packages/map-core/railway-traffic.js",
+      "bytes": 18938,
+      "sha256": "c78e49ee3f841988a22b22568f4b531b5c0b412e531e2047d273e039034d2a7a"
+    },
+    {
+      "path": "packages/map-core/railway-train.js",
+      "bytes": 11137,
+      "sha256": "9ee16d2397699e09148de9997f0f25e33c18f73e84828a455ff51955a53d47e3"
+    },
+    {
+      "path": "packages/map-core/requirements.js",
+      "bytes": 5642,
+      "sha256": "d725910a49b35a5cb3e0a595d4a8b204de33eb484e5beafad63bbc1bdfa97657"
+    },
+    {
+      "path": "packages/map-core/roof-blocks.js",
+      "bytes": 2131,
+      "sha256": "4ab8a70684b65c29395fcf87401274506ced6ce78074616723779fb7cf1b0cfd"
+    },
+    {
+      "path": "packages/map-core/roof-data.js",
+      "bytes": 4699,
+      "sha256": "20ad441bf4c7c67d9395ddc2c6566d05508b212732a1e5751a57cf37675dc5e7"
+    },
+    {
+      "path": "packages/map-core/roof-document.js",
+      "bytes": 4808,
+      "sha256": "a1e6e36468c73a6a3b4d8b42f637d4054dd96122a097976e397b482b0ad92029"
+    },
+    {
+      "path": "packages/map-core/roof-generator.js",
+      "bytes": 4879,
+      "sha256": "62576885f7eb907ed24f6b466c175743cf7e1ca4b532c3e17dedee5faff3dcae"
+    },
+    {
+      "path": "packages/map-core/roof-maps.js",
+      "bytes": 1089,
+      "sha256": "e7a7e3793ce1511528e7f845e07d139d74fe5f51b9c1fc15e09be1bb6dca7848"
+    },
+    {
+      "path": "packages/map-core/roof-rotation.js",
+      "bytes": 760,
+      "sha256": "d9d15a3f0a27900ec0c996e4ba380e24e95c36d3b36a35b5def9e12caec8ffde"
+    },
+    {
+      "path": "packages/map-core/wall-runs.js",
+      "bytes": 8795,
+      "sha256": "6d01eb4b49d6ba20ae71e4bb2cab095c80e63be5d14b6ff43f509a9cfc76633d"
+    },
+    {
+      "path": "packages/native-actors/NOTICE.md",
+      "bytes": 1085,
+      "sha256": "29f65b9433b99a5077ec0171ddab69d1a560d44cc96b3c81358cb1d34b92eb86"
+    },
+    {
+      "path": "packages/native-actors/README.md",
+      "bytes": 4957,
+      "sha256": "fc47f8e29e49f33357d08873dcaa01c8ab1c986d377c489fc91a7d54ab9d2211"
+    },
+    {
+      "path": "packages/native-actors/body.js",
+      "bytes": 4359,
+      "sha256": "d50fd4c6a350ec9248ceadfa51aacb462de254453d4605dc8f09cfca31fd052d"
+    },
+    {
+      "path": "packages/native-actors/catalogue.js",
+      "bytes": 3288,
+      "sha256": "426cdf0da6ea28c491e32ca5a6e8f32e97dd02a13a074a73e6c14acbf266d467"
+    },
+    {
+      "path": "packages/native-actors/catalogue.json",
+      "bytes": 3541,
+      "sha256": "e7301cf06d64b0a3bd39f20b7a36e2f4f930bf78468afe02081fce3e09e87236"
+    },
+    {
+      "path": "packages/native-actors/data.js",
+      "bytes": 2629,
+      "sha256": "6405d75e2581a437c9cf988f950b01c904daa9d09a8e37579cbc28c3d53ae0e4"
+    },
+    {
+      "path": "packages/native-actors/index.d.ts",
+      "bytes": 1700,
+      "sha256": "54ede522a9dfb463800c9a885bea16f7e1ad0d26803e1b175b595a25dc00c6e0"
+    },
+    {
+      "path": "packages/native-actors/index.js",
+      "bytes": 1559,
+      "sha256": "064d8e4e41fe06161ae6cc30304f42dfd6500e7349ad5d67054c39ab60e73d66"
+    },
+    {
+      "path": "packages/native-actors/locomotion.js",
+      "bytes": 3098,
+      "sha256": "0971b640628a787d98924d0ed2257580ab0b1ffeff39fc6b088570ba520da245"
+    },
+    {
+      "path": "packages/native-actors/source.json",
+      "bytes": 12290,
+      "sha256": "84b018a29554240b42cdef882fcc9f9e11df608fcf9250dcc81ed9a1f2388afe"
+    },
+    {
+      "path": "packages/native-actors/three.d.ts",
+      "bytes": 1178,
+      "sha256": "d0c5e704fb7e651eb451f2d4b193c61c268b1828053e136d15853781d3795119"
+    },
+    {
+      "path": "packages/native-actors/three.js",
+      "bytes": 4003,
+      "sha256": "f749d7e87ce384fbd4eacea6289a9d54a91e7064cf99aa9a522861157710d6ad"
+    },
+    {
+      "path": "packages/native-actors/usage-card.json",
+      "bytes": 1029,
+      "sha256": "739d6b8a17fb672c2933b07f0bda27ef908d4c42876b98849e22180d2fad501f"
+    },
+    {
+      "path": "packages/native-window-presenter/NOTICE.md",
+      "bytes": 1389,
+      "sha256": "891b9776c140a609376cf0ab4c12b128f4d464fd691c8d87ef97e6897e7bca62"
+    },
+    {
+      "path": "packages/native-window-presenter/README.md",
+      "bytes": 14465,
+      "sha256": "6b49335001b9ed146f3122c959f36795d7efa3b885ae425614a12716de978298"
+    },
+    {
+      "path": "packages/native-window-presenter/cleanup.js",
+      "bytes": 2270,
+      "sha256": "d3e01d3218e97449afdd8566053761b8095dbdf4583d81f7f1910d8b09561ed7"
+    },
+    {
+      "path": "packages/native-window-presenter/data.js",
+      "bytes": 3940,
+      "sha256": "52bb4c75fe4550763b2ce3f6c87391850c987ffcb8f844d33ffae11a7a003afe"
+    },
+    {
+      "path": "packages/native-window-presenter/geometry.js",
+      "bytes": 4093,
+      "sha256": "801b4aa890031c2c44b8d93354f370b1f842076430903234659ff9186ccf04a1"
+    },
+    {
+      "path": "packages/native-window-presenter/paint.js",
+      "bytes": 1814,
+      "sha256": "adf267e5a5498bde318ab2e0c09dfc1f9ae6b712b6a4fe9284227019941eef69"
+    },
+    {
+      "path": "packages/native-window-presenter/prepare.js",
+      "bytes": 4664,
+      "sha256": "46dec10be1485439c51cb46964f3f859c43f3bf96d40f3bc7de6246f0463f38f"
+    },
+    {
+      "path": "packages/native-window-presenter/source.json",
+      "bytes": 2711,
+      "sha256": "de93fd22585374001bb4c73a3e824ab1e21f61c663cc719d11b9863f04cfc998"
+    },
+    {
+      "path": "packages/native-window-presenter/three.js",
+      "bytes": 10614,
+      "sha256": "61189a3affb0b94a8e295e3578825255407066b62da05f2cfb6fe63bcae84acf"
+    },
+    {
+      "path": "packages/parts-core/clearance.js",
+      "bytes": 1272,
+      "sha256": "750b445ae131a2052e24f61f3521c1d2dc72fc542e8404716e43bce43db4e42a"
+    },
+    {
+      "path": "packages/parts-core/compiler.js",
+      "bytes": 26064,
+      "sha256": "256742ecc07ba672d8a6d5e09f020744d72ca438c57e256ec3c66e57d0ea5a96"
+    },
+    {
+      "path": "packages/parts-core/data.js",
+      "bytes": 16686,
+      "sha256": "51ad8cbc6a73d2e58cac9cae360298ed29b62dcd0479146645d5d21854ae67e3"
+    },
+    {
+      "path": "packages/parts-core/fixtures.js",
+      "bytes": 5289,
+      "sha256": "aad83cfefd721f76459d28bd9bc9213d16846bc5023db8b34a3bb53fff0e35fe"
+    },
+    {
+      "path": "packages/parts-core/geometry.js",
+      "bytes": 5001,
+      "sha256": "6ff50e6f6be5406912dd77ad79b511f8b24043349a8173798e9a16cea41ca22e"
+    },
+    {
+      "path": "packages/parts-core/hash.js",
+      "bytes": 2105,
+      "sha256": "73c1d3150521d40381b8617998a01bbd594b3f0f031be15d15eab9cdeac3642e"
+    },
+    {
+      "path": "packages/parts-core/identity.js",
+      "bytes": 2435,
+      "sha256": "99b6a2605d64cbaf6ace50ea90459cff9cc708d051c95f3241291030e6f4158f"
+    },
+    {
+      "path": "packages/parts-core/index.js",
+      "bytes": 1789,
+      "sha256": "dbd2d8fa227303d644d5c5459bdd54a3974c33d71a5041e1e6c07dc46c240335"
+    },
+    {
+      "path": "packages/parts-core/runtime.js",
+      "bytes": 19571,
+      "sha256": "9a1c241126efa7584fa50a7b86101433b3316298b57c7a77f91e328444f6b9be"
+    },
+    {
+      "path": "packages/player-setup/README.md",
+      "bytes": 11666,
+      "sha256": "73445cd570432670c2b5bfd2b5ac8e77cf3c895677a9a8d539bd77e5ab39aad0"
+    },
+    {
+      "path": "packages/player-setup/browser.d.ts",
+      "bytes": 4403,
+      "sha256": "0c80a43a36eff662bde8cb23dfd3ad3db508ee9286634f4572d0308a7f58976f"
+    },
+    {
+      "path": "packages/player-setup/browser.js",
+      "bytes": 20630,
+      "sha256": "03258f3ca44227e14ad89d159534f28524727ca358923e80cd29ffb2d11efa2c"
+    },
+    {
+      "path": "packages/player-setup/clock.js",
+      "bytes": 2244,
+      "sha256": "228cb07b54c9cbe8c94e139c886507970b6b445de0301b0f8399fa6d0aaad597"
+    },
+    {
+      "path": "packages/player-setup/configuration.js",
+      "bytes": 12338,
+      "sha256": "13f15e9650ab33a4256831f55386fb10a177fa8bae7c27f6d01e061661ec5a99"
+    },
+    {
+      "path": "packages/player-setup/index.d.ts",
+      "bytes": 5697,
+      "sha256": "160c79b3ab045b67df95331dc5f42278c0f0c1445a97c366e8dbbf908bb01bee"
+    },
+    {
+      "path": "packages/player-setup/index.js",
+      "bytes": 258,
+      "sha256": "af23a8b02f6e59c853e6adfc81dbbafae7f085e48893658150ca4dc3ae0b3cee"
+    },
+    {
+      "path": "packages/player-setup/retained.js",
+      "bytes": 3097,
+      "sha256": "c07a09f7319730f323259473bf156ef27362dbe62afe2e0edea7536e0a5b6943"
+    },
+    {
+      "path": "packages/player-setup/source.json",
+      "bytes": 27840,
+      "sha256": "41675bd7c389c6fbae0471bc6cd6f34f7b542ab04b10724a7ad72bb3714772ea"
+    },
+    {
+      "path": "packages/player-setup/styles.js",
+      "bytes": 1671,
+      "sha256": "332356578a1c97eeb1e6b6a95b31a2fbf05f957a060ec62b2bd999ca22d77296"
+    },
+    {
+      "path": "packages/player-setup/surface.js",
+      "bytes": 7492,
+      "sha256": "bde6edabd1ee213acce895ac2d7390cf5cb2ee797f7d2795fa7883d378c96c0e"
+    },
+    {
+      "path": "packages/player-setup/usage-card.json",
+      "bytes": 1420,
+      "sha256": "e57313311b10c98606d38c0dba6f1a0e72267019b5f9aadbb269bdb4cbfa4e8f"
+    },
+    {
+      "path": "packages/player-setup/world.js",
+      "bytes": 5836,
+      "sha256": "1c68c954e1e2d6a5134c5a0ab6691ca8c6c41a38be522d066a52025a8b06885f"
+    },
+    {
+      "path": "packages/player-ui/README.md",
+      "bytes": 17049,
+      "sha256": "47e3db262c3c89da3ee9f145fd4c79b5a32bd64c8fda2efee704fdc14fac61d5"
+    },
+    {
+      "path": "packages/player-ui/actions.js",
+      "bytes": 3171,
+      "sha256": "7204c1c5463970b0f710fc24f7754a8749d4b601293dd806338f2a97f814fdcf"
+    },
+    {
+      "path": "packages/player-ui/configuration.js",
+      "bytes": 6585,
+      "sha256": "070c2ae9ed638140f237603efeba7516970811edcb45aa8a3c25d94a68529691"
+    },
+    {
+      "path": "packages/player-ui/context.js",
+      "bytes": 1543,
+      "sha256": "2c490c6c1ade2a953bd688024f54bfbe2d37a08fb62b434729d6cbc780beeff9"
+    },
+    {
+      "path": "packages/player-ui/data.js",
+      "bytes": 1883,
+      "sha256": "ed8445d5c922e03f7ce4e07d29f13b3e3486af207dd9e2897ec8953c5fffe254"
+    },
+    {
+      "path": "packages/player-ui/descriptors.js",
+      "bytes": 4418,
+      "sha256": "34e01194b827093f5aeaf77101880528b1f00f7da7e05d9e516f63d3f6a5aa82"
+    },
+    {
+      "path": "packages/player-ui/hud-bounds.js",
+      "bytes": 1145,
+      "sha256": "ec934f29c63fa11fc7ae387e8b5514a230100fbbfb851dbbaacca88e76e78fd1"
+    },
+    {
+      "path": "packages/player-ui/index.d.ts",
+      "bytes": 10888,
+      "sha256": "e11d81ef8ee877759cce3224c5ec0c56d89c66c677c0c6cda8c7ccb417b3f1b7"
+    },
+    {
+      "path": "packages/player-ui/index.js",
+      "bytes": 23800,
+      "sha256": "930cdcabae7a36e2fe6f130ab6600d7ee514806545f7617c2d0c9b5f6104ba9f"
+    },
+    {
+      "path": "packages/player-ui/menu.js",
+      "bytes": 6899,
+      "sha256": "def6b3f04bcedf12b51797cd03050c7bb9e6086a416a1b50d645aa482a1ea37a"
+    },
+    {
+      "path": "packages/player-ui/resources.js",
+      "bytes": 1624,
+      "sha256": "43c5136e3988f8239b5ff4f1ba6adcb7b789163202a6fbc4829bb07cccb132ac"
+    },
+    {
+      "path": "packages/player-ui/source.json",
+      "bytes": 15913,
+      "sha256": "f8931d1ae903d283d732d112d64a3731fea73db17fa617c162a3684344a44e2b"
+    },
+    {
+      "path": "packages/player-ui/style.css",
+      "bytes": 8629,
+      "sha256": "f9e481ce163b386795fa100870bb952057caea3d9392f6c745825ed07163ebc7"
+    },
+    {
+      "path": "packages/player-ui/train-provider.js",
+      "bytes": 2953,
+      "sha256": "bbe7bee974fae1f7f7ad34d2c1643b2ed256ab6f99f4912c1916d9632c5e847e"
+    },
+    {
+      "path": "packages/player-ui/transport.js",
+      "bytes": 1221,
+      "sha256": "65b4d8a18e072520e4e813776a0a941c3f0dbeff1c1692601619c7f3eaf1a956"
+    },
+    {
+      "path": "packages/player-ui/usage-card.json",
+      "bytes": 3290,
+      "sha256": "4e79ab6f90521966ad635159e7f69ff924308fa3822040ed25fb6461aea8d8d3"
+    },
+    {
+      "path": "packages/player-ui/vehicle-provider.js",
+      "bytes": 2120,
+      "sha256": "4a342629ca160da606d215215de5e8d8f17ef4293183d1013c6506ad9b3945e9"
+    },
+    {
+      "path": "packages/player-ui/view.js",
+      "bytes": 5687,
+      "sha256": "8db1439542f035760db2b524b253652ff7b9867372465658784e2a5d58418fe8"
+    },
+    {
+      "path": "packages/player-ui/walking.js",
+      "bytes": 3733,
+      "sha256": "26ed454980432569317145e5139f41c3315d12b8cb0150c6f1c491991b0a0ff9"
+    },
+    {
+      "path": "packages/prefab-core/catalogue.js",
+      "bytes": 26848,
+      "sha256": "60bba312116918f76fbf2b179fe394cb1f669e116d70a78afc723b6c425ffb85"
+    },
+    {
+      "path": "packages/prefab-core/index.js",
+      "bytes": 13696,
+      "sha256": "1dbbd0bfd17b79d0d93d38880e78d10f362ec8aba7c45b7a1c481e3aea8bec1c"
+    },
+    {
+      "path": "packages/prefab-core/original-catalogue.js",
+      "bytes": 67995,
+      "sha256": "c971af736376897525cd3541ac16a4009c66f7e4e92e3d284d97d5b8ca6d8ec1"
+    },
+    {
+      "path": "packages/prefab-core/provider-original.js",
+      "bytes": 2025,
+      "sha256": "e2e2b4c0ec60472ecad58a1c7ad98ea19a1448d2d5fb9c36cd7543a8c1fa8b0c"
+    },
+    {
+      "path": "packages/prefab-core/registry.js",
+      "bytes": 1847,
+      "sha256": "447213e5c79e64803976494ade4de593d61f58091008b0ba96fcad418488626b"
+    },
+    {
+      "path": "packages/railway-visuals/catalogue.js",
+      "bytes": 1434,
+      "sha256": "f5ff0bc1798702e98f41901c84779ea5abfa845db08b8a0d379e68f4b49af963"
+    },
+    {
+      "path": "packages/railway-visuals/entrances.js",
+      "bytes": 3304,
+      "sha256": "b9551986b852da3476fa7009806d99dab9ec9ba7836ce82b5799fa6a23202b57"
+    },
+    {
+      "path": "packages/railway-visuals/miniature-stock.js",
+      "bytes": 23139,
+      "sha256": "b6990ccc93983cb2d318fa91a059001adb830bc1d128f8694d26e79c70591529"
+    },
+    {
+      "path": "packages/railway-visuals/paint.js",
+      "bytes": 2545,
+      "sha256": "0bd0064388ae2d1ab833e7a242d72c7f6d32492a34bf53f35aade65f787380b7"
+    },
+    {
+      "path": "packages/railway-visuals/rolling-stock.js",
+      "bytes": 28139,
+      "sha256": "09c6231344cf9399c8c743d71ccde5a2e4d2765d0f0628fc5908a9b4a18f13c2"
+    },
+    {
+      "path": "packages/railway-visuals/route.js",
+      "bytes": 18311,
+      "sha256": "036760c3e390f002e7269911b572a66d9bb36d93243493d094b256a53d041ebc"
+    },
+    {
+      "path": "packages/railway-visuals/signal-view.js",
+      "bytes": 2731,
+      "sha256": "00eaf8133625f2df2971dedfdf80fd6b0019d351b56234eabd2ec7f7ac245481"
+    },
+    {
+      "path": "packages/railway-visuals/stock-profile.js",
+      "bytes": 1421,
+      "sha256": "5c5943f6c411bb75c061a43d05bf2a6665b837298b011b27549a8d887a94531f"
+    },
+    {
+      "path": "packages/railway-visuals/three.js",
+      "bytes": 16281,
+      "sha256": "33bbcd447697938eed06c9b1ed5b3a22235aeea3956a9198d47a7ebbdb0c68e5"
+    },
+    {
+      "path": "packages/railway-visuals/train-view.js",
+      "bytes": 4018,
+      "sha256": "a5766b169ec27fd0ff114124dd91b1a9819389619ea792c73905e49c7b3be2ff"
+    },
+    {
+      "path": "packages/render-effects/index.js",
+      "bytes": 58,
+      "sha256": "d5fea03e1e60a720c6eafdd486e7649e8deae89875fa910dc48e99b3a87f94a1"
+    },
+    {
+      "path": "packages/render-effects/search-halo.js",
+      "bytes": 15564,
+      "sha256": "9279396c4a721f3f9ad68800843818b489d6b381d6c57123e8959df3dc489e02"
+    },
+    {
+      "path": "packages/render-effects/three.js",
+      "bytes": 202,
+      "sha256": "55aa9926dd2ecf6b862d512a76aca545e34a6f47184e04a27856e791cacc7264"
+    },
+    {
+      "path": "packages/roof-core/index.js",
+      "bytes": 13011,
+      "sha256": "18d0698ce666bc727a04571391ec58e7a96dc57c717750182f800aaf5ed3490c"
+    },
+    {
+      "path": "packages/roof-core/three.js",
+      "bytes": 5435,
+      "sha256": "96fe9556e429d86169db25005d939c58c2e5f72f595b15c34f4fb51b16187539"
+    },
+    {
+      "path": "packages/rules-core/aft-compat.js",
+      "bytes": 6312,
+      "sha256": "3c5a2e6cf86766d681d788eb3886fa2c874fdfe5b1bf6697f7fd76ea74d5a1d4"
+    },
+    {
+      "path": "packages/rules-core/characters.js",
+      "bytes": 4498,
+      "sha256": "c2559097d664f3769a70f2f122044864dad87648037f9eb03890a697ebe66811"
+    },
+    {
+      "path": "packages/rules-core/checks.js",
+      "bytes": 3238,
+      "sha256": "4ae251555289d1871b9321640c263cc6a051ac5b605edf9c381fb5011794f379"
+    },
+    {
+      "path": "packages/rules-core/combat.js",
+      "bytes": 4286,
+      "sha256": "81679c73eb6f35969fcd3317f1c02d7e37ec9a4c6da58bb01e1eb50c480937d2"
+    },
+    {
+      "path": "packages/rules-core/dialogue.js",
+      "bytes": 552,
+      "sha256": "4fa0e4976adf35f07fef5dee4618c68fad4eb25f826fc4aff953a701784fb832"
+    },
+    {
+      "path": "packages/rules-core/index.js",
+      "bytes": 706,
+      "sha256": "efc31deb72c50d33108b455112c453472650525ea79e6bb37ed103a6b279de3d"
+    },
+    {
+      "path": "packages/rules-core/progression.js",
+      "bytes": 19311,
+      "sha256": "be4a5c6847adc54b66823dbd1037f14149849a531f4bdc4e71c020cada9cea07"
+    },
+    {
+      "path": "packages/rules-core/upstream.js",
+      "bytes": 608,
+      "sha256": "c68f9dceac4fb47a6c9b6349ec4cfead5f777d3bd3ce614e994a03371ad76943"
+    },
+    {
+      "path": "packages/rules-core/validation.js",
+      "bytes": 1347,
+      "sha256": "99dc281b138551fdc141653597fcba15b3bb6105e4fac9e9d4b931e57f00b1f2"
+    },
+    {
+      "path": "packages/runtime-core/index.js",
+      "bytes": 669,
+      "sha256": "94846e754caf777bbff8b8316a4a6057ebf80df76fe5a56debe85969d7db31d9"
+    },
+    {
+      "path": "packages/runtime-core/lifecycle.js",
+      "bytes": 7014,
+      "sha256": "2e841fbbc4c53263bbae77bc8394521450efaac7646ef7adad4b0132629e0653"
+    },
+    {
+      "path": "packages/runtime-core/planner.js",
+      "bytes": 14382,
+      "sha256": "b1637d0841d62a0cccbb01702a0a08f371ee8f13d5477394f26aa072c8b6a117"
+    },
+    {
+      "path": "packages/tile-authoring-core/README.md",
+      "bytes": 1410,
+      "sha256": "3464066f1d124badb3fbcc6a889f989bb87a54cad6500ff4eeb43ce8ba459def"
+    },
+    {
+      "path": "packages/tile-authoring-core/budget.js",
+      "bytes": 3422,
+      "sha256": "a03b9aff11efbdb7d59d7301565e3d3367911b036264cebbab22fafebee213bd"
+    },
+    {
+      "path": "packages/tile-authoring-core/contract.js",
+      "bytes": 11190,
+      "sha256": "20be43c1a11e76d24adb12f46b06a17cc298d6ab5b1b65bfc7aa266cff60bf38"
+    },
+    {
+      "path": "packages/tile-authoring-core/contract.schema.json",
+      "bytes": 91653,
+      "sha256": "3c9b36e807eff9b3f9bdeb6314e976d6caa5acfdc7d2f0368b853d5f8fab7ddc"
+    },
+    {
+      "path": "packages/tile-authoring-core/data.js",
+      "bytes": 10529,
+      "sha256": "9679dac492042d857a64421d63c4e9d5737aab49badf9396cbb984eb8a83079d"
+    },
+    {
+      "path": "packages/tile-authoring-core/geometry.js",
+      "bytes": 8713,
+      "sha256": "aa636cc6c0d1bb0d03e13295ea2613fe4af41d344cb1c89ca13c3e33c6ddc9f6"
+    },
+    {
+      "path": "packages/tile-authoring-core/index.d.ts",
+      "bytes": 15887,
+      "sha256": "5842a9153dcafb7e66591ad4d91ee522e28e0e5f61ed2b46d000e9331edb3feb"
+    },
+    {
+      "path": "packages/tile-authoring-core/index.js",
+      "bytes": 3860,
+      "sha256": "d46fae833b20ca228be0ae03220287d1c5f90421a3de23cf00cabbde8a3680a1"
+    },
+    {
+      "path": "packages/tile-authoring-core/model.js",
+      "bytes": 17822,
+      "sha256": "a33cba60484638e84679f3486b50a9f0106b26f8a40bf59a880ed9333c05341e"
+    },
+    {
+      "path": "packages/tile-authoring-core/operations.js",
+      "bytes": 8568,
+      "sha256": "8ce75cd7413959580b01ecddeb8b66248c22d3d7cc1c32bb75dca50276ba0dd8"
+    },
+    {
+      "path": "packages/tile-authoring-core/source.json",
+      "bytes": 22066,
+      "sha256": "3c0195dcee6105d7f24e86e19ecac10759b1e88f031a057083d5bad1fd57ea49"
+    },
+    {
+      "path": "packages/tile-authoring-core/target.js",
+      "bytes": 9438,
+      "sha256": "928ba0da78f9797b934ecc2e6250e4fcafa56a645822ae7da9cf855a17eeff3c"
+    },
+    {
+      "path": "packages/tile-finishes/README.md",
+      "bytes": 3043,
+      "sha256": "c0ccf6d5f8dc2c1c91464cc30fced2469cf836ae4565a64dfbb932a5eeaa58ab"
+    },
+    {
+      "path": "packages/tile-finishes/catalogue.js",
+      "bytes": 5869,
+      "sha256": "f5ab5f15757537309a68d5d68c869004a044ad5bfff37089e928d35f09a4e73c"
+    },
+    {
+      "path": "packages/tile-finishes/data.js",
+      "bytes": 2172,
+      "sha256": "3eab4dbc81ff0ce2b36c713aa4d4087ce8d4e5bfbbcff3ecdb4eff0ef7cde0a3"
+    },
+    {
+      "path": "packages/tile-finishes/finishes.js",
+      "bytes": 10988,
+      "sha256": "fe2a2d16c09ed4598c8d724ee682d850a5077069803b4bdefc8978e258000dab"
+    },
+    {
+      "path": "packages/tile-finishes/source.json",
+      "bytes": 7262,
+      "sha256": "a01866a7380fa15e56a10d8f72e5c0100aeebc633d495e801623282236751dd1"
+    },
+    {
+      "path": "packages/tile-stack-core/README.md",
+      "bytes": 3491,
+      "sha256": "1c638e2f1b48d06ec14f31cc37df00ca74f8eb46ef492579ef406926847efba5"
+    },
+    {
+      "path": "packages/tile-stack-core/api.d.ts",
+      "bytes": 3001,
+      "sha256": "26ea3501f6da3fba3bf3666966a2ceaca7bda50804a642d50dc565bd7fb0f495"
+    },
+    {
+      "path": "packages/tile-stack-core/budget.js",
+      "bytes": 1837,
+      "sha256": "eb363d5dcf0f407ba339bca27baed5933862a93ae15cdbdc692138b0d8505484"
+    },
+    {
+      "path": "packages/tile-stack-core/contracts.js",
+      "bytes": 8440,
+      "sha256": "4be290c1c171c1cde30259a1f22094810bbe12d0e87b4bc5db6f1d7be2384cf8"
+    },
+    {
+      "path": "packages/tile-stack-core/geometry.js",
+      "bytes": 6596,
+      "sha256": "4253b81b9c80596f3b0a80d7ecfccc5a9592089c3777867b708d66a71fbf0bb0"
+    },
+    {
+      "path": "packages/tile-stack-core/ids.js",
+      "bytes": 483,
+      "sha256": "0e43029dac65104b9154d17b19c9c8a1e2ba5f70ed7ecdb10b7ec23768f0846d"
+    },
+    {
+      "path": "packages/tile-stack-core/index.js",
+      "bytes": 20494,
+      "sha256": "4e8da94f77006a1b2f39719d1d96c3226f432fc80b8433ceacafc7e0aa33d1a2"
+    },
+    {
+      "path": "packages/tile-stack-core/source.json",
+      "bytes": 4656,
+      "sha256": "fe0b0c409b18eb00c06449b4d5ff10605c9f1127834267fe56bf586abe5559aa"
+    },
+    {
+      "path": "packages/tile-visuals/NOTICE.md",
+      "bytes": 975,
+      "sha256": "9cfef539411d9ac8f16eccf7060b3bd1e0c25e7dbe789e465146fe4fae286e97"
+    },
+    {
+      "path": "packages/tile-visuals/README.md",
+      "bytes": 12799,
+      "sha256": "30993355f0ee0876d4c8a1b6c9eebe249f8b3ab9e1eb1b35b98c52faf73eeb2e"
+    },
+    {
+      "path": "packages/tile-visuals/cleanup.js",
+      "bytes": 2059,
+      "sha256": "50f81dd341654382bbcac40081705022c3ca8f3d0288a5ac07dc982def3ccf34"
+    },
+    {
+      "path": "packages/tile-visuals/data.js",
+      "bytes": 3780,
+      "sha256": "a06837102bba28bed9825db2878dab35afae52f17f5e8e94d1cd05965e8e7313"
+    },
+    {
+      "path": "packages/tile-visuals/example.js",
+      "bytes": 4602,
+      "sha256": "e526902be3764675a726340e3d4b50c9aab6f24d04d340363eec27ce128e3d69"
+    },
+    {
+      "path": "packages/tile-visuals/mesh.js",
+      "bytes": 13034,
+      "sha256": "19942c6669e29bbade749346d4bd2209c8f6557dba519020d97091a3820400c9"
+    },
+    {
+      "path": "packages/tile-visuals/prepare.js",
+      "bytes": 12561,
+      "sha256": "fb6ec8359a1ca2c3bfd739861cb7734d70f65a7ec5fe57375c357c536998d7e3"
+    },
+    {
+      "path": "packages/tile-visuals/source.json",
+      "bytes": 4685,
+      "sha256": "528050b6312c8e9725de9bbc303d76d43600ec3a3cc37c7da0f4f077021073aa"
+    },
+    {
+      "path": "packages/tile-visuals/three.js",
+      "bytes": 9772,
+      "sha256": "7d376ed087e02482c59d931686761c47a02a9578b18bd36df57408a201292a0b"
+    },
+    {
+      "path": "packages/tiles-core/NOTICE.md",
+      "bytes": 1041,
+      "sha256": "88e4bb85dbcb102784441e5e0aab6d8c0bd35cf37a6059b0e173f15f23d16989"
+    },
+    {
+      "path": "packages/tiles-core/cells.js",
+      "bytes": 8266,
+      "sha256": "273f4416ce7bd9ca84f802ef88842bd2a7d0f43372c6f4ea5b3b0745f2c17811"
+    },
+    {
+      "path": "packages/tiles-core/compiled-tiles-v1.schema.json",
+      "bytes": 53575,
+      "sha256": "e8e677205d213d632c15d54558a5d271652e81b9b0427ddcd7bb9fb9259a85f2"
+    },
+    {
+      "path": "packages/tiles-core/contract.js",
+      "bytes": 1730,
+      "sha256": "5df0565b35d28c4b59c9a2e80a1163eac35fc07352c58d1dbab486565ce6eac7"
+    },
+    {
+      "path": "packages/tiles-core/curves.js",
+      "bytes": 9480,
+      "sha256": "70eb72022abad3bd57ccbf0b3cc176f459652b6f5d27fa8d83c0ffd3d9c46402"
+    },
+    {
+      "path": "packages/tiles-core/data.js",
+      "bytes": 4579,
+      "sha256": "de7af9d3905aa03e706ce17fb94b7dad00b193461b3e7044811d6b3844c375ed"
+    },
+    {
+      "path": "packages/tiles-core/dependencies.js",
+      "bytes": 8832,
+      "sha256": "cee86bbae804d12c3602c17eb36800af443143fd72c62dac12fc35f6a7bcbd5d"
+    },
+    {
+      "path": "packages/tiles-core/example.js",
+      "bytes": 2579,
+      "sha256": "58993f4d123693360cdc0060783fbb70901e5b539c952d08d57e78277d5d5db0"
+    },
+    {
+      "path": "packages/tiles-core/fields.js",
+      "bytes": 5394,
+      "sha256": "9f712c7b21178992c1ba7f50c2db56964f169c65d58f2c9a7e9bce7b3fea9667"
+    },
+    {
+      "path": "packages/tiles-core/index.js",
+      "bytes": 728,
+      "sha256": "f81d6db1e6aea3249db8339ff0ac49e52cd3da1972aca344e582d12385d503c2"
+    },
+    {
+      "path": "packages/tiles-core/interfaces.js",
+      "bytes": 11429,
+      "sha256": "a7e8dd2d24b27d663e12e016de6e752225510b945058db7337f6358e5c907136"
+    },
+    {
+      "path": "packages/tiles-core/layout.js",
+      "bytes": 12740,
+      "sha256": "2c29501b92285f2e0c8455ef270e43d252f68c74b6d99378dea0a986e305c7e7"
+    },
+    {
+      "path": "packages/tiles-core/projection.js",
+      "bytes": 1657,
+      "sha256": "e3a5d6b88b7f7bbe7ca3445e66d0c5dd2c28cd61dd7dddc4baa078aafc0d5bf9"
+    },
+    {
+      "path": "packages/tiles-core/recipes.js",
+      "bytes": 10523,
+      "sha256": "edc334def5079ef8755486dc8f515a150ad7015b8e1f536c89f60652e8d76d19"
+    },
+    {
+      "path": "packages/tiles-core/repair.js",
+      "bytes": 11562,
+      "sha256": "55da681922b86138138fe988fd83bccc18b5c0142af1f1500cb34f7a7f64591f"
+    },
+    {
+      "path": "packages/tiles-core/tile-bundle-v1.schema.json",
+      "bytes": 1156,
+      "sha256": "cc610c40a8c700f8dc343872717412a3344c607d308283a42e14e6bec4381441"
+    },
+    {
+      "path": "packages/tiles-core/tile-layout-v1.schema.json",
+      "bytes": 16602,
+      "sha256": "6598ca7e1a681837e8eadd2ce2cbeaae998ea44e9f51e5d727799a7861c72e20"
+    },
+    {
+      "path": "packages/tiles-core/tile-recipe-v1.schema.json",
+      "bytes": 61530,
+      "sha256": "cedf8c251d6088927ed60296c949eac954284ccc085f8660b81911f0b1b6c045"
+    },
+    {
+      "path": "packages/train-core/README.md",
+      "bytes": 566,
+      "sha256": "d18604f0e18da1f38b2d36fac12e902dbeb1295990d2b090bc8a93d16fe75fb7"
+    },
+    {
+      "path": "packages/train-core/circuit-traffic.js",
+      "bytes": 3255,
+      "sha256": "8670d81f6ac5077c24b277aef970b68c72b98dca43949603e059350dee5db310"
+    },
+    {
+      "path": "packages/train-core/contract.js",
+      "bytes": 460,
+      "sha256": "fec8a1cc2e5912fe4dbe2dbd8c5164d3d0a79fa0c75758d386cfcade8bae8fba"
+    },
+    {
+      "path": "packages/train-core/data.js",
+      "bytes": 3012,
+      "sha256": "9c1b9f2aee23a0ff6295f76930c33b8a4fe9346a1715fc5c4fcfb3efa60f828f"
+    },
+    {
+      "path": "packages/train-core/index.d.ts",
+      "bytes": 5840,
+      "sha256": "02323668e7f9867dc0c566d3e1afc3415e825dd7b41c54b764978a6d3557eb02"
+    },
+    {
+      "path": "packages/train-core/index.js",
+      "bytes": 26286,
+      "sha256": "80cd27d46f25c85d8c895250eaaaa9efdfe590bcef738818f7797b6e56bf66c9"
+    },
+    {
+      "path": "packages/train-ui/COMPACT-PROFILE.md",
+      "bytes": 8378,
+      "sha256": "27f6feb77533c9b63157061a0d775a70134795a13e39d46d8763303fb756d8f7"
+    },
+    {
+      "path": "packages/train-ui/art/references.json",
+      "bytes": 1989,
+      "sha256": "fc457cbe16005e59723a1379dc47c3827a7883ad142270dc932cf75b7bd4940e"
+    },
+    {
+      "path": "packages/train-ui/art/steam-cab-surface.svg",
+      "bytes": 1370,
+      "sha256": "cc7479604e0eb2fdcc5f9a6ed1971a283b5c24dd1f4aa17b441bb7f24c8f7567"
+    },
+    {
+      "path": "packages/train-ui/compact-handoff.json",
+      "bytes": 7427,
+      "sha256": "8e9a0eb555140a1ff44cf128f55cee0821db08fe2e438a1f05d86f7788af4a0e"
+    },
+    {
+      "path": "packages/train-ui/compact-input.js",
+      "bytes": 2474,
+      "sha256": "623053ae65012d7da88cfb82d487f0a4c2a5d358313552d46ba61b78a19a29d2"
+    },
+    {
+      "path": "packages/train-ui/compact-model.js",
+      "bytes": 1035,
+      "sha256": "4c9b7d6c858adb519f7fe360833362bec1465fff229a33e7248b3ca1e7916df9"
+    },
+    {
+      "path": "packages/train-ui/compact-source.json",
+      "bytes": 4860,
+      "sha256": "6c75b69c3a362e99fe4985b8ea1523352ab8f9e2a9f32af5b87a872316e7fb12"
+    },
+    {
+      "path": "packages/train-ui/compact.css",
+      "bytes": 10885,
+      "sha256": "f1fadd48b75915ee7049acba9c1e3141ef54ae105b7177211bd274580842dcff"
+    },
+    {
+      "path": "packages/train-ui/feedback.js",
+      "bytes": 6463,
+      "sha256": "56c34c591a5d7beb44f080c10861f2ee27cfba4906f6fb1e32500b8eafae2d46"
+    },
+    {
+      "path": "packages/train-ui/index.d.ts",
+      "bytes": 2547,
+      "sha256": "2acc2b1451284ebfba62a1a81abe7d5a15f433e3dbb9db91e270bd2b248f5c43"
+    },
+    {
+      "path": "packages/train-ui/index.js",
+      "bytes": 34733,
+      "sha256": "fcaeba2c34a2d0ac0ab39f7449114c2cd1cbabf060ce7ac32db3b1b2a0991a8f"
+    },
+    {
+      "path": "packages/train-ui/public.d.ts",
+      "bytes": 502,
+      "sha256": "66902cb27245c43c89351d35590c2aa3c40fbdcc74c6a9962d69cb1ab487de78"
+    },
+    {
+      "path": "packages/train-ui/public.js",
+      "bytes": 619,
+      "sha256": "e48d64bb15fdc0a40e1784849b42d9ae2c98bdf8c2dc2f2425b0ceaf1b6a5765"
+    },
+    {
+      "path": "packages/train-ui/reverse-intent.js",
+      "bytes": 2725,
+      "sha256": "24d9dd0bdc3f028614c5f65044bdc6c750958f1ec9d6ba8e17f4b2726c937ced"
+    },
+    {
+      "path": "packages/train-ui/source.json",
+      "bytes": 12679,
+      "sha256": "855e72444a36bec3c40554e1a7ce3ff605b242a9c1154537fdab73af1746f7ac"
+    },
+    {
+      "path": "packages/train-ui/style.css",
+      "bytes": 17332,
+      "sha256": "e75a31db0349ae04f0ec5187dceb71e681cc0dc9d7ffd8f40db2dd1a75210b35"
+    },
+    {
+      "path": "packages/train-ui/view.js",
+      "bytes": 7171,
+      "sha256": "5a355e25e50ec036721a5094d9342213b01bd87f64c159030f508003c22f9bd2"
+    },
+    {
+      "path": "packages/traversal-core/README.md",
+      "bytes": 4091,
+      "sha256": "2ede3c791e74b2a1a65ca8c648d69307935518dbe97941aa4ab9c60332397fdf"
+    },
+    {
+      "path": "packages/traversal-core/index.d.ts",
+      "bytes": 1612,
+      "sha256": "424a8d12514713dd76632b535b2a5093c26df7c4f06ae24c3c7108d90a89f87b"
+    },
+    {
+      "path": "packages/traversal-core/index.js",
+      "bytes": 7342,
+      "sha256": "a94290b4b022140ff2b033c8ffb478bff23efd4fa954ac1d03acc4697e21abfc"
+    },
+    {
+      "path": "packages/traversal-core/source.json",
+      "bytes": 903,
+      "sha256": "82e87bcd4fb9cb76b5f9933a6163c8c6550c446638a16732dd77185136a88065"
+    },
+    {
+      "path": "packages/vehicle-core/README.md",
+      "bytes": 337,
+      "sha256": "3471f659aa4a952396f4762253e6c0ee51f14cf4ff13d268128d3033cb2f0cfd"
+    },
+    {
+      "path": "packages/vehicle-core/catalogue.js",
+      "bytes": 3369,
+      "sha256": "f1641e8170b616bcba8fc1f5dd0ad1a56c2652d5a20546fcedad5248cc3e27ef"
+    },
+    {
+      "path": "packages/vehicle-core/contract.json",
+      "bytes": 3062,
+      "sha256": "d02a92fe2fbcc475a070c57674520e58290d86d95d7436b1ea7597ec31967fa3"
+    },
+    {
+      "path": "packages/vehicle-core/data.js",
+      "bytes": 489,
+      "sha256": "aaef23a873e39ce11462f49681a5d2f36333a5f96c4e2cc9c87a83420d53835f"
+    },
+    {
+      "path": "packages/vehicle-core/example.js",
+      "bytes": 1370,
+      "sha256": "da402b6467ca2250b67a50fd229949d64260ba4ff6531e8861cfb844aeecad7a"
+    },
+    {
+      "path": "packages/vehicle-core/index.d.ts",
+      "bytes": 8530,
+      "sha256": "9d60fa0f7acde223580508999e2192eabb25bb1f2aaafb237e008beb00a27e96"
+    },
+    {
+      "path": "packages/vehicle-core/index.js",
+      "bytes": 473,
+      "sha256": "04d823c78bfd8e3a0b599dc066e0f4a573029050170f454e5114f02c827f0a91"
+    },
+    {
+      "path": "packages/vehicle-core/motion.js",
+      "bytes": 3759,
+      "sha256": "103ce5131ac016e4b56432abecd86c3490c87c99e46e3b938d9e3acde4cf0f7e"
+    },
+    {
+      "path": "packages/vehicle-core/queries.js",
+      "bytes": 10128,
+      "sha256": "049ae1e492b64760ce7b0f6873fbc7b88ef92faf681cc12514d8f6c43577de64"
+    },
+    {
+      "path": "packages/vehicle-core/session.js",
+      "bytes": 21692,
+      "sha256": "e4aca72bfcd0e360876f72f1dead8afb112615d85000476c19edead99892ed58"
+    },
+    {
+      "path": "packages/vehicle-core/usage-card.json",
+      "bytes": 1765,
+      "sha256": "789398182435d48ba4d967c2078f322bfce37a63f2a8bd98b67e6711ee243145"
+    },
+    {
+      "path": "packages/vehicle-core/yard.js",
+      "bytes": 6142,
+      "sha256": "f5b97a443f1ed8e442466649236c71a78eb8b77fd578f0a01f2e8e8e0f36ab2f"
+    },
+    {
+      "path": "packages/vehicle-ui/index.js",
+      "bytes": 2386,
+      "sha256": "32e234ea03721de2c58a3274d84e770ba9483ea3907f90eb820de865bb794805"
+    },
+    {
+      "path": "packages/vehicle-ui/yard.d.ts",
+      "bytes": 1271,
+      "sha256": "c12da8d34751fe31edcff86dec6ad9e5062376d11909d3d220f3ac2ca8916924"
+    },
+    {
+      "path": "packages/vehicle-ui/yard.js",
+      "bytes": 6668,
+      "sha256": "1327032d42be57d417e9335267325e3579598f2d934b217b0862e976855a7558"
+    },
+    {
+      "path": "packages/vehicle-visuals/legacy.d.ts",
+      "bytes": 392,
+      "sha256": "6092dc011199d60b74082e012f7325d36368e3e789dea19ce6d32f96f14093ca"
+    },
+    {
+      "path": "packages/vehicle-visuals/legacy.js",
+      "bytes": 4972,
+      "sha256": "a90f8540e0f26ef9d63a92cbd502bc6fe2da636837c79d7ef7ba806e28ab63f7"
+    },
+    {
+      "path": "packages/vehicle-visuals/meshes/cargo-van.json",
+      "bytes": 369253,
+      "sha256": "7f251bf7f5add57dc5812e3f3642bed0136838702fd320502b6f28671559e2b8"
+    },
+    {
+      "path": "packages/vehicle-visuals/meshes/crew-pickup.json",
+      "bytes": 377349,
+      "sha256": "e6a1bd11f89293c0b8d14ac550de840e9e21c7cddc8513096020ec44026db14f"
+    },
+    {
+      "path": "packages/vehicle-visuals/meshes/crossover.json",
+      "bytes": 382949,
+      "sha256": "5db8d7b96f63ae783a68658b59387c7d24c9b22ddcb0a58061434ad64e6b6140"
+    },
+    {
+      "path": "packages/vehicle-visuals/meshes/hatchback.json",
+      "bytes": 370449,
+      "sha256": "3e9c0fa882c70704776b622529e9464d75b39063c61add69e48b176d273b4bc6"
+    },
+    {
+      "path": "packages/vehicle-visuals/meshes/passenger-van.json",
+      "bytes": 369465,
+      "sha256": "5f4961dfa1375cf037bce31840e60c8ab7c62adddca38f0b3d3ed9bbb67b5206"
+    },
+    {
+      "path": "packages/vehicle-visuals/meshes/pickup.json",
+      "bytes": 377989,
+      "sha256": "4678992f7e26ff09f0631c23418d2437dbce60ddeb9b64bb5d94711e3c17f21b"
+    },
+    {
+      "path": "packages/vehicle-visuals/meshes/sedan.json",
+      "bytes": 369893,
+      "sha256": "0ccc1adbe4852eb7b497654ba76f1dc5e63a3d3d378f376b5454efb735a77229"
+    },
+    {
+      "path": "packages/vehicle-visuals/meshes/utility-suv.json",
+      "bytes": 382085,
+      "sha256": "844e61eff620d5756a29370a6718cdacc26abfa7c8b121d0a3dba1ccce29c89d"
+    },
+    {
+      "path": "packages/vehicle-visuals/profiles.json",
+      "bytes": 7340,
+      "sha256": "f7db3796b7d72d6cd07b5f50d002533772b9d1ba80fd88685f905d5d104e21a4"
+    },
+    {
+      "path": "packages/vehicle-visuals/sculpt.js",
+      "bytes": 10574,
+      "sha256": "8a2520dd4797ddc8799535d7826d3b6256936f5c57e822abf78db6e8ef5de222"
+    },
+    {
+      "path": "packages/vehicle-visuals/skin.js",
+      "bytes": 2856,
+      "sha256": "243aaf9a60409d422603b5572525c13693ca8d8127aab3452e6ed8402f70990a"
+    },
+    {
+      "path": "packages/vehicle-visuals/skins/game/cargo-van.png",
+      "bytes": 285576,
+      "sha256": "48a767caecb4ae12fd6dee97310b1412b91286d624916bbf7d094284144508dc"
+    },
+    {
+      "path": "packages/vehicle-visuals/skins/game/crew-pickup.png",
+      "bytes": 290886,
+      "sha256": "6ad94e48264cebb45261a40ab413a817330f974abde97530f44c6668e609b98e"
+    },
+    {
+      "path": "packages/vehicle-visuals/skins/game/crossover.png",
+      "bytes": 286502,
+      "sha256": "786e54a0fb5f58df4043e8cf50c61920397c7693dabb5f9b90a3a2847987d705"
+    },
+    {
+      "path": "packages/vehicle-visuals/skins/game/hatchback.png",
+      "bytes": 273468,
+      "sha256": "f75c69306b9033459235d59aa086270f0d085e4e71f2e652607f107aa86f4f0c"
+    },
+    {
+      "path": "packages/vehicle-visuals/skins/game/passenger-van.png",
+      "bytes": 305935,
+      "sha256": "3cf31300405447aeefce11668b67c6e1263d673e5acd015a73d8add3b63a1ac1"
+    },
+    {
+      "path": "packages/vehicle-visuals/skins/game/pickup.png",
+      "bytes": 288677,
+      "sha256": "925d235195084e8ee8cdfaa1c3cd9bd1f2402deb56a6e8498f9ff9adc009fb4f"
+    },
+    {
+      "path": "packages/vehicle-visuals/skins/game/running-gear.png",
+      "bytes": 100713,
+      "sha256": "f706e7558d64dffafaadef706682e14761b37fbe2cf29e0a92592bb30cbc06f2"
+    },
+    {
+      "path": "packages/vehicle-visuals/skins/game/sedan.png",
+      "bytes": 278354,
+      "sha256": "e56130131f17b5c1e5739882736e692412bff67f0736ed3e91f26f3262e3b797"
+    },
+    {
+      "path": "packages/vehicle-visuals/skins/game/utility-suv.png",
+      "bytes": 298563,
+      "sha256": "13ae3d09033ba1b812dad5d90a10a9bd6eb834d1e89cabc320c13452803894e5"
+    },
+    {
+      "path": "packages/vehicle-visuals/three.d.ts",
+      "bytes": 1805,
+      "sha256": "9ead6cfe7ef43bfa52df704315f93be467dde9f4d98a75d2a16111165d2716d9"
+    },
+    {
+      "path": "packages/vehicle-visuals/three.js",
+      "bytes": 9457,
+      "sha256": "c33926ff03730c7dd640cd1a5f88a7213cde407e85210424ddaa2bfa980455a9"
+    },
+    {
+      "path": "packages/windows-authoring/commands.js",
+      "bytes": 5607,
+      "sha256": "360f746e4efb8f24cf64d2b84436e078753df761b789129ce1a84845cbc881a9"
+    },
+    {
+      "path": "packages/windows-authoring/data.js",
+      "bytes": 5341,
+      "sha256": "329ae757ad2a4059ba8764f50e83a641db38f5b09f58d533f7ceb303680402d8"
+    },
+    {
+      "path": "packages/windows-authoring/document.js",
+      "bytes": 4839,
+      "sha256": "c7cb2478f93fd66011e63d899b388e12644b88d814578eca2290bbc0a3359d13"
+    },
+    {
+      "path": "packages/windows-authoring/index.js",
+      "bytes": 1571,
+      "sha256": "70f58adf70f6cefc05db20a3e2254fef73609674789642b337988d741fbabf0f"
+    },
+    {
+      "path": "packages/windows-authoring/journal.js",
+      "bytes": 3681,
+      "sha256": "6282a5043254fd34915d3492e04d7bb30d519f8601555fd55a680f201a121785"
+    },
+    {
+      "path": "packages/windows-authoring/prepare.js",
+      "bytes": 13850,
+      "sha256": "6155181785945a43884bca249fd26f530fc86f063f6c3f0fcd07c9a4c3e32eb0"
+    },
+    {
+      "path": "packages/windows-authoring/window-authoring-v1.schema.json",
+      "bytes": 5236,
+      "sha256": "17294199e8457a0a53f8cbf4158196fa205318f36c4db84b5289d99730fb68f5"
+    },
+    {
+      "path": "packages/windows-core/compatibility.js",
+      "bytes": 807,
+      "sha256": "0f7a715468878ffaed41f78fbeb3176a35e9880e769a41fbf182a549b365d232"
+    },
+    {
+      "path": "packages/windows-core/compiler.js",
+      "bytes": 17549,
+      "sha256": "5c141f121150f3c9e086bfdaa893755d850c7ae987c72051727814ccb3657ad0"
+    },
+    {
+      "path": "packages/windows-core/contract.js",
+      "bytes": 1542,
+      "sha256": "fa73ba87b5337c8f6725c4a5cf19b2b51f6953dd418d5a7d01cf04bc314e18f4"
+    },
+    {
+      "path": "packages/windows-core/data.js",
+      "bytes": 4784,
+      "sha256": "596f98625d2bbee23cab637b629c073b04bd6845b7de3d5190867fcd61321335"
+    },
+    {
+      "path": "packages/windows-core/impact.js",
+      "bytes": 7694,
+      "sha256": "f69586bc0bcbb6295c861ffcade823e86ff581ce7b90f400dbe83e937de68ed2"
+    },
+    {
+      "path": "packages/windows-core/index.js",
+      "bytes": 784,
+      "sha256": "0158b73d0dde4857b7ff140491a01c2c340407363d951b7c81f54137e73b4801"
+    },
+    {
+      "path": "packages/windows-core/query.js",
+      "bytes": 4540,
+      "sha256": "dc83614158564bc07670242a447fd19ae962316273db3a046a29be7707f5a861"
+    },
+    {
+      "path": "packages/windows-core/state.js",
+      "bytes": 7253,
+      "sha256": "45a2e66d4e4130652d8c2c9151e1ac791065026ec37a992efeb72d4dc6922e29"
+    },
+    {
+      "path": "packages/windows-core/window-geometry-v1.schema.json",
+      "bytes": 12444,
+      "sha256": "bc3bee6f7c9763d1150225b40295055b3189038cf62f9c0f8bc02f1e5e499693"
+    },
+    {
+      "path": "packages/windows-core/window-pane-state-v1.schema.json",
+      "bytes": 10779,
+      "sha256": "13cbde060b78170c3f6b0d347fcf37d72063b312c0b32e4ce7bf45cb05f1f162"
+    },
+    {
+      "path": "packages/world-core/extended-world-v1.schema.json",
+      "bytes": 4925,
+      "sha256": "5dd5db04270b4ad1ce35791a22b8723bfeebc10c1dda46c411e26fd63f6628c9"
+    },
+    {
+      "path": "packages/world-core/index.js",
+      "bytes": 488,
+      "sha256": "39de9e5f48fedbbe015ea95baa0cd54a3e9c9ab73ef73b64f3a5a7d2e90ca1df"
+    },
+    {
+      "path": "packages/world-core/legacy.js",
+      "bytes": 4186,
+      "sha256": "a34f0a33fe9137d18e26b52525c754f93900e54c878796085a27585a24bf50ce"
+    },
+    {
+      "path": "packages/world-core/parts-refusal.js",
+      "bytes": 901,
+      "sha256": "237c03959241a6baaf92692a900ac5dfcb35b18207b97610df444017d3e5e69d"
+    },
+    {
+      "path": "packages/world-core/queries.js",
+      "bytes": 5880,
+      "sha256": "b639175cbf0d82607cc9090cc2e0867e399dcece592a0c6bbe717278565b8457"
+    },
+    {
+      "path": "packages/world-core/state.js",
+      "bytes": 11145,
+      "sha256": "122577dce933728b00e8454f52578e46b2717091f116cb0f233844e7186a52cc"
+    },
+    {
+      "path": "packages/world-core/validation.js",
+      "bytes": 5846,
+      "sha256": "31bc3f71471f0148f97d9bc33342f9ae478ce30adb385b561735d5a233b43b53"
+    },
+    {
+      "path": "schemas/aft-block-v1.schema.json",
+      "bytes": 1367,
+      "sha256": "41acddc11526c55fd624ade6595653a49a6bbd6f7def9c79f0ba32e63f517b0a"
+    },
+    {
+      "path": "schemas/aft-map-v2.schema.json",
+      "bytes": 2977,
+      "sha256": "0d100dbf645a26ac66bd07bf3e7989a3ab3c72625d73e195fe6e513b70c99aeb"
+    },
+    {
+      "path": "schemas/capability-requirements-v1.schema.json",
+      "bytes": 1019,
+      "sha256": "829853b59e86709c653202fdf8888ddb7be2fd663c28b93b7ccf28303a5d62e4"
+    },
+    {
+      "path": "schemas/compiled-parts-v1.schema.json",
+      "bytes": 21921,
+      "sha256": "680bbe3c21e797db365dd76bb8f274c509dcc3dee973e1922890253e0d6d401b"
+    },
+    {
+      "path": "schemas/functional-parts-v1.schema.json",
+      "bytes": 5980,
+      "sha256": "98bb9d2db7e71236faef5bcfa59a1f9f44efc5e6d50e282b7549e31ccfbf61a4"
+    },
+    {
+      "path": "schemas/grenade-state-v1.schema.json",
+      "bytes": 20582,
+      "sha256": "d6302d5c7c65619ed8eab39ae9b28cf6a5817c346417010e5dcace9ac09b6dec"
+    },
+    {
+      "path": "schemas/module-configuration-v1.schema.json",
+      "bytes": 2456,
+      "sha256": "7b21905fbf63d9d052b79f94e20b95969a3466f61b29a5509833ad2443ad5e60"
+    },
+    {
+      "path": "schemas/nautilus-save-v1.schema.json",
+      "bytes": 1499,
+      "sha256": "d949ef45713d93e742ad6021b2c85d4990e5f25a04ad97b934bb773540b32a9b"
+    },
+    {
+      "path": "schemas/part-definition-v1.schema.json",
+      "bytes": 19502,
+      "sha256": "70d5069c4bc6b8e6e2f0f0ff3030a003fd766d635281b33053e0b07f48e526bb"
+    },
+    {
+      "path": "schemas/parts-runtime-save-v1.schema.json",
+      "bytes": 11419,
+      "sha256": "7373bb547f52d5a2d3d2f30c8e32b8b7301a61aa6982504d269d2935107dcdc2"
+    },
+    {
+      "path": "schemas/progression-v1.schema.json",
+      "bytes": 15340,
+      "sha256": "aaaefc6de87a29be4e84a6d002e62a9f14fa562d7eb9ae640971783c537cb4b2"
+    },
+    {
+      "path": "schemas/railway-routes-v1.schema.json",
+      "bytes": 1073,
+      "sha256": "935a7db4251a5a9105d97974e3e999059285f5a3c114216e5e01183bee7b75b3"
+    },
+    {
+      "path": "schemas/railway-routes-v2.schema.json",
+      "bytes": 1374,
+      "sha256": "43d22950e98c62bda9682a4d010259d3dc526bbfbf69b134efa60a93f7e11913"
+    },
+    {
+      "path": "schemas/railway-routes-v3.schema.json",
+      "bytes": 648,
+      "sha256": "6296c51f34204ed6adab7bba0ae1f3c0b6e7c61f82192a0d4700caa76adebf86"
+    },
+    {
+      "path": "schemas/railway-routes-v4.schema.json",
+      "bytes": 1099,
+      "sha256": "572bd1a350d34c3c53f9c850dadc969924b48651211edb6e34dbf9e5fe73c106"
+    },
+    {
+      "path": "schemas/railway-routes-v5.schema.json",
+      "bytes": 1002,
+      "sha256": "676476e80cebc66411541f766ebeb37279cc0d1e10d2930f1789157fd84f9b48"
+    },
+    {
+      "path": "schemas/railway-routes-v6.schema.json",
+      "bytes": 1691,
+      "sha256": "a3ee9caeeecff9864e9394833bd3a47796f65eb444de179047b770cfcb3ea044"
+    },
+    {
+      "path": "schemas/rock-impact-noise-v1.schema.json",
+      "bytes": 2326,
+      "sha256": "4432b7fd7b81ec481b9b97b8f15fcfda756ad2bdf5a365b0a35ea58a5ad8711f"
+    },
+    {
+      "path": "schemas/rock-v1.schema.json",
+      "bytes": 6537,
+      "sha256": "a288f89fec80e28ebdb191b62b0f0d9b2799d77c13ecdf078ca82ea84d493039"
+    },
+    {
+      "path": "schemas/sloped-roofs-v1.schema.json",
+      "bytes": 2570,
+      "sha256": "8aadf03c6d31cfa712b20d5ad9764b7e25a831e7b792fd53e80db5efafeea75d"
+    },
+    {
+      "path": "schemas/standard-interactions-v1.schema.json",
+      "bytes": 6924,
+      "sha256": "cc8c2ae47cbd6776aef442c1c9a4b04423377c4c860f221fc7b365503ba6186f"
+    },
+    {
+      "path": "upstream.json",
+      "bytes": 7397,
+      "sha256": "5be975d42922e6b26f21463ff87c0fb252be43c519cba0c04289de2b759624b7"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/assets/characters/lowpoly-proof/donkey-worker-model-paint-v1.png",
+      "bytes": 1570318,
+      "sha256": "671f63654e5afcb1bb8a61e6267086c3fb8839c78d59dc4750c53f56b8d9968b"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/assets/characters/lowpoly-proof/goat-worker-model-paint-v1.png",
+      "bytes": 1622867,
+      "sha256": "50e63428f990f31cdb2f6df0bee6a9ccb678860bf12dbc95a3fd6e87db73afea"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/assets/characters/lowpoly-proof/horse-worker-model-paint-v1.png",
+      "bytes": 1590294,
+      "sha256": "468ce2d133019dfbcf9ee69439ecb0eb92fecdc20c1306b83536d2a440329b89"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/assets/equipment/painted-ui/grenade-surface.png",
+      "bytes": 2338079,
+      "sha256": "f74ea371f9f2f575ca775791f7cb6163a19be717ab2d1b924b9a8efb6ac4ce36"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/animal-motion-paint.js",
+      "bytes": 3476,
+      "sha256": "99b48a737092c9e9c51478e3b068c131dabdb69ff302f140fe16ae840509ac9d"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/animal-motion-repair-paint.js",
+      "bytes": 4832,
+      "sha256": "f98467281dc0fe362a2a6bdc056540552a6728c387244b30a71c72721f9b3acb"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/biome-family.js",
+      "bytes": 942,
+      "sha256": "f25311fe300b4bb3aa18c587dbe6d35dcd5c74e9a35b9fdd461fc5c270d6e001"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/biome-gameplay-data.js",
+      "bytes": 502,
+      "sha256": "125cd4c3bf9616a62f7afa008d97664029fcf02ef10170a2d07a9d16d2bcb4ab"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/breach-data.js",
+      "bytes": 3809,
+      "sha256": "39db030e6594f4db793109c88c6c8a290dcf354a45ee4bd6375f036531773f5c"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/bridge-trellis.js",
+      "bytes": 1888,
+      "sha256": "9471b97bcefb72b0329fdc85c0d99b94c49c172a7893268844ac6777641d7cbd"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/character-mass.js",
+      "bytes": 278,
+      "sha256": "353d5a71ce4bd6e1a875abad5c449c11538a03b2e056a8e75c14bb82c2fc1cda"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/character-patrol.js",
+      "bytes": 3095,
+      "sha256": "5f5b2c63c8ff51c990e7bb855b4ec093011195648969a1d415c8e1cff4998924"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/character-properties.js",
+      "bytes": 7740,
+      "sha256": "9c48146004c2119ad2231b2b1245ce8f63c3759b634bc44fa4f22cda3550b329"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/character-stats.js",
+      "bytes": 4357,
+      "sha256": "862da30620b0384cd5597417c4576d7f3f75dad5112f5a4f3466024ae9d3ad4d"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/cliff-map.js",
+      "bytes": 1686,
+      "sha256": "503196ea92593ba2724699f43cfd064d38a0aec7f035c308288fd0df4b7310bb"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/cliff-ramps.js",
+      "bytes": 5856,
+      "sha256": "9750e07c9c59893b9421169bda763892dbcb15ce49b6ef05738451428eecbdaf"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/cliff-support.js",
+      "bytes": 747,
+      "sha256": "1e374462bab1402533c8a245afb0732aa37a5e359093b742a1a8f0cfd2542b79"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/climbable-roofs.js",
+      "bytes": 3494,
+      "sha256": "41e9b39fbd556228984c555ec6065d5fb0914e620c6a84d8cdc7b703f6445361"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/climbing-routes.js",
+      "bytes": 945,
+      "sha256": "d0d45d48b610e80d2b584016f1064cba6c980fbeb6aa5052f7c3c2c55b912a47"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/climbing.js",
+      "bytes": 3997,
+      "sha256": "3a3488aa227d22bbeeab3bdb4036b151eaeecf31c66c8646b701299eaf6bd07c"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/combat-state.js",
+      "bytes": 1944,
+      "sha256": "d868ce1b510a5db15e1fb4c067cf0550fdac586869234bccfadf687caf11a60e"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/archetypes.js",
+      "bytes": 16205,
+      "sha256": "470bf7f2bd4ce9b6627c18ee041abf1e63df42769bab7e14e590e93c8ff6756d"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/blocks.js",
+      "bytes": 9174,
+      "sha256": "f2ab84d27e184269da59a7eb752d1bddb2e28a109baba541c28aa087c91491d7"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/connections.js",
+      "bytes": 5263,
+      "sha256": "71d66813df6da52a4761c77fc810ab101501aeaa91847212dfc6049be6739d29"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/editor-model.js",
+      "bytes": 9135,
+      "sha256": "2a07bf44786237b44d6469e36981c4961c000e721a890102175afe0adcf336a0"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/environment.js",
+      "bytes": 6342,
+      "sha256": "09da91feb7a9526181870b3e6f1d4811d448676b6dd24cc354b0087c40b5950c"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/feature-plan.js",
+      "bytes": 2588,
+      "sha256": "26984e86565c50698b43be34811eeb024441ee37edad6395e67bc9483b29bfd3"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/inventory.js",
+      "bytes": 4333,
+      "sha256": "56b68bfb035ff43d71656f92a9fd3b74cc2f8e647901bfe5c213742dfeb374b6"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/maps.js",
+      "bytes": 23284,
+      "sha256": "c5a713d142f303d2de22aba0257729d0cc6e744fba9e5d9bea75e3a61f9ff5a4"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/core/sector-rules.js",
+      "bytes": 1890,
+      "sha256": "d20ee872471a503a60ac706655b19f9ba9857c41882dd6cc6a08d61e3572132a"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/cow-neck-paint.js",
+      "bytes": 3163,
+      "sha256": "4cb753baaef7f6f98c2e035c871f1f16ae87a8ddf7e90da43e231a9f1e827765"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/diagonal-roads.js",
+      "bytes": 1150,
+      "sha256": "427e412356e9cdaa72a4ec581af1e2eb4b203357456f5ed562c7b4bdf99acaeb"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/dialogue-data.js",
+      "bytes": 1882,
+      "sha256": "864408dd2cb957c73020685d7827328ee56f50f703477a7bc90f78455ce0a345"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/dialogue-schema.js",
+      "bytes": 9636,
+      "sha256": "e54a25bc539d15fe2b69ca8ea7393d827689dd0a359113a5d13a7e2c9a432523"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/dialogue-state.js",
+      "bytes": 8873,
+      "sha256": "188d9580fa07c25ae459c1d6d4bac78084dda8bb667941d2aaf8d177c8b0f125"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/dialogue-variables.js",
+      "bytes": 855,
+      "sha256": "fb1c13b44756d26a28a318a5c7cb351e11b5464787a16fdf52e595404aa5ad39"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/dog-motion-paint.js",
+      "bytes": 713,
+      "sha256": "b1e14e4f512fda7394af82f7ec427e5bc2802bf91607e092683f270368a239c1"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/dog-paint-layers.js",
+      "bytes": 3982,
+      "sha256": "ac53bdf81fb3ef12b24f748d8c021fd4e86b51d616c2060fb5fd07c5253e263d"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/donkey-10k-data.json",
+      "bytes": 804201,
+      "sha256": "5dfdf29fbe6df27c820367dccaf105b23f9470d1dddaa3a08b2db26c329e70bd"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/donkey-hawaiian.js",
+      "bytes": 2374,
+      "sha256": "8059368f37bc0e2698ad482b13dd402617759b2b264b5a069d2659d3cd8c0c14"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/donkey-straw-hat.js",
+      "bytes": 2941,
+      "sha256": "cb96953634ba9d28de11daa02bfd943ed1d058df3fc6ae2540478d4ab3c6de53"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/donkey-worker.js",
+      "bytes": 869,
+      "sha256": "9269e670185f2fa40ea436d6251ac3e9c49af4eb86e87914daa8e8c8e88a7e4a"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-breaches.js",
+      "bytes": 1856,
+      "sha256": "42327eb257445a8bdea24317646fe5c0c3d6cfdfe5c6b171fc7f2a33da6829b6"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-canopies.js",
+      "bytes": 2326,
+      "sha256": "c2f81351ca8e352889c5ed82065773e6d9d761b055b03686c07a76ea0246b563"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-foliage-brush.js",
+      "bytes": 4094,
+      "sha256": "191da3be093bf36b8bddfc0aaaf2726863856eeecb1f6ba1320851d882909a10"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-land-brush.js",
+      "bytes": 4648,
+      "sha256": "97ca4310e173b36fe6960f4051cdd525adef930ea38d7cf20e6a6125b745cd6f"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-ramp-stroke.js",
+      "bytes": 1821,
+      "sha256": "4e5e5ab9b95f37cfe803557a7092ebd6c848ea9744b65549beea2896fb5f5930"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-structure-presets.js",
+      "bytes": 425,
+      "sha256": "e924235d20690d06b6d5be5abf1132d78ee73ddfcd3d74f98b5e7d7932dfe53d"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/environment-regions.js",
+      "bytes": 6511,
+      "sha256": "003e1578418440fa0dceb465203f8cb13c10092721dcabd1cb6ecedeafc471ba"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/environment.js",
+      "bytes": 5648,
+      "sha256": "d3d71e1741ad4c22677ab72cba2a5fdeb7bd6fea2c4d33716b6cb8d902e49022"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/explosive-barrels.js",
+      "bytes": 1859,
+      "sha256": "7e012463105901dfc19b82d28794444f5c45099774b54eaf819393d177fe9e45"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/factory-gameplay-data.js",
+      "bytes": 1706403,
+      "sha256": "e3a1d1d2c85a07530fe805d137267bf614d3bbbb7973b9de29abd4a60c840a40"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/factory-gameplay.js",
+      "bytes": 722,
+      "sha256": "84e03b25147fca32855e5c54f76b3c5c68143cef478504078bc2968182e8c94c"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/fall-damage.js",
+      "bytes": 2796,
+      "sha256": "187b4e11af130f0bd0e1846bd261d6eab6819714f8717c24809dba8ffdb42022"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/foliage-data.js",
+      "bytes": 6825,
+      "sha256": "63be51d37c90f06cdc0ddd357b3bf0f5ba753710411742be701cd1052c8868c9"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/foliage-presets.js",
+      "bytes": 932,
+      "sha256": "8751f763ec385989e4816ad75022a7291f7c16365846667931f1a16dcf8b342f"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/foliage-tree-cover.js",
+      "bytes": 714,
+      "sha256": "480284a6d25787fa26712f4e6b68f377d84d9e5c91256c970f49923d2ea07e74"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/game-clock.js",
+      "bytes": 2798,
+      "sha256": "7ccd231484d01c41d4f73de9d31187d59a5e6541a7aa92140829b00c2ff80493"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/goat-10k-data.json",
+      "bytes": 410861,
+      "sha256": "71d31781159f782447cacd8c133d094408b9d13d1b6f35ac31af5ac8cd452b81"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/goat-worker.js",
+      "bytes": 818,
+      "sha256": "a66d29db4b734bb7c65014ed7bf4411792e06807e36953549f3417951356eb19"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/grenade-model.js",
+      "bytes": 5660,
+      "sha256": "455888f6b7330ee929902276fe4b6f079b5bda884206edbdc12f464c55922790"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/hedge-data.js",
+      "bytes": 1743,
+      "sha256": "56fb335124c27afe6cb26c36b72e660ea384d95c95b6a587575b75767ac3b884"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/helicoid-shot.js",
+      "bytes": 6636,
+      "sha256": "f754c42376b2e6836f7ac2d8ad40318ea0f6d173d798d25601ebfbd1be9dc564"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/helicopter-gameplay-data.js",
+      "bytes": 601010,
+      "sha256": "e237d638c2148f2e87b496a0d8c4f797971f60ab24507f67c7021f1f87ac1e3e"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/helicopter-start.js",
+      "bytes": 1594,
+      "sha256": "0ac8f9eeca0886356fe56e0d5bb4476a3a4c04e63f6203f95112c440cf31657a"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/hen-paint-layers.js",
+      "bytes": 5336,
+      "sha256": "497e991b93ffd05f85f5f03df7be19c74c825ca43b48be5a8151b0d5a70e6107"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-10k-data.json",
+      "bytes": 419190,
+      "sha256": "0188bf5c8911ca4270a349dea1fd73a02e285a4ba25d07501686b195e5d567b7"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-graphic-paint.js",
+      "bytes": 4279,
+      "sha256": "716ccefe8f989fe8b50828de3afbe60979bf9c8a952b3d6b45871deb3e87e5e6"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-grip-hand-data.js",
+      "bytes": 36325,
+      "sha256": "1abe555c9775bf3e3ce953c5d532cea36ef165c664b41b321ce5f0dd32b512d1"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-grip-hand.js",
+      "bytes": 3379,
+      "sha256": "a715e4761c72d70d35fd13e88463926bfb67ce87e417d70460363760c75209e6"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-light-model.js",
+      "bytes": 25286,
+      "sha256": "9306a065aed75f3408fd1d5799164241fcfe9add59a6d1dad2568a615e469baa"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-model-paint.js",
+      "bytes": 47101,
+      "sha256": "3e4db27f7267fa1d370b96688f6c695c3e98e5bbc022c655b9e776c20734f407"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-rifle.js",
+      "bytes": 2708,
+      "sha256": "4435a50527433057aeafc3bbf48a35ac9a69c292302da558a76de914c6b7ce24"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/inventory-tools.js",
+      "bytes": 1763,
+      "sha256": "d2a2863b58ae999371789faf8a61829768feb55910f422785979ae7eda8a772f"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/land-paint.js",
+      "bytes": 3151,
+      "sha256": "c7e62d19da150817b2ec2b763f759db9b967d1325c1f2808a22f28609f483d95"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/light-sources.js",
+      "bytes": 5475,
+      "sha256": "39354c2dfb33e7caad041fac45bafb370e4c9ab2637086b1350c63c6e51f9d14"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/map-geometry-cache.js",
+      "bytes": 2022,
+      "sha256": "83d5c96d6c51116efbbd8184152901908b311042304aa9d8c5754c0fd4ea8fcb"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/map-layers.js",
+      "bytes": 666,
+      "sha256": "e3f1c62a87304a9439d6fa901b7001fed66e48ee5800613a8906f5a98e23822d"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/movement-timing.js",
+      "bytes": 330,
+      "sha256": "54bffde4945e03d1c196619d05c2ca9a060c6af3badf1e343c70e55599b22799"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/one-handed.js",
+      "bytes": 1569,
+      "sha256": "7d0e87cbff4694b2cc53fa81d0e49d9b5f3b6111dc3e03fc77882299f4700884"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/rabbit-paint-layers.js",
+      "bytes": 2979,
+      "sha256": "48f65698a5c2a84a2f24935f198b6ba1bab537dcc6e7d45d9b1f3f9c4a49da3c"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/ramp-banks.js",
+      "bytes": 3352,
+      "sha256": "9fd7caeeb4ea7c79ab49c04b3dcd8f22fa78fc4e27f82a5bd81ec9e39455056d"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/red-hat-tailored-paint.js",
+      "bytes": 5590,
+      "sha256": "79e5b0d5c20563324c9c0406dcf5d60ad99237205e214220e9ef14bcd68396e5"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/red-hat-uniform.js",
+      "bytes": 6000,
+      "sha256": "df6b9c7e6104674f8454bb4cd2968b43ea8e10f88d979f080ff5888d52c1c207"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-block-rotation.js",
+      "bytes": 2490,
+      "sha256": "9cf6c3c3051aa161b7b92842a947882e6681960daeebe8d862119ba90a714aeb"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-catalog.js",
+      "bytes": 4614,
+      "sha256": "d1fe9b6fb3f7a1f2feb2221d10984507f9059c7884598a261e3ce671369f530f"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-collision.js",
+      "bytes": 2344,
+      "sha256": "bbeb8a7d9a18445b9486f9a7eb208f90f23572555043e72bb27715209f3caaec"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-index.js",
+      "bytes": 1083,
+      "sha256": "1a1a8e78c818d1b61d50ad9c5134e59729527820004691eb3cda5e0b310c091e"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-placement.js",
+      "bytes": 3010,
+      "sha256": "d699241917db2143ad3b7c5e9f7c4484497399dd2e79f6e935634effeb2b7c31"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/scenery-rules.js",
+      "bytes": 3032,
+      "sha256": "158a3826a019908301eb898ff874eef676536875172812ce254996b9cc2ef941"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/sector-catalog.js",
+      "bytes": 5449,
+      "sha256": "2cf050482f2bb00406e927699e7553564fabc1445c37b3b57d089cf73cb89d96"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/sector-placeholder.js",
+      "bytes": 3889,
+      "sha256": "2e7048cb5be18dfe516b671f911cea93147123e511869cce40421519a8941a4b"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/sheep-paint-layers.js",
+      "bytes": 4550,
+      "sha256": "b569f4560849ecc747cf4daead3e7a9c0e7c3c65845fe3db3caf037f2e668cf7"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/spotlight-path.js",
+      "bytes": 2296,
+      "sha256": "36a88658e80f5b87c064df91369beb62b5e01c0f9e51ef33a41a1d7e08f010c0"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/squad-ammo.js",
+      "bytes": 4583,
+      "sha256": "15feb610d8f2a689172a0b4f3da991af7dff3056db20ab500981b737af2000c5"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/stone-arch-geometry.js",
+      "bytes": 3175,
+      "sha256": "575b8c66cc10102715b5947b1e5ac6a72fb2711062ae007c712c9398de36563f"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/stone-arches.js",
+      "bytes": 2845,
+      "sha256": "57db649d02b9d6adaa2f4b71e57f16452a2cfd03d55bc8f3d74d2fe2a141003f"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/strategic-site-data.js",
+      "bytes": 2886480,
+      "sha256": "705750528fa5bf24f9c4665548abc987b69f5ec4a7f50c1a179bc539cc0fb2eb"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/strategic-site-rules.js",
+      "bytes": 7744,
+      "sha256": "22ae318dea52bd377fe560aaff404c96e7e9ef50d0af752d276c6cd673b33a17"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/structure-collapse.js",
+      "bytes": 3426,
+      "sha256": "01c23602abc415f3df3e9dabaa66bd5043c5a07b573852eadac3c86e771490aa"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/structure-health.js",
+      "bytes": 4746,
+      "sha256": "97d8f63285c7a21bf5ed10134efdd7b49ddc5f5c21e753e9b46e8fbc482a7a49"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/tower-geometry.js",
+      "bytes": 5813,
+      "sha256": "3d39168e23d0c09f0a2a325c272a71a88ba250c059c228e95cdbb47c070a5c0a"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/tutorial-mission.js",
+      "bytes": 2680,
+      "sha256": "7269595d868e63ba03336b387e49147f3dc1d09a772c2f8ba78b1b9613300f68"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/THREE-LICENSE.txt",
+      "bytes": 1081,
+      "sha256": "bfe119ea4fd413f5f7ca3fcd63adb0c4a073ed39daa2fe7d3e6b769e21272601"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/babble/LICENSE",
+      "bytes": 1080,
+      "sha256": "1300b87db887b22c60e46e86fc3be6a428cd4eb2ea0cf57dca4417c3868be167"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.core.js",
+      "bytes": 1403454,
+      "sha256": "94337bbcde63e61eb954f00d2ad72d122d1cc3dc3e0de68e57277eca3d30af47"
+    },
+    {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.module.js",
+      "bytes": 603412,
+      "sha256": "d9a445771c0eff3e160db2819dc7051028ab7cfc043176f75f85ba2c40547e1d"
+    },
+    {
+      "path": "vendor/farmyard-door-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a/NOTICE.md",
+      "bytes": 830,
+      "sha256": "de72f961b89773afc485c505af00fed4c405517edd844360800cdc72c9f646d8"
+    },
+    {
+      "path": "vendor/farmyard-door-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a/provenance.json",
+      "bytes": 14872,
+      "sha256": "18d5ca22d47ea88961b1d730ba08e77ecec75007f646bd8c723953616fc74ca0"
+    },
+    {
+      "path": "vendor/farmyard-door-visuals/251bf8094b5f9ebe44208443084c1a6d6658512a/sites/tactical-animal/dist/aft/assets/environment/hybrid-surfaces/wood-factory-v2.png",
+      "bytes": 2757790,
+      "sha256": "fd84b8b6dffb4974ce19c51d8a8e0dbe7295a2dddcf8c262eaa94e542ed64021"
+    },
+    {
+      "path": "vendor/farmyard-native-gait/279d2d34786b3e6e5c5baeeac6898e60030afdbe/NOTICE.md",
+      "bytes": 583,
+      "sha256": "c0570a04647b0b3033f4d77e6dfe0c50db13bb3cd70ca0d3da72c924d670542e"
+    },
+    {
+      "path": "vendor/farmyard-native-gait/279d2d34786b3e6e5c5baeeac6898e60030afdbe/provenance.json",
+      "bytes": 717,
+      "sha256": "3ff7ad96b24fea1770743822facfff704d7c0853b650d588410d7fb1ed5dc97c"
+    },
+    {
+      "path": "vendor/farmyard-traversal/7cd3d56e62a8087133a9fdf2f521cf92d310d6fd/NOTICE.md",
+      "bytes": 852,
+      "sha256": "f65dd0057f1d08264ca38d64929b1c8b75965dd83c336d31ef37d295163bd5ac"
+    },
+    {
+      "path": "vendor/farmyard-traversal/7cd3d56e62a8087133a9fdf2f521cf92d310d6fd/original/sites/tactical-animal/dist/designer/a20b343a0234/tactics/vendor/babble/LICENSE.original",
+      "bytes": 1080,
+      "sha256": "1300b87db887b22c60e46e86fc3be6a428cd4eb2ea0cf57dca4417c3868be167"
+    },
+    {
+      "path": "vendor/farmyard-traversal/7cd3d56e62a8087133a9fdf2f521cf92d310d6fd/original/sites/tactical-animal/dist/mount-dora-source/NOTICE.md.original",
+      "bytes": 8106,
+      "sha256": "04579b40906420c34979a34771e6361adce4738b30bcca11703ff1951ef5590c"
+    },
+    {
+      "path": "vendor/farmyard-window-art/251bf8094b5f9ebe44208443084c1a6d6658512a/provenance.json",
+      "bytes": 2859,
+      "sha256": "f16f431e4bf5280cc0482d92f5753f358ad2675482eb5bc45c8f7c790abe12c7"
+    },
+    {
+      "path": "vendor/farmyard-window-art/251bf8094b5f9ebe44208443084c1a6d6658512a/sites/tactical-animal/dist/aft/tactics/vendor/THREE-LICENSE.txt.original",
+      "bytes": 1102,
+      "sha256": "df2a91696186fe58c92518a25d48bc59c8ee2edc7cac9ca6d19a5a0d599a2a05"
+    },
+    {
+      "path": "vendor/farmyard/b2f2b6bd033cc3dbc8b572caa251244d283829c8/sites/tactical-animal/dist/assets/ui/industrial-switches/switch-skins-v2.webp",
+      "bytes": 361972,
+      "sha256": "2894c3ebed7ffd229aea9dbc632a7ccac76b50130d98ab4ee6050eeb60f19f2b"
+    },
+    {
+      "path": "vendor/nautilus-road-vehicles/5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee/packages/vehicle-visuals/reduced-data.js",
+      "bytes": 2999660,
+      "sha256": "c89bb61aabe7c9224dcaa8905ead1552af68171c31dce12d29f6501cbcbfdb28"
+    },
+    {
+      "path": "vendor/nautilus-road-vehicles/5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee/packages/vehicle-visuals/reduced.js",
+      "bytes": 787,
+      "sha256": "1ec9c151d1b7543649248c7d6cc3bb233a8fcc240ee44ba64c4f049dd72f9a82"
+    },
+    {
+      "path": "vendor/nautilus-road-vehicles/5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee/packages/vehicle-visuals/skins/cargo-van.png",
+      "bytes": 3999313,
+      "sha256": "46ef789122e85d9ff38adda0114a22b7c218219f7beefc995128c39ed589e4ea"
+    },
+    {
+      "path": "vendor/nautilus-road-vehicles/5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee/packages/vehicle-visuals/skins/crew-pickup.png",
+      "bytes": 3991487,
+      "sha256": "c2e0bbbe2dcc3080aba8e65b270735ae398d61069d94af19b356f3bee672e710"
+    },
+    {
+      "path": "vendor/nautilus-road-vehicles/5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee/packages/vehicle-visuals/skins/crossover.png",
+      "bytes": 4023235,
+      "sha256": "cf83d93fc6ab72c1c220583f32b1f72d0ac65461bb6ecdc771faba4d0df3c95c"
+    },
+    {
+      "path": "vendor/nautilus-road-vehicles/5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee/packages/vehicle-visuals/skins/hatchback.png",
+      "bytes": 3867823,
+      "sha256": "c9cfd3635cbe41127d7da4372a7c52281b89c198972eefa485638511c49eaf40"
+    },
+    {
+      "path": "vendor/nautilus-road-vehicles/5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee/packages/vehicle-visuals/skins/passenger-van.png",
+      "bytes": 4234724,
+      "sha256": "ecdde4417a783532bffe32e2d2dcd1be2a543366e5635dc99381ae3b803199a2"
+    },
+    {
+      "path": "vendor/nautilus-road-vehicles/5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee/packages/vehicle-visuals/skins/pickup.png",
+      "bytes": 3930842,
+      "sha256": "c02bfed2463cb36fcc85f47a49a42e98f170c2a9b8225474bd4682b047871dac"
+    },
+    {
+      "path": "vendor/nautilus-road-vehicles/5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee/packages/vehicle-visuals/skins/running-gear.png",
+      "bytes": 1584458,
+      "sha256": "d04c45707f4b3a64a4c711d6789c49b880be3f8768e5b53c581c5503572668a7"
+    },
+    {
+      "path": "vendor/nautilus-road-vehicles/5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee/packages/vehicle-visuals/skins/sedan.png",
+      "bytes": 3957575,
+      "sha256": "c71b2360f4ad22142253fef37750eea24f1ebc0308ad8afc06bbe1085f991190"
+    },
+    {
+      "path": "vendor/nautilus-road-vehicles/5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee/packages/vehicle-visuals/skins/utility-suv.png",
+      "bytes": 4136879,
+      "sha256": "74d9ab971cf323cbc3f4e8bd9783e4c02b705bdfe0d78845a5a87e8bed2af101"
+    },
+    {
+      "path": "vendor/nautilus-road-vehicles/5d8962e7764bce3fcfff8f4dfd4883bfec97b0ee/vendor/meshoptimizer/7b2d4f4c817aea55d74dcd65d9763ac2ca608026/LICENSE.md",
+      "bytes": 1079,
+      "sha256": "e4a26033e3551fb2722888949fbb41e77aee628e8e8f04dcffeee301aa7e5634"
+    },
+    {
+      "path": "vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/assets/art/exposition-skins-v1/brick-sienna-v1.png",
+      "bytes": 2388078,
+      "sha256": "17066064a1d9dcf8b128615bba1f1472c0921801e440d619d99b49e8e5962853"
+    },
+    {
+      "path": "vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/assets/art/exposition-skins-v1/roof-slate-v1.png",
+      "bytes": 2333888,
+      "sha256": "04fd7476c41c5d290350aba957db2a6d9234d38b9634c55a834b5afe4e64c25d"
+    },
+    {
+      "path": "vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/assets/art/gross-housing-v1/cedar-shingles-v1.png",
+      "bytes": 2250650,
+      "sha256": "cce3ad634daae358ef319843cc87eee6d0b6df3a58b7cd67d43aae8b624df97c"
+    },
+    {
+      "path": "vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/assets/art/gross-housing-v1/clapboard-ivory-v1.png",
+      "bytes": 2144158,
+      "sha256": "d5a3ee4fdd75dc82aa3c06b52568fcea70caaa89da0e52f152829230f166e654"
+    },
+    {
+      "path": "vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/assets/art/gross-housing-v1/floorboards-oak-v1.png",
+      "bytes": 2663881,
+      "sha256": "9c089b06713a7d252def2d0a383b9419e45f36615eea8c73f633a6aeff1dd464"
+    },
+    {
+      "path": "vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/assets/art/gross-housing-v1/houses.json",
+      "bytes": 124421,
+      "sha256": "dbdfbee6d218a8f3f343f6c9305155a88e60f7728bd28e522011e928e80f709c"
+    },
+    {
+      "path": "vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/assets/art/gross-housing-v1/wallpaper-botanical-v1.png",
+      "bytes": 3267103,
+      "sha256": "6a953461e4886eaa5b8bf3aefce60ab6f964209d875d91be0f3846c221f2da60"
+    },
+    {
+      "path": "vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/src/art/gross-housing.js",
+      "bytes": 26774,
+      "sha256": "581ddc79d0903957af0f0802296f881b9c3ce56cd969dae814b6b388e4cd9056"
+    },
+    {
+      "path": "vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/src/art/resources.js",
+      "bytes": 1291,
+      "sha256": "97addbe3bb9f9f1f2da0f94c8e1160aa7f1fb6161c6ac8e0e1ebfd4f335927f1"
+    },
+    {
+      "path": "vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/src/content/asset-scale.js",
+      "bytes": 1066,
+      "sha256": "6c8773c1317b6b6e0adead577cd819e21ce1ae93b0f20eed2ae0af5bffb3d0ea"
+    },
+    {
+      "path": "vendor/tinderbox-prefabs/6693bfa3fea2edec77649d830de5ac68ba4c1a50/vendor/farmyard-commando/30a3b8cae5f36bb0c1df3685b7fba16f701c2083/sites/tactical-animal/dist/aft/tactics/hybrid-geometry.js",
+      "bytes": 1644,
+      "sha256": "3807e3d16e372ed4ee8fbae40f799d9ed3b8d14236cf102a2de556e0f5f18eed"
+    },
+    {
+      "path": "vendor/tinderbox-train-controls/fb0628605c274550ff8abad50b151843f08747d1/NOTICE.md",
+      "bytes": 796,
+      "sha256": "2a72e16a8c12cdf08b091ca4dc754b80c552fca6c726517a82ff2aedfbf02895"
+    },
+    {
+      "path": "vendor/tinderbox-train-controls/fb0628605c274550ff8abad50b151843f08747d1/assets/art/ui/typography/besley/Besley[wght].ttf",
+      "bytes": 108640,
+      "sha256": "71f352d8859c787631a0978161d48497a72caa69dcae6996d6712a564df86c1e"
+    },
+    {
+      "path": "vendor/tinderbox-train-controls/fb0628605c274550ff8abad50b151843f08747d1/assets/art/ui/typography/besley/OFL.txt",
+      "bytes": 4393,
+      "sha256": "e8d81ba3b06080b764626d4385f319344e102ddf2c08bb4209412ac22d695f69"
+    },
+    {
+      "path": "vendor/tinderbox-train-controls/fb0628605c274550ff8abad50b151843f08747d1/assets/art/ui/typography/manifest.json",
+      "bytes": 6555,
+      "sha256": "3924b18192ef0df315fc90e55392dc3e2309762faf1c853eb2f9efcde3e7702f"
+    },
+    {
+      "path": "vendor/tinderbox-train-controls/fb0628605c274550ff8abad50b151843f08747d1/assets/art/ui/typography/oldstandardtt/OFL.txt",
+      "bytes": 4373,
+      "sha256": "4faa2d9e2ce0a4b5b37e62ee6fafe474a539b31578f7214ed97cc3503aeb8ebd"
+    },
+    {
+      "path": "vendor/tinderbox-train-controls/fb0628605c274550ff8abad50b151843f08747d1/assets/art/ui/typography/oldstandardtt/OldStandard-Regular.ttf",
+      "bytes": 249668,
+      "sha256": "42717a1280b523a506ca2b0285cca380e77fe214b1f6e3d75a8b925005f19eac"
+    },
+    {
+      "path": "vendor/tinderbox-train-controls/fb0628605c274550ff8abad50b151843f08747d1/source.json",
+      "bytes": 7424,
+      "sha256": "dd00fa451b542957600b23a908de5f65535048901aa070364c542c8b57687823"
+    },
+    {
+      "path": "vendor/tinderbox-train-controls/fb0628605c274550ff8abad50b151843f08747d1/vendor/farmyard-commando/30a3b8cae5f36bb0c1df3685b7fba16f701c2083/sites/tactical-animal/dist/aft/assets/environment/hybrid-surfaces/wood-factory-v2.png",
+      "bytes": 2757790,
+      "sha256": "fd84b8b6dffb4974ce19c51d8a8e0dbe7295a2dddcf8c262eaa94e542ed64021"
+    }
+  ]
+}

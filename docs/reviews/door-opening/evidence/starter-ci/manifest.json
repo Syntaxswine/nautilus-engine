@@ -1,0 +1,258 @@
+{
+  "status": "passed",
+  "scope": "CI-only starter acceptance collector correction; no SDK or door runtime change",
+  "runtimeSource": "98c63a743b02782e1904b730abddb206311c10b0",
+  "collectorCommit": "63d930655cc84a626813a0c3fca5c984f23a51b4",
+  "priorFailedHead": "3d8cd6065f8c457a147c4ef3432ad22648d4ba8d",
+  "registrationSHA256": "03114e937448de4bdba44208090b942bbb53a5309514315bb0fc348ba1d97636",
+  "collectorSHA256": "6f4a57ad3278df9659fe797c803a312eec235c8a8b8535404058d4fa0e00e75b",
+  "runtimePackage": {
+    "file": "artifacts/distribution/nautilus-engine-map-core-0.10.0.tgz",
+    "sha256": "5ebcfa72a44b35a74b3821069d0c897902e45ff6d1c9ce2b0dc0842de31c86b8",
+    "bytes": 74105865,
+    "files": 562,
+    "publicExports": 66
+  },
+  "checks": {
+    "starterBrowser": 13,
+    "repository": 1318,
+    "upstream": 32,
+    "builtModules": 655,
+    "registration": 2,
+    "canonicalIndex": 23
+  },
+  "pauseQualification": {
+    "unchanged": true,
+    "reference": "../pause-qualified/qualification.json",
+    "sha256": "a57ad51d95588effd1a46423479191059d3e76685ae7de970c0da9a0705c6253",
+    "instrumentedGroups": 13,
+    "unmodifiedCollectorPassed": false
+  },
+  "retainedHelpers": [],
+  "files": [
+    {
+      "path": "gates/full.log.gz",
+      "bytes": 49821,
+      "sha256": "ad8f9c35458c69f29aa1561f97901014382949919b11fff7cdf76e637be7dfeb",
+      "source": "artifacts/door-starter-ci/full.log",
+      "originalSHA256": "cfd998bef35542a71044552bd95489385e64ac7897356631b767f39c593a08af"
+    },
+    {
+      "path": "gates/check.log.gz",
+      "bytes": 7126,
+      "sha256": "b389aa6d3ea39412dbb9ec682a059c8b83d625f0f5fe75ccf680491cafd55faf",
+      "source": "artifacts/door-starter-ci/check.log",
+      "originalSHA256": "ee21bceeb6049fa962730dd1c28312a014f9159b1856c8210d9aa400bb9ecea7"
+    },
+    {
+      "path": "gates/upstream.log.gz",
+      "bytes": 1491,
+      "sha256": "5066d5807b5a627ed1ebc8623f8f7217626b296f3ea13f0870c3e1929a4859d7",
+      "source": "artifacts/door-starter-ci/upstream.log",
+      "originalSHA256": "6a8fade8c1354910e6a3c7afe0287516a14df32dad748ba64a45292c6b323abb"
+    },
+    {
+      "path": "gates/build.log.gz",
+      "bytes": 283,
+      "sha256": "0306e2651d2441631d9fb78beb2013956ba76545c01eedd0cee16592dd38be23",
+      "source": "artifacts/door-starter-ci/build.log",
+      "originalSHA256": "bed012470f3ec62bc555cd522a42c58a56f51661149848cd717b4c56908cb630"
+    },
+    {
+      "path": "registration.log.gz",
+      "bytes": 243,
+      "sha256": "70c11bd1045a685d6df5c205e86cb49c51fd9319eb9b49330f3f4e4c5484934b",
+      "source": "artifacts/door-starter-ci/registration.log",
+      "originalSHA256": "e7cce551213b78aaef726ff4fad59b03f9aad271f5aa42c5adb38e5577bb9df5"
+    },
+    {
+      "path": "runtime-binding.json",
+      "bytes": 881,
+      "sha256": "052204f5c6ce2b1dc85221dbfd6ffba293c7fc29834d00637d2154dd44078b96",
+      "source": "artifacts/door-starter-ci/runtime-binding.json",
+      "originalSHA256": "052204f5c6ce2b1dc85221dbfd6ffba293c7fc29834d00637d2154dd44078b96"
+    },
+    {
+      "path": "ci-failure.json",
+      "bytes": 495,
+      "sha256": "ce37f40035280282185522d55a15fbbe50df619b77ba9775e8ff8f3aeaeb5383",
+      "source": "artifacts/door-starter-ci/ci-failure.json",
+      "originalSHA256": "ce37f40035280282185522d55a15fbbe50df619b77ba9775e8ff8f3aeaeb5383"
+    },
+    {
+      "path": "ci-failure-excerpt.log.gz",
+      "bytes": 842,
+      "sha256": "4c7aba74c6ae45a6dd339642471edef08a5d47437dfb468f93855f6a7477a4d2",
+      "source": "artifacts/door-starter-ci/ci-failure-excerpt.log",
+      "originalSHA256": "1cbb4a8816c92847f62858d8cba6d57240e9e1f050d06c813e2028729d470198"
+    },
+    {
+      "path": "starter-candidate.log.gz",
+      "bytes": 613,
+      "sha256": "9c8f6a653d726a7fdd071844706815b277811a4c1191ac646e44d6e28a4a9e4b",
+      "source": "artifacts/door-starter-ci/starter-candidate.log",
+      "originalSHA256": "b4b90f0305e8eea2f8f49313d231aecd37462692cbdec1648f45056dce22c4f6"
+    },
+    {
+      "path": "starter-clean.log.gz",
+      "bytes": 613,
+      "sha256": "9c8f6a653d726a7fdd071844706815b277811a4c1191ac646e44d6e28a4a9e4b",
+      "source": "artifacts/door-starter-ci/starter-clean.log",
+      "originalSHA256": "b4b90f0305e8eea2f8f49313d231aecd37462692cbdec1648f45056dce22c4f6"
+    },
+    {
+      "path": "build-clean.log.gz",
+      "bytes": 283,
+      "sha256": "0306e2651d2441631d9fb78beb2013956ba76545c01eedd0cee16592dd38be23",
+      "source": "artifacts/door-starter-ci/build-clean.log",
+      "originalSHA256": "bed012470f3ec62bc555cd522a42c58a56f51661149848cd717b4c56908cb630"
+    },
+    {
+      "path": "full-exit.json",
+      "bytes": 69,
+      "sha256": "7a49b95b01e260ad726d8b78ecae4c050f4c4d071cb3400a5d807f6e7291829d",
+      "source": "artifacts/door-starter-ci/full-exit.json",
+      "originalSHA256": "6024f6c226a57958b5f3ee52293d67588ce9423aa6e5f192074be261f4a76140"
+    },
+    {
+      "path": "gates-exit.json",
+      "bytes": 97,
+      "sha256": "6c25ebc798bcb6e3ac6c0733e186513836cfb8aca21fac9ab35695353d7ad789",
+      "source": "artifacts/door-starter-ci/gates-exit.json",
+      "originalSHA256": "384625ffb55360154c47d179e7e6e63678c1e8784c2d8aef4d92c36ce898c633"
+    },
+    {
+      "path": "helpers-final.json",
+      "bytes": 7176,
+      "sha256": "b68b66f56ac402060c2321246fd884a522c463c98163392eed64fe8c3756c555",
+      "source": "artifacts/door-starter-ci/helpers-final.json",
+      "originalSHA256": "b68b66f56ac402060c2321246fd884a522c463c98163392eed64fe8c3756c555"
+    },
+    {
+      "path": "verification-processes.json",
+      "bytes": 4629,
+      "sha256": "0aab3ac71b26dba6bb9c090a6352a031f821016ccbe9efb6849a465f6886b1cb",
+      "source": "artifacts/door-starter-ci/verification-processes.json",
+      "originalSHA256": "1018ca10abbb80ddeca2f4395ad88565213d2ed66d5672ee71474fe7bba60280"
+    },
+    {
+      "path": "full-process.json",
+      "bytes": 532,
+      "sha256": "827a2a5dffaef502380d6e6cd18265c0673c3bf3b528ae1434fa5e9d089efba6",
+      "source": "artifacts/door-starter-ci/full-process.json",
+      "originalSHA256": "6f630e36a4a2ab3ca141c4d4dc91a1f22a21cb1e309e9636658e03b2d7654d7f"
+    },
+    {
+      "path": "gate-process.json",
+      "bytes": 539,
+      "sha256": "5674bb25e6a0dfd27804aec1f5cba7f17ede9627871f59ec422deaf8aeec8eda",
+      "source": "artifacts/door-starter-ci/gate-process.json",
+      "originalSHA256": "90b0e1156e291b08dc5b12f1b0930e052894a4ac2bea138826727388b284f8a6"
+    },
+    {
+      "path": "index-audit.json",
+      "bytes": 209,
+      "sha256": "ecdef11d344a71517a723575ed2900fb529e642d284f0ed3d87786c5110aeeef",
+      "source": "artifacts/door-starter-ci/index-audit.json",
+      "originalSHA256": "ecdef11d344a71517a723575ed2900fb529e642d284f0ed3d87786c5110aeeef"
+    },
+    {
+      "path": "browser/acceptance.json",
+      "bytes": 4262,
+      "sha256": "8ad61d349b47574bc04af0bb57907bcdf239ef1a0fb38ff668b3f111aa0309a0",
+      "source": "artifacts/game-starter/acceptance.json",
+      "originalSHA256": "8ad61d349b47574bc04af0bb57907bcdf239ef1a0fb38ff668b3f111aa0309a0"
+    },
+    {
+      "path": "browser/cleanup-receipt.json",
+      "bytes": 603,
+      "sha256": "1466154483b59bfb7dd443e0fd5b34407df7822f6b1159cc15265f035ac08767",
+      "source": "artifacts/game-starter/cleanup-receipt.json",
+      "originalSHA256": "1466154483b59bfb7dd443e0fd5b34407df7822f6b1159cc15265f035ac08767"
+    },
+    {
+      "path": "browser/helper-cleanup-history.jsonl",
+      "bytes": 1050,
+      "sha256": "df791b21c5786cd44525c5185baaecd7e6d456291fdc0f1d7e890dcbeca18b14",
+      "source": "artifacts/game-starter/helper-cleanup-history.jsonl",
+      "originalSHA256": "df791b21c5786cd44525c5185baaecd7e6d456291fdc0f1d7e890dcbeca18b14"
+    },
+    {
+      "path": "browser/helper-history.jsonl",
+      "bytes": 2644,
+      "sha256": "1ecde513920bc8b98b5b8fda158b64f46e9b84d172ec472bc391c81bbca3f304",
+      "source": "artifacts/game-starter/helper-history.jsonl",
+      "originalSHA256": "1ecde513920bc8b98b5b8fda158b64f46e9b84d172ec472bc391c81bbca3f304"
+    },
+    {
+      "path": "browser/helper-process.json",
+      "bytes": 1493,
+      "sha256": "e683b6dc279280421c53d5db3eb7ec3617c0ac670f20d32f69b817eb5cf27c81",
+      "source": "artifacts/game-starter/helper-process.json",
+      "originalSHA256": "e683b6dc279280421c53d5db3eb7ec3617c0ac670f20d32f69b817eb5cf27c81"
+    },
+    {
+      "path": "browser/starter-focus-state.json",
+      "bytes": 48025,
+      "sha256": "d634ae2bb85b1aae5da59bb3fad1b2f319f4fce3d8b2a18da38bfd84381d1875",
+      "source": "artifacts/game-starter/starter-focus-state.json",
+      "originalSHA256": "d634ae2bb85b1aae5da59bb3fad1b2f319f4fce3d8b2a18da38bfd84381d1875"
+    },
+    {
+      "path": "browser/title-320.png",
+      "bytes": 73056,
+      "sha256": "99f6e35b6fd416120987fdddc647e96196dadd622213cfdd90581dece18769c9",
+      "source": "artifacts/game-starter/title-320.png",
+      "originalSHA256": "99f6e35b6fd416120987fdddc647e96196dadd622213cfdd90581dece18769c9"
+    },
+    {
+      "path": "browser/title-640.png",
+      "bytes": 89043,
+      "sha256": "84e030e3d56b836d681a50e71f3f1fb8b6fac1c205e648b008087fa9ed4a93f5",
+      "source": "artifacts/game-starter/title-640.png",
+      "originalSHA256": "84e030e3d56b836d681a50e71f3f1fb8b6fac1c205e648b008087fa9ed4a93f5"
+    },
+    {
+      "path": "browser/title-desktop.png",
+      "bytes": 182512,
+      "sha256": "db87ad4f4712f3a37f548f2597629b971efab392d82a32c20ff25e474a3ace09",
+      "source": "artifacts/game-starter/title-desktop.png",
+      "originalSHA256": "db87ad4f4712f3a37f548f2597629b971efab392d82a32c20ff25e474a3ace09"
+    },
+    {
+      "path": "browser/title-phone.png",
+      "bytes": 80680,
+      "sha256": "64f2fb315573b0ec0c885f2352c7fbd6122caab038d04a60ed21d4f47f0a0564",
+      "source": "artifacts/game-starter/title-phone.png",
+      "originalSHA256": "64f2fb315573b0ec0c885f2352c7fbd6122caab038d04a60ed21d4f47f0a0564"
+    },
+    {
+      "path": "browser/yard-mid-stair-desktop.png",
+      "bytes": 145313,
+      "sha256": "07aeb5f7513d124adc01ade167495ec1785ade84a4c340b4f1b616a422ec1d93",
+      "source": "artifacts/game-starter/yard-mid-stair-desktop.png",
+      "originalSHA256": "07aeb5f7513d124adc01ade167495ec1785ade84a4c340b4f1b616a422ec1d93"
+    },
+    {
+      "path": "browser/yard-phone.png",
+      "bytes": 78766,
+      "sha256": "c71e8e6bd14f5b3563ccc2ea6c4e262749316935ba5cf788a3f535a4aa6af7ed",
+      "source": "artifacts/game-starter/yard-phone.png",
+      "originalSHA256": "c71e8e6bd14f5b3563ccc2ea6c4e262749316935ba5cf788a3f535a4aa6af7ed"
+    },
+    {
+      "path": "reproduction/audit-helpers.mjs.txt",
+      "bytes": 3122,
+      "sha256": "ee8032e41fc82bca913a8b7a48d769c3ec672c88fe9bc4e29a80f5148e1276ce",
+      "source": "artifacts/door-starter-ci/audit-helpers.mjs",
+      "originalSHA256": "ee8032e41fc82bca913a8b7a48d769c3ec672c88fe9bc4e29a80f5148e1276ce"
+    },
+    {
+      "path": "reproduction/collect-evidence.mjs.txt",
+      "bytes": 3790,
+      "sha256": "030b99f1a9ee0cb89a2f4b5dc2d64a7e613dcbf02eba9456b7afd888c941aaab",
+      "source": "artifacts/door-starter-ci/collect-evidence.mjs",
+      "originalSHA256": "030b99f1a9ee0cb89a2f4b5dc2d64a7e613dcbf02eba9456b7afd888c941aaab"
+    }
+  ]
+}

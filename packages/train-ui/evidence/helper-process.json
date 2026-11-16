@@ -1,0 +1,56 @@
+{
+  "owner": "01a1810e-3297-7142-ac31-ac504ea8553d",
+  "purpose": "Train HUD fixed-fixture design and input lifecycle review",
+  "project": "Nautilus Engine",
+  "process": {
+    "pid": 12536,
+    "creationFiletime": "134389138721408101",
+    "executable": "C:\\Program Files\\nodejs\\node.exe"
+  },
+  "browser": {
+    "pid": 20124,
+    "creationFiletime": "134389138738553694",
+    "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+  },
+  "port": 62359,
+  "stopFile": "C:\\Users\\baals\\.codex\\worktrees\\nautilus-train-ui\\Nautilus Engine\\artifacts\\train-ui-review\\STOP",
+  "stopMethod": "STOP marker, bounded 180000 ms expiry, or finally closes owned browser and HTTP server",
+  "sourceFiles": [
+    "tools/art-review-browser.mjs",
+    "packages/train-ui/tools/review.mjs",
+    "package.json",
+    "packages/train-ui/index.js",
+    "packages/train-ui/view.js",
+    "packages/train-ui/style.css",
+    "packages/train-ui/feedback.js",
+    "packages/train-ui/compact-model.js",
+    "packages/train-ui/compact-input.js",
+    "packages/train-ui/reverse-intent.js",
+    "packages/train-ui/compact.css",
+    "packages/train-ui/art/steam-cab-surface.svg",
+    "packages/train-ui/fixture/index.html",
+    "packages/train-ui/fixture/study.js",
+    "packages/train-ui/fixture/study.css",
+    "packages/train-ui/tests/scripted-connector.js",
+    "packages/train-ui/tools/review-mechanical.mjs",
+    "packages/train-ui/tools/review-compact.mjs",
+    "packages/train-ui/tools/review-reverse.mjs",
+    "examples/train-yard-host.js",
+    "packages/train-core/index.js",
+    "vendor/tinderbox-train-controls/fb0628605c274550ff8abad50b151843f08747d1/source.json"
+  ],
+  "restart": {
+    "cwd": "C:\\Users\\baals\\.codex\\worktrees\\nautilus-train-ui\\Nautilus Engine",
+    "executable": "C:\\Program Files\\nodejs\\node.exe",
+    "args": [
+      "C:\\Users\\baals\\.codex\\worktrees\\nautilus-train-ui\\Nautilus Engine\\packages\\train-ui\\tools\\review.mjs"
+    ],
+    "dependencies": "Node >=22, Playwright, msedge, project review script and its local module closure",
+    "inputs": "Project source tree and its referenced local assets",
+    "outputs": "artifacts/train-ui-review",
+    "pendingWork": "Stateless review; no in-memory state is needed",
+    "secretReferences": []
+  },
+  "startedAt": "2026-11-11T23:37:54.982Z",
+  "expiresAt": "2026-11-11T23:40:54.982Z"
+}

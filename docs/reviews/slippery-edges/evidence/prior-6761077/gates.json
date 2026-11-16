@@ -1,0 +1,43 @@
+{
+  "status": "passed",
+  "node": "v24.15.0",
+  "checks": [
+    {
+      "name": "indexed source audit",
+      "command": "npm run check -- --tracked",
+      "exitCode": 0,
+      "status": "passed",
+      "log": "artifacts/traversal/check-attempt5.log",
+      "sha256": "b4350a37c916c837ec3faa2247eb7d0e591a8866485c04aa4442a081c443068e"
+    },
+    {
+      "name": "complete repository tests",
+      "command": "node --test --test-concurrency=2 tests/*.test.mjs",
+      "exitCode": 0,
+      "status": "passed",
+      "log": "artifacts/traversal/full-tests-attempt3.log",
+      "sha256": "f668c577f1ce38e7fb46cd085c44ea72e5a816759d6c06a2de4aad63a165cb5c"
+    },
+    {
+      "name": "upstream tests",
+      "command": "npm run test:upstream",
+      "exitCode": 0,
+      "status": "passed",
+      "log": "artifacts/traversal/upstream.log",
+      "sha256": "2dae57ca6a5a3d6933c4cfb1ba1a41c989306cddff605ecf98b8cd4d526c1543"
+    },
+    {
+      "name": "static build",
+      "command": "npm run build",
+      "exitCode": 0,
+      "status": "passed",
+      "log": "artifacts/traversal/build-attempt4.log",
+      "sha256": "bed012470f3ec62bc555cd522a42c58a56f51661149848cd717b4c56908cb630"
+    }
+  ],
+  "repositoryTests": 1310,
+  "upstreamTests": 32,
+  "builtModules": 655,
+  "scheduling": "Two workers; all test files/assertions/timeouts intact",
+  "priorAttempts": "Original full run 1305/1307: root notice and error-label registration issues. Later in-progress gates were gracefully stopped for cadence/JSON corrections. All prior logs retained."
+}

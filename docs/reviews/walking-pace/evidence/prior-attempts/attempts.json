@@ -1,0 +1,26 @@
+{
+  "status": "superseded preflight attempts",
+  "finalGates": "all final gates passed after the source was frozen",
+  "attempts": [
+    {
+      "log": "preflight-check-failure",
+      "reason": "Published parts ABI generator inherited the new default and overshot its route; explicitly reproduces original 2 m/s legacy wire bytes now.",
+      "result": "failed fast; corrected before final run"
+    },
+    {
+      "log": "preflight-tests-interrupted",
+      "reason": "Stopped the concurrent test preflight to correct the generator.",
+      "result": "graceful interruption; not a passing test run"
+    },
+    {
+      "log": "bounds-preflight-check-interrupted",
+      "reason": "Stopped for final discrete-button duration-bound correction.",
+      "result": "graceful interruption; not a passing check"
+    },
+    {
+      "log": "bounds-preflight-tests-interrupted",
+      "reason": "Same final duration-bound correction.",
+      "result": "graceful interruption; not a passing test run"
+    }
+  ]
+}

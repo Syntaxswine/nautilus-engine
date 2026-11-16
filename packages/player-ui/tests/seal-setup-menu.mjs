@@ -1,0 +1,27 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import net from 'node:net';
+import assert from 'node:assert/strict';
+import {createHash} from 'node:crypto';
+import {execFileSync} from 'node:child_process';
+import {fileURLToPath} from 'node:url';
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../../..'),here=path.join(root,'packages/player-ui');
+const sha=bytes=>createHash('sha256').update(bytes).digest('hex'),read=file=>JSON.parse(fs.readFileSync(file));
+const from=path.join(root,'artifacts/player-setup-menu-seam'),to=path.join(here,'evidence/setup-menu');fs.mkdirSync(to,{recursive:true});
+const browser=read(path.join(from,'browser.json'));assert.equal(browser.status,'passed');assert.equal(browser.groups.length,7);
+for(const file of ['browser.json','helper-process.json','helper-history.jsonl','helper-cleanup-history.jsonl','cleanup-receipt.json'])fs.copyFileSync(path.join(from,file),path.join(to,file));
+const history=file=>fs.readFileSync(path.join(from,file),'utf8').trim().split(/\r?\n/).map(JSON.parse),helpers=history('helper-history.jsonl'),receipts=history('helper-cleanup-history.jsonl');
+for(const helper of helpers){const receipt=receipts.find(r=>r.browser.pid===helper.browser.pid&&r.browser.creationFiletime===helper.browser.creationFiletime);assert.ok(receipt);assert.equal(receipt.httpClosed,true);assert.equal(receipt.browserClosed,true);await new Promise((resolve,reject)=>{const server=net.createServer();server.once('error',reject);server.listen(helper.port,'127.0.0.1',()=>server.close(resolve));});}
+const pids=[...new Set(helpers.flatMap(h=>[h.process.pid,h.browser.pid]))];
+const query='$items=@(Get-Process -Id '+pids.join(',')+' -ErrorAction SilentlyContinue);ConvertTo-Json -InputObject @($items|ForEach-Object{[pscustomobject]@{pid=$_.Id;creationFiletime=$_.StartTime.ToUniversalTime().ToFileTimeUtc().ToString()}}) -Compress';
+const live=JSON.parse(execFileSync('powershell.exe',['-NoProfile','-NonInteractive','-Command',query],{encoding:'utf8',windowsHide:true}));
+for(const helper of helpers)for(const process of [helper.process,helper.browser])assert.ok(!live.some(p=>p.pid===process.pid&&p.creationFiletime===process.creationFiletime));
+const node=execFileSync(process.execPath,['--test','packages/player-ui/tests/player-ui.test.mjs'],{cwd:root,encoding:'utf8',windowsHide:true,timeout:30000});assert.match(node,/pass 15/);fs.writeFileSync(path.join(to,'node.log'),node);
+const tsc=process.argv[2];assert.ok(tsc,'Pass an existing read-only compiler.');
+const compiler=execFileSync(process.execPath,[tsc,'--version'],{encoding:'utf8',windowsHide:true}).trim();
+execFileSync(process.execPath,[tsc,'--strict','--noEmit','--target','ES2022','--module','NodeNext','--moduleResolution','NodeNext','--lib','ES2022,DOM','packages/player-ui/tests/types.ts'],{cwd:root,encoding:'utf8',windowsHide:true,timeout:30000});
+const checks={status:'passed',parent:'578a86113395ea3ebcb76c636ce8f0882600d03e',browserGroups:7,nodeTests:15,compiler,negativeTypeControls:(fs.readFileSync(path.join(here,'tests/types.ts'),'utf8').match(/@ts-expect-error/g)||[]).length,helpers:{lifetimes:helpers.length,exactLifetimesExited:true,portsReleased:true,retained:[]},scope:'Additive menu adapter only; no Stage2 startup claim or broad unchanged sweep.'};
+fs.writeFileSync(path.join(to,'checks.json'),JSON.stringify(checks,null,2)+'\n');
+const sourceFile=path.join(here,'source.json'),source=read(sourceFile),files=[];
+function visit(dir){for(const entry of fs.readdirSync(dir,{withFileTypes:true})){const full=path.join(dir,entry.name),relative=path.relative(here,full).replaceAll('\\','/');if(entry.isDirectory())visit(full);else if(relative!=='source.json'){const bytes=fs.readFileSync(full);files.push({path:relative,bytes:bytes.length,sha256:sha(bytes)});}}}visit(here);
+source.setupMenuExtension={parent:checks.parent,evidence:'evidence/setup-menu/checks.json',semantics:'Optional full-recipe adapter; current-menu lifetime only; explicit custom presets; truthful committed receipts.'};source.files=files.sort((a,b)=>a.path.localeCompare(b.path));fs.writeFileSync(sourceFile,JSON.stringify(source,null,2)+'\n');console.log(JSON.stringify(checks));

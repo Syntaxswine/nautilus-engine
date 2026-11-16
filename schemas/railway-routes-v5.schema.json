@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nautilus:schema:railway-routes:5",
+  "title": "Nautilus railway with two trains and signals",
+  "type": "object",
+  "required": ["version", "routes", "trains"],
+  "additionalProperties": false,
+  "properties": {
+    "version": {"const": 5},
+    "routes": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 64,
+      "items": {"$ref": "urn:nautilus:schema:railway-routes:2#/properties/routes/items"}
+    },
+    "trains": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {"$ref": "urn:nautilus:schema:railway-routes:4#/properties/train"},
+      "allOf": [
+        {"contains": {"properties": {"stock": {"const": "steam"}}}},
+        {"contains": {"properties": {"stock": {"const": "electric"}}}}
+      ]
+    }
+  },
+  "$comment": "Each departure must fit its train with shared track clear. Signal locations and occupancy are derived from the routes and the live train positions."
+}

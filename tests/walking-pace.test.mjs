@@ -1,0 +1,25 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {DEFAULT_WALK_SPEED_MPS,createInteractionActor,createInteractionState,createInteractionQueries,walkActor,openInteractionActor,serializeInteractionActor,previewInteraction,applyInteraction,advanceTraversal} from '../packages/interactions/index.js';
+import {createWorld} from '../packages/world-core/index.js';
+import {flatYardContent,createDefaultWorld} from '../packages/player-setup/index.js';
+import {starterFixture} from '../examples/game-starter-host.js';
+const near=(a,b)=>assert.ok(Math.abs(a-b)<1e-8,`${a} != ${b}`);
+function ground(){const w=createWorld({id:'pace-yard',name:'Pace',widthM:40,depthM:40,floorCount:1,storyHeightM:2.12,groundHeightM:0,heightM:6});w.surfaces=[{id:'floor',floorId:'floor-0',role:'floor',supports:true,supportFloorId:'floor-0',bounds:{min:{x:0,y:0,h:0},max:{x:40,y:40,h:0}}}];return w;}
+const actor=options=>createInteractionActor({id:'player',position:{x:3,y:10,h:0},floorId:'floor-0',...options});
+test('public fresh actors and stock content share Farmyard normal walk; diagonal and analog magnitude are preserved',()=>{
+ assert.equal(DEFAULT_WALK_SPEED_MPS,7.2);assert.equal(actor().speedMps,7.2);assert.equal(flatYardContent().actors[0].speedMps,7.2);
+ const w=ground(),s=createInteractionState({worldId:w.id}),q=createInteractionQueries(w,{movementProfile:'disc-slide-v1'});
+ for(const direction of [{x:1,y:0},{x:1,y:1},{x:0,y:-1},{x:.5,y:0}]){const a=actor(),r=walkActor(s,a,{direction,seconds:.5},q);assert.ok(r.ok);const fraction=Math.min(1,Math.hypot(direction.x,direction.y));near(Math.hypot(r.actor.position.x-a.position.x,r.actor.position.y-a.position.y),3.6*fraction);near(r.movement.distanceM,3.6*fraction);assert.deepEqual(a.position,{x:3,y:10,h:0});}
+});
+test('fresh faster walking sweeps a thin wall and closed door; an opened portal and tangent escape remain usable',()=>{
+ const w=ground(),s=createInteractionState({worldId:w.id,doors:[{id:'door',label:'Door',floorId:'floor-0',position:{x:7,y:10,h:0},reachM:5,closedBounds:{min:{x:7.99,y:9,h:0},max:{x:8.01,y:11,h:2}},openBounds:{min:{x:7.99,y:8.9,h:0},max:{x:10,y:9,h:2}},motionBounds:{min:{x:7.9,y:8.9,h:0},max:{x:10,y:11,h:2}},open:false,locked:false}]});
+ for(const movementProfile of ['legacy-box-stop-v1','disc-slide-v1']){const q=createInteractionQueries(w,{movementProfile}),a=actor(),r=walkActor(s,a,{direction:{x:1,y:0},seconds:1},q);assert.ok(r.actor.position.x<=7.74+1e-6);const p=previewInteraction(s,a,{targetId:'door'},q);assert.ok(p.ok);const opened=applyInteraction(s,a,p.command,q),passed=walkActor(opened.state,opened.actor,{direction:{x:1,y:0},seconds:1},q);assert.ok(passed.ok);near(passed.actor.position.x,10.2);}
+ w.surfaces.push({id:'thin-wall',floorId:'floor-0',role:'solid',supports:false,supportFloorId:null,bounds:{min:{x:8,y:0,h:0},max:{x:8.01,y:40,h:2}}});const q=createInteractionQueries(w,{movementProfile:'disc-slide-v1'}),empty=createInteractionState({worldId:w.id}),r=walkActor(empty,actor(),{direction:{x:1,y:1},seconds:1},q);assert.ok(r.ok);assert.ok(r.actor.position.x<7.751);assert.ok(r.actor.position.y>14);assert.ok(r.movement.contacts.length);const along=walkActor(empty,r.actor,{direction:{x:0,y:1},seconds:.1},q);assert.ok(along.ok);near(along.actor.position.y-r.actor.position.y,.72);
+});
+test('explicit slower and alternative speeds retain complete old world checkpoints and partial resources',()=>{
+ for(const speedMps of [2,3,4.5]){const content=flatYardContent({sourcePin:'pace-proof'});content.actors[0].speedMps=speedMps;const h=createDefaultWorld(content,{actorId:'player'});assert.ok(h.walking.request({version:1,actorId:'player',vector:{x:.5,y:0},seconds:.1}).ok);const c=h.checkpoint();c.resources.player={health:7,ap:0,stamina:2.25,inventory:[{id:'yard-key',count:1}]};h.dispose();const restored=createDefaultWorld(flatYardContent({sourcePin:'pace-proof'}),{actorId:'player',checkpoint:c});try{assert.deepEqual(restored.checkpoint(),c);near(restored.read().actor.speedMps,speedMps);assert.ok(restored.walking.request({version:1,actorId:'player',vector:{x:-1,y:0},seconds:.1}).ok);near(restored.read().actor.position.x,c.actors[0].position.x-speedMps*.1);assert.deepEqual(restored.checkpoint().resources,c.resources);}finally{restored.dispose();}}
+});
+test('old explicit speeds and partial stair progress survive actor wire loads without normalization or replay',()=>{
+ for(const speedMps of [2,3,4.5,7.2]){const f=starterFixture();f.actor.position.x=6;f.actor.speedMps=speedMps;const q=createInteractionQueries(f.world),p=previewInteraction(f.state,f.actor,{targetId:'deck-stairs'},q);assert.ok(p.ok);const r=applyInteraction(f.state,f.actor,p.command,q),partial=advanceTraversal(r.state,r.actor,{seconds:.1},q);assert.ok(partial.ok);assert.ok(partial.actor.traversal);const wire=serializeInteractionActor(partial.actor),loaded=openInteractionActor(wire);assert.deepEqual(loaded,partial.actor);assert.equal(serializeInteractionActor(loaded),wire);assert.deepEqual(advanceTraversal(partial.state,loaded,{seconds:0},q).actor,loaded);}
+});

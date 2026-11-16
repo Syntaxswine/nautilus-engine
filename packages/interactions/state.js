@@ -93,8 +93,10 @@ export function openInteractionActor(value){
   }
   return actor;
 }
+// Farmyard's reviewed standing walk; explicit profiles and saved actors keep their pace.
+export const DEFAULT_WALK_SPEED_MPS=7.2;
 export function createInteractionActor(options){
-  const data=interactionData(options);object(data,['id','position','floorId','radiusM','heightM','speedMps'],'actor options',['id','position','floorId']);const {id:actorId,position,floorId,radiusM=.25,heightM=1.7,speedMps=2}=data;
+  const data=interactionData(options);object(data,['id','position','floorId','radiusM','heightM','speedMps'],'actor options',['id','position','floorId']);const {id:actorId,position,floorId,radiusM=.25,heightM=1.7,speedMps=DEFAULT_WALK_SPEED_MPS}=data;
   return openInteractionActor({id:actorId,revision:0,position,floorId,radiusM,heightM,speedMps,traversal:null});
 }
 export function serializeInteractionActor(actor){return JSON.stringify(openInteractionActor(actor));}

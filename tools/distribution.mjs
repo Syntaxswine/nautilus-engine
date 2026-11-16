@@ -7,6 +7,10 @@ import {createHash} from 'node:crypto';
 import {schemaDocuments} from '../packages/map-core/contract-manifest.js';
 import {moduleReferenceGraph} from './module-references.mjs';
 import {sharedArtworkPayloadPaths} from '../packages/assets/artwork.js';
+import {trainPackageFiles} from './train-registration.mjs';
+import {npmFilePatterns} from './npm-files.mjs';
+import {withVehicleExports,vehiclePackageFiles} from './vehicle-package.mjs';
+import {withPlayerSetupExports,playerSetupPackageFiles} from './player-setup-registration.mjs';
 import {FARMYARD_DOOR_VISUAL_RESOURCE_PATHS} from '../packages/door-visuals/three.js';
 export const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const packagePath = path.join(root, 'package.json');
@@ -35,10 +39,10 @@ const supportFiles = () => ['README.md', 'NOTICE.md', 'upstream.json', 'CHANGELO
   'docs/window-authoring.md', 'docs/reviews/window-authoring/registration-request.json', 'docs/reviews/window-authoring/dependencies.json',
   'vendor/farmyard-window-art/251bf8094b5f9ebe44208443084c1a6d6658512a/provenance.json', 'vendor/farmyard-window-art/251bf8094b5f9ebe44208443084c1a6d6658512a/sites/tactical-animal/dist/aft/tactics/vendor/THREE-LICENSE.txt.original',
   'packages/tiles-core/NOTICE.md', 'docs/procedural-tiles.md', 'docs/proposals/procedural-tiles-v1.md', 'docs/reviews/procedural-tiles/source-audit.json', 'docs/reviews/procedural-tiles/registration-request.json',
-  ...schemaDocuments().map(item=>relative(fileURLToPath(item.url))), ...walk(path.join(root, 'schemas')), ...walk(path.join(root, 'vendor')).filter(file => !(file.startsWith('vendor/farmyard-grenades/')||file.startsWith('vendor/farmyard-grenade-visuals/'))).filter(file => /(?:^|\/)(?:license(?:\.[^/]+)?|[^/]*-license\.txt|copying(?:\.[^/]+)?|notice(?:\.[^/]+)?)$/i.test(file))];
+  ...schemaDocuments().map(item=>relative(fileURLToPath(item.url))), ...walk(path.join(root, 'schemas')), ...walk(path.join(root, 'vendor')).filter(file => !(file.startsWith('vendor/mount-dora/')||file.startsWith('vendor/mount-dora-handoff/')||file.startsWith('vendor/farmyard-grenades/')||file.startsWith('vendor/farmyard-grenade-visuals/'))).filter(file => /(?:^|\/)(?:license(?:\.[^/]+)?|[^/]*-license\.txt|copying(?:\.[^/]+)?|notice(?:\.[^/]+)?)$/i.test(file))];
 export function distribution(profile = 'compatibility') {
   const source = sourcePackage(); let exports = source.exports, extras = [];
-  if (profile === 'core') exports = Object.fromEntries(Object.entries(exports).filter(([id]) => !id.endsWith('/three') && !id.startsWith('./render-effects') && !id.startsWith('./floors/') && !id.startsWith('./game-ui/') && !['./grenades/ui','./grenades/style.css','./grenades/view'].includes(id)));
+  if (profile === 'core') exports = Object.fromEntries(Object.entries(exports).filter(([id]) => !id.endsWith('/three') && !id.startsWith('./render-effects') && !id.startsWith('./floors/') && !id.startsWith('./game-ui/') && !['./grenades/ui','./grenades/style.css','./grenades/view','./trains/ui','./trains/style.css'].includes(id)));
   else if (profile === 'renderer') { exports = Object.fromEntries(Object.entries(exports).filter(([id]) => id.endsWith('/three') || id === './render-effects' || id === './grenades/view')); exports['.'] = './packages/assets/three.js'; exports['./assets'] = source.exports['./assets']; extras = resources(); }
   else if (profile === 'assets') { exports = {'.': './packages/assets/files.js', './catalogue': './packages/assets/index.js'}; extras = walk(path.join(root, 'assets/buildings')).filter(file => !file.endsWith('.report.json') && !file.endsWith('.recipe.json')); }
   else if (profile === 'compatibility') extras = resources();
@@ -49,9 +53,16 @@ export function distribution(profile = 'compatibility') {
   if(profile==='core'||profile==='compatibility')extras.push('packages/tile-stack-core/README.md','packages/tile-stack-core/api.d.ts','packages/tile-stack-core/source.json');
   if(profile!=='assets')extras.push('packages/tile-finishes/README.md','packages/tile-finishes/source.json','docs/stacked-tiles.md');
   if(profile==='core'||profile==='compatibility')extras.push('packages/tile-authoring-core/index.d.ts','packages/tile-authoring-core/contract.schema.json','packages/tile-authoring-core/README.md','packages/tile-authoring-core/source.json','docs/tile-authoring.md');
-  extras.push('packages/assets/index.d.ts','packages/assets/artwork.d.ts','packages/assets/artwork-source.json','docs/shared-artwork.md');
+  extras.push('packages/assets/index.d.ts','packages/assets/artwork.d.ts','packages/assets/artwork-source.json','docs/shared-artwork.md','docs/railway-track-kit.md');
   if(profile==='renderer'||profile==='assets')extras.push('packages/tile-authoring-core/index.d.ts');
   if(profile!=='core')extras.push(...sharedArtworkPayloadPaths());
+  extras.push(...trainPackageFiles(profile));
+  exports=withPlayerSetupExports(exports,profile);
+  extras.push(...playerSetupPackageFiles(profile));
+  exports=withVehicleExports(exports,profile);
+  extras.push(...vehiclePackageFiles(profile));
+  if(profile==='core'||profile==='compatibility')extras.push('packages/traversal-core/index.d.ts','packages/traversal-core/README.md','packages/traversal-core/source.json');
+  if(profile!=='assets')extras.push('docs/donnelly-interior.md','docs/projects/donnelly-house/resolved-interior-v1.json','docs/donnelly-circulation.md','docs/projects/donnelly-house-interior.md','docs/projects/donnelly-house/plan.json','docs/projects/donnelly-house/ground.svg','docs/projects/donnelly-house/upper.svg','docs/projects/donnelly-house/attic.svg','packages/mount-dora-core/README.md','packages/mount-dora-core/NOTICE.md','packages/mount-dora-core/source.json','packages/mount-dora-core/usage-card.json','docs/mount-dora.md');
   const files = [...new Set([...moduleClosure(Object.values(exports)), ...extras, ...supportFiles()])].sort();
   if (files.some(file => (file.startsWith('vendor/farmyard-grenades/')||file.startsWith('vendor/farmyard-grenade-visuals/')))) throw Error('Distribution includes test-only Farmyard grenade game sources.');
   if (profile === 'core' && files.some(file => /(?:^|\/)(?:three(?:\.module|\.core|\.tsl)?\.js|painted-[^/]+\.js)$/.test(file))) throw Error('Headless core distribution reaches renderer machinery.');
@@ -66,15 +77,20 @@ function npm(args, cwd) {
   if (!npmCli) throw Error('Run through npm, or use a Node installation containing npm, to create the offline distribution.');
   return execFileSync(process.execPath, [npmCli, ...args], {cwd, encoding:'utf8', windowsHide:true, maxBuffer:8*1024*1024});
 }
+export function packageProvenance(profile,records,{version=sourcePackage().version}={}) {
+  const git=args=>execFileSync('git',args,{cwd:root,encoding:'utf8',windowsHide:true}).trim();
+  const source={kind:'git-worktree',commit:git(['rev-parse','HEAD']),tree:git(['rev-parse','HEAD^{tree}']),dirty:!!git(['status','--porcelain']),payloadSHA256:createHash('sha256').update(JSON.stringify(records)).digest('hex')};
+  return {schemaVersion:1,profile,version,source,files:records};
+}
 export function packProfile(profile) {
   const {exports, files, name} = distribution(profile), source = sourcePackage(), output = path.join(root, 'artifacts/distribution');
   const stage = path.join(output, 'stage-' + profile); fs.mkdirSync(stage, {recursive:true});
   for (const file of files) { const destination = path.join(stage, file); fs.mkdirSync(path.dirname(destination), {recursive:true}); fs.copyFileSync(path.join(root, file), destination); }
   const manifest = {name, version: source.version, private:true, type:'module', description:source.description, engines:source.engines, exports,
-    files:[...files, 'package-provenance.json']};
+    files:npmFilePatterns([...files, 'package-provenance.json'])};
   fs.writeFileSync(path.join(stage, 'package.json'), JSON.stringify(manifest, null, 2) + '\n');
-  fs.writeFileSync(path.join(stage, 'package-provenance.json'), JSON.stringify({schemaVersion:1, profile, version:source.version,
-    files:files.map(file=>({path:file,bytes:fs.statSync(path.join(root,file)).size,sha256:createHash('sha256').update(fs.readFileSync(path.join(root,file))).digest('hex')}))}, null, 2));
+  const records=files.map(file=>({path:file,bytes:fs.statSync(path.join(root,file)).size,sha256:createHash('sha256').update(fs.readFileSync(path.join(root,file))).digest('hex')}));
+  fs.writeFileSync(path.join(stage, 'package-provenance.json'), JSON.stringify(packageProvenance(profile,records,{version:source.version}), null, 2));
   const packed = JSON.parse(npm(['pack', '--ignore-scripts', '--json', '--pack-destination', output], stage))[0];
   const result = {profile, name, version:source.version, file:path.join(output,packed.filename), compressedBytes:packed.size, unpackedBytes:packed.unpackedSize, fileCount:packed.entryCount, integrity:packed.integrity};
   fs.writeFileSync(path.join(output, profile + '-report.json'), JSON.stringify(result, null, 2)); return result;
@@ -133,8 +149,8 @@ assert.equal(typeof globalThis.window,'undefined');console.log('Installed extern
 }
 const invoked = process.argv[1] && pathToFileURL(path.resolve(process.argv[1])).href === import.meta.url;
 if (invoked) {
-  if (process.argv.includes('--write')) { const pkg=sourcePackage();pkg.files=distribution().files;fs.writeFileSync(packagePath,JSON.stringify(pkg,null,2)+'\n');console.log('Updated explicit compatibility-package file whitelist.'); }
-  else if (process.argv.includes('--check')) { if (JSON.stringify(sourcePackage().files)!==JSON.stringify(distribution().files)) throw Error('Package whitelist is stale; run node tools/distribution.mjs --write.');console.log('Verified explicit distributable files and runtime dependency closure.'); }
+  if (process.argv.includes('--write')) { const pkg=sourcePackage();pkg.files=npmFilePatterns(distribution().files);fs.writeFileSync(packagePath,JSON.stringify(pkg,null,2)+'\n');console.log('Updated explicit compatibility-package file whitelist.'); }
+  else if (process.argv.includes('--check')) { if (JSON.stringify(sourcePackage().files)!==JSON.stringify(npmFilePatterns(distribution().files))) throw Error('Package whitelist is stale; run node tools/distribution.mjs --write.');console.log('Verified explicit distributable files and runtime dependency closure.'); }
   else if (process.argv.includes('--test-ui')) console.log(JSON.stringify(testExternalPackage('compatibility'),null,2));
   else if (process.argv.includes('--test-grenade-renderer')) console.log(JSON.stringify(testExternalPackage('renderer'),null,2));
   else if (process.argv.includes('--test-assets')) console.log(JSON.stringify(testExternalPackage('assets'),null,2));

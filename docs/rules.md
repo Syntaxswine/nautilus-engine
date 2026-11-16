@@ -102,6 +102,40 @@ Only AP and stamina costs are managed here. Ammunition, inventory, turn ownershi
 
 `./rules/aft` exposes the original climbing and injury helpers on their original AFT unit/state shapes. It intentionally preserves carried-weight, fatigue, wound, rusty-ladder, route and RNG fields. It does not accept a portable character without an adapter.
 
+## AFT weapon spread and trace
+
+`traceAftShot` in `./rules/aft` takes a settled `decision` with `rolledHit`, `chance` and an optional D20 `die`. Pass the saved unsigned 32-bit `seed` after the host's roll if both operations use the same stream. Use Nautilus `{x, y, h}` world points for `origin` and `aim`. All three coordinates are in metres. The adapter reads `h` for height even when a point also carries a tactical floor `z`. Supply a positive `maxReach` in metres. Chance and precision use 0–100, with AFT's internal clamps. Precision defaults to 80. Omit `pellets` for one round or pass 6 for an AFT-style shotgun shell. Counts from 1 to 64 are supported.
+
+```js
+import {traceAftShot} from '@nautilus-engine/map-core/rules/aft';
+
+const muzzle = {x: 0, y: 0, h: 1.35};
+const aimPoint = {x: 0, y: 20, h: 1.2};
+const shot = traceAftShot({
+  decision: settledRoll, seed: settledRoll.seed,
+  origin: muzzle, aim: aimPoint, maxReach: weapon.reachM,
+  precision: weapon.precision, pellets: weapon.pellets ?? 1
+}, {
+  strikesSelectedRegion: ray => snapshot.intersectsSelectedRegion(ray),
+  trace: ray => snapshot.firstContact(ray)
+});
+
+if (host.commitShot({commandId, expectedRevision: snapshot.revision,
+    nextSeed: shot.seed, rays: shot.rays})) {
+  for (const ray of shot.rays) tracers.emit({from: ray.origin, to: ray.endpoint});
+}
+```
+
+Use `@nautilus-engine/core/rules/aft` in an installed headless Core package. The selected-region callback takes `{origin, direction}` and returns whether the forward ray intersects the selected region. Use it for a targeted miss and query that region independently of scenery and weapon reach, as in AFT. Ground and untargeted shots can omit it. The world trace receives `{origin, direction, maxReach, rangeEndpoint}`. Points and unit directions use `{x, y, h}`. The trace returns the first contact as `{kind, distance, id?, region?}` or `null` for clear reach. Distance is measured along the ray. Use `kind: 'world'` for scenery and `kind: 'actor'` with an ID for actors. The callbacks read the same host snapshot. An impossible silhouette clearance or invalid input or query result throws.
+
+Each returned ray has a contact and an endpoint calculated from the ray at the contact distance or at full reach. An off-target shot can hit scenery or another actor, and the contact may carry the physical region reported by the host. The host commits damage, AP, ammo and the returned seed together. Use the committed endpoint for a tracer or firearm feedback.
+
+A direct single round uses zero spread draws. A miss with an actual die uses one scatter draw and one rotation draw. Without a die, a miss first samples the D20 conditional on a failure and reports it separately as `scatterDie`. The existing hit decision is preserved. Additional pellets use the donor phase and radius draws around the centre ray. The pinned source is AFT `781246a668c723d5a4c5463e70534cc04b6a5641` in `helicoid-shot.js` and `ballistic-shot.js`.
+
+Run the focused source comparison with `node --test tests/aft-shot-spread.test.mjs` and the offline installed proof with `node tools/test-aft-shot-spread-package.mjs`.
+
+Prefer this profile when a game needs AFT's consequence of a miss continuing through the scene. The ray and seed are source-compatible. The angular spread is game tuning. Source inspection shows one world trace per ray plus bounded silhouette checks for targeted misses. Processor cost is unmeasured. The original percentage policy remains available for games that only need a hit decision.
+
 ## Adoption
 
 The three games still use their own pinned implementations. Adopt one bounded consumer feature at a time: sheet projection, stat derivation, skill checks, then an attack adapter with parity tests. Keep existing saves, balance and scheduling until the consumer explicitly migrates them. A full RPG editor, shared inventory/effect registries, general encounter scheduler and character-sheet UI are later milestones. The current editor continues to author its existing AFT actor schema.

@@ -1,0 +1,4 @@
+// Source-only checks through declared public exports. Installed proof is separate.
+import {registerHooks} from 'node:module';import fs from 'node:fs';
+const root=new URL('../../',import.meta.url),pkg=JSON.parse(fs.readFileSync(new URL('package.json',root))),name=pkg.name;
+registerHooks({resolve(specifier,context,next){if(specifier===name||specifier.startsWith(name+'/')){const key=specifier===name?'.':'.'+specifier.slice(name.length),entry=pkg.exports[key];if(!entry)throw Error('Undeclared public export: '+specifier);return {shortCircuit:true,url:new URL(entry,root).href};}return next(specifier,context);}});

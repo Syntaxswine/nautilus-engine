@@ -3,6 +3,7 @@ import {assetPreview} from './asset-preview.js';
 import {InspectionScene} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/editor-3d-scene.js';
 import * as T from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/vendor/three.module.js';
 import {DIMENSIONS} from '../../vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/hybrid-world.js';
+import {createRailwayKit} from '../../packages/railway-visuals/three.js';
 
 export function installAssetLibrary() {
   const $ = id => document.getElementById(id), assets = editorAssets();
@@ -14,7 +15,7 @@ export function installAssetLibrary() {
     <p id="asset-count" role="status"></p><div class="asset-body"><div id="asset-results" aria-label="Asset results"></div><section class="asset-inspector" aria-labelledby="asset-name"><div class="asset-stage"><canvas id="asset-preview" aria-label="Selected asset preview"></canvas><span>1 tile = 1 metre</span></div><div class="asset-turns"><button id="asset-turn" aria-label="Turn preview">↻ Turn view</button><span>Preview only</span></div><h2 id="asset-name"></h2><p id="asset-footprint"></p><div id="asset-appearance" class="asset-filters" hidden><label>Preview weapon<select id="asset-weapon"></select></label><label>Preview outfit<select id="asset-outfit"></select></label></div><p id="asset-note"></p><p id="asset-preview-status" role="status"></p><button id="asset-use">Use this asset</button></section></div>`;
   document.body.append(dialog);
   for (const name of ASSET_CATEGORIES) $('asset-category').add(new Option(name,name));
-  let selected, scene, view, frame = 0, ticket = 0, loading = false;
+  let selected, scene, view, railwayKit, railwayModel, frame = 0, ticket = 0, loading = false;
   const failures = new Map();
   let canvas = $('asset-preview'); const use = $('asset-use');
   function fitPreview() {
@@ -64,6 +65,8 @@ export function installAssetLibrary() {
     }
     for (const button of $('asset-results').children) button.setAttribute('aria-pressed',String(button.dataset.asset === asset.category+':'+asset.id));
     try {
+      railwayModel?.dispose();
+      railwayModel = null;
       if (!scene) {
         let owned;
         owned = new InspectionScene(canvas,() => {if (scene === owned) diagnostics();});
@@ -75,6 +78,13 @@ export function installAssetLibrary() {
       const owned = scene;
       $('asset-preview-status').textContent = 'Loading preview…'; await owned.open(preview.document);
       if (current !== ticket || scene !== owned) return;
+      if (preview.railway) {
+        const {id,x,z} = preview.railway;
+        railwayKit ??= createRailwayKit(T);
+        railwayModel = railwayKit.create(id);
+        railwayModel.root.position.set(x,0,z);
+        owned.scene.add(railwayModel.root);
+      }
       loading = false; diagnostics();
     } catch (error) {
       if (current !== ticket) return;
@@ -105,6 +115,11 @@ export function installAssetLibrary() {
   use.onclick = () => {
     if (!selected || use.disabled) return;
     if (window.editor3d?.loading) { $('asset-preview-status').textContent = 'Wait for the map to finish loading.'; return; }
+    if (selected.railwayPiece) {
+      if (window.editor3d.document.block) { $('asset-preview-status').textContent = 'Switch to the full map workspace to lay railway.'; return; }
+      const floor = $('floor');
+      if (floor.value !== '0') { floor.value = '0'; floor.dispatchEvent(new Event('change')); }
+    }
     const tool = $('edit-tool'); tool.value = selected.tool; tool.dispatchEvent(new Event('change'));
     const bindings = {...selected.bindings};
     if (selected.category === 'People') {bindings['unit-weapon'] = $('asset-weapon').value; bindings['unit-outfit'] = $('asset-outfit').value;}
@@ -124,17 +139,22 @@ export function installAssetLibrary() {
     if (getComputedStyle($('nautilus-options')).display !== 'none') {
       document.body.classList.add('nautilus-options-open'); $('nautilus-options').setAttribute('aria-expanded','true');
     }
-    $('status').textContent = `${selected.name} selected. Click or drag in the map to place.`;
+    $('status').textContent = selected.railwayPiece ? 'Railway selected. Click or tap the map to add waypoints.' :
+      `${selected.name} selected. Click or drag in the map to place.`;
     tool.focus();
   };
   function releaseScene() {
     cancelAnimationFrame(frame); frame = 0;
     const owned = scene; scene = null; view = null;
-    try {owned?.dispose();}
+    const rails = railwayKit; railwayKit = railwayModel = null;
+    try {rails?.dispose();}
     finally {
-      try {owned?.renderer.forceContextLoss();}
+      try {owned?.dispose();}
       finally {
-        const fresh=canvas.cloneNode();resize.unobserve(canvas);canvas.replaceWith(fresh);canvas=fresh;resize.observe(canvas);
+        try {owned?.renderer.forceContextLoss();}
+        finally {
+          const fresh=canvas.cloneNode();resize.unobserve(canvas);canvas.replaceWith(fresh);canvas=fresh;resize.observe(canvas);
+        }
       }
     }
   }

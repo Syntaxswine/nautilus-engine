@@ -1,0 +1,2453 @@
+{
+  "kind": "nautilus-test-ground-agent-run",
+  "version": 1,
+  "installation": {
+    "package": {
+      "file": "artifacts/distribution/nautilus-engine-map-core-0.10.0.tgz",
+      "sha256": "21ce8c057c854b900b0fd339789cc967898acdb9c2696b8feed61ca82825ed73",
+      "bytes": 35655714,
+      "files": 501,
+      "publicExports": 61
+    },
+    "engineCommit": "0640dab2f8dfe5d9facbe9ded831855e0376d22a"
+  },
+  "checklist": {
+    "version": 1,
+    "recipe": {
+      "kind": "nautilus-test-ground-recipe",
+      "version": 1,
+      "content": {
+        "id": "night-ledger-independent-ground",
+        "version": 1,
+        "sourcePin": "81ddf363e524e967159703246e49ef334d0d1e65"
+      },
+      "engineSource": "0640dab2f8dfe5d9facbe9ded831855e0376d22a",
+      "seed": 1947,
+      "plots": [
+        {
+          "slot": "west",
+          "fixture": "gatehouse",
+          "version": 1
+        },
+        {
+          "slot": "east",
+          "fixture": "supply-store",
+          "version": 1
+        }
+      ],
+      "objective": {
+        "id": "door-passage",
+        "version": 1,
+        "slot": "west"
+      },
+      "conditions": {
+        "id": "transition",
+        "version": 1
+      },
+      "observers": {
+        "profile": "full",
+        "version": 1
+      },
+      "probe": "ordinary"
+    },
+    "playerSetup": {
+      "kind": "nautilus-player-setup",
+      "version": 1,
+      "engine": {
+        "package": "@nautilus-engine/map-core",
+        "version": "0.10.0",
+        "sourcePin": "7f50cb2a48aef87a16fc0465997549be9ed88dc2"
+      },
+      "content": {
+        "id": "night-ledger-independent-ground",
+        "version": 1,
+        "sourcePin": "81ddf363e524e967159703246e49ef334d0d1e65"
+      },
+      "actorId": "player",
+      "components": [
+        {
+          "id": "player.shell",
+          "version": 1,
+          "settings": {
+            "skin": "farmyard",
+            "layout": "auto",
+            "actions": "icon-text"
+          }
+        },
+        {
+          "id": "player.walking",
+          "version": 1,
+          "settings": {
+            "pace": 1
+          }
+        },
+        {
+          "id": "player.camera",
+          "version": 1,
+          "settings": {
+            "mode": "follow",
+            "zoom": 1
+          }
+        },
+        {
+          "id": "setup.runtime",
+          "version": 1,
+          "settings": {}
+        },
+        {
+          "id": "setup.actor",
+          "version": 1,
+          "settings": {
+            "model": "goat",
+            "motion": "native-gait"
+          }
+        }
+      ],
+      "bindings": {}
+    },
+    "executionSource": {
+      "engineArchiveSHA": "21ce8c057c854b900b0fd339789cc967898acdb9c2696b8feed61ca82825ed73",
+      "consumer": [
+        {
+          "path": "data.js",
+          "sha256": "0a02ccfa6bead796b18b49f89866b3009b9b4b7a7c032f1cebe56ec673331434"
+        },
+        {
+          "path": "registry.js",
+          "sha256": "73043368096cca07c681ee4e3e7c260f4da2075984f5a6a5e4d16f4997669706"
+        },
+        {
+          "path": "content-data.json",
+          "sha256": "e4e1add8b047b41d61adb1657fab2080dd2606e13933a21cfb7fe49d13a24020"
+        },
+        {
+          "path": "host.js",
+          "sha256": "b95ff8555dc620a3f3093d2eccfece6ba0bd2e166397ab775d39abbd98609958"
+        },
+        {
+          "path": "runner.js",
+          "sha256": "1739d6ae0e0c770bcb92d0276a7ac593ebb131c279d49960d370e3bc57735518"
+        },
+        {
+          "path": "surface.js",
+          "sha256": "672ca20e0cae23a4e1cb916417ec062ff687de09414f38ea58a5e5f2c1162103"
+        },
+        {
+          "path": "application.js",
+          "sha256": "7145131fba937dbf6ff6a9a3e8930426b228962277ec500456af51b78ddc1b1d"
+        },
+        {
+          "path": "main.js",
+          "sha256": "1598ccaaa021bb216a698283264c93746a7705c73acfb81ae9818d52035894a9"
+        },
+        {
+          "path": "ground.css",
+          "sha256": "b8c961828c544d256e4325f5000054e8d1dd8d8d6595ff1cda92ad99c6eee034"
+        }
+      ]
+    },
+    "selection": {
+      "golden-door-passage": true,
+      "golden-rock-recovery": true
+    },
+    "results": {
+      "golden-door-passage": {
+        "fixture": {
+          "id": "golden-door-passage",
+          "version": 1,
+          "sourcePin": "81ddf363e524e967159703246e49ef334d0d1e65"
+        },
+        "source": {
+          "engineCommit": "0640dab2f8dfe5d9facbe9ded831855e0376d22a",
+          "registry": "content-data.json",
+          "baseline": "closed-door-clear-approach-v1"
+        },
+        "seed": 1947,
+        "recipe": {
+          "kind": "nautilus-test-ground-recipe",
+          "version": 1,
+          "content": {
+            "id": "night-ledger-independent-ground",
+            "version": 1,
+            "sourcePin": "81ddf363e524e967159703246e49ef334d0d1e65"
+          },
+          "engineSource": "0640dab2f8dfe5d9facbe9ded831855e0376d22a",
+          "seed": 1947,
+          "plots": [
+            {
+              "slot": "west",
+              "fixture": "gatehouse",
+              "version": 1
+            },
+            {
+              "slot": "east",
+              "fixture": "supply-store",
+              "version": 1
+            }
+          ],
+          "objective": {
+            "id": "door-passage",
+            "version": 1,
+            "slot": "west"
+          },
+          "conditions": {
+            "id": "transition",
+            "version": 1
+          },
+          "observers": {
+            "profile": "full",
+            "version": 1
+          },
+          "probe": "ordinary"
+        },
+        "requiredPorts": [
+          {
+            "service": "door-state-v1",
+            "version": 1,
+            "role": "confirmed-state",
+            "units": "native record",
+            "frame": "world-x-y-h",
+            "lifetime": "sandbox",
+            "cardinality": "one authoritative provider"
+          },
+          {
+            "service": "passage-query-v1",
+            "version": 1,
+            "role": "confirmed-state",
+            "units": "metres; upright body",
+            "frame": "world-x-y-h",
+            "lifetime": "sandbox",
+            "cardinality": "one authoritative provider"
+          },
+          {
+            "service": "interaction-event-v1",
+            "version": 1,
+            "role": "committed-event",
+            "units": "native record",
+            "frame": "world-x-y-h",
+            "lifetime": "sandbox",
+            "cardinality": "one authoritative provider"
+          }
+        ],
+        "placement": {
+          "slot": {
+            "id": "west",
+            "name": "West plot",
+            "origin": {
+              "x": 8,
+              "y": 16
+            },
+            "sizeM": 16,
+            "floorId": "floor-0",
+            "elevationM": 0
+          },
+          "plot": {
+            "id": "gatehouse",
+            "version": 1,
+            "name": "Gatehouse passage",
+            "footprintM": [
+              16,
+              16
+            ],
+            "floorId": "floor-0",
+            "elevationM": 0,
+            "capabilities": [
+              "door-state-v1",
+              "passage-query-v1",
+              "interaction-event-v1"
+            ],
+            "entrance": {
+              "x": 8,
+              "y": 15
+            },
+            "owns": [
+              "walls",
+              "door"
+            ],
+            "effects": "No fire, sound, guard or cross-plot effects are bound."
+          },
+          "rules": [
+            "fixed footprint and floor",
+            "no occupied replacement",
+            "no carried-item retirement",
+            "no silent resource reset"
+          ]
+        },
+        "objective": {
+          "id": "door-passage",
+          "version": 1,
+          "name": "Open the marked passage",
+          "requires": [
+            "door-state-v1",
+            "passage-query-v1",
+            "interaction-event-v1"
+          ],
+          "observer": {
+            "id": "door-observer",
+            "version": 1
+          },
+          "conditions": [
+            "current-door-open",
+            "current-passage-clear",
+            "new-door-event-after-baseline"
+          ],
+          "expected": {
+            "open": true,
+            "passage": true,
+            "newEvents": 1,
+            "apSpent": 1
+          }
+        },
+        "observer": {
+          "id": "door-observer",
+          "version": 1,
+          "profile": "full",
+          "runnerVersion": 1
+        },
+        "expectationVersion": 1,
+        "runId": "run-1",
+        "playerSetup": {
+          "kind": "nautilus-player-setup",
+          "version": 1,
+          "engine": {
+            "package": "@nautilus-engine/map-core",
+            "version": "0.10.0",
+            "sourcePin": "7f50cb2a48aef87a16fc0465997549be9ed88dc2"
+          },
+          "content": {
+            "id": "night-ledger-independent-ground",
+            "version": 1,
+            "sourcePin": "81ddf363e524e967159703246e49ef334d0d1e65"
+          },
+          "actorId": "player",
+          "components": [
+            {
+              "id": "player.shell",
+              "version": 1,
+              "settings": {
+                "skin": "farmyard",
+                "layout": "auto",
+                "actions": "icon-text"
+              }
+            },
+            {
+              "id": "player.walking",
+              "version": 1,
+              "settings": {
+                "pace": 1
+              }
+            },
+            {
+              "id": "player.camera",
+              "version": 1,
+              "settings": {
+                "mode": "follow",
+                "zoom": 1
+              }
+            },
+            {
+              "id": "setup.runtime",
+              "version": 1,
+              "settings": {}
+            },
+            {
+              "id": "setup.actor",
+              "version": 1,
+              "settings": {
+                "model": "goat",
+                "motion": "native-gait"
+              }
+            }
+          ],
+          "bindings": {}
+        },
+        "executionSource": {
+          "engineArchiveSHA": "21ce8c057c854b900b0fd339789cc967898acdb9c2696b8feed61ca82825ed73",
+          "consumer": [
+            {
+              "path": "data.js",
+              "sha256": "0a02ccfa6bead796b18b49f89866b3009b9b4b7a7c032f1cebe56ec673331434"
+            },
+            {
+              "path": "registry.js",
+              "sha256": "73043368096cca07c681ee4e3e7c260f4da2075984f5a6a5e4d16f4997669706"
+            },
+            {
+              "path": "content-data.json",
+              "sha256": "e4e1add8b047b41d61adb1657fab2080dd2606e13933a21cfb7fe49d13a24020"
+            },
+            {
+              "path": "host.js",
+              "sha256": "b95ff8555dc620a3f3093d2eccfece6ba0bd2e166397ab775d39abbd98609958"
+            },
+            {
+              "path": "runner.js",
+              "sha256": "1739d6ae0e0c770bcb92d0276a7ac593ebb131c279d49960d370e3bc57735518"
+            },
+            {
+              "path": "surface.js",
+              "sha256": "672ca20e0cae23a4e1cb916417ec062ff687de09414f38ea58a5e5f2c1162103"
+            },
+            {
+              "path": "application.js",
+              "sha256": "7145131fba937dbf6ff6a9a3e8930426b228962277ec500456af51b78ddc1b1d"
+            },
+            {
+              "path": "main.js",
+              "sha256": "1598ccaaa021bb216a698283264c93746a7705c73acfb81ae9818d52035894a9"
+            },
+            {
+              "path": "ground.css",
+              "sha256": "b8c961828c544d256e4325f5000054e8d1dd8d8d6595ff1cda92ad99c6eee034"
+            }
+          ]
+        },
+        "executionProfile": "isolated public command authority; rendering and native controls are separate browser evidence",
+        "status": "passed",
+        "scope": "new-transition",
+        "missionComplete": true,
+        "checks": [
+          {
+            "name": "baseline.door-closed",
+            "expected": false,
+            "observed": false,
+            "ok": true
+          },
+          {
+            "name": "door.open",
+            "expected": true,
+            "observed": true,
+            "ok": true
+          },
+          {
+            "name": "passage.clear",
+            "expected": true,
+            "observed": true,
+            "ok": true
+          },
+          {
+            "name": "new.door-opened-events",
+            "expected": 1,
+            "observed": 1,
+            "ok": true
+          },
+          {
+            "name": "fixture.ap-spent",
+            "expected": 1,
+            "observed": 1,
+            "ok": true
+          },
+          {
+            "name": "resources.health-retained",
+            "expected": 37,
+            "observed": 37,
+            "ok": true
+          },
+          {
+            "name": "resources.stamina-retained",
+            "expected": 11,
+            "observed": 11,
+            "ok": true
+          }
+        ],
+        "failures": [],
+        "eventIds": [
+          "ground-sandbox-ca27b61e7fd7/interactions/1"
+        ],
+        "reason": null,
+        "baseline": {
+          "kind": "nautilus-test-ground-state",
+          "version": 1,
+          "sandboxId": "sandbox-ca27b61e7fd7",
+          "recipe": {
+            "kind": "nautilus-test-ground-recipe",
+            "version": 1,
+            "content": {
+              "id": "night-ledger-independent-ground",
+              "version": 1,
+              "sourcePin": "81ddf363e524e967159703246e49ef334d0d1e65"
+            },
+            "engineSource": "0640dab2f8dfe5d9facbe9ded831855e0376d22a",
+            "seed": 1947,
+            "plots": [
+              {
+                "slot": "west",
+                "fixture": "gatehouse",
+                "version": 1
+              },
+              {
+                "slot": "east",
+                "fixture": "supply-store",
+                "version": 1
+              }
+            ],
+            "objective": {
+              "id": "door-passage",
+              "version": 1,
+              "slot": "west"
+            },
+            "conditions": {
+              "id": "transition",
+              "version": 1
+            },
+            "observers": {
+              "profile": "full",
+              "version": 1
+            },
+            "probe": "ordinary"
+          },
+          "revision": 0,
+          "serial": 0,
+          "sceneryRevision": 0,
+          "plotGenerations": {
+            "west": 0,
+            "east": 0
+          },
+          "world": {
+            "kind": "nautilus-extended-world",
+            "version": 1,
+            "id": "ground-sandbox-ca27b61e7fd7",
+            "name": "Night Ledger · proving ground",
+            "profileId": "native-metres-v1",
+            "bounds": {
+              "widthM": 64,
+              "depthM": 64,
+              "minHeightM": 0,
+              "heightM": 6
+            },
+            "floors": [
+              {
+                "id": "floor-0",
+                "index": 0,
+                "label": "1",
+                "elevationM": 0
+              }
+            ],
+            "surfaces": [
+              {
+                "id": "ground",
+                "floorId": "floor-0",
+                "role": "floor",
+                "bounds": {
+                  "min": {
+                    "x": 0,
+                    "y": 0,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 64,
+                    "y": 64,
+                    "h": 0
+                  }
+                },
+                "supports": true,
+                "supportFloorId": "floor-0"
+              },
+              {
+                "id": "west-left",
+                "floorId": "floor-0",
+                "role": "solid",
+                "bounds": {
+                  "min": {
+                    "x": 10,
+                    "y": 27.95,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 15.3,
+                    "y": 28.05,
+                    "h": 2.12
+                  }
+                },
+                "supports": false,
+                "supportFloorId": null
+              },
+              {
+                "id": "west-right",
+                "floorId": "floor-0",
+                "role": "solid",
+                "bounds": {
+                  "min": {
+                    "x": 16.7,
+                    "y": 27.95,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 22,
+                    "y": 28.05,
+                    "h": 2.12
+                  }
+                },
+                "supports": false,
+                "supportFloorId": null
+              },
+              {
+                "id": "east-left",
+                "floorId": "floor-0",
+                "role": "solid",
+                "bounds": {
+                  "min": {
+                    "x": 42,
+                    "y": 27.95,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 47.3,
+                    "y": 28.05,
+                    "h": 2.12
+                  }
+                },
+                "supports": false,
+                "supportFloorId": null
+              },
+              {
+                "id": "east-right",
+                "floorId": "floor-0",
+                "role": "solid",
+                "bounds": {
+                  "min": {
+                    "x": 48.7,
+                    "y": 27.95,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 54,
+                    "y": 28.05,
+                    "h": 2.12
+                  }
+                },
+                "supports": false,
+                "supportFloorId": null
+              },
+              {
+                "id": "east-back",
+                "floorId": "floor-0",
+                "role": "solid",
+                "bounds": {
+                  "min": {
+                    "x": 42,
+                    "y": 20,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 54,
+                    "y": 20.15,
+                    "h": 2.12
+                  }
+                },
+                "supports": false,
+                "supportFloorId": null
+              },
+              {
+                "id": "east-side",
+                "floorId": "floor-0",
+                "role": "solid",
+                "bounds": {
+                  "min": {
+                    "x": 42,
+                    "y": 20,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 42.15,
+                    "y": 27.9,
+                    "h": 2.12
+                  }
+                },
+                "supports": false,
+                "supportFloorId": null
+              }
+            ],
+            "entities": [],
+            "links": []
+          },
+          "interactions": {
+            "kind": "nautilus-standard-interactions",
+            "version": 1,
+            "profile": "bounded-kinematic-v1",
+            "worldId": "ground-sandbox-ca27b61e7fd7",
+            "revision": 0,
+            "doors": [
+              {
+                "id": "west/door",
+                "label": "West plot door",
+                "floorId": "floor-0",
+                "position": {
+                  "x": 16,
+                  "y": 28,
+                  "h": 0
+                },
+                "reachM": 1.8,
+                "open": false,
+                "locked": false,
+                "closedBounds": {
+                  "min": {
+                    "x": 15.4,
+                    "y": 27.939999999999998,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 16.6,
+                    "y": 28.060000000000002,
+                    "h": 2
+                  }
+                },
+                "openBounds": {
+                  "min": {
+                    "x": 15.4,
+                    "y": 26.8,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 15.5,
+                    "y": 28,
+                    "h": 2
+                  }
+                },
+                "motionBounds": {
+                  "min": {
+                    "x": 15.4,
+                    "y": 26.7,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 16.6,
+                    "y": 28.1,
+                    "h": 2
+                  }
+                }
+              },
+              {
+                "id": "east/door",
+                "label": "East plot door",
+                "floorId": "floor-0",
+                "position": {
+                  "x": 48,
+                  "y": 28,
+                  "h": 0
+                },
+                "reachM": 1.8,
+                "open": false,
+                "locked": false,
+                "closedBounds": {
+                  "min": {
+                    "x": 47.4,
+                    "y": 27.939999999999998,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 48.6,
+                    "y": 28.060000000000002,
+                    "h": 2
+                  }
+                },
+                "openBounds": {
+                  "min": {
+                    "x": 47.4,
+                    "y": 26.8,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 47.5,
+                    "y": 28,
+                    "h": 2
+                  }
+                },
+                "motionBounds": {
+                  "min": {
+                    "x": 47.4,
+                    "y": 26.7,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 48.6,
+                    "y": 28.1,
+                    "h": 2
+                  }
+                }
+              }
+            ],
+            "stairs": []
+          },
+          "actor": {
+            "id": "player",
+            "revision": 0,
+            "position": {
+              "x": 16,
+              "y": 29.4,
+              "h": 0
+            },
+            "floorId": "floor-0",
+            "radiusM": 0.28,
+            "heightM": 1.8,
+            "speedMps": 3,
+            "traversal": null
+          },
+          "resources": {
+            "health": 37,
+            "ap": 9,
+            "stamina": 11,
+            "inventory": []
+          },
+          "rocks": [
+            {
+              "kind": "nautilus-rock",
+              "version": 1,
+              "id": "east:rock",
+              "itemId": "item:rock",
+              "revision": 0,
+              "profile": {
+                "id": "rock-distraction-v1",
+                "pickupReach": 1.5,
+                "maxThrowRange": 12,
+                "noiseRadius": 8,
+                "gravity": 9.81,
+                "radius": 0.055,
+                "stepHz": 90,
+                "timeUnitsPerSecond": 90000,
+                "maxAdvanceSeconds": 1,
+                "maxFlightSeconds": 10
+              },
+              "phase": "world",
+              "position": {
+                "x": 52,
+                "y": 30,
+                "h": 0.055
+              },
+              "ownerId": null,
+              "flight": null,
+              "lastImpact": null
+            }
+          ],
+          "events": [],
+          "receipts": []
+        },
+        "observed": {
+          "state": {
+            "kind": "nautilus-test-ground-state",
+            "version": 1,
+            "sandboxId": "sandbox-ca27b61e7fd7",
+            "recipe": {
+              "kind": "nautilus-test-ground-recipe",
+              "version": 1,
+              "content": {
+                "id": "night-ledger-independent-ground",
+                "version": 1,
+                "sourcePin": "81ddf363e524e967159703246e49ef334d0d1e65"
+              },
+              "engineSource": "0640dab2f8dfe5d9facbe9ded831855e0376d22a",
+              "seed": 1947,
+              "plots": [
+                {
+                  "slot": "west",
+                  "fixture": "gatehouse",
+                  "version": 1
+                },
+                {
+                  "slot": "east",
+                  "fixture": "supply-store",
+                  "version": 1
+                }
+              ],
+              "objective": {
+                "id": "door-passage",
+                "version": 1,
+                "slot": "west"
+              },
+              "conditions": {
+                "id": "transition",
+                "version": 1
+              },
+              "observers": {
+                "profile": "full",
+                "version": 1
+              },
+              "probe": "ordinary"
+            },
+            "revision": 1,
+            "serial": 1,
+            "sceneryRevision": 0,
+            "plotGenerations": {
+              "west": 0,
+              "east": 0
+            },
+            "world": {
+              "kind": "nautilus-extended-world",
+              "version": 1,
+              "id": "ground-sandbox-ca27b61e7fd7",
+              "name": "Night Ledger · proving ground",
+              "profileId": "native-metres-v1",
+              "bounds": {
+                "widthM": 64,
+                "depthM": 64,
+                "minHeightM": 0,
+                "heightM": 6
+              },
+              "floors": [
+                {
+                  "id": "floor-0",
+                  "index": 0,
+                  "label": "1",
+                  "elevationM": 0
+                }
+              ],
+              "surfaces": [
+                {
+                  "id": "ground",
+                  "floorId": "floor-0",
+                  "role": "floor",
+                  "bounds": {
+                    "min": {
+                      "x": 0,
+                      "y": 0,
+                      "h": 0
+                    },
+                    "max": {
+                      "x": 64,
+                      "y": 64,
+                      "h": 0
+                    }
+                  },
+                  "supports": true,
+                  "supportFloorId": "floor-0"
+                },
+                {
+                  "id": "west-left",
+                  "floorId": "floor-0",
+                  "role": "solid",
+                  "bounds": {
+                    "min": {
+                      "x": 10,
+                      "y": 27.95,
+                      "h": 0
+                    },
+                    "max": {
+                      "x": 15.3,
+                      "y": 28.05,
+                      "h": 2.12
+                    }
+                  },
+                  "supports": false,
+                  "supportFloorId": null
+                },
+                {
+                  "id": "west-right",
+                  "floorId": "floor-0",
+                  "role": "solid",
+                  "bounds": {
+                    "min": {
+                      "x": 16.7,
+                      "y": 27.95,
+                      "h": 0
+                    },
+                    "max": {
+                      "x": 22,
+                      "y": 28.05,
+                      "h": 2.12
+                    }
+                  },
+                  "supports": false,
+                  "supportFloorId": null
+                },
+                {
+                  "id": "east-left",
+                  "floorId": "floor-0",
+                  "role": "solid",
+                  "bounds": {
+                    "min": {
+                      "x": 42,
+                      "y": 27.95,
+                      "h": 0
+                    },
+                    "max": {
+                      "x": 47.3,
+                      "y": 28.05,
+                      "h": 2.12
+                    }
+                  },
+                  "supports": false,
+                  "supportFloorId": null
+                },
+                {
+                  "id": "east-right",
+                  "floorId": "floor-0",
+                  "role": "solid",
+                  "bounds": {
+                    "min": {
+                      "x": 48.7,
+                      "y": 27.95,
+                      "h": 0
+                    },
+                    "max": {
+                      "x": 54,
+                      "y": 28.05,
+                      "h": 2.12
+                    }
+                  },
+                  "supports": false,
+                  "supportFloorId": null
+                },
+                {
+                  "id": "east-back",
+                  "floorId": "floor-0",
+                  "role": "solid",
+                  "bounds": {
+                    "min": {
+                      "x": 42,
+                      "y": 20,
+                      "h": 0
+                    },
+                    "max": {
+                      "x": 54,
+                      "y": 20.15,
+                      "h": 2.12
+                    }
+                  },
+                  "supports": false,
+                  "supportFloorId": null
+                },
+                {
+                  "id": "east-side",
+                  "floorId": "floor-0",
+                  "role": "solid",
+                  "bounds": {
+                    "min": {
+                      "x": 42,
+                      "y": 20,
+                      "h": 0
+                    },
+                    "max": {
+                      "x": 42.15,
+                      "y": 27.9,
+                      "h": 2.12
+                    }
+                  },
+                  "supports": false,
+                  "supportFloorId": null
+                }
+              ],
+              "entities": [],
+              "links": []
+            },
+            "interactions": {
+              "kind": "nautilus-standard-interactions",
+              "version": 1,
+              "profile": "bounded-kinematic-v1",
+              "worldId": "ground-sandbox-ca27b61e7fd7",
+              "revision": 1,
+              "doors": [
+                {
+                  "id": "west/door",
+                  "label": "West plot door",
+                  "floorId": "floor-0",
+                  "position": {
+                    "x": 16,
+                    "y": 28,
+                    "h": 0
+                  },
+                  "reachM": 1.8,
+                  "open": true,
+                  "locked": false,
+                  "closedBounds": {
+                    "min": {
+                      "x": 15.4,
+                      "y": 27.939999999999998,
+                      "h": 0
+                    },
+                    "max": {
+                      "x": 16.6,
+                      "y": 28.060000000000002,
+                      "h": 2
+                    }
+                  },
+                  "openBounds": {
+                    "min": {
+                      "x": 15.4,
+                      "y": 26.8,
+                      "h": 0
+                    },
+                    "max": {
+                      "x": 15.5,
+                      "y": 28,
+                      "h": 2
+                    }
+                  },
+                  "motionBounds": {
+                    "min": {
+                      "x": 15.4,
+                      "y": 26.7,
+                      "h": 0
+                    },
+                    "max": {
+                      "x": 16.6,
+                      "y": 28.1,
+                      "h": 2
+                    }
+                  }
+                },
+                {
+                  "id": "east/door",
+                  "label": "East plot door",
+                  "floorId": "floor-0",
+                  "position": {
+                    "x": 48,
+                    "y": 28,
+                    "h": 0
+                  },
+                  "reachM": 1.8,
+                  "open": false,
+                  "locked": false,
+                  "closedBounds": {
+                    "min": {
+                      "x": 47.4,
+                      "y": 27.939999999999998,
+                      "h": 0
+                    },
+                    "max": {
+                      "x": 48.6,
+                      "y": 28.060000000000002,
+                      "h": 2
+                    }
+                  },
+                  "openBounds": {
+                    "min": {
+                      "x": 47.4,
+                      "y": 26.8,
+                      "h": 0
+                    },
+                    "max": {
+                      "x": 47.5,
+                      "y": 28,
+                      "h": 2
+                    }
+                  },
+                  "motionBounds": {
+                    "min": {
+                      "x": 47.4,
+                      "y": 26.7,
+                      "h": 0
+                    },
+                    "max": {
+                      "x": 48.6,
+                      "y": 28.1,
+                      "h": 2
+                    }
+                  }
+                }
+              ],
+              "stairs": []
+            },
+            "actor": {
+              "id": "player",
+              "revision": 1,
+              "position": {
+                "x": 16,
+                "y": 29.4,
+                "h": 0
+              },
+              "floorId": "floor-0",
+              "radiusM": 0.28,
+              "heightM": 1.8,
+              "speedMps": 3,
+              "traversal": null
+            },
+            "resources": {
+              "health": 37,
+              "ap": 8,
+              "stamina": 11,
+              "inventory": []
+            },
+            "rocks": [
+              {
+                "kind": "nautilus-rock",
+                "version": 1,
+                "id": "east:rock",
+                "itemId": "item:rock",
+                "revision": 0,
+                "profile": {
+                  "id": "rock-distraction-v1",
+                  "pickupReach": 1.5,
+                  "maxThrowRange": 12,
+                  "noiseRadius": 8,
+                  "gravity": 9.81,
+                  "radius": 0.055,
+                  "stepHz": 90,
+                  "timeUnitsPerSecond": 90000,
+                  "maxAdvanceSeconds": 1,
+                  "maxFlightSeconds": 10
+                },
+                "phase": "world",
+                "position": {
+                  "x": 52,
+                  "y": 30,
+                  "h": 0.055
+                },
+                "ownerId": null,
+                "flight": null,
+                "lastImpact": null
+              }
+            ],
+            "events": [
+              {
+                "id": "ground-sandbox-ca27b61e7fd7/interactions/1",
+                "type": "door-opened",
+                "targetId": "west/door",
+                "actorId": "player",
+                "worldId": "ground-sandbox-ca27b61e7fd7",
+                "sourceCommandId": null,
+                "sandboxId": "sandbox-ca27b61e7fd7",
+                "commandId": "run-1:golden-door-passage"
+              }
+            ],
+            "receipts": [
+              {
+                "commandId": "run-1:golden-door-passage",
+                "request": {
+                  "commandId": "run-1:golden-door-passage",
+                  "actionId": "west/door/open",
+                  "offer": "{\"actor\":{\"floorId\":\"floor-0\",\"heightM\":1.8,\"id\":\"player\",\"position\":{\"h\":0,\"x\":16,\"y\":29.4},\"radiusM\":0.28,\"revision\":0,\"speedMps\":3,\"traversal\":null},\"interactions\":{\"doors\":[{\"closedBounds\":{\"max\":{\"h\":2,\"x\":16.6,\"y\":28.060000000000002},\"min\":{\"h\":0,\"x\":15.4,\"y\":27.939999999999998}},\"floorId\":\"floor-0\",\"id\":\"west/door\",\"label\":\"West plot door\",\"locked\":false,\"motionBounds\":{\"max\":{\"h\":2,\"x\":16.6,\"y\":28.1},\"min\":{\"h\":0,\"x\":15.4,\"y\":26.7}},\"open\":false,\"openBounds\":{\"max\":{\"h\":2,\"x\":15.5,\"y\":28},\"min\":{\"h\":0,\"x\":15.4,\"y\":26.8}},\"position\":{\"h\":0,\"x\":16,\"y\":28},\"reachM\":1.8},{\"closedBounds\":{\"max\":{\"h\":2,\"x\":48.6,\"y\":28.060000000000002},\"min\":{\"h\":0,\"x\":47.4,\"y\":27.939999999999998}},\"floorId\":\"floor-0\",\"id\":\"east/door\",\"label\":\"East plot door\",\"locked\":false,\"motionBounds\":{\"max\":{\"h\":2,\"x\":48.6,\"y\":28.1},\"min\":{\"h\":0,\"x\":47.4,\"y\":26.7}},\"open\":false,\"openBounds\":{\"max\":{\"h\":2,\"x\":47.5,\"y\":28},\"min\":{\"h\":0,\"x\":47.4,\"y\":26.8}},\"position\":{\"h\":0,\"x\":48,\"y\":28},\"reachM\":1.8}],\"kind\":\"nautilus-standard-interactions\",\"profile\":\"bounded-kinematic-v1\",\"revision\":0,\"stairs\":[],\"version\":1,\"worldId\":\"ground-sandbox-ca27b61e7fd7\"},\"plotGenerations\":{\"east\":0,\"west\":0},\"recipe\":{\"conditions\":{\"id\":\"transition\",\"version\":1},\"content\":{\"id\":\"night-ledger-independent-ground\",\"sourcePin\":\"81ddf363e524e967159703246e49ef334d0d1e65\",\"version\":1},\"engineSource\":\"0640dab2f8dfe5d9facbe9ded831855e0376d22a\",\"kind\":\"nautilus-test-ground-recipe\",\"objective\":{\"id\":\"door-passage\",\"slot\":\"west\",\"version\":1},\"observers\":{\"profile\":\"full\",\"version\":1},\"plots\":[{\"fixture\":\"gatehouse\",\"slot\":\"west\",\"version\":1},{\"fixture\":\"supply-store\",\"slot\":\"east\",\"version\":1}],\"probe\":\"ordinary\",\"seed\":1947,\"version\":1},\"resources\":{\"ap\":9,\"health\":37,\"inventory\":[],\"stamina\":11},\"revision\":0,\"rocks\":[{\"flight\":null,\"id\":\"east:rock\",\"itemId\":\"item:rock\",\"kind\":\"nautilus-rock\",\"lastImpact\":null,\"ownerId\":null,\"phase\":\"world\",\"position\":{\"h\":0.055,\"x\":52,\"y\":30},\"profile\":{\"gravity\":9.81,\"id\":\"rock-distraction-v1\",\"maxAdvanceSeconds\":1,\"maxFlightSeconds\":10,\"maxThrowRange\":12,\"noiseRadius\":8,\"pickupReach\":1.5,\"radius\":0.055,\"stepHz\":90,\"timeUnitsPerSecond\":90000},\"revision\":0,\"version\":1}]}"
+                },
+                "receipt": {
+                  "version": 1,
+                  "ok": true,
+                  "committed": true,
+                  "code": null,
+                  "reason": null,
+                  "commandId": "run-1:golden-door-passage",
+                  "receiptId": "sandbox-ca27b61e7fd7/receipt/run-1:golden-door-passage",
+                  "targetId": "west/door",
+                  "actionId": "west/door/open",
+                  "cost": {
+                    "policy": "test-ground-costs",
+                    "version": 1,
+                    "ap": 1
+                  },
+                  "repeated": false
+                }
+              }
+            ]
+          },
+          "passage": {
+            "ok": true
+          }
+        },
+        "command": {
+          "intent": {
+            "version": 1,
+            "type": "action",
+            "providerId": "ground.interactions",
+            "actionId": "west/door/open",
+            "context": "run-1",
+            "offer": "{\"actor\":{\"floorId\":\"floor-0\",\"heightM\":1.8,\"id\":\"player\",\"position\":{\"h\":0,\"x\":16,\"y\":29.4},\"radiusM\":0.28,\"revision\":0,\"speedMps\":3,\"traversal\":null},\"interactions\":{\"doors\":[{\"closedBounds\":{\"max\":{\"h\":2,\"x\":16.6,\"y\":28.060000000000002},\"min\":{\"h\":0,\"x\":15.4,\"y\":27.939999999999998}},\"floorId\":\"floor-0\",\"id\":\"west/door\",\"label\":\"West plot door\",\"locked\":false,\"motionBounds\":{\"max\":{\"h\":2,\"x\":16.6,\"y\":28.1},\"min\":{\"h\":0,\"x\":15.4,\"y\":26.7}},\"open\":false,\"openBounds\":{\"max\":{\"h\":2,\"x\":15.5,\"y\":28},\"min\":{\"h\":0,\"x\":15.4,\"y\":26.8}},\"position\":{\"h\":0,\"x\":16,\"y\":28},\"reachM\":1.8},{\"closedBounds\":{\"max\":{\"h\":2,\"x\":48.6,\"y\":28.060000000000002},\"min\":{\"h\":0,\"x\":47.4,\"y\":27.939999999999998}},\"floorId\":\"floor-0\",\"id\":\"east/door\",\"label\":\"East plot door\",\"locked\":false,\"motionBounds\":{\"max\":{\"h\":2,\"x\":48.6,\"y\":28.1},\"min\":{\"h\":0,\"x\":47.4,\"y\":26.7}},\"open\":false,\"openBounds\":{\"max\":{\"h\":2,\"x\":47.5,\"y\":28},\"min\":{\"h\":0,\"x\":47.4,\"y\":26.8}},\"position\":{\"h\":0,\"x\":48,\"y\":28},\"reachM\":1.8}],\"kind\":\"nautilus-standard-interactions\",\"profile\":\"bounded-kinematic-v1\",\"revision\":0,\"stairs\":[],\"version\":1,\"worldId\":\"ground-sandbox-ca27b61e7fd7\"},\"plotGenerations\":{\"east\":0,\"west\":0},\"recipe\":{\"conditions\":{\"id\":\"transition\",\"version\":1},\"content\":{\"id\":\"night-ledger-independent-ground\",\"sourcePin\":\"81ddf363e524e967159703246e49ef334d0d1e65\",\"version\":1},\"engineSource\":\"0640dab2f8dfe5d9facbe9ded831855e0376d22a\",\"kind\":\"nautilus-test-ground-recipe\",\"objective\":{\"id\":\"door-passage\",\"slot\":\"west\",\"version\":1},\"observers\":{\"profile\":\"full\",\"version\":1},\"plots\":[{\"fixture\":\"gatehouse\",\"slot\":\"west\",\"version\":1},{\"fixture\":\"supply-store\",\"slot\":\"east\",\"version\":1}],\"probe\":\"ordinary\",\"seed\":1947,\"version\":1},\"resources\":{\"ap\":9,\"health\":37,\"inventory\":[],\"stamina\":11},\"revision\":0,\"rocks\":[{\"flight\":null,\"id\":\"east:rock\",\"itemId\":\"item:rock\",\"kind\":\"nautilus-rock\",\"lastImpact\":null,\"ownerId\":null,\"phase\":\"world\",\"position\":{\"h\":0.055,\"x\":52,\"y\":30},\"profile\":{\"gravity\":9.81,\"id\":\"rock-distraction-v1\",\"maxAdvanceSeconds\":1,\"maxFlightSeconds\":10,\"maxThrowRange\":12,\"noiseRadius\":8,\"pickupReach\":1.5,\"radius\":0.055,\"stepHz\":90,\"timeUnitsPerSecond\":90000},\"revision\":0,\"version\":1}]}"
+          },
+          "commandId": "run-1:golden-door-passage",
+          "receipt": {
+            "version": 1,
+            "ok": true,
+            "committed": true,
+            "code": null,
+            "reason": null,
+            "commandId": "run-1:golden-door-passage",
+            "receiptId": "sandbox-ca27b61e7fd7/receipt/run-1:golden-door-passage",
+            "targetId": "west/door",
+            "actionId": "west/door/open",
+            "cost": {
+              "policy": "test-ground-costs",
+              "version": 1,
+              "ap": 1
+            },
+            "repeated": false
+          },
+          "retry": {
+            "version": 1,
+            "ok": true,
+            "committed": true,
+            "code": null,
+            "reason": null,
+            "commandId": "run-1:golden-door-passage",
+            "receiptId": "sandbox-ca27b61e7fd7/receipt/run-1:golden-door-passage",
+            "targetId": "west/door",
+            "actionId": "west/door/open",
+            "cost": {
+              "policy": "test-ground-costs",
+              "version": 1,
+              "ap": 1
+            },
+            "repeated": true
+          }
+        },
+        "evidence": {
+          "eventIds": [
+            "ground-sandbox-ca27b61e7fd7/interactions/1"
+          ],
+          "receiptId": "sandbox-ca27b61e7fd7/receipt/run-1:golden-door-passage",
+          "expectations": "committed registry data; never derived from this run",
+          "scope": "public pure simulation outcomes; manual native scene reviewed separately"
+        },
+        "dependencyKey": "{\"executionSource\":{\"consumer\":[{\"path\":\"data.js\",\"sha256\":\"0a02ccfa6bead796b18b49f89866b3009b9b4b7a7c032f1cebe56ec673331434\"},{\"path\":\"registry.js\",\"sha256\":\"73043368096cca07c681ee4e3e7c260f4da2075984f5a6a5e4d16f4997669706\"},{\"path\":\"content-data.json\",\"sha256\":\"e4e1add8b047b41d61adb1657fab2080dd2606e13933a21cfb7fe49d13a24020\"},{\"path\":\"host.js\",\"sha256\":\"b95ff8555dc620a3f3093d2eccfece6ba0bd2e166397ab775d39abbd98609958\"},{\"path\":\"runner.js\",\"sha256\":\"1739d6ae0e0c770bcb92d0276a7ac593ebb131c279d49960d370e3bc57735518\"},{\"path\":\"surface.js\",\"sha256\":\"672ca20e0cae23a4e1cb916417ec062ff687de09414f38ea58a5e5f2c1162103\"},{\"path\":\"application.js\",\"sha256\":\"7145131fba937dbf6ff6a9a3e8930426b228962277ec500456af51b78ddc1b1d\"},{\"path\":\"main.js\",\"sha256\":\"1598ccaaa021bb216a698283264c93746a7705c73acfb81ae9818d52035894a9\"},{\"path\":\"ground.css\",\"sha256\":\"b8c961828c544d256e4325f5000054e8d1dd8d8d6595ff1cda92ad99c6eee034\"}],\"engineArchiveSHA\":\"21ce8c057c854b900b0fd339789cc967898acdb9c2696b8feed61ca82825ed73\"},\"expectations\":[{\"conditions\":[\"current-door-open\",\"current-passage-clear\",\"new-door-event-after-baseline\"],\"expected\":{\"apSpent\":1,\"newEvents\":1,\"open\":true,\"passage\":true},\"id\":\"door-passage\",\"name\":\"Open the marked passage\",\"observer\":{\"id\":\"door-observer\",\"version\":1},\"requires\":[\"door-state-v1\",\"passage-query-v1\",\"interaction-event-v1\"],\"version\":1},{\"conditions\":[\"current-owner-player\",\"current-world-position-removed\",\"new-inventory-gain-after-baseline\",\"new-pickup-event-after-baseline\"],\"expected\":{\"apSpent\":2,\"inventoryGain\":1,\"newEvents\":1,\"ownerId\":\"player\",\"phase\":\"carried\",\"position\":null},\"id\":\"rock-recovery\",\"name\":\"Recover the marked rock\",\"observer\":{\"id\":\"rock-observer\",\"version\":1},\"requires\":[\"rock-state-v1\",\"inventory-state-v1\",\"item-event-v1\"],\"version\":1}],\"fixtures\":[{\"baseline\":\"closed-door-clear-approach-v1\",\"evidence\":[\"confirmed door state\",\"public body-aware passage query\",\"one new door-opened event\",\"fixture AP cost\"],\"expectationVersion\":1,\"id\":\"golden-door-passage\",\"name\":\"Door opens and passage clears\",\"objective\":\"door-passage\",\"plot\":\"gatehouse\",\"resetPolicy\":\"new-isolated-sandbox-only\",\"slot\":\"west\",\"spawnLocal\":{\"h\":0,\"x\":8,\"y\":13.4},\"version\":1},{\"baseline\":\"world-rock-empty-inventory-v1\",\"evidence\":[\"carried rock owner\",\"old world position removed\",\"exactly one inventory instance\",\"one new rock-picked-up event\",\"fixture AP cost\"],\"expectationVersion\":1,\"id\":\"golden-rock-recovery\",\"name\":\"Rock transfers exactly once\",\"objective\":\"rock-recovery\",\"plot\":\"supply-store\",\"resetPolicy\":\"new-isolated-sandbox-only\",\"slot\":\"east\",\"spawnLocal\":{\"h\":0,\"x\":12,\"y\":15},\"version\":1}],\"playerSetup\":{\"actorId\":\"player\",\"bindings\":{},\"components\":[{\"id\":\"player.shell\",\"settings\":{\"actions\":\"icon-text\",\"layout\":\"auto\",\"skin\":\"farmyard\"},\"version\":1},{\"id\":\"player.walking\",\"settings\":{\"pace\":1},\"version\":1},{\"id\":\"player.camera\",\"settings\":{\"mode\":\"follow\",\"zoom\":1},\"version\":1},{\"id\":\"setup.runtime\",\"settings\":{},\"version\":1},{\"id\":\"setup.actor\",\"settings\":{\"model\":\"goat\",\"motion\":\"native-gait\"},\"version\":1}],\"content\":{\"id\":\"night-ledger-independent-ground\",\"sourcePin\":\"81ddf363e524e967159703246e49ef334d0d1e65\",\"version\":1},\"engine\":{\"package\":\"@nautilus-engine/map-core\",\"sourcePin\":\"7f50cb2a48aef87a16fc0465997549be9ed88dc2\",\"version\":\"0.10.0\"},\"kind\":\"nautilus-player-setup\",\"version\":1},\"recipe\":{\"conditions\":{\"id\":\"transition\",\"version\":1},\"content\":{\"id\":\"night-ledger-independent-ground\",\"sourcePin\":\"81ddf363e524e967159703246e49ef334d0d1e65\",\"version\":1},\"engineSource\":\"0640dab2f8dfe5d9facbe9ded831855e0376d22a\",\"kind\":\"nautilus-test-ground-recipe\",\"objective\":{\"id\":\"door-passage\",\"slot\":\"west\",\"version\":1},\"observers\":{\"profile\":\"full\",\"version\":1},\"plots\":[{\"fixture\":\"gatehouse\",\"slot\":\"west\",\"version\":1},{\"fixture\":\"supply-store\",\"slot\":\"east\",\"version\":1}],\"probe\":\"ordinary\",\"seed\":1947,\"version\":1},\"registry\":\"81ddf363e524e967159703246e49ef334d0d1e65\"}"
+      },
+      "golden-rock-recovery": {
+        "fixture": {
+          "id": "golden-rock-recovery",
+          "version": 1,
+          "sourcePin": "81ddf363e524e967159703246e49ef334d0d1e65"
+        },
+        "source": {
+          "engineCommit": "0640dab2f8dfe5d9facbe9ded831855e0376d22a",
+          "registry": "content-data.json",
+          "baseline": "world-rock-empty-inventory-v1"
+        },
+        "seed": 1947,
+        "recipe": {
+          "kind": "nautilus-test-ground-recipe",
+          "version": 1,
+          "content": {
+            "id": "night-ledger-independent-ground",
+            "version": 1,
+            "sourcePin": "81ddf363e524e967159703246e49ef334d0d1e65"
+          },
+          "engineSource": "0640dab2f8dfe5d9facbe9ded831855e0376d22a",
+          "seed": 1947,
+          "plots": [
+            {
+              "slot": "west",
+              "fixture": "gatehouse",
+              "version": 1
+            },
+            {
+              "slot": "east",
+              "fixture": "supply-store",
+              "version": 1
+            }
+          ],
+          "objective": {
+            "id": "rock-recovery",
+            "version": 1,
+            "slot": "east"
+          },
+          "conditions": {
+            "id": "transition",
+            "version": 1
+          },
+          "observers": {
+            "profile": "full",
+            "version": 1
+          },
+          "probe": "ordinary"
+        },
+        "requiredPorts": [
+          {
+            "service": "rock-state-v1",
+            "version": 1,
+            "role": "confirmed-state",
+            "units": "native record",
+            "frame": "world-x-y-h",
+            "lifetime": "sandbox",
+            "cardinality": "one authoritative provider"
+          },
+          {
+            "service": "inventory-state-v1",
+            "version": 1,
+            "role": "confirmed-state",
+            "units": "native record",
+            "frame": "world-x-y-h",
+            "lifetime": "sandbox",
+            "cardinality": "one authoritative provider"
+          },
+          {
+            "service": "item-event-v1",
+            "version": 1,
+            "role": "committed-event",
+            "units": "native record",
+            "frame": "world-x-y-h",
+            "lifetime": "sandbox",
+            "cardinality": "one authoritative provider"
+          }
+        ],
+        "placement": {
+          "slot": {
+            "id": "east",
+            "name": "East plot",
+            "origin": {
+              "x": 40,
+              "y": 16
+            },
+            "sizeM": 16,
+            "floorId": "floor-0",
+            "elevationM": 0
+          },
+          "plot": {
+            "id": "supply-store",
+            "version": 1,
+            "name": "Rock recovery store",
+            "footprintM": [
+              16,
+              16
+            ],
+            "floorId": "floor-0",
+            "elevationM": 0,
+            "capabilities": [
+              "door-state-v1",
+              "passage-query-v1",
+              "interaction-event-v1",
+              "rock-state-v1",
+              "inventory-state-v1",
+              "item-event-v1"
+            ],
+            "entrance": {
+              "x": 12,
+              "y": 15
+            },
+            "owns": [
+              "walls",
+              "door",
+              "rock"
+            ],
+            "effects": "No fire, sound, guard or cross-plot effects are bound."
+          },
+          "rules": [
+            "fixed footprint and floor",
+            "no occupied replacement",
+            "no carried-item retirement",
+            "no silent resource reset"
+          ]
+        },
+        "objective": {
+          "id": "rock-recovery",
+          "version": 1,
+          "name": "Recover the marked rock",
+          "requires": [
+            "rock-state-v1",
+            "inventory-state-v1",
+            "item-event-v1"
+          ],
+          "observer": {
+            "id": "rock-observer",
+            "version": 1
+          },
+          "conditions": [
+            "current-owner-player",
+            "current-world-position-removed",
+            "new-inventory-gain-after-baseline",
+            "new-pickup-event-after-baseline"
+          ],
+          "expected": {
+            "phase": "carried",
+            "ownerId": "player",
+            "position": null,
+            "inventoryGain": 1,
+            "newEvents": 1,
+            "apSpent": 2
+          }
+        },
+        "observer": {
+          "id": "rock-observer",
+          "version": 1,
+          "profile": "full",
+          "runnerVersion": 1
+        },
+        "expectationVersion": 1,
+        "runId": "run-1",
+        "playerSetup": {
+          "kind": "nautilus-player-setup",
+          "version": 1,
+          "engine": {
+            "package": "@nautilus-engine/map-core",
+            "version": "0.10.0",
+            "sourcePin": "7f50cb2a48aef87a16fc0465997549be9ed88dc2"
+          },
+          "content": {
+            "id": "night-ledger-independent-ground",
+            "version": 1,
+            "sourcePin": "81ddf363e524e967159703246e49ef334d0d1e65"
+          },
+          "actorId": "player",
+          "components": [
+            {
+              "id": "player.shell",
+              "version": 1,
+              "settings": {
+                "skin": "farmyard",
+                "layout": "auto",
+                "actions": "icon-text"
+              }
+            },
+            {
+              "id": "player.walking",
+              "version": 1,
+              "settings": {
+                "pace": 1
+              }
+            },
+            {
+              "id": "player.camera",
+              "version": 1,
+              "settings": {
+                "mode": "follow",
+                "zoom": 1
+              }
+            },
+            {
+              "id": "setup.runtime",
+              "version": 1,
+              "settings": {}
+            },
+            {
+              "id": "setup.actor",
+              "version": 1,
+              "settings": {
+                "model": "goat",
+                "motion": "native-gait"
+              }
+            }
+          ],
+          "bindings": {}
+        },
+        "executionSource": {
+          "engineArchiveSHA": "21ce8c057c854b900b0fd339789cc967898acdb9c2696b8feed61ca82825ed73",
+          "consumer": [
+            {
+              "path": "data.js",
+              "sha256": "0a02ccfa6bead796b18b49f89866b3009b9b4b7a7c032f1cebe56ec673331434"
+            },
+            {
+              "path": "registry.js",
+              "sha256": "73043368096cca07c681ee4e3e7c260f4da2075984f5a6a5e4d16f4997669706"
+            },
+            {
+              "path": "content-data.json",
+              "sha256": "e4e1add8b047b41d61adb1657fab2080dd2606e13933a21cfb7fe49d13a24020"
+            },
+            {
+              "path": "host.js",
+              "sha256": "b95ff8555dc620a3f3093d2eccfece6ba0bd2e166397ab775d39abbd98609958"
+            },
+            {
+              "path": "runner.js",
+              "sha256": "1739d6ae0e0c770bcb92d0276a7ac593ebb131c279d49960d370e3bc57735518"
+            },
+            {
+              "path": "surface.js",
+              "sha256": "672ca20e0cae23a4e1cb916417ec062ff687de09414f38ea58a5e5f2c1162103"
+            },
+            {
+              "path": "application.js",
+              "sha256": "7145131fba937dbf6ff6a9a3e8930426b228962277ec500456af51b78ddc1b1d"
+            },
+            {
+              "path": "main.js",
+              "sha256": "1598ccaaa021bb216a698283264c93746a7705c73acfb81ae9818d52035894a9"
+            },
+            {
+              "path": "ground.css",
+              "sha256": "b8c961828c544d256e4325f5000054e8d1dd8d8d6595ff1cda92ad99c6eee034"
+            }
+          ]
+        },
+        "executionProfile": "isolated public command authority; rendering and native controls are separate browser evidence",
+        "status": "passed",
+        "scope": "new-transition",
+        "missionComplete": true,
+        "checks": [
+          {
+            "name": "baseline.rock-in-world",
+            "expected": "world",
+            "observed": "world",
+            "ok": true
+          },
+          {
+            "name": "rock.phase",
+            "expected": "carried",
+            "observed": "carried",
+            "ok": true
+          },
+          {
+            "name": "rock.ownerId",
+            "expected": "player",
+            "observed": "player",
+            "ok": true
+          },
+          {
+            "name": "rock.old-world-position",
+            "expected": null,
+            "observed": null,
+            "ok": true
+          },
+          {
+            "name": "new.inventory-gain",
+            "expected": 1,
+            "observed": 1,
+            "ok": true
+          },
+          {
+            "name": "inventory.instance-count",
+            "expected": 1,
+            "observed": 1,
+            "ok": true
+          },
+          {
+            "name": "new.rock-picked-up-events",
+            "expected": 1,
+            "observed": 1,
+            "ok": true
+          },
+          {
+            "name": "fixture.ap-spent",
+            "expected": 2,
+            "observed": 2,
+            "ok": true
+          },
+          {
+            "name": "resources.health-retained",
+            "expected": 37,
+            "observed": 37,
+            "ok": true
+          },
+          {
+            "name": "resources.stamina-retained",
+            "expected": 11,
+            "observed": 11,
+            "ok": true
+          }
+        ],
+        "failures": [],
+        "eventIds": [
+          "sandbox-9d266d7491cb:run-1:golden-rock-recovery:pickup"
+        ],
+        "reason": null,
+        "baseline": {
+          "kind": "nautilus-test-ground-state",
+          "version": 1,
+          "sandboxId": "sandbox-9d266d7491cb",
+          "recipe": {
+            "kind": "nautilus-test-ground-recipe",
+            "version": 1,
+            "content": {
+              "id": "night-ledger-independent-ground",
+              "version": 1,
+              "sourcePin": "81ddf363e524e967159703246e49ef334d0d1e65"
+            },
+            "engineSource": "0640dab2f8dfe5d9facbe9ded831855e0376d22a",
+            "seed": 1947,
+            "plots": [
+              {
+                "slot": "west",
+                "fixture": "gatehouse",
+                "version": 1
+              },
+              {
+                "slot": "east",
+                "fixture": "supply-store",
+                "version": 1
+              }
+            ],
+            "objective": {
+              "id": "rock-recovery",
+              "version": 1,
+              "slot": "east"
+            },
+            "conditions": {
+              "id": "transition",
+              "version": 1
+            },
+            "observers": {
+              "profile": "full",
+              "version": 1
+            },
+            "probe": "ordinary"
+          },
+          "revision": 0,
+          "serial": 0,
+          "sceneryRevision": 0,
+          "plotGenerations": {
+            "west": 0,
+            "east": 0
+          },
+          "world": {
+            "kind": "nautilus-extended-world",
+            "version": 1,
+            "id": "ground-sandbox-9d266d7491cb",
+            "name": "Night Ledger · proving ground",
+            "profileId": "native-metres-v1",
+            "bounds": {
+              "widthM": 64,
+              "depthM": 64,
+              "minHeightM": 0,
+              "heightM": 6
+            },
+            "floors": [
+              {
+                "id": "floor-0",
+                "index": 0,
+                "label": "1",
+                "elevationM": 0
+              }
+            ],
+            "surfaces": [
+              {
+                "id": "ground",
+                "floorId": "floor-0",
+                "role": "floor",
+                "bounds": {
+                  "min": {
+                    "x": 0,
+                    "y": 0,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 64,
+                    "y": 64,
+                    "h": 0
+                  }
+                },
+                "supports": true,
+                "supportFloorId": "floor-0"
+              },
+              {
+                "id": "west-left",
+                "floorId": "floor-0",
+                "role": "solid",
+                "bounds": {
+                  "min": {
+                    "x": 10,
+                    "y": 27.95,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 15.3,
+                    "y": 28.05,
+                    "h": 2.12
+                  }
+                },
+                "supports": false,
+                "supportFloorId": null
+              },
+              {
+                "id": "west-right",
+                "floorId": "floor-0",
+                "role": "solid",
+                "bounds": {
+                  "min": {
+                    "x": 16.7,
+                    "y": 27.95,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 22,
+                    "y": 28.05,
+                    "h": 2.12
+                  }
+                },
+                "supports": false,
+                "supportFloorId": null
+              },
+              {
+                "id": "east-left",
+                "floorId": "floor-0",
+                "role": "solid",
+                "bounds": {
+                  "min": {
+                    "x": 42,
+                    "y": 27.95,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 47.3,
+                    "y": 28.05,
+                    "h": 2.12
+                  }
+                },
+                "supports": false,
+                "supportFloorId": null
+              },
+              {
+                "id": "east-right",
+                "floorId": "floor-0",
+                "role": "solid",
+                "bounds": {
+                  "min": {
+                    "x": 48.7,
+                    "y": 27.95,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 54,
+                    "y": 28.05,
+                    "h": 2.12
+                  }
+                },
+                "supports": false,
+                "supportFloorId": null
+              },
+              {
+                "id": "east-back",
+                "floorId": "floor-0",
+                "role": "solid",
+                "bounds": {
+                  "min": {
+                    "x": 42,
+                    "y": 20,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 54,
+                    "y": 20.15,
+                    "h": 2.12
+                  }
+                },
+                "supports": false,
+                "supportFloorId": null
+              },
+              {
+                "id": "east-side",
+                "floorId": "floor-0",
+                "role": "solid",
+                "bounds": {
+                  "min": {
+                    "x": 42,
+                    "y": 20,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 42.15,
+                    "y": 27.9,
+                    "h": 2.12
+                  }
+                },
+                "supports": false,
+                "supportFloorId": null
+              }
+            ],
+            "entities": [],
+            "links": []
+          },
+          "interactions": {
+            "kind": "nautilus-standard-interactions",
+            "version": 1,
+            "profile": "bounded-kinematic-v1",
+            "worldId": "ground-sandbox-9d266d7491cb",
+            "revision": 0,
+            "doors": [
+              {
+                "id": "west/door",
+                "label": "West plot door",
+                "floorId": "floor-0",
+                "position": {
+                  "x": 16,
+                  "y": 28,
+                  "h": 0
+                },
+                "reachM": 1.8,
+                "open": false,
+                "locked": false,
+                "closedBounds": {
+                  "min": {
+                    "x": 15.4,
+                    "y": 27.939999999999998,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 16.6,
+                    "y": 28.060000000000002,
+                    "h": 2
+                  }
+                },
+                "openBounds": {
+                  "min": {
+                    "x": 15.4,
+                    "y": 26.8,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 15.5,
+                    "y": 28,
+                    "h": 2
+                  }
+                },
+                "motionBounds": {
+                  "min": {
+                    "x": 15.4,
+                    "y": 26.7,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 16.6,
+                    "y": 28.1,
+                    "h": 2
+                  }
+                }
+              },
+              {
+                "id": "east/door",
+                "label": "East plot door",
+                "floorId": "floor-0",
+                "position": {
+                  "x": 48,
+                  "y": 28,
+                  "h": 0
+                },
+                "reachM": 1.8,
+                "open": false,
+                "locked": false,
+                "closedBounds": {
+                  "min": {
+                    "x": 47.4,
+                    "y": 27.939999999999998,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 48.6,
+                    "y": 28.060000000000002,
+                    "h": 2
+                  }
+                },
+                "openBounds": {
+                  "min": {
+                    "x": 47.4,
+                    "y": 26.8,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 47.5,
+                    "y": 28,
+                    "h": 2
+                  }
+                },
+                "motionBounds": {
+                  "min": {
+                    "x": 47.4,
+                    "y": 26.7,
+                    "h": 0
+                  },
+                  "max": {
+                    "x": 48.6,
+                    "y": 28.1,
+                    "h": 2
+                  }
+                }
+              }
+            ],
+            "stairs": []
+          },
+          "actor": {
+            "id": "player",
+            "revision": 0,
+            "position": {
+              "x": 52,
+              "y": 31,
+              "h": 0
+            },
+            "floorId": "floor-0",
+            "radiusM": 0.28,
+            "heightM": 1.8,
+            "speedMps": 3,
+            "traversal": null
+          },
+          "resources": {
+            "health": 37,
+            "ap": 9,
+            "stamina": 11,
+            "inventory": []
+          },
+          "rocks": [
+            {
+              "kind": "nautilus-rock",
+              "version": 1,
+              "id": "east:rock",
+              "itemId": "item:rock",
+              "revision": 0,
+              "profile": {
+                "id": "rock-distraction-v1",
+                "pickupReach": 1.5,
+                "maxThrowRange": 12,
+                "noiseRadius": 8,
+                "gravity": 9.81,
+                "radius": 0.055,
+                "stepHz": 90,
+                "timeUnitsPerSecond": 90000,
+                "maxAdvanceSeconds": 1,
+                "maxFlightSeconds": 10
+              },
+              "phase": "world",
+              "position": {
+                "x": 52,
+                "y": 30,
+                "h": 0.055
+              },
+              "ownerId": null,
+              "flight": null,
+              "lastImpact": null
+            }
+          ],
+          "events": [],
+          "receipts": []
+        },
+        "observed": {
+          "state": {
+            "kind": "nautilus-test-ground-state",
+            "version": 1,
+            "sandboxId": "sandbox-9d266d7491cb",
+            "recipe": {
+              "kind": "nautilus-test-ground-recipe",
+              "version": 1,
+              "content": {
+                "id": "night-ledger-independent-ground",
+                "version": 1,
+                "sourcePin": "81ddf363e524e967159703246e49ef334d0d1e65"
+              },
+              "engineSource": "0640dab2f8dfe5d9facbe9ded831855e0376d22a",
+              "seed": 1947,
+              "plots": [
+                {
+                  "slot": "west",
+                  "fixture": "gatehouse",
+                  "version": 1
+                },
+                {
+                  "slot": "east",
+                  "fixture": "supply-store",
+                  "version": 1
+                }
+              ],
+              "objective": {
+                "id": "rock-recovery",
+                "version": 1,
+                "slot": "east"
+              },
+              "conditions": {
+                "id": "transition",
+                "version": 1
+              },
+              "observers": {
+                "profile": "full",
+                "version": 1
+              },
+              "probe": "ordinary"
+            },
+            "revision": 1,
+            "serial": 1,
+            "sceneryRevision": 0,
+            "plotGenerations": {
+              "west": 0,
+              "east": 0
+            },
+            "world": {
+              "kind": "nautilus-extended-world",
+              "version": 1,
+              "id": "ground-sandbox-9d266d7491cb",
+              "name": "Night Ledger · proving ground",
+              "profileId": "native-metres-v1",
+              "bounds": {
+                "widthM": 64,
+                "depthM": 64,
+                "minHeightM": 0,
+                "heightM": 6
+              },
+              "floors": [
+                {
+                  "id": "floor-0",
+                  "index": 0,
+                  "label": "1",
+                  "elevationM": 0
+                }
+              ],
+              "surfaces": [
+                {
+                  "id": "ground",
+                  "floorId": "floor-0",
+                  "role": "floor",
+                  "bounds": {
+                    "min": {
+                      "x": 0,
+                      "y": 0,
+                      "h": 0
+                    },
+                    "max": {
+                      "x": 64,
+                      "y": 64,
+                      "h": 0
+                    }
+                  },
+                  "supports": true,
+                  "supportFloorId": "floor-0"
+                },
+                {
+                  "id": "west-left",
+                  "floorId": "floor-0",
+                  "role": "solid",
+                  "bounds": {
+                    "min": {
+                      "x": 10,
+                      "y": 27.95,
+                      "h": 0
+                    },
+                    "max": {
+                      "x": 15.3,
+                      "y": 28.05,
+                      "h": 2.12
+                    }
+                  },
+                  "supports": false,
+                  "supportFloorId": null
+                },
+                {
+                  "id": "west-right",
+                  "floorId": "floor-0",
+                  "role": "solid",
+                  "bounds": {
+                    "min": {
+                      "x": 16.7,
+                      "y": 27.95,
+                      "h": 0
+                    },
+                    "max": {
+                      "x": 22,
+                      "y": 28.05,
+                      "h": 2.12
+                    }
+                  },
+                  "supports": false,
+                  "supportFloorId": null
+                },
+                {
+                  "id": "east-left",
+                  "floorId": "floor-0",
+                  "role": "solid",
+                  "bounds": {
+                    "min": {
+                      "x": 42,
+                      "y": 27.95,
+                      "h": 0
+                    },
+                    "max": {
+                      "x": 47.3,
+                      "y": 28.05,
+                      "h": 2.12
+                    }
+                  },
+                  "supports": false,
+                  "supportFloorId": null
+                },
+                {
+                  "id": "east-right",
+                  "floorId": "floor-0",
+                  "role": "solid",
+                  "bounds": {
+                    "min": {
+                      "x": 48.7,
+                      "y": 27.95,
+                      "h": 0
+                    },
+                    "max": {
+                      "x": 54,
+                      "y": 28.05,
+                      "h": 2.12
+                    }
+                  },
+                  "supports": false,
+                  "supportFloorId": null
+                },
+                {
+                  "id": "east-back",
+                  "floorId": "floor-0",
+                  "role": "solid",
+                  "bounds": {
+                    "min": {
+                      "x": 42,
+                      "y": 20,
+                      "h": 0
+                    },
+                    "max": {
+                      "x": 54,
+                      "y": 20.15,
+                      "h": 2.12
+                    }
+                  },
+                  "supports": false,
+                  "supportFloorId": null
+                },
+                {
+                  "id": "east-side",
+                  "floorId": "floor-0",
+                  "role": "solid",
+                  "bounds": {
+                    "min": {
+                      "x": 42,
+                      "y": 20,
+                      "h": 0
+                    },
+                    "max": {
+                      "x": 42.15,
+                      "y": 27.9,
+                      "h": 2.12
+                    }
+                  },
+                  "supports": false,
+                  "supportFloorId": null
+                }
+              ],
+              "entities": [],
+              "links": []
+            },
+            "interactions": {
+              "kind": "nautilus-standard-interactions",
+              "version": 1,
+              "profile": "bounded-kinematic-v1",
+              "worldId": "ground-sandbox-9d266d7491cb",
+              "revision": 0,
+              "doors": [
+                {
+                  "id": "west/door",
+                  "label": "West plot door",
+                  "floorId": "floor-0",
+                  "position": {
+                    "x": 16,
+                    "y": 28,
+                    "h": 0
+                  },
+                  "reachM": 1.8,
+                  "open": false,
+                  "locked": false,
+                  "closedBounds": {
+                    "min": {
+                      "x": 15.4,
+                      "y": 27.939999999999998,
+                      "h": 0
+                    },
+                    "max": {
+                      "x": 16.6,
+                      "y": 28.060000000000002,
+                      "h": 2
+                    }
+                  },
+                  "openBounds": {
+                    "min": {
+                      "x": 15.4,
+                      "y": 26.8,
+                      "h": 0
+                    },
+                    "max": {
+                      "x": 15.5,
+                      "y": 28,
+                      "h": 2
+                    }
+                  },
+                  "motionBounds": {
+                    "min": {
+                      "x": 15.4,
+                      "y": 26.7,
+                      "h": 0
+                    },
+                    "max": {
+                      "x": 16.6,
+                      "y": 28.1,
+                      "h": 2
+                    }
+                  }
+                },
+                {
+                  "id": "east/door",
+                  "label": "East plot door",
+                  "floorId": "floor-0",
+                  "position": {
+                    "x": 48,
+                    "y": 28,
+                    "h": 0
+                  },
+                  "reachM": 1.8,
+                  "open": false,
+                  "locked": false,
+                  "closedBounds": {
+                    "min": {
+                      "x": 47.4,
+                      "y": 27.939999999999998,
+                      "h": 0
+                    },
+                    "max": {
+                      "x": 48.6,
+                      "y": 28.060000000000002,
+                      "h": 2
+                    }
+                  },
+                  "openBounds": {
+                    "min": {
+                      "x": 47.4,
+                      "y": 26.8,
+                      "h": 0
+                    },
+                    "max": {
+                      "x": 47.5,
+                      "y": 28,
+                      "h": 2
+                    }
+                  },
+                  "motionBounds": {
+                    "min": {
+                      "x": 47.4,
+                      "y": 26.7,
+                      "h": 0
+                    },
+                    "max": {
+                      "x": 48.6,
+                      "y": 28.1,
+                      "h": 2
+                    }
+                  }
+                }
+              ],
+              "stairs": []
+            },
+            "actor": {
+              "id": "player",
+              "revision": 0,
+              "position": {
+                "x": 52,
+                "y": 31,
+                "h": 0
+              },
+              "floorId": "floor-0",
+              "radiusM": 0.28,
+              "heightM": 1.8,
+              "speedMps": 3,
+              "traversal": null
+            },
+            "resources": {
+              "health": 37,
+              "ap": 7,
+              "stamina": 11,
+              "inventory": [
+                {
+                  "itemId": "item:rock",
+                  "instanceId": "east:rock",
+                  "quantity": 1
+                }
+              ]
+            },
+            "rocks": [
+              {
+                "kind": "nautilus-rock",
+                "version": 1,
+                "id": "east:rock",
+                "itemId": "item:rock",
+                "revision": 1,
+                "profile": {
+                  "id": "rock-distraction-v1",
+                  "pickupReach": 1.5,
+                  "maxThrowRange": 12,
+                  "noiseRadius": 8,
+                  "gravity": 9.81,
+                  "radius": 0.055,
+                  "stepHz": 90,
+                  "timeUnitsPerSecond": 90000,
+                  "maxAdvanceSeconds": 1,
+                  "maxFlightSeconds": 10
+                },
+                "phase": "carried",
+                "position": null,
+                "ownerId": "player",
+                "flight": null,
+                "lastImpact": null
+              }
+            ],
+            "events": [
+              {
+                "version": 1,
+                "type": "rock-picked-up",
+                "id": "sandbox-9d266d7491cb:run-1:golden-rock-recovery:pickup",
+                "commandId": "run-1:golden-rock-recovery",
+                "rockId": "east:rock",
+                "itemId": "item:rock",
+                "actorId": "player",
+                "sourceCommandId": "sandbox-9d266d7491cb:run-1:golden-rock-recovery",
+                "sandboxId": "sandbox-9d266d7491cb"
+              }
+            ],
+            "receipts": [
+              {
+                "commandId": "run-1:golden-rock-recovery",
+                "request": {
+                  "commandId": "run-1:golden-rock-recovery",
+                  "actionId": "east:rock/pickup",
+                  "offer": "{\"actor\":{\"floorId\":\"floor-0\",\"heightM\":1.8,\"id\":\"player\",\"position\":{\"h\":0,\"x\":52,\"y\":31},\"radiusM\":0.28,\"revision\":0,\"speedMps\":3,\"traversal\":null},\"interactions\":{\"doors\":[{\"closedBounds\":{\"max\":{\"h\":2,\"x\":16.6,\"y\":28.060000000000002},\"min\":{\"h\":0,\"x\":15.4,\"y\":27.939999999999998}},\"floorId\":\"floor-0\",\"id\":\"west/door\",\"label\":\"West plot door\",\"locked\":false,\"motionBounds\":{\"max\":{\"h\":2,\"x\":16.6,\"y\":28.1},\"min\":{\"h\":0,\"x\":15.4,\"y\":26.7}},\"open\":false,\"openBounds\":{\"max\":{\"h\":2,\"x\":15.5,\"y\":28},\"min\":{\"h\":0,\"x\":15.4,\"y\":26.8}},\"position\":{\"h\":0,\"x\":16,\"y\":28},\"reachM\":1.8},{\"closedBounds\":{\"max\":{\"h\":2,\"x\":48.6,\"y\":28.060000000000002},\"min\":{\"h\":0,\"x\":47.4,\"y\":27.939999999999998}},\"floorId\":\"floor-0\",\"id\":\"east/door\",\"label\":\"East plot door\",\"locked\":false,\"motionBounds\":{\"max\":{\"h\":2,\"x\":48.6,\"y\":28.1},\"min\":{\"h\":0,\"x\":47.4,\"y\":26.7}},\"open\":false,\"openBounds\":{\"max\":{\"h\":2,\"x\":47.5,\"y\":28},\"min\":{\"h\":0,\"x\":47.4,\"y\":26.8}},\"position\":{\"h\":0,\"x\":48,\"y\":28},\"reachM\":1.8}],\"kind\":\"nautilus-standard-interactions\",\"profile\":\"bounded-kinematic-v1\",\"revision\":0,\"stairs\":[],\"version\":1,\"worldId\":\"ground-sandbox-9d266d7491cb\"},\"plotGenerations\":{\"east\":0,\"west\":0},\"recipe\":{\"conditions\":{\"id\":\"transition\",\"version\":1},\"content\":{\"id\":\"night-ledger-independent-ground\",\"sourcePin\":\"81ddf363e524e967159703246e49ef334d0d1e65\",\"version\":1},\"engineSource\":\"0640dab2f8dfe5d9facbe9ded831855e0376d22a\",\"kind\":\"nautilus-test-ground-recipe\",\"objective\":{\"id\":\"rock-recovery\",\"slot\":\"east\",\"version\":1},\"observers\":{\"profile\":\"full\",\"version\":1},\"plots\":[{\"fixture\":\"gatehouse\",\"slot\":\"west\",\"version\":1},{\"fixture\":\"supply-store\",\"slot\":\"east\",\"version\":1}],\"probe\":\"ordinary\",\"seed\":1947,\"version\":1},\"resources\":{\"ap\":9,\"health\":37,\"inventory\":[],\"stamina\":11},\"revision\":0,\"rocks\":[{\"flight\":null,\"id\":\"east:rock\",\"itemId\":\"item:rock\",\"kind\":\"nautilus-rock\",\"lastImpact\":null,\"ownerId\":null,\"phase\":\"world\",\"position\":{\"h\":0.055,\"x\":52,\"y\":30},\"profile\":{\"gravity\":9.81,\"id\":\"rock-distraction-v1\",\"maxAdvanceSeconds\":1,\"maxFlightSeconds\":10,\"maxThrowRange\":12,\"noiseRadius\":8,\"pickupReach\":1.5,\"radius\":0.055,\"stepHz\":90,\"timeUnitsPerSecond\":90000},\"revision\":0,\"version\":1}]}"
+                },
+                "receipt": {
+                  "version": 1,
+                  "ok": true,
+                  "committed": true,
+                  "code": null,
+                  "reason": null,
+                  "commandId": "run-1:golden-rock-recovery",
+                  "receiptId": "sandbox-9d266d7491cb/receipt/run-1:golden-rock-recovery",
+                  "targetId": "east:rock",
+                  "actionId": "east:rock/pickup",
+                  "cost": {
+                    "policy": "test-ground-costs",
+                    "version": 1,
+                    "ap": 2
+                  },
+                  "repeated": false
+                }
+              }
+            ]
+          },
+          "passage": null
+        },
+        "command": {
+          "intent": {
+            "version": 1,
+            "type": "action",
+            "providerId": "ground.interactions",
+            "actionId": "east:rock/pickup",
+            "context": "run-1",
+            "offer": "{\"actor\":{\"floorId\":\"floor-0\",\"heightM\":1.8,\"id\":\"player\",\"position\":{\"h\":0,\"x\":52,\"y\":31},\"radiusM\":0.28,\"revision\":0,\"speedMps\":3,\"traversal\":null},\"interactions\":{\"doors\":[{\"closedBounds\":{\"max\":{\"h\":2,\"x\":16.6,\"y\":28.060000000000002},\"min\":{\"h\":0,\"x\":15.4,\"y\":27.939999999999998}},\"floorId\":\"floor-0\",\"id\":\"west/door\",\"label\":\"West plot door\",\"locked\":false,\"motionBounds\":{\"max\":{\"h\":2,\"x\":16.6,\"y\":28.1},\"min\":{\"h\":0,\"x\":15.4,\"y\":26.7}},\"open\":false,\"openBounds\":{\"max\":{\"h\":2,\"x\":15.5,\"y\":28},\"min\":{\"h\":0,\"x\":15.4,\"y\":26.8}},\"position\":{\"h\":0,\"x\":16,\"y\":28},\"reachM\":1.8},{\"closedBounds\":{\"max\":{\"h\":2,\"x\":48.6,\"y\":28.060000000000002},\"min\":{\"h\":0,\"x\":47.4,\"y\":27.939999999999998}},\"floorId\":\"floor-0\",\"id\":\"east/door\",\"label\":\"East plot door\",\"locked\":false,\"motionBounds\":{\"max\":{\"h\":2,\"x\":48.6,\"y\":28.1},\"min\":{\"h\":0,\"x\":47.4,\"y\":26.7}},\"open\":false,\"openBounds\":{\"max\":{\"h\":2,\"x\":47.5,\"y\":28},\"min\":{\"h\":0,\"x\":47.4,\"y\":26.8}},\"position\":{\"h\":0,\"x\":48,\"y\":28},\"reachM\":1.8}],\"kind\":\"nautilus-standard-interactions\",\"profile\":\"bounded-kinematic-v1\",\"revision\":0,\"stairs\":[],\"version\":1,\"worldId\":\"ground-sandbox-9d266d7491cb\"},\"plotGenerations\":{\"east\":0,\"west\":0},\"recipe\":{\"conditions\":{\"id\":\"transition\",\"version\":1},\"content\":{\"id\":\"night-ledger-independent-ground\",\"sourcePin\":\"81ddf363e524e967159703246e49ef334d0d1e65\",\"version\":1},\"engineSource\":\"0640dab2f8dfe5d9facbe9ded831855e0376d22a\",\"kind\":\"nautilus-test-ground-recipe\",\"objective\":{\"id\":\"rock-recovery\",\"slot\":\"east\",\"version\":1},\"observers\":{\"profile\":\"full\",\"version\":1},\"plots\":[{\"fixture\":\"gatehouse\",\"slot\":\"west\",\"version\":1},{\"fixture\":\"supply-store\",\"slot\":\"east\",\"version\":1}],\"probe\":\"ordinary\",\"seed\":1947,\"version\":1},\"resources\":{\"ap\":9,\"health\":37,\"inventory\":[],\"stamina\":11},\"revision\":0,\"rocks\":[{\"flight\":null,\"id\":\"east:rock\",\"itemId\":\"item:rock\",\"kind\":\"nautilus-rock\",\"lastImpact\":null,\"ownerId\":null,\"phase\":\"world\",\"position\":{\"h\":0.055,\"x\":52,\"y\":30},\"profile\":{\"gravity\":9.81,\"id\":\"rock-distraction-v1\",\"maxAdvanceSeconds\":1,\"maxFlightSeconds\":10,\"maxThrowRange\":12,\"noiseRadius\":8,\"pickupReach\":1.5,\"radius\":0.055,\"stepHz\":90,\"timeUnitsPerSecond\":90000},\"revision\":0,\"version\":1}]}"
+          },
+          "commandId": "run-1:golden-rock-recovery",
+          "receipt": {
+            "version": 1,
+            "ok": true,
+            "committed": true,
+            "code": null,
+            "reason": null,
+            "commandId": "run-1:golden-rock-recovery",
+            "receiptId": "sandbox-9d266d7491cb/receipt/run-1:golden-rock-recovery",
+            "targetId": "east:rock",
+            "actionId": "east:rock/pickup",
+            "cost": {
+              "policy": "test-ground-costs",
+              "version": 1,
+              "ap": 2
+            },
+            "repeated": false
+          },
+          "retry": {
+            "version": 1,
+            "ok": true,
+            "committed": true,
+            "code": null,
+            "reason": null,
+            "commandId": "run-1:golden-rock-recovery",
+            "receiptId": "sandbox-9d266d7491cb/receipt/run-1:golden-rock-recovery",
+            "targetId": "east:rock",
+            "actionId": "east:rock/pickup",
+            "cost": {
+              "policy": "test-ground-costs",
+              "version": 1,
+              "ap": 2
+            },
+            "repeated": true
+          }
+        },
+        "evidence": {
+          "eventIds": [
+            "sandbox-9d266d7491cb:run-1:golden-rock-recovery:pickup"
+          ],
+          "receiptId": "sandbox-9d266d7491cb/receipt/run-1:golden-rock-recovery",
+          "expectations": "committed registry data; never derived from this run",
+          "scope": "public pure simulation outcomes; manual native scene reviewed separately"
+        },
+        "dependencyKey": "{\"executionSource\":{\"consumer\":[{\"path\":\"data.js\",\"sha256\":\"0a02ccfa6bead796b18b49f89866b3009b9b4b7a7c032f1cebe56ec673331434\"},{\"path\":\"registry.js\",\"sha256\":\"73043368096cca07c681ee4e3e7c260f4da2075984f5a6a5e4d16f4997669706\"},{\"path\":\"content-data.json\",\"sha256\":\"e4e1add8b047b41d61adb1657fab2080dd2606e13933a21cfb7fe49d13a24020\"},{\"path\":\"host.js\",\"sha256\":\"b95ff8555dc620a3f3093d2eccfece6ba0bd2e166397ab775d39abbd98609958\"},{\"path\":\"runner.js\",\"sha256\":\"1739d6ae0e0c770bcb92d0276a7ac593ebb131c279d49960d370e3bc57735518\"},{\"path\":\"surface.js\",\"sha256\":\"672ca20e0cae23a4e1cb916417ec062ff687de09414f38ea58a5e5f2c1162103\"},{\"path\":\"application.js\",\"sha256\":\"7145131fba937dbf6ff6a9a3e8930426b228962277ec500456af51b78ddc1b1d\"},{\"path\":\"main.js\",\"sha256\":\"1598ccaaa021bb216a698283264c93746a7705c73acfb81ae9818d52035894a9\"},{\"path\":\"ground.css\",\"sha256\":\"b8c961828c544d256e4325f5000054e8d1dd8d8d6595ff1cda92ad99c6eee034\"}],\"engineArchiveSHA\":\"21ce8c057c854b900b0fd339789cc967898acdb9c2696b8feed61ca82825ed73\"},\"expectations\":[{\"conditions\":[\"current-door-open\",\"current-passage-clear\",\"new-door-event-after-baseline\"],\"expected\":{\"apSpent\":1,\"newEvents\":1,\"open\":true,\"passage\":true},\"id\":\"door-passage\",\"name\":\"Open the marked passage\",\"observer\":{\"id\":\"door-observer\",\"version\":1},\"requires\":[\"door-state-v1\",\"passage-query-v1\",\"interaction-event-v1\"],\"version\":1},{\"conditions\":[\"current-owner-player\",\"current-world-position-removed\",\"new-inventory-gain-after-baseline\",\"new-pickup-event-after-baseline\"],\"expected\":{\"apSpent\":2,\"inventoryGain\":1,\"newEvents\":1,\"ownerId\":\"player\",\"phase\":\"carried\",\"position\":null},\"id\":\"rock-recovery\",\"name\":\"Recover the marked rock\",\"observer\":{\"id\":\"rock-observer\",\"version\":1},\"requires\":[\"rock-state-v1\",\"inventory-state-v1\",\"item-event-v1\"],\"version\":1}],\"fixtures\":[{\"baseline\":\"closed-door-clear-approach-v1\",\"evidence\":[\"confirmed door state\",\"public body-aware passage query\",\"one new door-opened event\",\"fixture AP cost\"],\"expectationVersion\":1,\"id\":\"golden-door-passage\",\"name\":\"Door opens and passage clears\",\"objective\":\"door-passage\",\"plot\":\"gatehouse\",\"resetPolicy\":\"new-isolated-sandbox-only\",\"slot\":\"west\",\"spawnLocal\":{\"h\":0,\"x\":8,\"y\":13.4},\"version\":1},{\"baseline\":\"world-rock-empty-inventory-v1\",\"evidence\":[\"carried rock owner\",\"old world position removed\",\"exactly one inventory instance\",\"one new rock-picked-up event\",\"fixture AP cost\"],\"expectationVersion\":1,\"id\":\"golden-rock-recovery\",\"name\":\"Rock transfers exactly once\",\"objective\":\"rock-recovery\",\"plot\":\"supply-store\",\"resetPolicy\":\"new-isolated-sandbox-only\",\"slot\":\"east\",\"spawnLocal\":{\"h\":0,\"x\":12,\"y\":15},\"version\":1}],\"playerSetup\":{\"actorId\":\"player\",\"bindings\":{},\"components\":[{\"id\":\"player.shell\",\"settings\":{\"actions\":\"icon-text\",\"layout\":\"auto\",\"skin\":\"farmyard\"},\"version\":1},{\"id\":\"player.walking\",\"settings\":{\"pace\":1},\"version\":1},{\"id\":\"player.camera\",\"settings\":{\"mode\":\"follow\",\"zoom\":1},\"version\":1},{\"id\":\"setup.runtime\",\"settings\":{},\"version\":1},{\"id\":\"setup.actor\",\"settings\":{\"model\":\"goat\",\"motion\":\"native-gait\"},\"version\":1}],\"content\":{\"id\":\"night-ledger-independent-ground\",\"sourcePin\":\"81ddf363e524e967159703246e49ef334d0d1e65\",\"version\":1},\"engine\":{\"package\":\"@nautilus-engine/map-core\",\"sourcePin\":\"7f50cb2a48aef87a16fc0465997549be9ed88dc2\",\"version\":\"0.10.0\"},\"kind\":\"nautilus-player-setup\",\"version\":1},\"recipe\":{\"conditions\":{\"id\":\"transition\",\"version\":1},\"content\":{\"id\":\"night-ledger-independent-ground\",\"sourcePin\":\"81ddf363e524e967159703246e49ef334d0d1e65\",\"version\":1},\"engineSource\":\"0640dab2f8dfe5d9facbe9ded831855e0376d22a\",\"kind\":\"nautilus-test-ground-recipe\",\"objective\":{\"id\":\"door-passage\",\"slot\":\"west\",\"version\":1},\"observers\":{\"profile\":\"full\",\"version\":1},\"plots\":[{\"fixture\":\"gatehouse\",\"slot\":\"west\",\"version\":1},{\"fixture\":\"supply-store\",\"slot\":\"east\",\"version\":1}],\"probe\":\"ordinary\",\"seed\":1947,\"version\":1},\"registry\":\"81ddf363e524e967159703246e49ef334d0d1e65\"}"
+      }
+    },
+    "serial": 1
+  }
+}

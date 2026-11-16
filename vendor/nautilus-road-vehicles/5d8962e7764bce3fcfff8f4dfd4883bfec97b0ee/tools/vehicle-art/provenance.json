@@ -1,0 +1,134 @@
+{
+  "schema": 1,
+  "author": "Original Nautilus procedural vehicle sculpts and registered skin layouts",
+  "workflow": "Finish high-resolution sculpt, simplify its saved author vertices with pinned meshoptimizer, retain original UVs/normals, compact buffers, compose painterly image skins against the same UV layout.",
+  "texture": {
+    "method": "Built-in image_gen__imagegen; generated brushwork then code-native UV/detail composition with Sharp",
+    "prompt": "tools/vehicle-art/prompt.json",
+    "master": "tools/vehicle-art/paint-master.png",
+    "styleReference": {
+      "path": "vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/assets/environment/painted-study/material-atlas-v2.png",
+      "bytes": 2197106,
+      "sha256": "4b0c64828a25507a07e26f48fa83bc805908e03f29ed297e83d002e9b2e25e05"
+    },
+    "encoding": "Skin RGB is opaque painted colour. Alpha stores finish tint coverage: 1 for body enamel, 0 for glass/trim. The renderer ignores alpha for opacity."
+  },
+  "simplifier": {
+    "repository": "https://github.com/zeux/meshoptimizer",
+    "commit": "7b2d4f4c817aea55d74dcd65d9763ac2ca608026",
+    "tag": "v0.24",
+    "license": "MIT",
+    "imports": [
+      {
+        "local": "meshopt_simplifier.module.js",
+        "upstream": "js/meshopt_simplifier.module.js"
+      },
+      {
+        "local": "README.md",
+        "upstream": "js/README.md"
+      },
+      {
+        "local": "LICENSE.md",
+        "upstream": "LICENSE.md"
+      }
+    ],
+    "closure": "Self-contained ES module with embedded WebAssembly; no network, packages or runtime imports. Authoring only. Original upstream bytes remain unchanged."
+  },
+  "files": [
+    {
+      "path": "tools/vehicle-art/bake.mjs",
+      "bytes": 3310,
+      "sha256": "9ec665d8c525bf0356a21fb0ec4e23044fcee5617805d7cfa7dfe7aa47f5e8b0"
+    },
+    {
+      "path": "tools/vehicle-art/skins.mjs",
+      "bytes": 10159,
+      "sha256": "dbefd71685787fe2d02f753274d75bdb5f0b24e2b82948f8338180c8d7330bc1"
+    },
+    {
+      "path": "tools/vehicle-art/record.mjs",
+      "bytes": 2452,
+      "sha256": "9cc3a56f403f0e727ece5273e78b4e5c2a67cf17155c85f150ca9dd6c43ca5be"
+    },
+    {
+      "path": "tools/vehicle-art/paint-master.png",
+      "bytes": 2080458,
+      "sha256": "504b3d012f7f30a2a5c948644f7a4bfb17c7b5ba6106249000f5ab583a695bf8"
+    },
+    {
+      "path": "tools/vehicle-art/prompt.json",
+      "bytes": 1658,
+      "sha256": "6c2a4b58a00596d50ab8b697ec869c2818d34495a98dcdc44ccf1a4961bd73ac"
+    },
+    {
+      "path": "vendor/meshoptimizer/7b2d4f4c817aea55d74dcd65d9763ac2ca608026/meshopt_simplifier.module.js",
+      "bytes": 33241,
+      "sha256": "68f7b94830e3be31b7f08eb09c01b5c3867c74437d27807629541b3874bab567"
+    },
+    {
+      "path": "vendor/meshoptimizer/7b2d4f4c817aea55d74dcd65d9763ac2ca608026/LICENSE.md",
+      "bytes": 1079,
+      "sha256": "e4a26033e3551fb2722888949fbb41e77aee628e8e8f04dcffeee301aa7e5634"
+    },
+    {
+      "path": "vendor/meshoptimizer/7b2d4f4c817aea55d74dcd65d9763ac2ca608026/README.md",
+      "bytes": 25486,
+      "sha256": "01b09c39052edbd8f75c1555a1fae43e20edbcf2da82c74f6b2d592ada065660"
+    },
+    {
+      "path": "packages/vehicle-visuals/reduced-data.js",
+      "bytes": 2999660,
+      "sha256": "c89bb61aabe7c9224dcaa8905ead1552af68171c31dce12d29f6501cbcbfdb28"
+    },
+    {
+      "path": "packages/vehicle-visuals/reduction.json",
+      "bytes": 7588,
+      "sha256": "2458f425dc890fc28770201b048a83faf9d73c8969e0ebfee14f3cae36f6b0ad"
+    },
+    {
+      "path": "packages/vehicle-visuals/skins/hatchback.png",
+      "bytes": 3867823,
+      "sha256": "c9cfd3635cbe41127d7da4372a7c52281b89c198972eefa485638511c49eaf40"
+    },
+    {
+      "path": "packages/vehicle-visuals/skins/sedan.png",
+      "bytes": 3957575,
+      "sha256": "c71b2360f4ad22142253fef37750eea24f1ebc0308ad8afc06bbe1085f991190"
+    },
+    {
+      "path": "packages/vehicle-visuals/skins/pickup.png",
+      "bytes": 3930842,
+      "sha256": "c02bfed2463cb36fcc85f47a49a42e98f170c2a9b8225474bd4682b047871dac"
+    },
+    {
+      "path": "packages/vehicle-visuals/skins/crew-pickup.png",
+      "bytes": 3991487,
+      "sha256": "c2e0bbbe2dcc3080aba8e65b270735ae398d61069d94af19b356f3bee672e710"
+    },
+    {
+      "path": "packages/vehicle-visuals/skins/cargo-van.png",
+      "bytes": 3999313,
+      "sha256": "46ef789122e85d9ff38adda0114a22b7c218219f7beefc995128c39ed589e4ea"
+    },
+    {
+      "path": "packages/vehicle-visuals/skins/passenger-van.png",
+      "bytes": 4234724,
+      "sha256": "ecdde4417a783532bffe32e2d2dcd1be2a543366e5635dc99381ae3b803199a2"
+    },
+    {
+      "path": "packages/vehicle-visuals/skins/utility-suv.png",
+      "bytes": 4136879,
+      "sha256": "74d9ab971cf323cbc3f4e8bd9783e4c02b705bdfe0d78845a5a87e8bed2af101"
+    },
+    {
+      "path": "packages/vehicle-visuals/skins/crossover.png",
+      "bytes": 4023235,
+      "sha256": "cf83d93fc6ab72c1c220583f32b1f72d0ac65461bb6ecdc771faba4d0df3c95c"
+    },
+    {
+      "path": "packages/vehicle-visuals/skins/running-gear.png",
+      "bytes": 1584458,
+      "sha256": "d04c45707f4b3a64a4c711d6789c49b880be3f8768e5b53c581c5503572668a7"
+    }
+  ]
+}

@@ -117,6 +117,8 @@ The same command and preview can be driven by touch, pointer or keyboard, while 
 
 ## Design choices and preferences
 
+The [player setup and UI composition tranche](projects/player-setup-composition.md) records the assembly gap exposed by the train yard and scopes the shared layout, contextual actions, control ownership and executable starter recipe. Its APIs remain proposed until the installed two-scene proof passes.
+
 These are provisional recommendations following [accuracy, efficiency and narrative](design-evaluation.md). CPU observations here are code-based estimates, not benchmarks; narrative preferences are judgments. Existing compatibility profiles remain available.
 
 | Difference | Accuracy | Efficiency | Narrative and preferred use |

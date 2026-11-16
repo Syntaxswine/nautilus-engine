@@ -1,0 +1,126 @@
+{
+  "source": "6761077583b402b3edbacc1fab41ef42b60a0b09",
+  "initialOverlaps": [
+    null,
+    null
+  ],
+  "result": {
+    "ok": true,
+    "state": {
+      "kind": "nautilus-standard-interactions",
+      "version": 1,
+      "profile": "bounded-kinematic-v1",
+      "worldId": "architect-contact",
+      "revision": 0,
+      "doors": [],
+      "stairs": []
+    },
+    "actor": {
+      "id": "reviewer",
+      "revision": 1,
+      "position": {
+        "x": 3.890719070161178,
+        "y": 3.715072026892904,
+        "h": 0
+      },
+      "floorId": "floor-0",
+      "radiusM": 0.28,
+      "heightM": 1.8,
+      "speedMps": 2.4,
+      "traversal": null
+    },
+    "events": [],
+    "movement": {
+      "profile": "disc-slide-v1",
+      "distanceM": 0.1253907699947112,
+      "contacts": [
+        {
+          "id": "rounded-corner",
+          "time": 0.016836752405608696,
+          "normal": {
+            "x": -0.6998542122237645,
+            "y": -0.7142857142857149
+          },
+          "initialOverlap": false
+        }
+      ]
+    },
+    "expected": {
+      "worldRevision": 0,
+      "actorRevision": 0
+    }
+  },
+  "finalOverlaps": [
+    null,
+    {
+      "id": "secondary-wall",
+      "normal": {
+        "x": 0,
+        "y": 1
+      },
+      "depthM": 0.07492797310709576
+    }
+  ],
+  "completeObstacleResult": {
+    "delta": {
+      "x": 0.014245313553228414,
+      "y": -0.009999300145787786
+    },
+    "distanceM": 0.018327510743581327,
+    "contacts": [
+      {
+        "id": "rounded-corner",
+        "time": 0.016836752405608724,
+        "normal": {
+          "x": -0.6998542122237645,
+          "y": -0.7142857142857149
+        },
+        "initialOverlap": false
+      },
+      {
+        "id": "secondary-wall",
+        "time": 0.11774683457227707,
+        "normal": {
+          "x": 0,
+          "y": 1
+        },
+        "initialOverlap": false
+      }
+    ],
+    "segments": [
+      {
+        "from": {
+          "x": 0,
+          "y": 0
+        },
+        "to": {
+          "x": 0.004039820577346094,
+          "y": 0
+        }
+      },
+      {
+        "from": {
+          "x": 0.004039820577346094,
+          "y": 0
+        },
+        "to": {
+          "x": 0.014245313553228414,
+          "y": -0.009999300145787786
+        }
+      }
+    ],
+    "blocked": true,
+    "shape": {
+      "id": "reviewer",
+      "points": [
+        {
+          "x": 3.8142453135532284,
+          "y": 3.790000699854212
+        }
+      ],
+      "radiusM": 0.28,
+      "minH": 0,
+      "maxH": 1.8
+    }
+  }
+}

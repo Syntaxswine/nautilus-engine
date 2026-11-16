@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nautilus:schema:railway-routes:3",
+  "title": "Nautilus ground railway routes with crossings",
+  "type": "object",
+  "required": ["version", "routes"],
+  "additionalProperties": false,
+  "properties": {
+    "version": {"const": 3},
+    "routes": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 64,
+      "items": {"$ref": "urn:nautilus:schema:railway-routes:2#/properties/routes/items"}
+    }
+  },
+  "$comment": "The headless planner derives at least one diamond crossing from the fitted routes. The crossing centre and render geometry are not stored."
+}

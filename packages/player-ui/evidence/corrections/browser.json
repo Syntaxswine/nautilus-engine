@@ -1,0 +1,604 @@
+{
+  "status": "passed",
+  "parentCommit": "03096098ec51da1bca822a892e7cfe48638e39c5",
+  "groups": [
+    {
+      "name": "mounted shell preserves both slash-colliding action pairs and routes each native button correctly",
+      "ok": true,
+      "evidence": {
+        "ids": [
+          "[\"items\",\"doors/open\"]",
+          "[\"items/doors\",\"open\"]"
+        ],
+        "buttons": [
+          {
+            "provider": "items",
+            "action": "doors/open",
+            "label": "Open first door"
+          },
+          {
+            "provider": "items/doors",
+            "action": "open",
+            "label": "Open second door"
+          }
+        ]
+      }
+    },
+    {
+      "name": "live: post-update invalid request observes accepted camera/configuration and cannot cancel a crossed commit",
+      "ok": true,
+      "evidence": {
+        "result": {
+          "version": 1,
+          "ok": true,
+          "committed": true,
+          "code": null,
+          "reason": null
+        },
+        "nestedResult": {
+          "version": 1,
+          "ok": false,
+          "committed": false,
+          "code": "CONFIGURATION_NOT_READY",
+          "reason": "Use player UI configuration version1. Use this candidate’s exact reviewed engine base; migrate recipes explicitly. Record exact content ID, version and full reviewed source pin. Select a retained actor ID. Use a bounded component list. Use a service-to-provider record. Select the shared player shell.",
+          "diagnostics": [
+            {
+              "code": "CONFIGURATION_VERSION",
+              "path": "/",
+              "message": "Use player UI configuration version1.",
+              "action": "Choose a supported descriptor/version and compatible registered provider."
+            },
+            {
+              "code": "ENGINE_BASE_UNSUPPORTED",
+              "path": "/engine",
+              "message": "Use this candidate’s exact reviewed engine base; migrate recipes explicitly.",
+              "action": "Choose a supported descriptor/version and compatible registered provider."
+            },
+            {
+              "code": "CONTENT_IDENTITY",
+              "path": "/content",
+              "message": "Record exact content ID, version and full reviewed source pin.",
+              "action": "Choose a supported descriptor/version and compatible registered provider."
+            },
+            {
+              "code": "ACTOR_REQUIRED",
+              "path": "/actorId",
+              "message": "Select a retained actor ID.",
+              "action": "Choose a supported descriptor/version and compatible registered provider."
+            },
+            {
+              "code": "COMPONENT_LIST",
+              "path": "/components",
+              "message": "Use a bounded component list.",
+              "action": "Choose a supported descriptor/version and compatible registered provider."
+            },
+            {
+              "code": "INVALID_BINDINGS",
+              "path": "/bindings",
+              "message": "Use a service-to-provider record.",
+              "action": "Choose a supported descriptor/version and compatible registered provider."
+            },
+            {
+              "code": "SHELL_REQUIRED",
+              "path": "/components",
+              "message": "Select the shared player shell.",
+              "action": "Choose a supported descriptor/version and compatible registered provider."
+            }
+          ]
+        },
+        "observed": {
+          "configuration": {
+            "mode": "follow",
+            "zoom": 1.1
+          },
+          "actual": {
+            "mode": "follow",
+            "zoom": 1.1
+          },
+          "aborted": false
+        },
+        "configuration": {
+          "mode": "follow",
+          "zoom": 1.1
+        },
+        "actual": {
+          "mode": "follow",
+          "zoom": 1.1
+        },
+        "aborted": false,
+        "worldUnchanged": true,
+        "sameActuator": true,
+        "listeners": 2,
+        "views": 1
+      }
+    },
+    {
+      "name": "live: external abort after camera acceptance is truthful and does not abort accepted staging",
+      "ok": true,
+      "evidence": {
+        "result": {
+          "version": 1,
+          "ok": true,
+          "committed": true,
+          "code": null,
+          "reason": null
+        },
+        "externalAborted": true,
+        "acceptedSignalAborted": false,
+        "configuration": {
+          "mode": "follow",
+          "zoom": 1.1
+        },
+        "actual": {
+          "mode": "follow",
+          "zoom": 1.1
+        }
+      }
+    },
+    {
+      "name": "live: a reentrant valid change follows the accepted change without an old completion overwriting it",
+      "ok": true,
+      "evidence": {
+        "first": {
+          "version": 1,
+          "ok": true,
+          "committed": true,
+          "code": null,
+          "reason": null
+        },
+        "second": {
+          "version": 1,
+          "ok": true,
+          "committed": true,
+          "code": null,
+          "reason": null
+        },
+        "observed": {
+          "configuration": {
+            "mode": "follow",
+            "zoom": 1.1
+          },
+          "actual": {
+            "mode": "follow",
+            "zoom": 1.1
+          }
+        },
+        "configuration": {
+          "mode": "follow",
+          "zoom": 1.2
+        },
+        "actual": {
+          "mode": "follow",
+          "zoom": 1.2
+        },
+        "views": 1,
+        "listeners": 2
+      }
+    },
+    {
+      "name": "live: throwing post-update notifications remain committed and retire prepared/replaced staging",
+      "ok": true,
+      "evidence": {
+        "result": {
+          "version": 1,
+          "ok": true,
+          "committed": true,
+          "code": null,
+          "reason": null,
+          "observerErrors": 1
+        },
+        "configuration": {
+          "mode": "follow",
+          "zoom": 1.1
+        },
+        "actual": {
+          "mode": "follow",
+          "zoom": 1.1
+        },
+        "views": 1,
+        "errors": [
+          {
+            "message": "EXPECTED_CAMERA_OBSERVER_FAILURE",
+            "phase": "committed-configuration"
+          }
+        ],
+        "listeners": 0,
+        "stages": [
+          {
+            "commits": 1,
+            "disposals": 1
+          },
+          {
+            "commits": 1,
+            "disposals": 1
+          }
+        ]
+      }
+    },
+    {
+      "name": "live: disposal from a commit notification retires both views and synchronously blocks old native input",
+      "ok": true,
+      "evidence": {
+        "result": {
+          "version": 1,
+          "ok": true,
+          "committed": true,
+          "code": null,
+          "reason": null
+        },
+        "observer": {
+          "configuration": {
+            "mode": "follow",
+            "zoom": 1.1
+          },
+          "actual": {
+            "mode": "follow",
+            "zoom": 1.1
+          },
+          "noNativeCommand": true,
+          "rejected": {
+            "version": 1,
+            "ok": false,
+            "committed": false,
+            "code": "DISPOSED",
+            "reason": "Player UI retired."
+          }
+        },
+        "configuration": {
+          "mode": "follow",
+          "zoom": 1.1
+        },
+        "actual": {
+          "mode": "follow",
+          "zoom": 1.1
+        },
+        "views": 0,
+        "listeners": 0,
+        "stages": [
+          1,
+          1
+        ],
+        "lease": null
+      }
+    },
+    {
+      "name": "live: cancellation before the commit point leaves accepted camera/configuration and view intact",
+      "ok": true,
+      "evidence": {
+        "result": {
+          "version": 1,
+          "ok": false,
+          "committed": false,
+          "code": "PREPARATION_CANCELLED",
+          "reason": "PREPARATION_CANCELLED"
+        },
+        "configuration": {
+          "mode": "follow",
+          "zoom": 1
+        },
+        "actual": {
+          "mode": "follow",
+          "zoom": 1
+        },
+        "sameConfig": true,
+        "sameActuator": true,
+        "stage": {
+          "commits": 0,
+          "disposals": 1
+        }
+      }
+    },
+    {
+      "name": "live: camera readiness refusal precedes acceptance and preserves the borrowed setup",
+      "ok": true,
+      "evidence": {
+        "result": {
+          "version": 1,
+          "ok": false,
+          "committed": false,
+          "code": "PREPARATION_FAILED",
+          "reason": "EXPECTED_CAMERA_PREPARE_FAILURE"
+        },
+        "configuration": {
+          "mode": "follow",
+          "zoom": 1
+        },
+        "actual": {
+          "mode": "follow",
+          "zoom": 1
+        },
+        "sameConfig": true,
+        "sameActuator": true
+      }
+    },
+    {
+      "name": "replacement: post-update invalid request observes accepted camera/configuration and cannot cancel a crossed commit",
+      "ok": true,
+      "evidence": {
+        "result": {
+          "version": 1,
+          "ok": true,
+          "committed": true,
+          "code": null,
+          "reason": null
+        },
+        "nestedResult": {
+          "version": 1,
+          "ok": false,
+          "committed": false,
+          "code": "CONFIGURATION_NOT_READY",
+          "reason": "Use player UI configuration version1. Use this candidate’s exact reviewed engine base; migrate recipes explicitly. Record exact content ID, version and full reviewed source pin. Select a retained actor ID. Use a bounded component list. Use a service-to-provider record. Select the shared player shell.",
+          "diagnostics": [
+            {
+              "code": "CONFIGURATION_VERSION",
+              "path": "/",
+              "message": "Use player UI configuration version1.",
+              "action": "Choose a supported descriptor/version and compatible registered provider."
+            },
+            {
+              "code": "ENGINE_BASE_UNSUPPORTED",
+              "path": "/engine",
+              "message": "Use this candidate’s exact reviewed engine base; migrate recipes explicitly.",
+              "action": "Choose a supported descriptor/version and compatible registered provider."
+            },
+            {
+              "code": "CONTENT_IDENTITY",
+              "path": "/content",
+              "message": "Record exact content ID, version and full reviewed source pin.",
+              "action": "Choose a supported descriptor/version and compatible registered provider."
+            },
+            {
+              "code": "ACTOR_REQUIRED",
+              "path": "/actorId",
+              "message": "Select a retained actor ID.",
+              "action": "Choose a supported descriptor/version and compatible registered provider."
+            },
+            {
+              "code": "COMPONENT_LIST",
+              "path": "/components",
+              "message": "Use a bounded component list.",
+              "action": "Choose a supported descriptor/version and compatible registered provider."
+            },
+            {
+              "code": "INVALID_BINDINGS",
+              "path": "/bindings",
+              "message": "Use a service-to-provider record.",
+              "action": "Choose a supported descriptor/version and compatible registered provider."
+            },
+            {
+              "code": "SHELL_REQUIRED",
+              "path": "/components",
+              "message": "Select the shared player shell.",
+              "action": "Choose a supported descriptor/version and compatible registered provider."
+            }
+          ]
+        },
+        "observed": {
+          "configuration": {
+            "mode": "follow",
+            "zoom": 1.1
+          },
+          "actual": {
+            "mode": "follow",
+            "zoom": 1.1
+          },
+          "aborted": false
+        },
+        "configuration": {
+          "mode": "follow",
+          "zoom": 1.1
+        },
+        "actual": {
+          "mode": "follow",
+          "zoom": 1.1
+        },
+        "aborted": false,
+        "worldUnchanged": true,
+        "sameActuator": false,
+        "listeners": 2,
+        "views": 1
+      }
+    },
+    {
+      "name": "replacement: external abort after camera acceptance is truthful and does not abort accepted staging",
+      "ok": true,
+      "evidence": {
+        "result": {
+          "version": 1,
+          "ok": true,
+          "committed": true,
+          "code": null,
+          "reason": null
+        },
+        "externalAborted": true,
+        "acceptedSignalAborted": false,
+        "configuration": {
+          "mode": "follow",
+          "zoom": 1.1
+        },
+        "actual": {
+          "mode": "follow",
+          "zoom": 1.1
+        }
+      }
+    },
+    {
+      "name": "replacement: a reentrant valid change follows the accepted change without an old completion overwriting it",
+      "ok": true,
+      "evidence": {
+        "first": {
+          "version": 1,
+          "ok": true,
+          "committed": true,
+          "code": null,
+          "reason": null
+        },
+        "second": {
+          "version": 1,
+          "ok": true,
+          "committed": true,
+          "code": null,
+          "reason": null
+        },
+        "observed": {
+          "configuration": {
+            "mode": "follow",
+            "zoom": 1.1
+          },
+          "actual": {
+            "mode": "follow",
+            "zoom": 1.1
+          }
+        },
+        "configuration": {
+          "mode": "follow",
+          "zoom": 1.2
+        },
+        "actual": {
+          "mode": "follow",
+          "zoom": 1.2
+        },
+        "views": 1,
+        "listeners": 2
+      }
+    },
+    {
+      "name": "replacement: throwing post-update notifications remain committed and retire prepared/replaced staging",
+      "ok": true,
+      "evidence": {
+        "result": {
+          "version": 1,
+          "ok": true,
+          "committed": true,
+          "code": null,
+          "reason": null,
+          "observerErrors": 1
+        },
+        "configuration": {
+          "mode": "follow",
+          "zoom": 1.1
+        },
+        "actual": {
+          "mode": "follow",
+          "zoom": 1.1
+        },
+        "views": 1,
+        "errors": [
+          {
+            "message": "EXPECTED_CAMERA_OBSERVER_FAILURE",
+            "phase": "committed-configuration"
+          }
+        ],
+        "listeners": 0,
+        "stages": [
+          {
+            "commits": 1,
+            "disposals": 1
+          },
+          {
+            "commits": 1,
+            "disposals": 1
+          }
+        ]
+      }
+    },
+    {
+      "name": "replacement: disposal from a commit notification retires both views and synchronously blocks old native input",
+      "ok": true,
+      "evidence": {
+        "result": {
+          "version": 1,
+          "ok": true,
+          "committed": true,
+          "code": null,
+          "reason": null
+        },
+        "observer": {
+          "configuration": {
+            "mode": "follow",
+            "zoom": 1.1
+          },
+          "actual": {
+            "mode": "follow",
+            "zoom": 1.1
+          },
+          "noNativeCommand": true,
+          "rejected": {
+            "version": 1,
+            "ok": false,
+            "committed": false,
+            "code": "DISPOSED",
+            "reason": "Player UI retired."
+          }
+        },
+        "configuration": {
+          "mode": "follow",
+          "zoom": 1.1
+        },
+        "actual": {
+          "mode": "follow",
+          "zoom": 1.1
+        },
+        "views": 0,
+        "listeners": 0,
+        "stages": [
+          1,
+          1
+        ],
+        "lease": null
+      }
+    },
+    {
+      "name": "replacement: cancellation before the commit point leaves accepted camera/configuration and view intact",
+      "ok": true,
+      "evidence": {
+        "result": {
+          "version": 1,
+          "ok": false,
+          "committed": false,
+          "code": "PREPARATION_CANCELLED",
+          "reason": "Module player-ui.shell failed during prepare: PREPARATION_CANCELLED"
+        },
+        "configuration": {
+          "mode": "follow",
+          "zoom": 1
+        },
+        "actual": {
+          "mode": "follow",
+          "zoom": 1
+        },
+        "sameConfig": true,
+        "sameActuator": true,
+        "stage": {
+          "commits": 0,
+          "disposals": 1
+        }
+      }
+    },
+    {
+      "name": "replacement: camera readiness refusal precedes acceptance and preserves the borrowed setup",
+      "ok": true,
+      "evidence": {
+        "result": {
+          "version": 1,
+          "ok": false,
+          "committed": false,
+          "code": "PREPARATION_FAILED",
+          "reason": "Module player-ui.shell failed during prepare: EXPECTED_CAMERA_PREPARE_FAILURE"
+        },
+        "configuration": {
+          "mode": "follow",
+          "zoom": 1
+        },
+        "actual": {
+          "mode": "follow",
+          "zoom": 1
+        },
+        "sameConfig": true,
+        "sameActuator": true
+      }
+    }
+  ],
+  "errors": [],
+  "scope": "action identity and live/replacement camera commit corrections; unaffected baseline proof retained"
+}

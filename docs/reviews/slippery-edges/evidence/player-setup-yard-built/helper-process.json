@@ -1,0 +1,38 @@
+{
+  "owner": "01a1810c-62da-7210-a1ca-b72b449ce024",
+  "purpose": "Public player composition in the real two-circuit yard",
+  "project": "Nautilus Engine",
+  "process": {
+    "pid": 17660,
+    "creationFiletime": "134389951345386491",
+    "executable": "C:\\Program Files\\nodejs\\node.exe"
+  },
+  "browser": {
+    "pid": 19000,
+    "creationFiletime": "134389951350650941",
+    "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+  },
+  "port": 49586,
+  "stopFile": "C:\\Users\\baals\\Documents\\ChatGPT\\Nautilus Engine\\artifacts\\edges\\artifacts\\player-setup-yard-built\\STOP",
+  "stopMethod": "STOP marker, bounded 300000 ms expiry, or finally closes owned browser and HTTP server",
+  "sourceFiles": [
+    "tools/art-review-browser.mjs",
+    "tools/review-player-yard.mjs",
+    "package.json"
+  ],
+  "restart": {
+    "cwd": "C:\\Users\\baals\\Documents\\ChatGPT\\Nautilus Engine\\artifacts\\edges",
+    "executable": "C:\\Program Files\\nodejs\\node.exe",
+    "args": [
+      "C:\\Users\\baals\\Documents\\ChatGPT\\Nautilus Engine\\artifacts\\edges\\tools\\review-player-yard.mjs",
+      "--built"
+    ],
+    "dependencies": "Node >=22, Playwright, msedge, project review script and its local module closure",
+    "inputs": "Static dist/ tree built from project source",
+    "outputs": "artifacts/player-setup-yard-built",
+    "pendingWork": "Stateless review; no in-memory state is needed",
+    "secretReferences": []
+  },
+  "startedAt": "2026-11-12T22:12:15.415Z",
+  "expiresAt": "2026-11-12T22:17:15.415Z"
+}

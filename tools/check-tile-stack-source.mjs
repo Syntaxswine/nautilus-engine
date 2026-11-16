@@ -1,12 +1,15 @@
 import assert from 'node:assert/strict';
+import {npmFilePatterns} from './npm-files.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 import {root,moduleClosure,distribution} from './distribution.mjs';
+import {historicalRailwayRouteBytes,RAILWAY_ROUTE_SCHEMAS} from './railway-route-registration.mjs';
 import {TILE_STACK_REGISTRATION_BASE} from './tile-stack-registration.mjs';
 import {checkTileAuthoringRegistration} from './tile-authoring-registration.mjs';
+import {historicalMountDoraSchemaFiles} from './mount-dora-registration.mjs';
 
 export const TILE_STACK_ACCEPTED_SOURCE='45ecaef16bb39424c8b885d53acb4371654b4fa0';
 export const TILE_STACK_SOURCE_ROOT='candidates/tile-stack/core';
@@ -119,7 +122,7 @@ export function checkTileStackSource(projectRoot=root,{tracked=null}={}){
     assert.ok(git('show',':'+file).equals(expected),'Git index changes expected source bytes: '+file);
   };
   const fixed=(file,commit=TILE_STACK_REGISTRATION_BASE)=>{
-    const expected=object(commit,file);assert.ok(read(file).equals(expected),'Immutable dependency changed: '+file);indexed(file,expected);return record(file,expected);
+    const expected=object(commit,file),actual=read(file);assert.ok(historicalRailwayRouteBytes(object,file,actual).equals(expected),'Immutable dependency changed: '+file);indexed(file,actual);return record(file,expected);
   };
   for(const [file,expected]of expectedBytes){assert.ok(read(file).equals(expected),'Only fixed reviewed bytes and the single header adaptation are allowed: '+file);indexed(file,expected);}
   assert.deepEqual(walk(TILE_STACK_RUNTIME_ROOT),[...runtimeFiles,...support].sort(),'The public stack folder contains only five runtime files, reviewed types, guide and provenance.');
@@ -142,8 +145,8 @@ export function checkTileStackSource(projectRoot=root,{tracked=null}={}){
   const authoringSchemaSupport=registration.authoringRegistration.support.filter(file=>file.endsWith('.schema.json'));
   assert.deepEqual(authoringSchemaSupport,['packages/tile-authoring-core/contract.schema.json'],'Only the separately authenticated authoring contract schema is added.');
   const schemaFiles=listed(TILE_STACK_REGISTRATION_BASE,'packages','schemas').filter(file=>file.endsWith('.schema.json'));
-  const currentSchemas=[...walk('packages'),...walk('schemas')].filter(file=>file.endsWith('.schema.json')).sort();
-  assert.deepEqual(currentSchemas,[...schemaFiles,...authoringSchemaSupport].sort(),'Keep every historical schema plus the one authenticated packaged authoring contract.');
+  const currentSchemas=historicalMountDoraSchemaFiles([...walk('packages'),...walk('schemas')].filter(file=>file.endsWith('.schema.json')).sort(),{read,indexed});
+  assert.deepEqual(currentSchemas,[...schemaFiles,...authoringSchemaSupport,...RAILWAY_ROUTE_SCHEMAS].sort(),'Keep every historical schema plus the authenticated authoring and railway route additions.');
   // The Root C2a fence separately owns the newer accepted private v2 schema
   // bytes. This registration preserves the public schema inventory/content;
   // it must not roll private schemas back to an older public-package baseline.
@@ -168,7 +171,7 @@ export function checkTileStackSource(projectRoot=root,{tracked=null}={}){
     }
     profiles[name]={registered:included,runtime:included?[...runtimeFiles]:[],support:included?[...support]:[]};
   }
-  assert.deepEqual(pkg.files,distribution().files,'The exact Root whitelist must equal the registered normal distribution.');
+  assert.deepEqual(pkg.files,npmFilePatterns(distribution().files),'The exact Root whitelist must equal the registered normal distribution.');
   return {
     status:'pass',registered:true,id:profile,acceptedSource:TILE_STACK_ACCEPTED_SOURCE,integrationBase:TILE_STACK_REGISTRATION_BASE,
     entries:{[TILE_STACK_ENTRY]:TILE_STACK_ENTRY_FILE},runtime,types,closure,packageSupport:[...support],metadataAdaptations:[{...adaptation}],

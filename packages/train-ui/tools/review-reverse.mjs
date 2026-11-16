@@ -1,0 +1,73 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import path from 'node:path';
+
+export async function reviewReverseControls({page,evidence,report,record}) {
+  const out=path.join(evidence,'reverse');fs.mkdirSync(out,{recursive:true});
+  const part=name=>page.locator(`[data-part="${name}"]`),lever=part('notch-lever');
+  await page.setViewportSize({width:390,height:844});
+  await page.evaluate(()=>{const style=document.createElement('style');style.id='reverse-review-host';style.textContent='.study-heading,.study-toolbar,.response-desk,.yard-caption,.world-note{display:none!important}main{margin:0 auto!important}.study-world{height:100dvh!important;min-height:0!important;border:0;border-radius:0}body{overflow:hidden}.hud-slot{bottom:14px!important}';document.head.append(style);boardReal();});
+  const read=()=>page.evaluate(()=>realGame.connector.readForActor('player'));
+  const clickNotch=async index=>{const r=await lever.boundingBox();await page.mouse.move(r.x+r.width/2,r.y+16+(r.height-32)*index/3);await page.mouse.down();await page.mouse.up();};
+  await clickNotch(0);await page.evaluate(()=>realGame.advance(.6));let state=await read(),owner=state.train.controls.leaseId,cues=await page.evaluate(()=>realUI.state.feedback.played);
+  assert.ok(state.train.signedSpeedMps>0);await clickNotch(3);state=await read();
+  assert.deepEqual(state.train.controls,{direction:'neutral',power:0,brake:1,leaseId:owner});assert.equal(await page.evaluate(()=>realUI.state.pendingNotch),3);assert.equal(await page.evaluate(()=>realUI.state.notch),2);assert.match(await part('compact-braking').innerText(),/Brake applied/);assert.match(await part('reverse-pending').innerText(),/Reverse after stop/);assert.equal(await page.evaluate(()=>realUI.state.feedback.played),cues+1);
+  await page.locator('.nautilus-train-controls').screenshot({path:path.join(out,'braking-for-reverse.png'),animations:'disabled'});report.captures.push({file:'reverse/braking-for-reverse.png',width:390,height:844,scope:'actual retained host UI; confirmed brake and local pending R'});record('native moving R immediately applies full brake on the existing lease and shows a separate pending request');
+  await page.evaluate(()=>{for(let i=0;i<25;i++)realGame.advance(.05);});await page.waitForFunction(()=>realUI.state.pendingNotch===null&&realGame.connector.readForActor('player').train.controls.direction==='reverse');
+  assert.equal(await page.evaluate(()=>realCommands.filter(c=>c.type==='drive'&&c.direction==='reverse').length),1);assert.ok(await page.evaluate(()=>realResults.every(r=>r.code!=='SESSION_BUSY')));await page.evaluate(()=>{for(let i=0;i<20;i++)realGame.advance(0);realGame.advance(.2);});state=await read();assert.ok(state.train.signedSpeedMps<0);assert.equal(state.train.controls.leaseId,owner);assert.equal(await page.evaluate(()=>realUI.state.feedback.played),cues+2);assert.equal(await part('reverse-pending').isVisible(),false);
+  await page.locator('.nautilus-train-controls').screenshot({path:path.join(out,'backing-without-another-input.png'),animations:'disabled'});report.captures.push({file:'reverse/backing-without-another-input.png',width:390,height:844,scope:'actual retained host UI; automatically accepted reverse and negative travel'});record('one deferred accepted reverse follows the confirmed stop without another input or repeated-notification shifts');
+  await clickNotch(0);state=await read();assert.equal(state.train.controls.brake,1);assert.equal(state.train.controls.power,0);assert.equal(await page.evaluate(()=>realUI.state.pendingNotch),0);await page.evaluate(()=>{for(let i=0;i<12;i++)realGame.advance(.05);});await page.waitForFunction(()=>realGame.connector.readForActor('player').train.controls.direction==='forward');await page.evaluate(()=>realGame.advance(.2));assert.ok((await read()).train.signedSpeedMps>0);assert.equal((await read()).train.controls.power,1);record('reverse-to-forward uses the same full-brake stop sequence and preserves the selected forward power');
+
+  for(const reason of ['neutral','another-notch','chain','pointer-cancel','lost-capture','buttons-released','blur','hidden','pause','focus-left','actor-change','dispose','exit']) {
+    await page.evaluate(reason=>{boardReal();syntheticNotch(0);realGame.advance(.6);syntheticNotch(3,301,!['pointer-cancel','lost-capture','buttons-released'].includes(reason));window.cancelOwner=realUI.state.leaseId;
+      if(realUI.state.pendingNotch!==3)throw Error('Reverse was not queued');
+      if(reason==='neutral')syntheticNotch(2,302);
+      if(reason==='another-notch')syntheticNotch(1,302);
+      if(reason==='chain'){const b=document.querySelector('[data-part="brake"]');b.dispatchEvent(new PointerEvent('pointerdown',{bubbles:true,button:0,buttons:1,pointerId:302,pointerType:'touch'}));window.dispatchEvent(new PointerEvent('pointerup',{pointerId:302,pointerType:'touch'}));}
+      if(reason==='pointer-cancel')window.dispatchEvent(new PointerEvent('pointercancel',{pointerId:301,pointerType:'touch'}));
+      if(reason==='lost-capture')document.querySelector('[data-part="notch-lever"]').dispatchEvent(new PointerEvent('lostpointercapture',{pointerId:301}));
+      if(reason==='buttons-released')window.dispatchEvent(new PointerEvent('pointermove',{pointerId:301,pointerType:'mouse',buttons:0}));
+      if(reason==='blur')window.dispatchEvent(new Event('blur'));
+      if(reason==='hidden'){Object.defineProperty(document,'visibilityState',{configurable:true,value:'hidden'});document.dispatchEvent(new Event('visibilitychange'));delete document.visibilityState;document.dispatchEvent(new Event('visibilitychange'));}
+      if(reason==='pause'){realUI.setBlocked(true);realUI.setBlocked(false);}
+      if(reason==='focus-left'){const outside=document.createElement('button');outside.textContent='Outside';outside.style.position='fixed';document.body.append(outside);outside.focus();outside.remove();}
+      if(reason==='actor-change')realUI.setActor('operator/steam');
+      if(reason==='dispose'){realGame.advance(1);realUI.dispose();}
+      if(reason==='exit'){realGame.advance(1);const exit=[...document.querySelectorAll('[data-train-action="exit"]')].find(n=>n.getClientRects().length&&!n.disabled);if(!exit)throw Error('No stopped Exit');exit.click();}
+    },reason);
+    assert.equal(await page.evaluate(()=>realUI.state.pendingNotch),null);await page.evaluate(()=>{for(let i=0;i<12;i++)realGame.advance(.1);});assert.equal(await page.evaluate(()=>realCommands.filter(c=>c.type==='drive'&&c.direction==='reverse').length),0);
+    if(!['neutral','another-notch'].includes(reason))assert.equal((await read()).train?.controls.leaseId??null,null);
+  }record('pending direction cancels on neutral/notch/chain and all input, focus, visibility, pause, actor, Exit and disposal paths');
+
+  await page.evaluate(()=>{boardReal();syntheticNotch(0);realGame.advance(.6);syntheticNotch(3);realGame.advance(1);const s=realGame.connector.readForActor('player'),old=realUI.state.leaseId;realGame.connector.dispatch({type:'release',actorId:'player',commandId:'reverse-review/revoke',leaseId:old});const fresh=realGame.connector.readForActor('player');realGame.connector.dispatch({type:'drive',actorId:'player',trainId:fresh.trainId,expected:fresh.expected,commandId:'reverse-review/foreign',leaseId:'foreign/reverse-review',direction:'forward',power:.5,brake:0});});
+  state=await read();assert.equal(state.train.controls.leaseId,'foreign/reverse-review');assert.equal(state.train.controls.direction,'forward');assert.equal(await page.evaluate(()=>realUI.state.pendingNotch),null);assert.equal(await page.evaluate(()=>realCommands.filter(c=>c.type==='drive'&&c.direction==='reverse').length),0);record('a stopped callback cancelled by revocation cannot take over a new real source owner');
+
+  await page.evaluate(()=>{realUI.dispose();realGame.dispose();mountTest('driver','compact-notched');syntheticNotch(0);let s=testHost.snapshot;s.train.speedMps=2;s.train.signedSpeedMps=2;s.train.stopped=false;testHost.publish(s);syntheticNotch(3);window.oldReverseOwner=testUI.state.leaseId;s=testHost.snapshot;s.carId='replacement/cab';s.expected.occupancyRevision++;s.train.controls={direction:'neutral',power:0,brake:1,leaseId:null};testHost.setEcho(false);testHost.publish(s);s.train.stopped=true;s.train.speedMps=0;s.train.signedSpeedMps=0;testHost.publish(s);});assert.equal(await page.evaluate(()=>testUI.state.pendingNotch),null);assert.equal(await page.evaluate(()=>testHost.commands.filter(c=>c.direction==='reverse').length),0);assert.equal(await page.evaluate(()=>testHost.commands.at(-1).leaseId),await page.evaluate(()=>oldReverseOwner));record('cab replacement clears pending direction and cleans up only the old source');
+
+  for(const failure of ['refuse','throws','malformed']) {
+    await page.evaluate(failure=>{mountTest('driver','compact-notched');syntheticNotch(0);const s=testHost.snapshot;s.train.speedMps=2;s.train.signedSpeedMps=2;s.train.stopped=false;testHost.publish(s);testHost.replies.push(failure==='refuse'?{committed:false,code:'BRAKE_REFUSED',reason:'Brake transaction refused.'}:{[failure]:true});syntheticNotch(3);const stopped=testHost.snapshot;stopped.train.stopped=true;stopped.train.speedMps=0;stopped.train.signedSpeedMps=0;testHost.publish(stopped);},failure);
+    assert.equal(await page.evaluate(()=>testUI.state.pendingNotch),null);assert.equal(await page.evaluate(()=>testHost.commands.filter(c=>c.direction==='reverse').length),0);assert.equal(await page.evaluate(()=>testUI.state.leaseId),null);
+  }record('refused, thrown or malformed braking dispatch cancels intent and retires the exact owner');
+  for(const failure of ['refuse','throws','malformed']) {
+    await page.evaluate(failure=>{mountTest('driver','compact-notched');syntheticNotch(0);const s=testHost.snapshot;s.train.speedMps=2;s.train.signedSpeedMps=2;s.train.stopped=false;testHost.publish(s);syntheticNotch(3);testHost.replies.push(failure==='refuse'?{committed:false,code:'DIRECTION_REFUSED',reason:'Direction not currently eligible.'}:{[failure]:true});const stopped=testHost.snapshot;stopped.train.stopped=true;stopped.train.speedMps=0;stopped.train.signedSpeedMps=0;testHost.publish(stopped);},failure);
+    assert.equal(await page.evaluate(()=>testUI.state.pendingNotch),null);assert.equal(await page.evaluate(()=>testHost.commands.filter(c=>c.direction==='reverse').length),1);await page.evaluate(()=>{for(let i=0;i<10;i++)testHost.publish(testHost.snapshot);});assert.equal(await page.evaluate(()=>testHost.commands.filter(c=>c.direction==='reverse').length),1);
+  }record('failed or unknown automatic direction dispatch is consumed once and never retried by later notifications');
+
+  await page.evaluate(()=>{boardReal();syntheticNotch(0);realGame.advance(.6);syntheticNotch(3);const saved=realGame.save();mountReal(saved);});state=await read();assert.equal(state.train.controls.brake,1);assert.equal(state.train.controls.leaseId,null);assert.equal(await page.evaluate(()=>realUI.state.pendingNotch),null);assert.equal(await page.evaluate(()=>realUI.state.feedback.contextState),'not-created');await page.evaluate(()=>{for(let i=0;i<20;i++)realGame.advance(.1);});assert.equal(await page.evaluate(()=>realCommands.length),0);assert.equal(await page.evaluate(()=>realUI.state.feedback.played),0);record('saving and reloading during pending reverse stays braked and silent with no restored intent');
+  await page.evaluate(()=>{boardReal();realUI.setMuted(true);syntheticNotch(0);realGame.advance(.6);syntheticNotch(3);for(let i=0;i<20;i++)realGame.advance(.1);});await page.waitForFunction(()=>realGame.connector.readForActor('player').train.controls.direction==='reverse');assert.equal(await page.evaluate(()=>realUI.state.feedback.played),0);assert.equal(await page.evaluate(()=>realUI.state.feedback.contextState),'not-created');record('muted or untrusted pending transitions never unlock or fabricate audio');
+
+  // Cancellation occurs inside the host's stopped notification, before it clears
+  // its busy flag. Exact-owner safety release must finish after that transaction.
+  for(const action of ['pause','dispose']) {
+    await page.evaluate(action=>{boardReal();syntheticNotch(0);realGame.advance(.6);syntheticNotch(3);window.notifiedOwner=realUI.state.leaseId;const off=realGame.connector.subscribe(()=>{if(realGame.connector.readForActor('player').train.stopped){off();if(action==='pause')realUI.setBlocked(true);else realUI.dispose();}});realGame.advance(1);},action);
+    assert.equal(await page.evaluate(()=>realUI.state.pendingNotch),null);assert.equal((await read()).train.controls.leaseId,null);
+    const releases=await page.evaluate(()=>realCommands.filter(c=>c.type==='release'));assert.equal(releases.length,2);assert.ok(releases.every(c=>c.actorId==='player'));assert.equal(releases[0].leaseId,await page.evaluate(()=>notifiedOwner));assert.equal(releases[1].leaseId,releases[0].leaseId);assert.notEqual(releases[0].commandId,releases[1].commandId);
+  }record('pause or disposal inside a stopped notification retries only the exact old safety release and never its pending shift');
+
+  await page.evaluate(()=>{boardReal();rebindReal('classic');});await page.locator('[data-direction="forward"]').click();await part('power-hold').focus();await page.keyboard.down('Space');await page.evaluate(()=>realGame.advance(.4));await page.locator('[data-direction="reverse"]').click();await page.keyboard.up('Space');assert.equal(await page.evaluate(()=>realUI.state.pendingNotch),null);assert.equal(await page.evaluate(()=>realUI.state.result.code),'STOP_BEFORE_REVERSE');assert.equal((await read()).train.controls.leaseId,null);record('classic still sends the raw moving swap and retains its original refusal/release behavior');
+  for(const [width,height] of [[390,844],[320,568],[844,390]]) {
+    await page.setViewportSize({width,height});await page.evaluate(()=>{boardReal();syntheticNotch(0);realGame.advance(.6);syntheticNotch(3);});const bounds=await page.locator('.nautilus-train-controls').boundingBox();assert.ok(bounds.x>=0&&bounds.y>=0&&bounds.x+bounds.width<=width&&bounds.y+bounds.height<=height);assert.equal(await part('reverse-pending').isVisible(),true);
+  }record('confirmed braking plus restrained pending direction fits phone, narrow phone and landscape');
+  report.reverse={baseCommit:'db656a6d717ad36aabe32955b47a09b8badb116e',sameLease:true,automaticAcceptedShiftOnce:true,rawCoreRefusalPreserved:true,frameBoundary:'guarded microtask after stopped notification',rendererAcceptance:false};
+  await page.evaluate(()=>{realUI?.dispose();realGame?.dispose();testUI?.dispose();document.getElementById('reverse-review-host')?.remove();});
+}

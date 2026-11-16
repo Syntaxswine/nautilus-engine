@@ -34,6 +34,13 @@
 
 Game working copies remain independent. No runtime URL points to a sibling checkout, an absolute local file path, or a moving remote branch. All reused renderer modules resolve the same vendored Three.js instance.
 
+The optional [shared contact module](../packages/traversal-core/README.md) supplies
+pure upright convex/rounded-convex sweeps and bounded tangent movement. Explicit
+walking/car profiles preserve old stop policies and saved state. The actual
+[Night Ledger modular ground](../apps/test-ground/README.md) composes public
+walking, vehicles, native actors and generated UI with its existing plot/checklist
+authority; its static entry is `apps/test-ground/`.
+
 The [component handoff standard](component-handoffs.md) defines public usage cards, working examples and builder checklists for new and materially revised parts. Standard recipes bind declared semantics through retained host services; missing automatic bindings remain explicit work until implemented and reviewed. The [functional editor parts scope](projects/functional-editor-parts.md) assigns implementation of that compiler/binding bridge and its first two-story playable proof.
 
 Design selection follows [accuracy, efficiency and narrative](design-evaluation.md). Reviews must recommend a preferred design for the named game or use case, with reasons and evidence. Shared interfaces can support different simulation detail; [the initial recommendations](reviews/2026-10-28-design-tradeoffs.md) distinguish general percentage attacks, dramatic AFT shot outcomes, detailed Tinderbox fire and cheaper tactical policies.
@@ -157,3 +164,5 @@ The separate [A/B tile candidate](procedural-tiles-v2-candidate.md) lives in sou
 The explicit private-package CI proof is source tooling. Candidate code and v2 schemas are excluded from normal distributions, and no v2 capability is assigned. [Architect acceptance](reviews/procedural-tiles/v2-integration.md) records the focused corrections; general native evaluators, public registration, renderer/editor and game adoption require later fixed reviews. [C1 acceptance](reviews/procedural-tiles/c1-integration.md) records the bounded subset and required association correction.
 
 The private [C2a rectangle profile](procedural-tiles-c2a-candidate.md) adds explicit bounded composition groups, deterministic finish ownership, native interval provenance and transactional complete-bundle preparation. Actual rectangle geometry is checked independently of optional reservation proxies; visible owner locks and whole-operation ceilings remain authoritative. The [C2a acceptance](reviews/procedural-tiles/c2a-integration.md) records its focused overlap/identity corrections and independent source/installed proofs. It does not register public v2 or provide a renderer, editor controller or game adapter.
+
+The optional [Mount Dora component](mount-dora.md) provides verified native-town content, staged supported walking, bounded presentation and two measured rail studies. Its large resource package and local static reference are opt-in (`pack:mount-dora`, `build:mount-dora`); default SDK profiles ship only the APIs and small metadata. Game adoption, full-town train operation and publication remain separate.

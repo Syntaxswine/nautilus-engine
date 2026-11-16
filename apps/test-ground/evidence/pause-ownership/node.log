@@ -1,0 +1,31 @@
+✔ installed public metre world uses native story height and spent resources (52.5115ms)
+✔ door command spends declared cost, confirms geometry and rejects stale replay (26.3944ms)
+✔ item commit atomically publishes carried ownership, one inventory delta, AP and durable receipt (17.144ms)
+✔ persistence failure leaves every accepted resource, world, receipt and item byte unchanged (8.0204ms)
+✔ current permission and complete source/actor/resource expectation are checked (7.421ms)
+✔ plot replacement retains neighbouring door/item state and exact player resources/pose (15.8013ms)
+✔ occupied swap and carried-resource retirement refuse without repairing player or inventory (10.2491ms)
+✔ objective replacement preserves scenery, identities and resources (6.3512ms)
+✔ incompatible objectives, conflicting placement and stale prepared swaps preserve accepted state (14.5706ms)
+✔ tampered item/inventory and world saves refuse rather than refill or infer geometry (8.9664ms)
+✔ a carried item prevents retirement after its player has left the plot (88.5282ms)
+✔ seed changes require explicit restart and cannot reset a saved actor through composition (5.2477ms)
+✔ explicit new sandboxes keep distinct event/receipt namespaces while reload preserves them (23.7562ms)
+✔ two committed golden baselines pass on authoritative state, passage and inventory/events (48.8565ms)
+✔ acknowledged request with withheld outcome fails and names missing confirmed observations (18.1216ms)
+✔ missing observation service is unavailable before commands, never passed (12.0818ms)
+✔ selection is separate from outcome, disabled fixtures are not run, and deferred fixtures refuse (10.0882ms)
+✔ recipe and dependency changes invalidate green results; rejected recipes retain them (29.2561ms)
+✔ exact export/reload preserves selection, source/baseline/expectations and results without running (49.7768ms)
+✔ already-open current state is distinct from a new transition after baseline (12.2988ms)
+✔ current-state audit is independently selectable and never relabelled as a golden transition (13.6819ms)
+✔ player setup changes invalidate prior outcomes and saved expectation changes are refused (105.9963ms)
+✔ changed observer/consumer source invalidates saved green results even before a manual version bump (27.0597ms)
+ℹ tests 23
+ℹ suites 0
+ℹ pass 23
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 791.6589

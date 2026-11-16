@@ -1,0 +1,22 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+import {fileURLToPath} from 'node:url';
+import {execFileSync} from 'node:child_process';
+import {createHash} from 'node:crypto';
+const here=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),root=path.resolve(here,'../..');
+const binding=JSON.parse(fs.readFileSync(path.join(root,'packages/assets/bindings/actor-intake-v1.json'))),motion=binding.motionProviders.find(p=>p.id==='farmyard-distance-gait').source;
+const bytes=execFileSync('git',['-C',process.argv[2],'show',motion.commit+':'+motion.path]);
+const sha=b=>createHash('sha256').update(b).digest('hex');assert.equal(sha(bytes),motion.sha256);assert.equal(bytes.length,motion.bytes);
+fs.mkdirSync(path.join(here,'source'),{recursive:true});fs.writeFileSync(path.join(here,'source/worker-locomotion.js.original'),bytes);
+const raw=bytes.toString(),start=raw.indexOf('const V='),branch=raw.indexOf(' if(profile.unarmed){'),mammal=raw.indexOf(" worker.pose('neutral',0);",branch);
+assert.ok(start>0&&branch>start&&mammal>branch);
+const adapted="// Mammal-only extraction; exact original and adaptations are recorded in source.json.\nimport * as T from '../render-effects/three.js';\n"+raw.slice(start,branch)+raw.slice(mammal).replace('poseRoofMantleCarry(worker,profile);',"worker.pose('neutral',0);");
+fs.writeFileSync(path.join(here,'locomotion.js'),adapted);
+const models=binding.actors.filter(a=>['goat','donkey'].includes(a.sourceSpecies)).map(a=>({id:a.sourceSpecies,label:a.label,version:1,roles:['idle','walk'],outfits:['normal'],nativeScale:1,restForward:'+x',bounds:a.neutralBounds,heightM:a.neutralHeight,frame:a.paintFrame,
+  data:{path:a.meshData.path,bytes:a.meshData.bytes,sha256:a.meshData.sha256},paint:{path:a.normalPaint.path,bytes:a.normalPaint.bytes,sha256:a.normalPaint.sha256},factory:a.factory}));
+assert.equal(models.length,2);for(const model of models)for(const resource of [model.data,model.paint])assert.equal(sha(fs.readFileSync(path.join(root,resource.path))),resource.sha256);
+fs.writeFileSync(path.join(here,'catalogue.json'),JSON.stringify({kind:'nautilus-native-actor-catalogue',version:1,sourcePin:'781246a668c723d5a4c5463e70534cc04b6a5641',models},null,2)+'\n');
+fs.writeFileSync(path.join(here,'catalogue.js'),'// Generated from the reviewed actor intake; no runtime filesystem access.\nexport const NATIVE_ACTORS = '+JSON.stringify(models,null,2)+';\n');
+fs.writeFileSync(path.join(here,'source.json'),JSON.stringify({kind:'nautilus-native-actors-candidate',version:1,baseline:'578a86113395ea3ebcb76c636ce8f0882600d03e',modelSource:'781246a668c723d5a4c5463e70534cc04b6a5641',motionSource:motion,original:{path:'source/worker-locomotion.js.original',bytes:bytes.length,sha256:sha(bytes)},adapted:{path:'locomotion.js',bytes:Buffer.byteLength(adapted),sha256:sha(adapted),changes:['Use the existing shared Three namespace.','Remove the unsupported hen branch and its import.','Unarmed mammal role uses worker.pose(neutral,0) instead of roof-mantle/equipment carry; equipment roles are refused.','Retain the source gaitState and mammal IK/stride equations.']},resources:models.flatMap(m=>[m.data,m.paint]),notice:'NOTICE.md',publicRegistration:'Architect-owned candidate; not yet registered.'},null,2)+'\n');
+console.log(JSON.stringify({models:models.map(m=>m.id),originalBytes:bytes.length,sha256:sha(bytes),adaptedBytes:Buffer.byteLength(adapted)}));

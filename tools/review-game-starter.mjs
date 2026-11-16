@@ -36,10 +36,15 @@ await withArtReview('Standard title and door/stair acceptance',async({page,brows
  check('keyboard start and swept closed-door blocking');
  await page.locator('.test-controls summary').click();await page.locator('#lock').click();await page.locator('#have-key').uncheck();assert.equal(await page.locator('#unlock').isDisabled(),true);assert.match(await page.locator('#door-reason').innerText(),/key/i);
  await page.locator('#have-key').check();await page.locator('#unlock').click();assert.equal((await snapshot()).interactions.doors[0].locked,false);
- await page.locator('#block-door').check();assert.equal(await page.locator('#door-action').isDisabled(),true);assert.match(await page.locator('#door-reason').innerText(),/doorway/i);
- await page.locator('#block-door').uncheck();await page.locator('#door-action').click();assert.equal((await snapshot()).interactions.doors[0].open,true);
+ await page.locator('#block-door').check();assert.equal(await page.locator('#door-action').isEnabled(),true);
+ const beforeOccupiedOpen=await snapshot(),eventsBeforeOccupiedOpen=await page.locator('#events li').count();
+ await page.locator('#door-action').click();const occupiedOpen=await snapshot();assert.equal(occupiedOpen.interactions.doors[0].open,true);assert.deepEqual(occupiedOpen.actor.position,beforeOccupiedOpen.actor.position);assert.equal(await page.locator('#block-door').isChecked(),true);assert.equal(await page.locator('#events li').count(),eventsBeforeOccupiedOpen+1);
+ assert.equal(await page.locator('#door-action').isDisabled(),true);assert.match(await page.locator('#door-reason').innerText(),/doorway.*closing/i);
+ const occupiedClose=await page.evaluate(async checkpoint=>{const {createStarterHost}=await import('./game-starter-host.js'),host=createStarterHost(checkpoint);host.setBlocker(true);const before=host.save(),preview=host.inspect('yard-gate','close-door'),result=host.interact('yard-gate','close-door');return {previewCode:preview.code,code:result.code,events:result.events,unchanged:host.save()===before};},occupiedOpen);
+ assert.equal(occupiedClose.previewCode,'DOOR_OCCUPIED');assert.equal(occupiedClose.code,'DOOR_OCCUPIED');assert.deepEqual(occupiedClose.events,[]);assert.equal(occupiedClose.unchanged,true);assert.deepEqual(await snapshot(),occupiedOpen);
+ await page.locator('#block-door').uncheck();assert.equal(await page.locator('#door-action').isEnabled(),true);
  await page.getByRole('button',{name:'Walk east',exact:true}).click();assert.equal((await snapshot()).actor.position.x,4);assert.equal(await page.locator('#door-action').isDisabled(),true);
- check('locked/key feedback and occupied door operation');
+ check('locked/key feedback, actor-tolerant opening and occupied closing protection',{occupiedClose});
  for(let index=0;index<3;index++)await page.getByRole('button',{name:'Walk east',exact:true}).click();
  assert.equal((await snapshot()).actor.position.x,5.5);await page.locator('#stairs').click();
  assert.equal((await snapshot()).actor.position.x,5.5);await page.locator('#step').click();await page.locator('#step').click();

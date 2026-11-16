@@ -94,7 +94,7 @@ function use(targetId) {
   commit(applyInteraction(state, mover, preview.command, queries));
 }
 use('gate');
-commit(walkActor(state, mover, {direction: {x: 1, y: 0}, seconds: .75}, queries));
+commit(walkActor(state, mover, {direction: {x: 1, y: 0}, seconds: 1.5 / mover.speedMps}, queries));
 use('deck-route');
 commit(advanceTraversal(state, mover, {seconds: .5}, queries));
 const checkpoint = {
@@ -142,6 +142,8 @@ State and actor revisions are bounded to 1e9. A game must checkpoint/migrate del
 `previewInteraction(state,actor,{targetId,kind?},queries)` proposes `open-door`, `close-door`, `unlock-door`, `lock-door` or `traverse-stairs`. Omitting kind chooses open/close or stairs. Locking/unlocking requires an explicit intent and its bound policy; a door must be closed before locking. Unlocking does not also open the leaf. A command carries world and actor identities/revisions.
 
 `applyInteraction` rechecks reach, permissions and current occupancy, returning copied `state,actor,events,expected`. Rejection returns no events and leaves inputs unchanged. The host must still compare/commit atomically; a returned result does not write the live world.
+
+Fresh actors use the public `DEFAULT_WALK_SPEED_MPS` of 7.2 m/s, Farmyard's normal standing walk. An explicit `speedMps` overrides it; opening a saved actor preserves its stored speed, position and partial traversal exactly. This arcade pace adopts no sprint, stance, AP or stamina policy. See the [design and source decision](reviews/walking-pace/README.md).
 
 `walkActor(state,actor,{direction:{x,y},seconds},queries)` performs upright horizontal walking with a bounded speed. Diagonal input is normalized. `advanceTraversal(state,actor,{seconds},queries)` walks the saved centreline in either allowed direction, checking every crossed segment. Each step accepts 0–1 seconds. A live blocker stops the whole proposed step at the last committed position; clearing it allows resumption. It never teleports to the other floor. Start includes a supported walk to the entry, not a snap. Arrival rechecks landing support. Use smaller explicit fixed steps for responsive stopping.
 

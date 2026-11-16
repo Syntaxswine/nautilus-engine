@@ -6,8 +6,10 @@ import {execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 import {root,sourceCommit,vendorRoot,verifySnapshot} from './snapshot-native-window-presenter.mjs';
 import {moduleClosure,distribution} from './distribution.mjs';
+import {npmFilePatterns} from './npm-files.mjs';
 import {withoutTileStackRegistration} from './tile-stack-registration.mjs';
 import {checkTileAuthoringRegistration} from './tile-authoring-registration.mjs';
+import {historicalRailwayCoreClosure, historicalRailwayRouteBytes} from './railway-route-registration.mjs';
 
 const acceptedPresenter='5f027e039ba9307fd25719c6307d9760baf54e20';
 const integrationBase='3f602272a3a2ecbe4ade0d33773a0e4f52da0706';
@@ -70,11 +72,12 @@ export function checkNativeWindowPresenter(projectRoot=root,{tracked=null}={}){
   // Freeze the promoted headless/window/authoring and schema contracts. The
   // public renderer entry and a reference-only pin grant no new authority.
   const headless=moduleClosure(['packages/map-core/index.js','packages/windows-core/index.js','packages/adapters/farmyard/windows.js','packages/windows-authoring/index.js']);
-  const frozen=[...new Set([...listed(integrationBase,'packages/map-core','packages/windows-core','packages/windows-authoring','packages/adapters/farmyard/windows','schemas'),'packages/adapters/farmyard/windows.js',...headless,...listed(integrationBase).filter(f=>f.endsWith('.schema.json'))])].sort();
+  const priorHeadless=historicalRailwayCoreClosure(headless);
+  const frozen=[...new Set([...listed(integrationBase,'packages/map-core','packages/windows-core','packages/windows-authoring','packages/adapters/farmyard/windows','schemas'),'packages/adapters/farmyard/windows.js',...priorHeadless,...listed(integrationBase).filter(f=>f.endsWith('.schema.json'))])].sort();
   // The reviewed private C2a source updates precisely these three unregistered
   // schemas. Every other headless/window/authoring/schema byte stays at3f602.
-  for(const file of frozen){const expected=object(privateC2aSchemaUpdates.has(file)?privateC2aSource:integrationBase,file);assert.ok(read(file).equals(expected),'Accepted headless/window/authoring/schema bytes changed: '+file);indexed(file,expected);}
-  const before=JSON.parse(object(integrationBase,'upstream.json')),upstream=json('upstream.json'),{farmyardWindowArt:pin,...existing}=upstream;
+  for(const file of frozen){const expected=object(privateC2aSchemaUpdates.has(file)?privateC2aSource:integrationBase,file),actual=read(file);assert.ok(historicalRailwayRouteBytes(object,file,actual).equals(expected),'Accepted headless/window/authoring/schema bytes changed: '+file);indexed(file,actual);}
+  const before=JSON.parse(object(integrationBase,'upstream.json')),upstream=JSON.parse(historicalRailwayRouteBytes(object,'upstream.json',read('upstream.json'))),{farmyardWindowArt:pin,...existing}=upstream;
   assert.deepEqual(existing,before,'Pre-existing upstream pins must remain unchanged.');
   assert.ok(pin,'Register the explicit reference-only farmyardWindowArt pin.');
   for(const [key,value]of Object.entries({repository:manifest.repository,commit:sourceCommit,root:vendorRoot,manifest:referenceManifest}))assert.equal(pin[key],value,'farmyardWindowArt '+key);
@@ -102,7 +105,7 @@ export function checkNativeWindowPresenter(projectRoot=root,{tracked=null}={}){
     }
     profiles[profile]={files:d.files.length,registered:rendered};
   }
-  assert.deepEqual(pkg.files,distribution().files,'Root package whitelist must match the exact distribution closure.');
+  assert.deepEqual(pkg.files,npmFilePatterns(distribution().files),'Root package whitelist must match the exact distribution closure.');
   return {status:'pass',registered:true,sourceCommit,acceptedPresenter,integrationBase,snapshot,runtime,packageSupport:[...support],entry,entryFile,frozenFiles:frozen.length,profiles,coreOrThreeImports:false,newSchemaOrCapability:false,gameAdopted:false,optionalRegistration,requiredGitCommits:[...new Set([sourceCommit,acceptedPresenter,integrationBase,privateC2aSource,...optionalRegistration.requiredGitCommits])]};
 }
 

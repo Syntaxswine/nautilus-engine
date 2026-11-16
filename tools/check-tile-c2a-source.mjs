@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import {npmFilePatterns} from './npm-files.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import {pathToFileURL} from 'node:url';
@@ -8,6 +9,7 @@ import {root,moduleClosure,distribution} from './distribution.mjs';
 import {schemaDocuments} from '../packages/map-core/contract-manifest.js';
 import {checkTileAuthoringRegistration} from './tile-authoring-registration.mjs';
 import {historicalArtworkNotice} from './shared-artwork-registration.mjs';
+import {historicalRailwayRouteBytes} from './railway-route-registration.mjs';
 
 export const TILE_C2A_ACCEPTED_SOURCE='87301172d7258223f89aa2e19fe391ac01b52f00';
 export const TILE_C2A_ROOT_BASE='32101fa97a8706296dcba4d9614d9d663d53a6dd';
@@ -47,7 +49,7 @@ export function checkTileC2aSource(projectRoot=root,{tracked=null}={}){
   };
   const indexed=(file,expected)=>{if(!tracked)return;assert.ok(tracked.has(file),'Required private C2a source is not tracked: '+file);assert.ok(git('show',':'+file).equals(expected),'Index changes reviewed C2a bytes: '+file);};
   const freezeFile=(file,commit=TILE_C2A_ACCEPTED_SOURCE)=>{
-    const expected=object(commit,file),actual=read(file),historical=file==='NOTICE.md'?historicalArtworkNotice({object,current:actual}):actual;
+    const expected=object(commit,file),actual=read(file),historical=file==='NOTICE.md'?historicalArtworkNotice({object,current:actual}):historicalRailwayRouteBytes(object,file,actual);
     assert.ok(historical.equals(expected),'Fixed source changed: '+file);indexed(file,actual);return {file,bytes:expected.length,sha256:sha(expected)};
   };
   const audit=JSON.parse(object(TILE_C2A_ACCEPTED_SOURCE,auditFile)),request=JSON.parse(object(TILE_C2A_ACCEPTED_SOURCE,requestFile));
@@ -95,7 +97,7 @@ export function checkTileC2aSource(projectRoot=root,{tracked=null}={}){
     for(const file of plan.files)assert.equal(privateOnly.has(file),false,'Private C2a runtime/schema/support entered '+profile+': '+file);
     profiles[profile]={files:plan.files.length,privateFiles:0};
   }
-  assert.deepEqual(pkg.files,distribution().files,'Public whitelist must equal the exact registered distribution.');
+  assert.deepEqual(pkg.files,npmFilePatterns(distribution().files),'Public whitelist must equal the exact registered distribution.');
   return {status:'pass',declared:false,acceptedSource:TILE_C2A_ACCEPTED_SOURCE,integrationBase:TILE_C2A_ROOT_BASE,runtime,runtimeBytes:audit.runtimeBytes,privateSchemas,proofInputs,historicalEvidence,support,preservedRoot,unchangedV1,profiles,optionalRegistration,publicExportsChanged:true,publicRegistryChanged:false,pinsChanged:false,versionChanged:false,publicWhitelistChanged:true,c2aPublicExportsChanged:false,c2aPublicWhitelistChanged:false,presenterAdopted:false,editorAdopted:false,gameAdopted:false,requiredGitCommits:[...new Set([TILE_C2A_ACCEPTED_SOURCE,TILE_C2A_ROOT_BASE,...optionalRegistration.requiredGitCommits])]};
 }
 

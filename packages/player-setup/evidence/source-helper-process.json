@@ -1,0 +1,37 @@
+{
+  "owner": "01a1810c-62da-7210-a1ca-b72b449ce024",
+  "purpose": "Executable player setup: real native startup, generated menu and guarded replacement",
+  "project": "Nautilus Engine",
+  "process": {
+    "pid": 13608,
+    "creationFiletime": "134389305073258016",
+    "executable": "C:\\Program Files\\nodejs\\node.exe"
+  },
+  "browser": {
+    "pid": 61444,
+    "creationFiletime": "134389305081701975",
+    "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+  },
+  "port": 54988,
+  "stopFile": "C:\\Users\\baals\\Documents\\ChatGPT\\Nautilus Engine\\artifacts\\psetup\\artifacts\\player-setup-stage2\\STOP",
+  "stopMethod": "STOP marker, bounded 180000 ms expiry, or finally closes owned browser and HTTP server",
+  "sourceFiles": [
+    "tools/art-review-browser.mjs",
+    "packages/player-setup/tests/review.mjs",
+    "package.json"
+  ],
+  "restart": {
+    "cwd": "C:\\Users\\baals\\Documents\\ChatGPT\\Nautilus Engine\\artifacts\\psetup",
+    "executable": "C:\\Program Files\\nodejs\\node.exe",
+    "args": [
+      "C:\\Users\\baals\\Documents\\ChatGPT\\Nautilus Engine\\artifacts\\psetup\\packages\\player-setup\\tests\\review.mjs"
+    ],
+    "dependencies": "Node >=22, Playwright, msedge, project review script and its local module closure",
+    "inputs": "Project source tree and its referenced local assets",
+    "outputs": "artifacts/player-setup-stage2",
+    "pendingWork": "Stateless review; no in-memory state is needed",
+    "secretReferences": []
+  },
+  "startedAt": "2026-11-12T04:15:08.457Z",
+  "expiresAt": "2026-11-12T04:18:08.457Z"
+}

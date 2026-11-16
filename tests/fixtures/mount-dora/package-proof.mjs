@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';import fs from 'node:fs';import {fileURLToPath} from 'node:url';import {createHash} from 'node:crypto';
+import {createMountDoraCatalog,createMountDoraWorld,openMountDoraDocument} from '@nautilus-engine/map-core/mount-dora';
+import * as runtime from '@nautilus-engine/mount-dora-content/headless';
+const fetcher=async input=>new Response(fs.readFileSync(fileURLToPath(new URL(input))));
+const project=JSON.parse(fs.readFileSync(runtime.projectURL)),catalog=createMountDoraCatalog(project),sector=catalog.sector('B03'),reference=JSON.parse(fs.readFileSync(new URL(sector.file,runtime.baseURL))),document=openMountDoraDocument(reference,{catalog,reference,placements:runtime.art.placementsForBounds([240,480,480,720])});assert.equal(catalog.sectors.length,42);assert.deepEqual(JSON.parse(document.export()),document.read());
+const world=await createMountDoraWorld({project,runtime,baseURL:runtime.baseURL,fetcher,position:{x:322,y:676.5,h:0}});try{const saved=world.checkpoint(),restored=await createMountDoraWorld({project,runtime,baseURL:runtime.baseURL,fetcher,checkpoint:saved});try{assert.deepEqual(restored.checkpoint(),saved);}finally{restored.dispose();}}finally{world.dispose();}
+assert.equal(typeof globalThis.document,'undefined');
+const contentRoot=new URL('./',import.meta.resolve('@nautilus-engine/mount-dora-content')),inventory=JSON.parse(fs.readFileSync(new URL('runtime-inventory.json',contentRoot)));for(const row of inventory.files){const b=fs.readFileSync(new URL(row.path,contentRoot));assert.equal(b.length,row.bytes);assert.equal(createHash('sha256').update(b).digest('hex'),row.sha256);}assert.ok(!inventory.files.some(r=>/\/vendor\/three\.(?:module|core|tsl)\.js$/.test(r.path)));
+const T=await import('@nautilus-engine/map-core/render-effects/three'),visual=await import('@nautilus-engine/mount-dora-content'),kit=visual.createMountDoraArt({THREE:T});try{assert.ok(kit.root instanceof T.Group);}finally{kit.dispose();}
+console.log('Installed SDK/content: 42-sector catalog, native authoring, real depot, exact resources/save, all runtime hashes and one shared Three namespace pass.');

@@ -1,0 +1,90 @@
+{
+  "kind": "nautilus-component-usage-card",
+  "version": 1,
+  "id": "nautilus.player-ui",
+  "status": "registered optional component; reviewed compatibility baseline and implementation recorded separately",
+  "apiVersion": 1,
+  "configuration": "nautilus-player-ui-configuration v1",
+  "engineBase": {
+    "package": "@nautilus-engine/map-core",
+    "version": "0.10.0",
+    "sourcePin": "7f50cb2a48aef87a16fc0465997549be9ed88dc2"
+  },
+  "sourceEntry": "packages/player-ui/index.js",
+  "publicEntry": "@nautilus-engine/map-core/player-ui",
+  "guide": "packages/player-ui/README.md",
+  "descriptors": "packages/player-ui/descriptors.js",
+  "types": "packages/player-ui/index.d.ts",
+  "style": "packages/player-ui/style.css",
+  "example": "https://github.com/Syntaxswine/nautilus-engine/blob/62f2fe90210b10985f80d75d9e4425f424a51c6b/packages/player-ui/fixture/index.html",
+  "consumer": "https://github.com/Syntaxswine/nautilus-engine/blob/62f2fe90210b10985f80d75d9e4425f424a51c6b/packages/player-ui/fixture/main.js",
+  "evidence": "Source-only fixed review plus docs/player-setup.md integration evidence",
+  "sourceInventory": "packages/player-ui/source.json",
+  "required": [
+    "confirmed retained scene and exact content/actor identity",
+    "independent UI pause gate",
+    "measured HUD bounds consumer"
+  ],
+  "selectedOptional": [
+    "walking request endpoint",
+    "v1 train connector and mounted actuator",
+    "staged camera settings",
+    "existing title-flow callbacks",
+    "borrowed generic action providers"
+  ],
+  "spatial": {
+    "world": "ground x/y, height h, metres",
+    "walk": "normalised world-ground vector and seconds",
+    "hud": "viewport client CSS pixels; measured full component rectangles",
+    "collision": "retained host only",
+    "nativeActorStartup": "not supplied by Stage1"
+  },
+  "ownership": {
+    "ui": [
+      "DOM",
+      "input context/captures",
+      "widget subscriptions",
+      "one UI pause gate",
+      "prepared module lifecycle",
+      "title cancellation"
+    ],
+    "borrowed": [
+      "actor/resources",
+      "world",
+      "clock",
+      "renderer/camera",
+      "queries",
+      "transactions",
+      "save",
+      "input canvas"
+    ],
+    "cleanup": "await ui.dispose(); idempotent, releases exact input owner and retires owned views only"
+  },
+  "persistence": "Versioned UI recipe only; no actor/world save. Export preserves exact base/content/component versions and accepted bindings/settings. No heal/refill/reset/replay.",
+  "gameDecisions": [
+    "content and supported actions",
+    "actor eligibility",
+    "permissions/keys",
+    "costs",
+    "world geometry",
+    "clock policy",
+    "persistence/new game policy",
+    "camera framing",
+    "title/art/credits",
+    "skin and control profile"
+  ],
+  "unsupported": [
+    "automatic game/actor bootstrap",
+    "headless train actuator",
+    "runtime service/content/actor rebinding",
+    "physical gamepad polling",
+    "new inventory/kernel",
+    "production consumer pin updates"
+  ],
+  "integrationOwner": "Architect, Nautilus Engine",
+  "next": {
+    "reuse": "Independent door/item golden fixture proof remains queued."
+  },
+  "reviewedRuntime": "62f2fe90210b10985f80d75d9e4425f424a51c6b",
+  "compatibilityBaseline": "7f50cb2a48aef87a16fc0465997549be9ed88dc2"
+}

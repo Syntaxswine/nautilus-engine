@@ -1,5 +1,7 @@
 import {checkTileAuthoringCoreSource} from './check-tile-authoring-core-source.mjs';
+import {checkMountDoraSource} from './check-mount-dora.mjs';
 import {distribution} from './distribution.mjs';
+import {npmFilePatterns} from './npm-files.mjs';
 import {moduleReferencesBatch,moduleReferenceGraph,resolveModuleFile} from './module-references.mjs';
 import {checkSharedAssets} from './shared-assets.mjs';
 import fs from 'node:fs';
@@ -31,6 +33,7 @@ const sources = JSON.parse(fs.readFileSync(path.join(root, 'upstream.json')));
 let count = 0, size = 0;
 const pinnedModules = [];
 const tracked = process.argv.includes('--tracked') ? new Set(execFileSync('git', ['-c', 'safe.directory=' + root.replaceAll('\\', '/'), '-C', root, 'ls-files', '-z'], {encoding:'utf8'}).split('\0')) : null;
+console.log('Verified optional Mount Dora: '+JSON.stringify(checkMountDoraSource({tracked:!!tracked})));
 for (const donor of ['aft', 'farmyard', 'aftAssets', 'tinderboxPrefabs']) {
   const folder = path.join(root, sources[donor].root), manifest = JSON.parse(fs.readFileSync(path.join(folder, 'provenance.json')));
   if (manifest.commit !== sources[donor].commit) throw Error('Source pin mismatch: ' + donor);
@@ -110,7 +113,7 @@ const grenadeEvidence=verifyFarmyardGrenadeIntake(root);
 console.log('Verified pinned Farmyard grenade source and conformance closure: '+JSON.stringify(grenadeEvidence));
 console.log('Verified native grenade source and derived modules: '+JSON.stringify(checkGrenadeVisuals(root,{tracked})));
 
-if (JSON.stringify(JSON.parse(fs.readFileSync(path.join(root,'package.json'))).files)!==JSON.stringify(distribution().files)) throw Error('Package whitelist is stale; run node tools/distribution.mjs --write.');
+if (JSON.stringify(JSON.parse(fs.readFileSync(path.join(root,'package.json'))).files)!==JSON.stringify(npmFilePatterns(distribution().files))) throw Error('Package whitelist is stale; run node tools/distribution.mjs --write.');
 
 const conformance = sources.tinderboxConformance, conformanceRoot = path.resolve(root, conformance.root);
 const conformanceManifest = JSON.parse(fs.readFileSync(path.join(conformanceRoot,'provenance.json')));

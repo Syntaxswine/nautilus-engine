@@ -101,7 +101,7 @@ listen($('settings-form'),'submit',event=>{event.preventDefault();settings={auto
 listen($('door-action'),'click',()=>feedback(host.interact('yard-gate'),'The gate is '+(host.state.doors[0].open?'open.':'closed.')));
 listen($('unlock'),'click',()=>feedback(host.interact('yard-gate','unlock-door'),'The gate is unlocked.'));
 listen($('stairs'),'click',()=>{paused=false;feedback(host.interact('deck-stairs'),'Walking the stair route.');});
-function walk(x,y){feedback(host.walk(x,y),'Moved half a metre.');}
+function walk(x,y){feedback(host.walk(x,y,Math.min(.25,.5/host.actor.speedMps)),'Moved.');}
 for(const button of document.querySelectorAll('[data-walk]'))listen(button,'click',()=>walk(...button.dataset.walk.split(',').map(Number)));
 listen(yard,'keydown',event=>{const direction={ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0]}[event.key];if(direction&&!event.altKey&&!event.ctrlKey&&!event.metaKey){event.preventDefault();walk(...direction);}});
 listen($('pause'),'click',()=>{paused=!paused;render();schedule();});

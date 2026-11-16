@@ -1,0 +1,657 @@
+{
+  "kind": "nautilus-test-ground-registry",
+  "version": 1,
+  "id": "night-ledger-independent-ground",
+  "name": "Night Ledger · proving ground",
+  "engineSource": "98064c34c7bb4fc3c1343f2e450d570ec38615f2",
+  "traversalProfile": "shared-slide-v1",
+  "drivingCourses": [
+    {
+      "id": "handling",
+      "version": 1,
+      "name": "Board · steer · reverse · exit",
+      "position": {
+        "x": 15,
+        "y": 53,
+        "h": 0
+      },
+      "headingRad": 0
+    },
+    {
+      "id": "visible-gap",
+      "version": 1,
+      "name": "Visible gap beside wall tip",
+      "position": {
+        "x": 30.5,
+        "y": 54,
+        "h": 0
+      },
+      "headingRad": 0.7853981633974483
+    },
+    {
+      "id": "car-slide-east",
+      "version": 1,
+      "name": "Driving glance · east wall",
+      "position": {
+        "x": 38.74959894315684,
+        "y": 53,
+        "h": 0
+      },
+      "headingRad": 0.15
+    },
+    {
+      "id": "car-slide-west",
+      "version": 1,
+      "name": "Driving glance · west wall",
+      "position": {
+        "x": 45.27040105684316,
+        "y": 59,
+        "h": 0
+      },
+      "headingRad": 3.291592653589793
+    },
+    {
+      "id": "head-on",
+      "version": 1,
+      "name": "Head-on thin-wall refusal",
+      "position": {
+        "x": 15,
+        "y": 57,
+        "h": 0
+      },
+      "headingRad": 0
+    },
+    {
+      "id": "walking-slide",
+      "version": 1,
+      "name": "Walk and slide along an edge",
+      "position": {
+        "x": 15,
+        "y": 53,
+        "h": 0
+      },
+      "headingRad": 0,
+      "walkSpawn": {
+        "x": 21.72,
+        "y": 53,
+        "h": 0
+      }
+    },
+    {
+      "id": "obstructed-gap",
+      "version": 1,
+      "name": "Genuine obstruction · negative control",
+      "position": {
+        "x": 30.5,
+        "y": 54,
+        "h": 0
+      },
+      "headingRad": 0.7853981633974483
+    }
+  ],
+  "seed": 1947,
+  "dimensionsM": [
+    64,
+    64
+  ],
+  "storyHeightM": 2.12,
+  "spawn": {
+    "x": 32,
+    "y": 40,
+    "h": 0
+  },
+  "resources": {
+    "health": 37,
+    "ap": 9,
+    "stamina": 11,
+    "inventory": []
+  },
+  "policy": {
+    "id": "test-ground-costs",
+    "version": 1,
+    "openDoorAP": 1,
+    "closeDoorAP": 1,
+    "pickupRockAP": 2,
+    "inventoryCapacity": 4
+  },
+  "slots": [
+    {
+      "id": "west",
+      "name": "West plot",
+      "origin": {
+        "x": 8,
+        "y": 16
+      },
+      "sizeM": 16,
+      "floorId": "floor-0",
+      "elevationM": 0
+    },
+    {
+      "id": "east",
+      "name": "East plot",
+      "origin": {
+        "x": 40,
+        "y": 16
+      },
+      "sizeM": 16,
+      "floorId": "floor-0",
+      "elevationM": 0
+    }
+  ],
+  "plots": [
+    {
+      "id": "gatehouse",
+      "version": 1,
+      "name": "Gatehouse passage",
+      "footprintM": [
+        16,
+        16
+      ],
+      "floorId": "floor-0",
+      "elevationM": 0,
+      "capabilities": [
+        "door-state-v1",
+        "passage-query-v1",
+        "interaction-event-v1",
+        "walking-state-v1"
+      ],
+      "entrance": {
+        "x": 8,
+        "y": 15
+      },
+      "owns": [
+        "walls",
+        "door"
+      ],
+      "effects": "No fire, sound, guard or cross-plot effects are bound."
+    },
+    {
+      "id": "supply-store",
+      "version": 1,
+      "name": "Rock recovery store",
+      "footprintM": [
+        16,
+        16
+      ],
+      "floorId": "floor-0",
+      "elevationM": 0,
+      "capabilities": [
+        "door-state-v1",
+        "passage-query-v1",
+        "interaction-event-v1",
+        "rock-state-v1",
+        "inventory-state-v1",
+        "item-event-v1",
+        "walking-state-v1"
+      ],
+      "entrance": {
+        "x": 12,
+        "y": 15
+      },
+      "owns": [
+        "walls",
+        "door",
+        "rock"
+      ],
+      "effects": "No fire, sound, guard or cross-plot effects are bound."
+    }
+  ],
+  "objectives": [
+    {
+      "id": "road-handling",
+      "version": 1,
+      "name": "Board, turn both ways, reverse and exit",
+      "requires": [
+        "vehicle-state-v1",
+        "traversal-contact-v1",
+        "confirmed-motion-v1"
+      ],
+      "observer": {
+        "id": "traversal-observer",
+        "version": 1
+      },
+      "conditions": [
+        "confirmed-poses-since-baseline"
+      ],
+      "expected": {
+        "minimums": {
+          "boardings": 1,
+          "vehicleDistanceM": 0.8,
+          "leftYawRad": 0.03,
+          "rightYawRad": 0.03,
+          "reverseDistanceM": 0.3,
+          "exits": 1
+        }
+      }
+    },
+    {
+      "id": "road-gap",
+      "version": 1,
+      "name": "Pass the visible wall clearance",
+      "requires": [
+        "vehicle-state-v1",
+        "traversal-contact-v1",
+        "confirmed-motion-v1"
+      ],
+      "observer": {
+        "id": "traversal-observer",
+        "version": 1
+      },
+      "conditions": [
+        "confirmed-clearance-destination"
+      ],
+      "expected": {
+        "minimums": {
+          "boardings": 1,
+          "vehicleDistanceM": 1.5
+        },
+        "destination": {
+          "minX": 32,
+          "minY": 55.5
+        }
+      }
+    },
+    {
+      "id": "road-slide",
+      "version": 1,
+      "name": "Drive along glancing contact more slowly",
+      "requires": [
+        "vehicle-state-v1",
+        "traversal-contact-v1",
+        "confirmed-motion-v1"
+      ],
+      "observer": {
+        "id": "traversal-observer",
+        "version": 1
+      },
+      "conditions": [
+        "confirmed-tangential-motion-and-contact"
+      ],
+      "expected": {
+        "minimums": {
+          "boardings": 1,
+          "vehicleSlideDistanceM": 0.3
+        }
+      }
+    },
+    {
+      "id": "road-stop",
+      "version": 1,
+      "name": "Stop at a genuine obstruction",
+      "requires": [
+        "vehicle-state-v1",
+        "traversal-contact-v1",
+        "confirmed-motion-v1"
+      ],
+      "observer": {
+        "id": "traversal-observer",
+        "version": 1
+      },
+      "conditions": [
+        "confirmed-blocked-body-and-zero-speed"
+      ],
+      "expected": {
+        "minimums": {
+          "boardings": 1,
+          "vehicleDistanceM": 0.1,
+          "headOnStops": 3
+        }
+      }
+    },
+    {
+      "id": "walking-slide",
+      "version": 1,
+      "name": "Walk along glancing contact more slowly",
+      "requires": [
+        "traversal-contact-v1",
+        "confirmed-motion-v1"
+      ],
+      "observer": {
+        "id": "traversal-observer",
+        "version": 1
+      },
+      "conditions": [
+        "confirmed-walking-contact-and-distance"
+      ],
+      "expected": {
+        "minimums": {
+          "walkSlideDistanceM": 0.3
+        }
+      }
+    },
+    {
+      "id": "door-passage",
+      "version": 1,
+      "name": "Open the marked passage",
+      "requires": [
+        "door-state-v1",
+        "passage-query-v1",
+        "interaction-event-v1"
+      ],
+      "observer": {
+        "id": "door-observer",
+        "version": 1
+      },
+      "conditions": [
+        "current-door-open",
+        "current-passage-clear",
+        "new-door-event-after-baseline"
+      ],
+      "expected": {
+        "open": true,
+        "passage": true,
+        "newEvents": 1,
+        "apSpent": 1
+      }
+    },
+    {
+      "id": "rock-recovery",
+      "version": 1,
+      "name": "Recover the marked rock",
+      "requires": [
+        "rock-state-v1",
+        "inventory-state-v1",
+        "item-event-v1"
+      ],
+      "observer": {
+        "id": "rock-observer",
+        "version": 1
+      },
+      "conditions": [
+        "current-owner-player",
+        "current-world-position-removed",
+        "new-inventory-gain-after-baseline",
+        "new-pickup-event-after-baseline"
+      ],
+      "expected": {
+        "phase": "carried",
+        "ownerId": "player",
+        "position": null,
+        "inventoryGain": 1,
+        "newEvents": 1,
+        "apSpent": 2
+      }
+    },
+    {
+      "id": "door-threshold-passage",
+      "version": 1,
+      "name": "Open beside the door and walk through",
+      "requires": [
+        "door-state-v1",
+        "passage-query-v1",
+        "interaction-event-v1",
+        "walking-state-v1"
+      ],
+      "observer": {
+        "id": "door-observer",
+        "version": 1
+      },
+      "conditions": [
+        "current-door-open",
+        "current-passage-clear",
+        "new-door-event-after-baseline"
+      ],
+      "expected": {
+        "open": true,
+        "passage": true,
+        "newEvents": 1,
+        "apSpent": 1,
+        "openerInSwingArea": true,
+        "minimumWalkDistanceM": 1.4,
+        "actorInside": true
+      }
+    }
+  ],
+  "golden": [
+    {
+      "id": "golden-door-passage",
+      "version": 1,
+      "name": "Door opens and passage clears",
+      "slot": "west",
+      "plot": "gatehouse",
+      "objective": "door-passage",
+      "baseline": "closed-door-clear-approach-v1",
+      "spawnLocal": {
+        "x": 8,
+        "y": 13.4,
+        "h": 0
+      },
+      "expectationVersion": 1,
+      "resetPolicy": "new-isolated-sandbox-only",
+      "evidence": [
+        "confirmed door state",
+        "public body-aware passage query",
+        "one new door-opened event",
+        "fixture AP cost"
+      ]
+    },
+    {
+      "id": "golden-rock-recovery",
+      "version": 1,
+      "name": "Rock transfers exactly once",
+      "slot": "east",
+      "plot": "supply-store",
+      "objective": "rock-recovery",
+      "baseline": "world-rock-empty-inventory-v1",
+      "spawnLocal": {
+        "x": 12,
+        "y": 15,
+        "h": 0
+      },
+      "expectationVersion": 1,
+      "resetPolicy": "new-isolated-sandbox-only",
+      "evidence": [
+        "carried rock owner",
+        "old world position removed",
+        "exactly one inventory instance",
+        "one new rock-picked-up event",
+        "fixture AP cost"
+      ]
+    },
+    {
+      "id": "golden-road-handling",
+      "version": 1,
+      "name": "Road handling and safe exit",
+      "slot": "driving",
+      "plot": "collision-course",
+      "course": "handling",
+      "objective": "road-handling",
+      "baseline": "south-strip-driver-door-v1",
+      "expectationVersion": 1,
+      "resetPolicy": "new-isolated-sandbox-only",
+      "evidence": [
+        "confirmed occupied seat",
+        "both physical turn signs",
+        "reverse displacement",
+        "safe on-foot exit"
+      ]
+    },
+    {
+      "id": "golden-road-gap",
+      "version": 1,
+      "name": "Visible wall gap actually passes",
+      "slot": "driving",
+      "plot": "collision-course",
+      "course": "visible-gap",
+      "objective": "road-gap",
+      "baseline": "rotated-body-clear-wall-tip-v1",
+      "expectationVersion": 1,
+      "resetPolicy": "new-isolated-sandbox-only",
+      "evidence": [
+        "unchanged native collision envelope",
+        "confirmed destination past clear wall tip"
+      ]
+    },
+    {
+      "id": "golden-car-slide-east",
+      "version": 1,
+      "name": "Car slides along east wall",
+      "slot": "driving",
+      "plot": "collision-course",
+      "course": "car-slide-east",
+      "objective": "road-slide",
+      "baseline": "flush-glancing-car-east-v1",
+      "expectationVersion": 1,
+      "resetPolicy": "new-isolated-sandbox-only",
+      "evidence": [
+        "public contact normal",
+        "accepted tangential distance",
+        "reduced travel"
+      ]
+    },
+    {
+      "id": "golden-car-slide-west",
+      "version": 1,
+      "name": "Car slides along west wall",
+      "slot": "driving",
+      "plot": "collision-course",
+      "course": "car-slide-west",
+      "objective": "road-slide",
+      "baseline": "flush-glancing-car-west-v1",
+      "expectationVersion": 1,
+      "resetPolicy": "new-isolated-sandbox-only",
+      "evidence": [
+        "opposite-heading contact normal",
+        "accepted tangential distance"
+      ]
+    },
+    {
+      "id": "golden-road-stop",
+      "version": 1,
+      "name": "Head-on thin wall stops the car",
+      "slot": "driving",
+      "plot": "collision-course",
+      "course": "head-on",
+      "objective": "road-stop",
+      "baseline": "thin-head-on-wall-v1",
+      "expectationVersion": 1,
+      "resetPolicy": "new-isolated-sandbox-only",
+      "evidence": [
+        "actual approach",
+        "repeated confirmed stop",
+        "no crossing"
+      ]
+    },
+    {
+      "id": "golden-walking-slide",
+      "version": 1,
+      "name": "Walker slides along the edge",
+      "slot": "driving",
+      "plot": "collision-course",
+      "course": "walking-slide",
+      "objective": "walking-slide",
+      "baseline": "flush-walking-disc-v1",
+      "expectationVersion": 1,
+      "resetPolicy": "new-isolated-sandbox-only",
+      "evidence": [
+        "public disc contacts",
+        "actual accepted distance"
+      ]
+    },
+    {
+      "id": "golden-obstructed-gap",
+      "version": 1,
+      "name": "Real obstruction remains blocked",
+      "slot": "driving",
+      "plot": "collision-course",
+      "course": "obstructed-gap",
+      "objective": "road-stop",
+      "baseline": "true-obstruction-after-clear-gap-v1",
+      "expectationVersion": 1,
+      "resetPolicy": "new-isolated-sandbox-only",
+      "evidence": [
+        "actual approach",
+        "contact evidence",
+        "no tunnelling"
+      ]
+    },
+    {
+      "id": "golden-door-threshold",
+      "version": 1,
+      "name": "Near-threshold East door opens and passes",
+      "slot": "east",
+      "plot": "supply-store",
+      "objective": "door-threshold-passage",
+      "baseline": "Closed East door; operator body overlaps its swing envelope but clears the closed leaf; no prior opening or walking.",
+      "spawnLocal": {
+        "x": 8,
+        "y": 12.34,
+        "h": 0
+      },
+      "expectationVersion": 1,
+      "resetPolicy": "new-isolated-sandbox-only",
+      "evidence": [
+        "confirmed door state",
+        "public body-aware passage query",
+        "one new door-opened event",
+        "fixture AP cost"
+      ]
+    }
+  ],
+  "deferred": [
+    {
+      "id": "movement-height",
+      "name": "Movement and heights",
+      "reason": "No reviewed golden fixture or upper-floor baseline in this tranche."
+    },
+    {
+      "id": "combat",
+      "name": "Combat and guard response",
+      "reason": "No combat/guard observation provider is bound."
+    },
+    {
+      "id": "environment",
+      "name": "Fire and environment",
+      "reason": "No environment or cross-plot effect provider is bound."
+    },
+    {
+      "id": "trains",
+      "name": "Railway circuits",
+      "reason": "Needs the adjoining 240 × 180 m reservation and retained railway host; not a 16 m plot."
+    },
+    {
+      "id": "curved-roads",
+      "name": "Curved terrain and high-speed crashes",
+      "reason": "Flat low-speed road profile only; no suspension, crash damage or sloped support provider."
+    }
+  ],
+  "reservations": [
+    {
+      "id": "railway",
+      "boundsM": [
+        64,
+        0,
+        304,
+        180
+      ],
+      "status": "adjoining-unbuilt",
+      "runtime": false
+    },
+    {
+      "id": "driving",
+      "boundsM": [
+        8,
+        48,
+        56,
+        64
+      ],
+      "status": "collision-course-v1",
+      "runtime": true
+    }
+  ],
+  "sourceBoundary": "Original Nautilus test content inspired by the retained Night Ledger situation. No donor runtime, historical ledger art, consumer pin or original fixture modification. Golden expectations require review before main integration.",
+  "conditionProfiles": [
+    {
+      "id": "transition",
+      "version": 1,
+      "name": "New transition after baseline",
+      "scope": "Current outcome plus exactly one new committed event and declared resource cost. Required for golden runs."
+    },
+    {
+      "id": "current-state",
+      "version": 1,
+      "name": "Current-state audit only",
+      "scope": "Current door/passage or current item owner/location/inventory. No claim of a new action, event, gain or AP spend."
+    }
+  ]
+}
