@@ -1,0 +1,380 @@
+{
+  "schemaVersion": 1,
+  "kind": "nautilus-weekly-scout-intake",
+  "observedDateEastern": "2026-11-23",
+  "engine": {
+    "repository": "https://github.com/Syntaxswine/nautilus-engine.git",
+    "branch": "codex/weekly-integrations",
+    "scoutBeforeUpdate": "b12ff6c397763e63eb12e1c2648b1eacfe56292e",
+    "publishedMain": "5ee0faf833b2b44dd2a74cf1222f9721ecb5497b",
+    "scoutAfterMainMerge": "1817d9b027062f4baf0bceff53ae31ae0f3d8a34",
+    "publishedMainCI": {
+      "run": 43983451015,
+      "conclusion": "success"
+    },
+    "adoptedPRs": [
+      66,
+      67
+    ]
+  },
+  "priorArchitectDecisions": {
+    "commit": "01f97b65c4229e49f3bfe4e92b9c0106b225bb1d",
+    "path": "docs/intake/2026-11-16-architect-decisions.md",
+    "immutablePublicationGate": "Within TB-7ba7487-finite-heat after state/geometry selection",
+    "nextOptimization": "TB-1f45977-static-image-sources measurements in one real loader"
+  },
+  "publishedUnchanged": [
+    {
+      "id": "aft",
+      "commit": "25d0e91858be0fa5ea7d54132a4a642624bd9aa7"
+    },
+    {
+      "id": "farmyard",
+      "commit": "4a0bd292ee09abb7f61e743289f5a40f09655b2c"
+    },
+    {
+      "id": "farmyardRealtime",
+      "commit": "8395204ce6b60aa20cc8936fc89fe4a40192920c"
+    }
+  ],
+  "alreadyRouted": {
+    "repository": "https://github.com/Syntaxswine/farmyard-fighters",
+    "commit": "df8f7d761a64670ea5ddec5f8faba8d1c22ada97",
+    "date": "2026-11-20",
+    "status": "reviewed-reference-not-integrated",
+    "record": "artifacts/intake/farmyard-moving-flame-df8f7d7.json",
+    "newAssignmentRequested": false
+  },
+  "draftOnly": {
+    "repository": "https://github.com/Syntaxswine/animal-factory-tactics-3d",
+    "pr": 12,
+    "head": "7ad0349f69213f7875cea8e30779772c84caf798",
+    "isDraft": true,
+    "independentlyTested": false
+  },
+  "candidates": [
+    {
+      "id": "TB-37a7c03-immutable-publications",
+      "priority": "P2",
+      "status": "New measured source evidence for accepted gated candidate",
+      "dependency": "TB-7ba7487-finite-heat state/geometry boundary",
+      "measuredApproval": "1c2795527057529a82aa7092b7b7c4c823c76be1"
+    },
+    {
+      "id": "TB-8e50a4c-native-disc-adapter",
+      "priority": "P2",
+      "status": "proposed",
+      "dependency": "Existing public traversal kernel, declared native solid/support provider and retained host movement authority"
+    }
+  ],
+  "sources": [
+    {
+      "id": "tinderbox",
+      "repository": "https://github.com/Syntaxswine/tinderbox",
+      "ref": "refs/heads/master",
+      "commit": "52c0266fd1a65e67b13d7ac6a452156c6573b858",
+      "reviewedAncestors": [
+        "d5b43dd5446d93dd263d1234e12ed1551743de56",
+        "1c2795527057529a82aa7092b7b7c4c823c76be1",
+        "a018d3fe8b7ffa3a63eb0df261bbb74979b5dae6",
+        "e7e2bad3eb89d80e8465575a69ea15cfb9c5ec5f",
+        "8e50a4c0e39a48241001a02f7a29c4193fdd343d",
+        "9a765f2f24171ba4cab82432bfb5778544fe4572"
+      ],
+      "files": [
+        {
+          "path": "src/reuse/publication-geometry.js",
+          "gitBlob": "49420aaf6b52f898ca8207fda6deb14129b42c4a",
+          "bytes": 1120,
+          "sha256": "94cbb817e238f00d4aae4e039c75cda87d29585b856f12665b596007c4260fdf",
+          "sameAsMeasuredApproval": true,
+          "measuredApprovalSha256": "94cbb817e238f00d4aae4e039c75cda87d29585b856f12665b596007c4260fdf"
+        },
+        {
+          "path": "workbenches/furnished-house/scene.js",
+          "gitBlob": "fede6e85aed6914a1a57716b6bf5d40654b41c8d",
+          "bytes": 11266,
+          "sha256": "5629ace39f09b407b6c2ef0567ea5b4cfba2e90916f4820dd65d821bf07ab859",
+          "sameAsMeasuredApproval": false,
+          "measuredApprovalSha256": "8660398841d3cfcbdcf6be282481b647f662be808827c74d2d2c6443cb29716b"
+        },
+        {
+          "path": "workbenches/furnished-house/simulation.js",
+          "gitBlob": "64a02337c52efe9ab2c6a9ad240606290dab8aad",
+          "bytes": 53817,
+          "sha256": "1accf6d27f27d78dd019f24e10f15354fd79b81b6cb8c87ee63ab90fdd98f1b5",
+          "sameAsMeasuredApproval": true,
+          "measuredApprovalSha256": "1accf6d27f27d78dd019f24e10f15354fd79b81b6cb8c87ee63ab90fdd98f1b5"
+        },
+        {
+          "path": "src/simulation/catalogue-thermal.js",
+          "gitBlob": "7947aa5d9dba421c3b4f386758206204007a877c",
+          "bytes": 32365,
+          "sha256": "3421387654b93f5f0a889d9ca6b02ca199563efff91fc1b0a13e1db15203dbbe",
+          "sameAsMeasuredApproval": false,
+          "measuredApprovalSha256": "50729b94af47c530843a4af1e2a5e96754b837a732bdca88cfe54d76700fcaa6"
+        },
+        {
+          "path": "art/source/catalogue-modular/thermal-art.js",
+          "gitBlob": "ad3c4e3db31216779fc1ba3f91158cd7f3ff098d",
+          "bytes": 55180,
+          "sha256": "3c344de9b16da0144a693394b4ec10afb0cb049655edca93c3424bc1de30ed6c",
+          "sameAsMeasuredApproval": true,
+          "measuredApprovalSha256": "3c344de9b16da0144a693394b4ec10afb0cb049655edca93c3424bc1de30ed6c"
+        },
+        {
+          "path": "art/source/furnished-house/presentation.js",
+          "gitBlob": "db8ddd3f7b949f7ff084b9f09959bbc10eb0fe5a",
+          "bytes": 8849,
+          "sha256": "d82458bb0c1b33623793b600a6460d07419e60f6367ff28ec3d81e1c1ab0b21d",
+          "sameAsMeasuredApproval": true,
+          "measuredApprovalSha256": "d82458bb0c1b33623793b600a6460d07419e60f6367ff28ec3d81e1c1ab0b21d"
+        },
+        {
+          "path": "art/source/furnished-house/visibility.js",
+          "gitBlob": "f3808a98637a6de0372b5a871cd97d0bfaee84b6",
+          "bytes": 9687,
+          "sha256": "ff03391716ea0bc790846006d9f91da6b291ede40daee7a6c308bc062128a776",
+          "sameAsMeasuredApproval": true,
+          "measuredApprovalSha256": "ff03391716ea0bc790846006d9f91da6b291ede40daee7a6c308bc062128a776"
+        },
+        {
+          "path": "art/source/furnished-house/shroud.js",
+          "gitBlob": "4f6d20c42cbaaf053208eb0cc5404ac0ccaa1e85",
+          "bytes": 16374,
+          "sha256": "324f4cd8ec66557c7015c0bb317f7537d804bd90b0afc859e9b1ab01ea647166",
+          "sameAsMeasuredApproval": true,
+          "measuredApprovalSha256": "324f4cd8ec66557c7015c0bb317f7537d804bd90b0afc859e9b1ab01ea647166"
+        },
+        {
+          "path": "src/reuse/native-disc-slide.js",
+          "gitBlob": "3e63936693dbfeff4cb11c28b294bfb7e44a5cf8",
+          "bytes": 2579,
+          "sha256": "f209ecacf532f5feb6b6744d86a76a34becd5860bb0eeda93158ebb57cd81dbf"
+        },
+        {
+          "path": "src/runtime/collision.js",
+          "gitBlob": "3a829d17d5646c54a598f1e5a05e61ac7bfde187",
+          "bytes": 5478,
+          "sha256": "db0a046d940464e1d2ab97e3c390e1a0b3a16741010ccff5a2eb04d21fd3edf3"
+        },
+        {
+          "path": "workbenches/furnished-house/navigation.js",
+          "gitBlob": "3c6f1ce2d50cbd0538b09df3e3fb7ddadaa87e13",
+          "bytes": 10699,
+          "sha256": "8ba3f2ded00f59617c8f36baa84e521f4318e6a9de55f541a68c4fac7fb3a1a9"
+        },
+        {
+          "path": "workbenches/bell-and-alder-sandbox/compose.js",
+          "gitBlob": "4be1680578f198ba5bae04e77e95e78060ab9ae6",
+          "bytes": 12041,
+          "sha256": "c033e639ea4379ebc3ea94c94f4598689bad3fff08c26e84807b59d140faa97b"
+        },
+        {
+          "path": "tests/integration/fire-preparation-cache.test.mjs",
+          "gitBlob": "6254c8933f4b92a506ab305f08b68fc2642ab6b2",
+          "bytes": 50851,
+          "sha256": "b419ef384df5afcb504584bac205208836ffad53151e857458f458b46aec2a05"
+        },
+        {
+          "path": "tests/integration/publication-geometry-owner.test.mjs",
+          "gitBlob": "aac5872da572d1e99eb6c8f5cc305994f23201e7",
+          "bytes": 2626,
+          "sha256": "e53a6837a5ee6177edb7a1f8f81614f5fc9aa5a755b43f14deb0520e2aed5dee"
+        },
+        {
+          "path": "tests/sandbox/publication-geometry.test.mjs",
+          "gitBlob": "1743da464de09498adaf554cf930629e62903cf1",
+          "bytes": 17536,
+          "sha256": "40730fb7d424eb09329c2f1c9f1e7063661c1a906eb83e151280df711f6124b7"
+        },
+        {
+          "path": "tests/sandbox/native-disc-slide.test.mjs",
+          "gitBlob": "a9adcbca7094f74f79b4dc04bd4e79ea40a67dd4",
+          "bytes": 17885,
+          "sha256": "799fdc840ac58f0799a05ddd15266e068f6cd119da2b89be2421620ea75b8e05"
+        },
+        {
+          "path": "tests/sandbox/native-placement.test.mjs",
+          "gitBlob": "13574fee4f7bfe4bf4fd7971d73e8e6ce9bb1b0c",
+          "bytes": 8187,
+          "sha256": "17c35a79bc1c30f7061ab0fcd9bb3b82b3ae7161046244802f4c477bb017cb91"
+        },
+        {
+          "path": "tests/sandbox/catalogue-doors.test.mjs",
+          "gitBlob": "ce85a31e4063b5f14e4acdbba3898e35de3aa333",
+          "bytes": 7051,
+          "sha256": "651010706bbcfa9d99b2f156b1af435747437370b12204bf43fe58d1ca59bc87"
+        },
+        {
+          "path": "docs/reviews/2026-11-16-half-cost-fire.md",
+          "gitBlob": "4af995e784b723fa192c04dab487aceee78af594",
+          "bytes": 15053,
+          "sha256": "b28d22b783c726dc8ddd7a859bdf55ce50ed2a273545ac70e9cecdf24a2e87ef"
+        },
+        {
+          "path": "docs/reviews/2026-11-16-tree-and-traversal-corrections.md",
+          "gitBlob": "146d9b2b4735be3019a2f66bd72caf56d83812f2",
+          "bytes": 16035,
+          "sha256": "fc6ee28a84be235cdc0977dda67b3d0b6d539811bbce9bbd10b4c473340fd19c"
+        },
+        {
+          "path": "docs/engineering/fire-half-cost/measurements.json",
+          "gitBlob": "6ad9ab4a31184107173124546be6486c4e3081c5",
+          "bytes": 182615,
+          "sha256": "19277cf90507f3b555bcb46fb071fe4febf28af354193839a5aa3e2cb7696170"
+        },
+        {
+          "path": "docs/art/fire-half-cost/HANDOFF.md",
+          "gitBlob": "e2e3b4e32f0ee4b43ce995a1451e1a18369f29a1",
+          "bytes": 2921,
+          "sha256": "f245a5ed7004ff4c663788b319d76a3d347ac16a082ccdba46074e3d2f169cec"
+        },
+        {
+          "path": "docs/reviews/media/2026-11-16-half-cost-fire/reference.jpg",
+          "gitBlob": "d8d9d31ca9a6cefa69e5363805e66b87616dd3ba",
+          "bytes": 146137,
+          "sha256": "6033a2cede182a7f7995898a974a8c717eb8ad44169614fde4de49b3f76e2024"
+        },
+        {
+          "path": "docs/reviews/media/2026-11-16-half-cost-fire/optimized.jpg",
+          "gitBlob": "882280fcc7676f79c3721fdd2723d0b944a7f2b7",
+          "bytes": 146176,
+          "sha256": "56c6ccf13d2fd2b8c74d1c36a5d04ab1763d0a06640e98b4159eae3b907c386c"
+        },
+        {
+          "path": "vendor/nautilus-engine/999d97a1c2032f2448a8f71e6eec8c9c025cd577/provenance/disc-slide.json",
+          "gitBlob": "48dbc2602abf459658a6deff340e33d57bed8d47",
+          "bytes": 4552,
+          "sha256": "d78019e6fb5642121e3e8c3ec78324fc2fc7e9e5561d990d2b5d1bc519225a34"
+        }
+      ]
+    }
+  ],
+  "validation": {
+    "donorTests": {
+      "runtime": "Node v24.15.0",
+      "command": [
+        "node",
+        "--test",
+        "--test-reporter=tap",
+        "--test-concurrency=1",
+        "tests/integration/fire-preparation-cache.test.mjs",
+        "tests/integration/publication-geometry-owner.test.mjs",
+        "tests/sandbox/publication-geometry.test.mjs",
+        "tests/sandbox/native-disc-slide.test.mjs",
+        "tests/sandbox/native-placement.test.mjs",
+        "tests/sandbox/catalogue-doors.test.mjs"
+      ],
+      "tests": 73,
+      "pass": 73,
+      "fail": 0,
+      "logSha256": "2260e99ec7f8ba7f94fa12c50182ea523e9f6e6957af7a0da88678738276aa38",
+      "copiesMatchSource": true
+    },
+    "publishedMeasurementsOfflineAudit": {
+      "reference": {
+        "preparationMs": {
+          "count": 120,
+          "mean": 29.01333332459132,
+          "p95": 34.49999952316284
+        },
+        "gpuMs": {
+          "count": 120,
+          "mean": 9.344529066666666,
+          "p95": 13.278208
+        },
+        "sequentialCpuMs": {
+          "count": 120,
+          "mean": 62.313333316644034,
+          "p95": 76.0
+        }
+      },
+      "candidate": {
+        "preparationMs": {
+          "count": 120,
+          "mean": 12.25666666428248,
+          "p95": 15.59999942779541
+        },
+        "gpuMs": {
+          "count": 120,
+          "mean": 9.38432,
+          "p95": 12.731392
+        },
+        "sequentialCpuMs": {
+          "count": 120,
+          "mean": 46.36000000238418,
+          "p95": 57.40000009536743
+        }
+      },
+      "preparationReductionPct": {
+        "mean": 57.75505514254754,
+        "p95": 54.78260972925006
+      },
+      "rowsAudited": 240,
+      "matchedRecordedWorkloadFields": [
+        "generation",
+        "hostTick",
+        "nativeTick",
+        "worldTime",
+        "drawCalls",
+        "geometries",
+        "textures",
+        "uploadCalls",
+        "uploadBytes",
+        "sourceCount",
+        "positiveRoofFlames",
+        "activeCharacters"
+      ],
+      "sameEndpointDigest": true,
+      "newHardwareBenchmark": false,
+      "publishedSource": "52c0266fd1a65e67b13d7ac6a452156c6573b858"
+    },
+    "engineGates": [
+      {
+        "Name": "check",
+        "FinishedAt": "2026-11-23T14:19:42.4143102Z",
+        "StartedAt": "2026-11-23T14:09:40.2663735Z",
+        "Exit": 0,
+        "logSha256": "bb492f86dcf82ecd9c6506d890d09fee4a4afae8bceff32064b7eac5e484cab2"
+      },
+      {
+        "Name": "test",
+        "FinishedAt": "2026-11-23T14:31:47.1533375Z",
+        "StartedAt": "2026-11-23T14:19:42.4488099Z",
+        "Exit": 0,
+        "logSha256": "03e85c57a41246c2ec65de135be2138ad48ba5f6659b267e38d300a3f5c39038",
+        "tests": 1404,
+        "pass": 1404,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      {
+        "Name": "upstream",
+        "FinishedAt": "2026-11-23T14:31:50.2231642Z",
+        "StartedAt": "2026-11-23T14:31:47.1585537Z",
+        "Exit": 0,
+        "logSha256": "7a2959938a7f6bd5370cdcc1a2c293eca2545888be5ff18a8b9e403f3ca918ec",
+        "tests": 32,
+        "pass": 32,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      {
+        "Name": "build",
+        "FinishedAt": "2026-11-23T14:32:36.0814248Z",
+        "StartedAt": "2026-11-23T14:31:50.2268530Z",
+        "Exit": 0,
+        "logSha256": "f15289db7fd9063a09b7a822fe5b43f94541f7a64dc1c5cae45d64cde07e924e",
+        "modulePathsChecked": 694
+      }
+    ],
+    "sourceCopiesRemoved": true,
+    "freshBrowserReview": false,
+    "newHardwareBenchmark": false,
+    "publishedFireComparisonJPGsViewed": true,
+    "runtimeAndManifestDiffFromReviewedMain": false
+  }
+}
