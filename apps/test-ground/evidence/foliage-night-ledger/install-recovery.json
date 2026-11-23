@@ -1,0 +1,107 @@
+{
+  "owner": "01a1811b-5974-7d83-8cff-136a1d8b02ab",
+  "purpose": "Recover ordinary offline installation from the fixed clean SDK archive using a new consumer and isolated cache",
+  "implementation": "5c60c131a5753c8189be64df477e4e00e6062b16",
+  "tree": "5e7537f4c65e73068379d98e040b7de9150ea599",
+  "startedAt": "2026-11-16T22:28:53.727Z",
+  "process": {
+    "pid": 48872,
+    "creationFiletime": "134393417325568591",
+    "executable": "C:\\Program Files\\nodejs\\node.exe"
+  },
+  "folder": "C:\\Users\\baals\\.codex\\worktrees\\foliage-night-ledger\\Nautilus Engine\\artifacts\\night-ledger-installed\\d756c04d2e8ec77f-retry-1794868133727",
+  "cache": "C:\\Users\\baals\\.codex\\worktrees\\foliage-night-ledger\\Nautilus Engine\\artifacts\\foliage-install-recovery\\npm-cache-1794868133727",
+  "archive": {
+    "file": "artifacts/distribution/nautilus-engine-map-core-0.10.0.tgz",
+    "sha256": "d756c04d2e8ec77fa99168dc200d1e9c9cfe45017da5e9a3b788d182ada8992c",
+    "bytes": 74272463
+  },
+  "firstAttempt": {
+    "folder": "artifacts/night-ledger-installed/d756c04d2e8ec77f-fresh-1794867653284",
+    "timeoutMs": 120000,
+    "pidReportedByExec": 22032,
+    "exactCreationUnavailable": true,
+    "pidObservedAbsentAt": "2026-11-16T22:25:05Z",
+    "log": "first-npm.log",
+    "reason": "Timeout while fetching the local archive manifest; no node_modules was created",
+    "independentManifestReadMs": 305
+  },
+  "restart": {
+    "source": "5c60c131a5753c8189be64df477e4e00e6062b16",
+    "script": "C:\\Users\\baals\\Local Storage\\AI\\GTP\\foliage-night-ledger-evidence\\recover-install.mjs",
+    "cwd": "C:\\Users\\baals\\.codex\\worktrees\\foliage-night-ledger\\Nautilus Engine",
+    "dependencies": "Existing Node/npm and exact local archive; no registry/network access or scripts",
+    "inputs": [
+      "artifacts/distribution/nautilus-engine-map-core-0.10.0.tgz"
+    ],
+    "outputs": [
+      "artifacts/foliage-install-recovery",
+      "artifacts/night-ledger-installed"
+    ],
+    "pendingWork": "Finish package verification and installed browser review",
+    "secretReferences": []
+  },
+  "install": {
+    "command": "npm install --offline --ignore-scripts --no-audit --no-fund --package-lock=false --cache <isolated task cache> engine.tgz",
+    "status": "passed",
+    "timeoutMs": 120000,
+    "startedAt": "2026-11-16T22:28:55.391Z",
+    "expiresAt": "2026-11-16T22:30:55.391Z",
+    "process": {
+      "pid": 68244,
+      "creationFiletime": "134393417354007748",
+      "executable": "C:\\Program Files\\nodejs\\node.exe"
+    },
+    "elapsedMs": 11546,
+    "finishedAt": "2026-11-16T22:29:06.937Z"
+  },
+  "status": "passed",
+  "finishedAt": "2026-11-16T22:29:07.242Z",
+  "allInstalledBytesVerified": true,
+  "installedPayloadFiles": 636,
+  "publicExports": 72,
+  "package": {
+    "file": "artifacts/distribution/nautilus-engine-map-core-0.10.0.tgz",
+    "sha256": "d756c04d2e8ec77fa99168dc200d1e9c9cfe45017da5e9a3b788d182ada8992c",
+    "bytes": 74272463,
+    "files": 636,
+    "publicExports": 72
+  },
+  "logs": [
+    {
+      "path": "artifacts/foliage-install-recovery/first-npm.log",
+      "bytes": 1534,
+      "sha256": "22183d474124a62f7886f9cb404331594feab07fea0f543c2718d957ece382c1",
+      "tail": [
+        "0 verbose cli C:\\Program Files\\nodejs\\node.exe C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+        "1 info using npm@11.12.1",
+        "2 info using node@v24.15.0",
+        "3 silly config load:file:C:\\Program Files\\nodejs\\node_modules\\npm\\npmrc",
+        "4 silly config load:file:C:\\Users\\baals\\.codex\\worktrees\\foliage-night-ledger\\Nautilus Engine\\artifacts\\night-ledger-installed\\d756c04d2e8ec77f-fresh-1794867653284\\.npmrc",
+        "5 silly config load:file:C:\\Users\\baals\\.npmrc",
+        "6 silly config load:file:C:\\Users\\baals\\AppData\\Roaming\\npm\\etc\\npmrc",
+        "7 verbose title npm install C:\\Users\\baals\\.codex\\worktrees\\foliage-night-ledger\\Nautilus Engine\\artifacts\\night-ledger-installed\\d756c04d2e8ec77f-fresh-1794867653284\\engine.tgz",
+        "8 verbose argv \"install\" \"--offline\" \"--ignore-scripts\" \"--no-audit\" \"--no-fund\" \"--package-lock\" \"false\" \"C:\\\\Users\\\\baals\\\\.codex\\\\worktrees\\\\foliage-night-ledger\\\\Nautilus Engine\\\\artifacts\\\\night-ledger-installed\\\\d756c04d2e8ec77f-fresh-1794867653284\\\\engine.tgz\"",
+        "9 verbose logfile logs-max:10 dir:C:\\Users\\baals\\.codex\\worktrees\\foliage-night-ledger\\Nautilus Engine\\artifacts\\night-ledger-package-cache\\_logs\\2026-11-16T22_20_54_534Z-",
+        "10 verbose logfile C:\\Users\\baals\\.codex\\worktrees\\foliage-night-ledger\\Nautilus Engine\\artifacts\\night-ledger-package-cache\\_logs\\2026-11-16T22_20_54_534Z-debug-0.log",
+        "11 silly logfile done cleaning log files",
+        "12 silly packumentCache heap:4496293888 maxSize:1124073472 maxEntrySize:562036736",
+        "13 silly idealTree buildDeps",
+        "14 silly fetch manifest @nautilus-engine/map-core@file:engine.tgz"
+      ]
+    },
+    {
+      "path": "artifacts/foliage-install-recovery/retry-npm.log",
+      "bytes": 233,
+      "sha256": "c57c2d4798f3e280b2b45bd0cf4fe95ab741c825dba1a718eaaa80bb46b25199",
+      "tail": [
+        "added 1 package in 11s",
+        "npm notice",
+        "npm notice New major version of npm available! 11.12.1 -> 12.2.2",
+        "npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.2",
+        "npm notice To update run: npm install -g npm@12.2.2",
+        "npm notice"
+      ]
+    }
+  ]
+}

@@ -1,5 +1,16 @@
 # Night Ledger independent test ground
 
+The optional **Try foliage stealth** west plot connects the real Editor Foliage
+brush to public concealment, blocking, separate sight/shot queries and confirmed
+awareness/hearing. Use the editor's **Foliage playtest** menu to open/connect it,
+load its blueprint, preflight and Send. It preserves the existing door/rock/road
+fixtures and uses the shared setup/input/camera/clock with an explicit optional
+native crawl profile. Read [the exact scope and workflow](../../docs/foliage-night-ledger.md).
+The four fixed squad markers are authoring scaffolding; play controls one normal
+goat and displays a diagnostic observer. Moving saves preserve native phase and
+spent resources. The comparative golden uses the current authored foliage as a
+declared dependency; clearing the brush can correctly make its expectation fail.
+
 Open `apps/test-ground/` in the ordinary static build. Choose **Try road handling**,
 then **Enter Compact hatchback · driver**. The shared joystick or WASD/arrows
 drive; down brakes through zero and reverses. Release stops. Exit restores walking

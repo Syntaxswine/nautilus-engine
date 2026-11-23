@@ -15,6 +15,11 @@ export const SETUP_PORTS=immutable({
   runtime:port('nautilus.player-setup','confirmed-state','urn:nautilus:player-setup:1')
 });
 export const output=p=>({...plain(p),direction:p.direction==='input'?'output':'input'});
+// Same service names, explicitly different schemas. Legacy providers cannot
+// accidentally satisfy a crawl recipe or restore its durable cursor.
+export const CRAWL_SETUP_PORTS=immutable({...plain(SETUP_PORTS),pose:{...plain(SETUP_PORTS.pose),schema:'urn:nautilus:confirmed-native-crawl-sample:1'},native:{...plain(SETUP_PORTS.native),schema:'urn:nautilus:native-crawl-view:1'}});
+export function setupComponents(config){if(config?.version!==2)return SETUP_COMPONENTS;return SETUP_COMPONENTS.filter(c=>!['player.trains','player.vehicles'].includes(c.id)).map(c=>c.id!=='setup.actor'?c:{...c,ports:[CRAWL_SETUP_PORTS.pose,SETUP_PORTS.surface],settings:c.settings.map(s=>({...s,values:s.id==='model'?['goat']:['native-crawl-v1'],default:s.id==='model'?'goat':'native-crawl-v1'}))});}
+export function createCrawlSetupConfiguration({equipment='hands',surface={kind:'flat-plane',floorId:'floor-0',heightM:0},...options}={}){if(options.model!==undefined&&options.model!=='goat'||options.trains||options.vehicles)throw Error('CRAWL_PROFILE_UNSUPPORTED: normal goat, on foot only.');const next=createSetupConfiguration({...options,model:'goat'});next.version=2;next.nativeProfile={id:'nautilus-native-goat-crawl-v1',version:1,equipment,surface:plain(surface)};settings(next,'setup.actor').motion='native-crawl-v1';return next;}
 export const compatible=(a,b)=>a.id===b.id&&a.service.id===b.service.id&&a.service.version===b.service.version&&a.direction!==b.direction&&['role','schema','units','frame','cardinality','ownership','lifetime'].every(k=>a[k]===b[k]);
 export const SETUP_COMPONENTS=immutable([...plain(PLAYER_COMPONENTS),
   {id:'setup.runtime',version:1,label:'Scene runtime',ports:[SETUP_PORTS.clock,SETUP_PORTS.surface,{...SETUP_PORTS.world,required:false}],settings:[],guide:'packages/player-setup/README.md',usageCard:'packages/player-setup/usage-card.json'},
@@ -27,26 +32,33 @@ export function createSetupConfiguration({content,actorId='player',model='goat',
 }
 export const settings=(config,name)=>config.components.find(c=>c.id===name)?.settings;
 export function uiConfiguration(config,bindings=config.bindings){const ui=plain(config);ui.kind='nautilus-player-ui-configuration';ui.components=ui.components.filter(c=>PLAYER_COMPONENTS.some(d=>d.id===c.id));
+  if(config.version===2){ui.version=1;delete ui.nativeProfile;}
   const needed=new Set(ui.components.flatMap(c=>PLAYER_COMPONENTS.find(d=>d.id===c.id).ports.map(p=>p.id)));ui.bindings=Object.fromEntries(Object.entries(bindings).filter(([key])=>needed.has(key)));return ui;}
 export function setupPreset(config,name){const next=presetConfiguration(config,name);return next;}
 const registration=(id,provides,requires=[])=>({id,version:1,provides:provides.map(output),requires,ownership:'owned module'});
 export function defaultSetupRegistry(config){
+  const nativePorts=config.version===2?CRAWL_SETUP_PORTS:SETUP_PORTS;
   const uiNeeds=config.components.filter(c=>PLAYER_COMPONENTS.some(d=>d.id===c.id)).flatMap(c=>PLAYER_COMPONENTS.find(d=>d.id===c.id).ports);
   return [registration('setup.world',[SETUP_PORTS.world,SETUP_PORTS.pose,PLAYER_PORTS.scene,PLAYER_PORTS.walking]),
     registration('setup.clock',[SETUP_PORTS.clock,PLAYER_PORTS.pause],[SETUP_PORTS.world]),
     registration('setup.surface',[SETUP_PORTS.surface],[SETUP_PORTS.world]),
     registration('setup.camera',[PLAYER_PORTS.camera,PLAYER_PORTS.bounds],[PLAYER_PORTS.scene,SETUP_PORTS.surface]),
-    registration('setup.actor',[SETUP_PORTS.native],[SETUP_PORTS.pose,SETUP_PORTS.surface]),
+    registration('setup.actor',[nativePorts.native],[nativePorts.pose,SETUP_PORTS.surface]),
     registration('setup.title',[PLAYER_PORTS.title],[PLAYER_PORTS.scene]),
     registration('setup.shell',[SETUP_PORTS.ui],uiNeeds),
-    registration('setup.runtime',[SETUP_PORTS.runtime],[SETUP_PORTS.ui,SETUP_PORTS.clock,SETUP_PORTS.surface,SETUP_PORTS.native])];
+    registration('setup.runtime',[SETUP_PORTS.runtime],[SETUP_PORTS.ui,SETUP_PORTS.clock,SETUP_PORTS.surface,nativePorts.native])];
 }
 const issue=(code,path,message,action='Inspect the semantic connection and bind one compatible registered provider.')=>({code,path,message,action});
-export function validatePlayerSetup(input,{providers=[],registry,content}={}){
+export function validateCrawlPlayerSetup(input,options){return validateSetup(input,options,true);}
+export function validatePlayerSetup(input,options){return validateSetup(input,options,false);}
+function validateSetup(input,{providers=[],registry,content}={},crawl){
   const errors=[],connections=[];let config;
   const failed=()=>({ok:false,errors,configuration:null,compiled:null,plan:null,connections});
-  try{config=plain(typeof input==='string'?JSON.parse(input):input);fields(config,['kind','version','engine','content','actorId','components','bindings']);
-    if(config.kind!=='nautilus-player-setup'||config.version!==1)throw Error('Use player setup configuration version1.');
+  try{config=plain(typeof input==='string'?JSON.parse(input):input);fields(config,['kind','version','engine','content','actorId','components','bindings',...(crawl?['nativeProfile']:[])]);
+    if(config.kind!=='nautilus-player-setup'||config.version!==(crawl?2:1))throw Error(crawl?'Use explicit crawl setup configuration version2.':'Use player setup configuration version1.');
+    if(crawl){const p=config.nativeProfile;fields(p,['id','version','equipment','surface']);fields(p.surface,['kind','floorId','heightM']);if(p.id!=='nautilus-native-goat-crawl-v1'||p.version!==1||!['hands','rifle'].includes(p.equipment)||p.surface.kind!=='flat-plane'||p.surface.floorId!=='floor-0'||p.surface.heightM!==0)throw Error('CRAWL_PROFILE_UNSUPPORTED: normal goat, hands/rifle, floor-0 flat plane at zero metres only.');
+      if(registry!==undefined)throw Error('CRAWL_PROFILE_UNSUPPORTED: this optional profile uses the fixed setup lifecycle registry.');
+      if(providers.some(p=>p.descriptor.ports.some(p=>p.id===SETUP_PORTS.native.id)))throw Error('CRAWL_NATIVE_OWNERSHIP: this recipe owns and restores its crawler through setup.actor; borrowed native views are unsupported.');}
     fields(config.engine,['package','version','sourcePin']);if(Object.keys(PLAYER_ENGINE_BASE).some(k=>config.engine[k]!==PLAYER_ENGINE_BASE[k]))throw Error('Preserve the accepted Stage1 engine identity.');
     fields(config.content,['id','version','sourcePin']);id(config.content.id);id(config.actorId);if(!Number.isSafeInteger(config.content.version)||config.content.version<1||!/^[a-f0-9]{40}$/.test(config.content.sourcePin))throw Error('Use exact content identity/version/source pin.');
     if(content&&!['id','version','sourcePin'].every(k=>config.content[k]===content.identity?.[k]))throw Error('The requested content identity differs from the bound content manifest.');
@@ -54,7 +66,7 @@ export function validatePlayerSetup(input,{providers=[],registry,content}={}){
   }catch(error){errors.push(issue('INVALID_SETUP','/',error.message,'Supply the bounded version1 setup recipe and exact content/engine identities.'));return failed();}
   const seen=new Set();for(const [index,c]of config.components.entries()){
     try{fields(c,['id','version','settings']);id(c.id);}catch(error){errors.push(issue('INVALID_COMPONENT','/components/'+index,error.message,'Supply a component record with id, version and settings.'));continue;}
-    const d=SETUP_COMPONENTS.find(d=>d.id===c.id);if(!d||c.version!==d.version||seen.has(c.id)){errors.push(issue('COMPONENT_UNAVAILABLE','/components/'+index,'Unknown, duplicate or incompatible component.'));continue;}seen.add(c.id);
+    const d=setupComponents(config).find(d=>d.id===c.id);if(!d||c.version!==d.version||seen.has(c.id)){errors.push(issue('COMPONENT_UNAVAILABLE','/components/'+index,'Unknown, duplicate or incompatible component.'));continue;}seen.add(c.id);
     try{fields(c.settings,d.settings.map(s=>s.id));for(const s of d.settings){const v=c.settings[s.id];if(!(s.type==='enum'?s.values.includes(v):s.type==='boolean'?typeof v==='boolean':Number.isFinite(v)&&v>=s.min&&v<=s.max))throw Error('Unsupported setting '+c.id+'.'+s.id);}}catch(error){errors.push(issue('INVALID_SETTING','/components/'+index,error.message));}
   }
   for(const required of ['player.shell','setup.runtime','setup.actor'])if(!seen.has(required))errors.push(issue('COMPONENT_REQUIRED','/components','Keep '+required+' or select a reviewed replacement recipe.'));
@@ -80,6 +92,7 @@ export function validatePlayerSetup(input,{providers=[],registry,content}={}){
     }
   }
   if(errors.length)return failed();
+  if(crawl&&(bindings[SETUP_PORTS.native.id]!=='setup.actor'||selected.has('setup.world'))){errors.push(issue('CRAWL_WORLD_OWNERSHIP','/bindings','The crawl profile owns setup.actor and requires a retained host world with explicit crawl samples.'));return failed();}
   for(const [service,providerId]of Object.entries(config.bindings))if(!all.some(p=>p.id===providerId&&p.provides.some(q=>q.id===service)))errors.push(issue('UNKNOWN_BINDING','/bindings/'+service,'Binding references an unknown service/provider pair.'));
   for(const [service,need]of needs){const provider=all.find(p=>p.id===bindings[service]);connections.push({componentPort:plain(need),providerId:provider.id,providerPort:plain(provider.provides.find(p=>compatible(need,p))),ownership:provider.ownership});}
   const unique=ports=>[...new Map(ports.map(p=>[p.id,p])).values()];

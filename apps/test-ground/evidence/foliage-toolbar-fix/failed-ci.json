@@ -1,0 +1,90 @@
+{
+  "head": "7a899e4a1c9bd4f09151fb487225e6e84d2af3a0",
+  "runs": [
+    {
+      "id": 43972419960,
+      "jobs": [
+        133667726848,
+        133667726920
+      ]
+    },
+    {
+      "id": 43972330854,
+      "jobs": [
+        133667409758,
+        133667409890
+      ]
+    }
+  ],
+  "cause": "A descendant selector treated the three Foliage submenu actions as primary toolbar controls. Strict modeling then exposed inherited details padding and a seventh grid item overflowing the 320px reserved header.",
+  "logs": [
+    {
+      "path": "artifacts/ci-pr67-7a899e4a/tile-stack.log",
+      "bytes": 87968,
+      "sha256": "eedeb1d33092b2cd980580d561e6e501973f9555ff6bb2494ca42e320c3f529d",
+      "assertion": [
+        "2026-11-16T22:43:43.1639787Z ##[endgroup]",
+        "2026-11-16T22:43:53.0621699Z node:internal/modules/run_main:107",
+        "2026-11-16T22:43:53.0622633Z     triggerUncaughtException(",
+        "2026-11-16T22:43:53.0623123Z     ^",
+        "2026-11-16T22:43:53.0624019Z ",
+        "2026-11-16T22:43:53.0625006Z AssertionError [ERR_ASSERTION]: Preserve the exact responsive toolbar actions; Tool options is hidden on desktop.",
+        "2026-11-16T22:43:53.0625716Z + actual - expected",
+        "2026-11-16T22:43:53.0625903Z ",
+        "2026-11-16T22:43:53.0626055Z   [",
+        "2026-11-16T22:43:53.0626349Z     'nautilus-buildings',",
+        "2026-11-16T22:43:53.0626707Z     'nautilus-assets',",
+        "2026-11-16T22:43:53.0627213Z     'nautilus-example',",
+        "2026-11-16T22:43:53.0627566Z     'nautilus-tiles',",
+        "2026-11-16T22:43:53.0627876Z     'nautilus-help',",
+        "2026-11-16T22:43:53.0628194Z +   '',",
+        "2026-11-16T22:43:53.0628466Z +   '',",
+        "2026-11-16T22:43:53.0628718Z +   ''",
+        "2026-11-16T22:43:53.0628991Z   ]",
+        "2026-11-16T22:43:53.0629148Z ",
+        "2026-11-16T22:43:53.0629682Z     at withArtReview.output.output (file:///home/runner/work/nautilus-engine/nautilus-engine/tools/review-tile-workshop-entry.mjs:66:14)",
+        "2026-11-16T22:43:53.0630814Z     at async withArtReview (file:///home/runner/work/nautilus-engine/nautilus-engine/tools/art-review-browser.mjs:27:512)",
+        "2026-11-16T22:43:53.0631808Z     at async file:///home/runner/work/nautilus-engine/nautilus-engine/tools/review-tile-workshop-entry.mjs:23:1 {",
+        "2026-11-16T22:43:53.0632446Z   generatedMessage: false,",
+        "2026-11-16T22:43:53.0632816Z   code: 'ERR_ASSERTION',",
+        "2026-11-16T22:43:53.0633162Z   actual: [",
+        "2026-11-16T22:43:53.0633434Z     'nautilus-buildings',",
+        "2026-11-16T22:43:53.0633961Z     'nautilus-assets',"
+      ]
+    },
+    {
+      "path": "artifacts/ci-pr67-7a899e4a/tile-authoring.log",
+      "bytes": 86574,
+      "sha256": "edecb90bd9d39524215964eca0d5c87ab762022c3f7c939ccd40dcbd36f37c9c",
+      "assertion": [
+        "2026-11-16T22:44:36.0973409Z ##[endgroup]",
+        "2026-11-16T22:44:42.5110796Z node:internal/modules/run_main:107",
+        "2026-11-16T22:44:42.5111256Z     triggerUncaughtException(",
+        "2026-11-16T22:44:42.5111445Z     ^",
+        "2026-11-16T22:44:42.5111517Z ",
+        "2026-11-16T22:44:42.5111927Z AssertionError [ERR_ASSERTION]: Preserve the exact responsive toolbar actions; Tool options is hidden on desktop.",
+        "2026-11-16T22:44:42.5112422Z + actual - expected",
+        "2026-11-16T22:44:42.5112562Z ",
+        "2026-11-16T22:44:42.5112659Z   [",
+        "2026-11-16T22:44:42.5112842Z     'nautilus-buildings',",
+        "2026-11-16T22:44:42.5113057Z     'nautilus-assets',",
+        "2026-11-16T22:44:42.5113352Z     'nautilus-example',",
+        "2026-11-16T22:44:42.5113560Z     'nautilus-tiles',",
+        "2026-11-16T22:44:42.5113756Z     'nautilus-help',",
+        "2026-11-16T22:44:42.5113959Z +   '',",
+        "2026-11-16T22:44:42.5114120Z +   '',",
+        "2026-11-16T22:44:42.5114287Z +   ''",
+        "2026-11-16T22:44:42.5114449Z   ]",
+        "2026-11-16T22:44:42.5114537Z ",
+        "2026-11-16T22:44:42.5114981Z     at withArtReview.output.output (file:///home/runner/work/nautilus-engine/nautilus-engine/tools/review-tile-workshop-entry.mjs:66:14)",
+        "2026-11-16T22:44:42.5115637Z     at async withArtReview (file:///home/runner/work/nautilus-engine/nautilus-engine/tools/art-review-browser.mjs:27:512)",
+        "2026-11-16T22:44:42.5116081Z     at async file:///home/runner/work/nautilus-engine/nautilus-engine/tools/review-tile-workshop-entry.mjs:23:1 {",
+        "2026-11-16T22:44:42.5116361Z   generatedMessage: false,",
+        "2026-11-16T22:44:42.5116506Z   code: 'ERR_ASSERTION',",
+        "2026-11-16T22:44:42.5116636Z   actual: [",
+        "2026-11-16T22:44:42.5116754Z     'nautilus-buildings',",
+        "2026-11-16T22:44:42.5116886Z     'nautilus-assets',"
+      ]
+    }
+  ]
+}

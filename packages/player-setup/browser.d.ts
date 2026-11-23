@@ -41,3 +41,26 @@ export interface SetupMountOptions {
   factories?:Record<string,(context:unknown)=>{services:Record<string,unknown>;prepare?:(context:unknown)=>void|Promise<void>;start?:()=>void|Promise<void>;stop?:()=>void|Promise<void>;dispose?:()=>void|Promise<void>}>;
 }
 export function mountPlayerSetup(container:HTMLElement,options:SetupMountOptions):Promise<PlayerSetup>;
+
+/** Explicit optional native profile. Legacy setup/configuration/checkpoints stay v1. */
+export interface CrawlNativeProfile {id:'nautilus-native-goat-crawl-v1';version:1;equipment:'hands'|'rifle';surface:{kind:'flat-plane';floorId:'floor-0';heightM:0}}
+export interface CrawlSetupConfiguration extends Omit<SetupConfiguration,'version'> {version:2;nativeProfile:CrawlNativeProfile}
+export interface CrawlSetupCheckpoint {kind:'nautilus-crawl-player-setup-checkpoint';version:1;configuration:CrawlSetupConfiguration;ownedWorld:null;native:import('../native-actors/crawl.js').NativeCrawlCheckpoint;clock:{elapsedSeconds:number;blocked:boolean}|null}
+export type CrawlSetupIntent=Exclude<PlayerIntent,{type:'configuration'}>|{version:1;type:'configuration';configuration:CrawlSetupConfiguration};
+export interface CrawlSetupValidation extends Omit<SetupValidation,'configuration'> {configuration:CrawlSetupConfiguration|null}
+export interface CrawlPlayerSetup extends Omit<PlayerSetup,'readConfiguration'|'validate'|'applyConfiguration'|'restoreCheckpoint'|'dispatch'|'read'|'checkpoint'> {
+  readConfiguration():CrawlSetupConfiguration;validate(input:unknown):CrawlSetupValidation;
+  applyConfiguration(input:CrawlSetupConfiguration|string,options?:{signal?:AbortSignal}):Promise<SetupReceipt>;
+  restoreCheckpoint(input:CrawlSetupCheckpoint|string,options?:{signal?:AbortSignal}):Promise<SetupReceipt>;
+  dispatch(intent:CrawlSetupIntent):SetupReceipt|Promise<SetupReceipt>;
+  read():Omit<ReturnType<PlayerSetup['read']>,'configuration'|'actor'|'native'>&{configuration:CrawlSetupConfiguration;actor:import('../native-actors/crawl.js').ConfirmedCrawlSample;native:import('../native-actors/crawl.js').NativeCrawlCheckpoint};
+  checkpoint():CrawlSetupCheckpoint;
+}
+export interface CrawlSetupMountOptions extends Omit<SetupMountOptions,'configuration'|'checkpoint'|'footSupport'|'factories'|'registry'> {configuration:CrawlSetupConfiguration;checkpoint?:CrawlSetupCheckpoint|string}
+export const CRAWL_SETUP_PORTS:typeof import('./index.js').SETUP_PORTS;
+export function createCrawlSetupConfiguration(options:{content:ContentIdentity;actorId?:string;model?:'goat';trains?:false;title?:boolean;vehicles?:false;equipment?:'hands'|'rifle';surface?:CrawlNativeProfile['surface']}):CrawlSetupConfiguration;
+export function validateCrawlPlayerSetup(input:unknown,options?:{providers?:readonly SetupProvider[];content?:{identity:ContentIdentity}}):CrawlSetupValidation;
+/** Owns crawler preparation/restore through the existing setup.actor lifecycle.
+ * Host stages the matching complete world/pose before mounting; no borrowed
+ * native provider, foot support or custom actor factory is accepted. */
+export function mountCrawlPlayerSetup(container:HTMLElement,options:CrawlSetupMountOptions):Promise<CrawlPlayerSetup>;

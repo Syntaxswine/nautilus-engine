@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Shared stealth contract fixture</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="../../packages/player-ui/style.css">
+<style>html,body,#fixture{height:100%;margin:0}body{font:14px system-ui;background:#c7c1a9}#fixture{position:relative}.fixture-note{position:absolute;z-index:3;top:98px;left:12px;max-width:34em;background:#f4eddbdf;color:#243529;padding:8px 12px;border-radius:4px;pointer-events:none}.fixture-note button{pointer-events:auto;margin:4px 6px 0 0}#failure{position:absolute;z-index:10;inset:20%;background:white;color:#900;padding:20px} @media(max-width:600px){.fixture-note{top:140px;font-size:11px;max-width:24em}}</style>
+<script type="importmap">{"imports":{
+"@nautilus-engine/map-core":"../../packages/map-core/index.js",
+"@nautilus-engine/map-core/rules":"../../packages/rules-core/index.js",
+"@nautilus-engine/map-core/world":"../../packages/world-core/index.js",
+"@nautilus-engine/map-core/interactions":"../../packages/interactions/index.js",
+"@nautilus-engine/map-core/stealth":"../../packages/stealth-core/index.js",
+"@nautilus-engine/map-core/stealth/foliage":"../../packages/stealth-core/foliage.js",
+"@nautilus-engine/map-core/native-actors/crawl":"../../packages/native-actors/crawl.js",
+"@nautilus-engine/map-core/native-actors/crawl/three":"../../packages/native-actors/crawl-three.js",
+"@nautilus-engine/map-core/player-ui":"../../packages/player-ui/index.js",
+"@nautilus-engine/map-core/render-effects/three":"../../packages/render-effects/three.js"}}</script>
+<main id="fixture"></main><aside class="fixture-note">Contract fixture · Bare route y=4, authored brush y=10. WASD or shared joystick. Prone keeps reverse travel; Turn changes heading in place. Ground marks show authored density; observer is a query marker.<br><button id="save">Save fixture</button><button id="reload">Reload saved fixture</button><button id="reset">New fixture</button></aside><pre id="failure" hidden></pre>
+<script type="module" src="./main.mjs"></script></html>

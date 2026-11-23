@@ -6,24 +6,25 @@ import {createVehicle,createVehicleSession,createVehicleQueries,vehicleContactSh
 import {traversalBaseline,observeVehicles} from './driving.js';
 import {REGISTRY,identity,defaultRecipe,validateRecipe,contentFor,plotContent,slotById,objectiveById} from './registry.js';
 import {clone,freeze,canonical,insist,fields,refusal,accepted} from './data.js';
+import {hasStealth,initialStealth,validateStealth,projectStealthMap,withinStealthPlot,STEALTH_BODY,stealthPose,stealthSpeed,stagePlotMove,stagePlotTick,stagePlotPosture,readStealth,stealthRay} from './stealth-plot.js';
 
-function makeWorld(content,worldId=content.world.id) {const world=createWorld({...content.world,id:worldId});world.surfaces=clone(content.surfaces);return openWorld(world);}
+function makeWorld(content,worldId=content.world.id,stealth=null) {const world=createWorld({...content.world,id:worldId});world.surfaces=clone(content.surfaces);if(stealth)world.surfaces.push(...projectStealthMap(stealth.map,{mapId:worldId,revision:stealth.mapRevision}).surfaces);return openWorld(world);}
 function initial(recipe,spawn) {
-  const content=contentFor(recipe,spawn),sandboxId='sandbox-'+globalThis.crypto.randomUUID().replaceAll('-','').slice(0,12),world=makeWorld(content,'ground-'+sandboxId);
-  return {kind:'nautilus-test-ground-state',version:2,sandboxId,recipe:clone(recipe),revision:0,serial:0,sceneryRevision:0,plotGenerations:{west:0,east:0},world,
+  const content=contentFor(recipe,spawn),sandboxId='sandbox-'+globalThis.crypto.randomUUID().replaceAll('-','').slice(0,12),stealth=hasStealth(recipe)?initialStealth(REGISTRY.resources,content.actors[0].position):null,world=makeWorld(content,'ground-'+sandboxId,stealth);
+  return {kind:'nautilus-test-ground-state',version:stealth?3:2,...(stealth?{stealth}:{}),sandboxId,recipe:clone(recipe),revision:0,serial:0,sceneryRevision:0,plotGenerations:{west:0,east:0},world,
     interactions:createInteractionState({worldId:world.id,...content.interactions}),actor:createInteractionActor(content.actors[0]),resources:clone(REGISTRY.resources),
     rocks:recipe.plots.map(p=>plotContent(p).rock).filter(Boolean).map(createRock),events:[],receipts:[],traversal:traversalBaseline(),
     vehicles:{kind:'nautilus-road-vehicles',version:2,id:'night-ledger-ground-road',revision:0,occupancyRevision:0,vehicles:content.vehicles.map(createVehicle),occupancy:[],collisionProfile:'oriented-slide-v1'}};
 }
 function validateState(input) {
-  const s=clone(input);fields(s,['kind','version','sandboxId','recipe','revision','serial','sceneryRevision','plotGenerations','world','interactions','actor','resources','rocks','events','receipts','vehicles','traversal']);
-  insist(s.kind==='nautilus-test-ground-state'&&s.version===2,'SAVE_VERSION','Use complete test ground state v2 with its explicit traversal profile. Earlier package installations retain v1 behavior.');
+  const s=clone(input);fields(s,['kind','version','sandboxId','recipe','revision','serial','sceneryRevision','plotGenerations','world','interactions','actor','resources','rocks','events','receipts','vehicles','traversal',...(hasStealth(s.recipe)?['stealth']:[])]);
+  insist(s.kind==='nautilus-test-ground-state'&&s.version===(hasStealth(s.recipe)?3:2),'SAVE_VERSION','Use complete test ground state v2, or v3 with its explicit foliage plot. Earlier installations retain their original profiles.');
   const valid=validateRecipe(s.recipe);insist(valid.ok,valid.code,valid.reason);
   for(const key of ['revision','serial','sceneryRevision'])insist(Number.isSafeInteger(s[key])&&s[key]>=0&&s[key]<1e9,'INVALID_REVISION','Invalid saved revision.');
   fields(s.plotGenerations,['west','east']);for(const n of Object.values(s.plotGenerations))insist(Number.isSafeInteger(n)&&n>=0,'INVALID_GENERATION','Invalid plot generation.');
   s.world=openWorld(s.world);s.interactions=openInteractionState(s.interactions);s.actor=openInteractionActor(s.actor);
   insist(/^sandbox-[a-f0-9]{12}$/.test(s.sandboxId),'SAVE_IDENTITY','Restore the saved sandbox event/receipt namespace.');
-  const content=contentFor(s.recipe),authored=makeWorld(content,'ground-'+s.sandboxId);
+  const content=contentFor(s.recipe),authored=makeWorld(content,'ground-'+s.sandboxId,s.stealth);
   const metrics=traversalBaseline();fields(s.traversal,Object.keys(metrics));insist(s.traversal.profile===metrics.profile,'TRAVERSAL_PROFILE_UNSUPPORTED','Restore the original movement policy.');
   for(const key of Object.keys(metrics).filter(k=>!['profile','contacts'].includes(k)))insist(Number.isFinite(s.traversal[key])&&s.traversal[key]>=0,'INVALID_TRAVERSAL','Restore finite confirmed movement counters.');
   insist(Array.isArray(s.traversal.contacts)&&s.traversal.contacts.length<=64,'CONTACT_HISTORY_LIMIT','Keep bounded contact evidence.');
@@ -31,6 +32,7 @@ function validateState(input) {
   const definitions=doors=>doors.map(({open,locked,...rest})=>rest);
   insist(s.interactions.worldId===s.world.id&&canonical(definitions(s.interactions.doors))===canonical(definitions(content.interactions.doors))&&!s.interactions.stairs.length,'CHANGED_BINDINGS','Restore exact interaction bindings.');
   fields(s.resources,['health','ap','stamina','inventory']);for(const k of ['health','ap','stamina'])insist(Number.isFinite(s.resources[k])&&s.resources[k]>=0&&s.resources[k]<=1e6,'INVALID_RESOURCES','Restore exact finite spent resources.');
+  if(s.stealth){validateStealth(s.stealth,s.resources);insist(s.actor.radiusM===STEALTH_BODY.radiusM&&s.actor.heightM===STEALTH_BODY.heightM&&withinStealthPlot(s.actor),'STEALTH_BODY','Keep the conservative normal-goat body inside the flat west plot.');insist(!s.vehicles.occupancy.length,'STEALTH_TRANSPORT','The crawl plot is on foot only.');stealthPose(s);}
   insist(Array.isArray(s.resources.inventory)&&s.resources.inventory.length<=REGISTRY.policy.inventoryCapacity,'INVALID_INVENTORY','Inventory exceeds the fixture capacity.');
   s.rocks=s.rocks.map(openRock);const authoredRocks=s.recipe.plots.map(p=>plotContent(p).rock).filter(Boolean);
   insist(canonical(s.rocks.map(r=>r.id).sort())===canonical(authoredRocks.map(r=>r.id).sort()),'CHANGED_ITEMS','Restore every authored item instance.');
@@ -56,6 +58,8 @@ export function createGroundHost({recipe=defaultRecipe(),spawn,checkpoint,persis
     emit();return state;
   }
   let vehicleQueries,queryRevision=-1;
+  let foliage,foliageRevision=-1;
+  const foliageQuery=()=>{insist(state.stealth,'STEALTH_UNAVAILABLE','Try the flat foliage plot first.');if(foliageRevision!==state.stealth.mapRevision){foliage=projectStealthMap(state.stealth.map,{mapId:state.world.id,revision:state.stealth.mapRevision}).snapshot;foliageRevision=state.stealth.mapRevision;}return foliage;};
   const roadQueries=()=>{if(queryRevision!==state.sceneryRevision){queryRevision=state.sceneryRevision;vehicleQueries=createVehicleQueries(state.world,{obstacles:()=>state.interactions.doors.flatMap(d=>{const bounds=d.open?d.openBounds:d.closedBounds;return bounds?[{id:d.id,bounds}]:[];})});}return vehicleQueries;};
   connector=createVehicleSession({id:'night-ledger-ground-road',vehicles:contentFor(state.recipe).vehicles,checkpoint:state.vehicles,collisionProfile:'oriented-slide-v1',
     queries:{check:(...a)=>roadQueries().check(...a),checkVehicle:(...a)=>roadQueries().checkVehicle(...a),resolve:(...a)=>roadQueries().resolve(...a)},
@@ -86,6 +90,13 @@ export function createGroundHost({recipe=defaultRecipe(),spawn,checkpoint,persis
       const duplicate=state.receipts.find(r=>r.commandId===input.commandId);
       if(duplicate){insist(canonical(duplicate.request)===canonical(input),'COMMAND_ID_CONFLICT','This command ID already identifies a different request.');return {...clone(duplicate.receipt),repeated:true};}
       insist(input.offer===offer(),'STALE_ACTION','Actor, resources, item source or scenery changed. Read a fresh offer.');
+      if(input.actionId.startsWith('stealth/')){
+        insist(state.stealth&&['stealth/mode','stealth/stance','stealth/turn'].includes(input.actionId),'STEALTH_ACTION','Select a supported flat-plot action.');
+        const fit=queries(state).walk({state:state.interactions,actor:state.actor,from:state.actor.position,to:state.actor.position});insist(fit.ok,fit.code,fit.reason);
+        insist(state.receipts.length<128,'RECEIPT_LIMIT','Export and explicitly reset before more commands.');
+        const candidate=clone(state);stagePlotPosture(candidate,input.actionId);candidate.serial++;candidate.revision++;
+        const receipt=accepted({commandId:input.commandId,receiptId:state.sandboxId+'/receipt/'+input.commandId,actionId:input.actionId,repeated:false});candidate.receipts.push({commandId:input.commandId,request:clone(input),receipt});publish(candidate,{durable:true});return receipt;
+      }
       const before=state,ready=readiness(input.actionId);insist(ready.ok,ready.code,ready.reason);
       insist(permissions({type:ready.type,targetId:ready.targetId,state:clone(state)}),'PERMISSION_DENIED','Current fixture permission denied the action.');
       insist(state.resources.ap>=ready.cost,'INSUFFICIENT_AP','The fixture action needs '+ready.cost+' AP.');
@@ -107,7 +118,7 @@ export function createGroundHost({recipe=defaultRecipe(),spawn,checkpoint,persis
       candidate.receipts.push({commandId:input.commandId,request:clone(input),receipt});publish(candidate,{durable:true});return receipt;
     } catch(error) {return refusal(error.code||'COMMIT_FAILED',error.message);}
   }
-  const actions={id:'ground.interactions',read(){if(retired)return {context:'retired',actions:[]};const ids=[...state.interactions.doors.map(d=>d.id+(d.open?'/close':'/open')),...state.rocks.filter(r=>r.phase==='world').map(r=>r.id+'/pickup')];
+  const actions={id:'ground.interactions',read(){if(retired)return {context:'retired',actions:[]};if(state.stealth){const p=stealthPose(state),a=readStealth(state,foliageQuery()).state.actors[0];return {context:offer(),actions:[['mode',a.mode==='sneak'?'Walk':'Sneak'],['stance',p.stance==='prone'?'Stand':'Prone'],['turn','Turn in place']].map(([id,label])=>({id:'stealth/'+id,target:{id:'player'},verb:'change',label,enabled:true,reason:null}))};}const ids=[...state.interactions.doors.map(d=>d.id+(d.open?'/close':'/open')),...state.rocks.filter(r=>r.phase==='world').map(r=>r.id+'/pickup')];
     return {context:offer(),actions:ids.filter(id=>{const p=state.interactions.doors.find(d=>id.startsWith(d.id+'/'))?.position||state.rocks.find(r=>id===r.id+'/pickup')?.position;return p&&Math.hypot(p.x-state.actor.position.x,p.y-state.actor.position.y)<=3;}).map(id=>{const r=readiness(id);return {id,target:{id:r.targetId},verb:r.type==='item'?'pickup':id.endsWith('/open')?'open':'close',label:r.label||id,enabled:r.ok&&state.resources.ap>=r.cost,reason:r.ok?(state.resources.ap>=r.cost?null:'Insufficient fixture AP'):r.reason};})};},
     request(actionId,expected){return requestAction({commandId:'manual:'+(state.serial+1),actionId,offer:expected});}};
   function prepareRecipe(input) {
@@ -116,6 +127,7 @@ export function createGroundHost({recipe=defaultRecipe(),spawn,checkpoint,persis
       insist(!retired&&!committing,'HOST_UNAVAILABLE','The fixture host is unavailable.');
       insist(valid.recipe.seed===state.recipe.seed,'SCENE_RESTART_REQUIRED','Changing the seed requires an explicit sandbox reset with the new recipe.');
       insist(canonical(valid.recipe.driving)===canonical(state.recipe.driving),'SCENE_RESTART_REQUIRED','Use Try / reset to change the occupied driving course.');
+      insist(hasStealth(valid.recipe)===hasStealth(state.recipe),'SCENE_RESTART_REQUIRED','Use Try / reset to enter or leave the normal-goat flat foliage profile.');
       const prior=state,candidate=clone(state),changed=valid.recipe.plots.filter(p=>canonical(p)!==canonical(state.recipe.plots.find(q=>q.slot===p.slot)));
       for(const p of changed){const slot=slotById(p.slot),a=state.actor,r=a.radiusM;
         insist(!(a.position.x+r>=slot.origin.x&&a.position.x-r<=slot.origin.x+slot.sizeM&&a.position.y+r>=slot.origin.y&&a.position.y-r<=slot.origin.y+slot.sizeM),'PLOT_OCCUPIED','Leave '+slot.name+' before replacing it, or explicitly restart the sandbox.');
@@ -123,8 +135,8 @@ export function createGroundHost({recipe=defaultRecipe(),spawn,checkpoint,persis
         candidate.plotGenerations[p.slot]++;
       }
       candidate.recipe=valid.recipe;candidate.revision++;
-      if(changed.length){const content=contentFor(valid.recipe);candidate.world=makeWorld(content,state.world.id);candidate.sceneryRevision++;
-        candidate.interactions.doors=valid.recipe.plots.map(p=>changed.some(q=>q.slot===p.slot)?plotContent(p).door:clone(state.interactions.doors.find(d=>d.id===p.slot+'/door')));candidate.interactions.revision++;
+      if(changed.length){const content=contentFor(valid.recipe);candidate.world=makeWorld(content,state.world.id,candidate.stealth);candidate.sceneryRevision++;
+        candidate.interactions.doors=valid.recipe.plots.map(p=>changed.some(q=>q.slot===p.slot)?plotContent(p).door:clone(state.interactions.doors.find(d=>d.id===p.slot+'/door')||null)).filter(Boolean);candidate.interactions.revision++;
         candidate.rocks=valid.recipe.plots.flatMap(p=>{const spec=plotContent(p).rock;return !spec?[]:[changed.some(q=>q.slot===p.slot)?createRock(spec):clone(state.rocks.find(r=>r.id===spec.id))];});
       }
       validateState(candidate);let used=false;
@@ -132,12 +144,15 @@ export function createGroundHost({recipe=defaultRecipe(),spawn,checkpoint,persis
     }catch(e){return refusal(e.code||'PREPARATION_FAILED',e.message);}
   }
   function walk(actorId,vector,seconds){if(retired||committing)return refusal('HOST_UNAVAILABLE','The host is unavailable.');if(actorId!=='player')return refusal('ACTOR_UNAVAILABLE','Use the current player.');if(state.vehicles.occupancy.length)return refusal('VEHICLE_OCCUPIED','Exit before walking.');if(state.recipe.probe==='acknowledge-without-motion')return accepted({probe:'no-motion'});
-    const result=walkActor(state.interactions,state.actor,{direction:vector,seconds},queries(state));if(!result.ok)return refusal(result.code,result.reason);if(result.actor.revision===state.actor.revision)return {...accepted(),committed:false};const next=clone(state);next.actor=result.actor;next.revision++;next.traversal.walkDistanceM+=result.movement?.distanceM||0;if(result.movement?.contacts.length){next.traversal.walkSlideDistanceM+=result.movement.distanceM;next.traversal.contacts.push(...result.movement.contacts.map(c=>({...clone(c),actorId:'player',step:next.traversal.steps})));next.traversal.contacts=next.traversal.contacts.slice(-64);}publish(next);return accepted({movement:result.movement});}
+    try{const result=walkActor(state.interactions,state.stealth?{...state.actor,speedMps:stealthSpeed(state)}:state.actor,{direction:vector,seconds},queries(state));if(!result.ok)return refusal(result.code,result.reason);if(result.actor.revision===state.actor.revision)return {...accepted(),committed:false};if(state.stealth)insist(withinStealthPlot(result.actor),'STEALTH_BOUNDARY','Keep the full conservative body in the flat west plot.');const next=clone(state);next.actor=result.actor;if(state.stealth)stagePlotMove(state,next,foliageQuery());next.revision++;next.traversal.walkDistanceM+=result.movement?.distanceM||0;if(result.movement?.contacts.length){next.traversal.walkSlideDistanceM+=result.movement.distanceM;next.traversal.contacts.push(...result.movement.contacts.map(c=>({...clone(c),actorId:'player',step:next.traversal.steps})));next.traversal.contacts=next.traversal.contacts.slice(-64);}publish(next);return accepted({movement:result.movement});}catch(e){return refusal(e.code||'WALK_REFUSED',e.message);}}
   const host={actions,connector,actorIds:['player'],get actors(){return [clone(state.actor)];},subscribe(fn){listeners.add(fn);return ()=>listeners.delete(fn);},read:()=>clone(state),offer,requestAction,prepareRecipe,save:()=>JSON.stringify(state),walk,
-    readPose(){return clone({actorId:state.actor.id,revision:state.actor.revision,position:state.actor.position,mode:connector.readForActor('player').mode});},
-    scene:{content:clone(identity),actorIds:['player'],actionProviders:[actions],read(){const s=connector.readForActor('player'),v=s.vehicle;return {version:1,actorId:'player',mode:s.mode,contextId:s.contextId,walkingAllowed:!retired&&s.walkingAllowed,position:clone(state.actor.position),transport:v?{kind:'road-vehicle',connectorId:connector.id,vehicleId:v.id,seatId:s.seatId}:null,cameraFrame:v?{version:1,kind:'road-vehicle',connectorId:connector.id,vehicleId:v.id,centre:clone(v.position),headingRad:v.headingRad,bounds:vehicleBounds(v)}:null,status:['health','ap','stamina'].map(id=>({id,label:id,value:String(state.resources[id])}))};},subscribe(fn){listeners.add(fn);return ()=>listeners.delete(fn);}},
+    readPose(){return state.stealth?stealthPose(state):clone({actorId:state.actor.id,revision:state.actor.revision,position:state.actor.position,mode:connector.readForActor('player').mode});},
+    readStealth(){return readStealth(state,foliageQuery());},
+    queryStealthRay(from,to,purpose){return clone(stealthRay(state,foliageQuery(),from,to,purpose));},
+    prepareFoliage(input){try{insist(state.stealth&&!retired&&!committing,'STEALTH_UNAVAILABLE','Use the active flat foliage plot.');const prior=state,candidate=clone(state),projection=projectStealthMap(input,{mapId:state.world.id,revision:state.stealth.mapRevision+1});candidate.stealth.map=projection.map;candidate.stealth.mapRevision++;candidate.world=makeWorld(contentFor(state.recipe),state.world.id,candidate.stealth);candidate.sceneryRevision++;candidate.plotGenerations.west++;candidate.revision++;validateState(candidate);let used=false;return {ok:true,snapshot:clone(candidate),commit(){try{insist(!used&&state===prior,'STALE_PREPARATION','The live plot changed during preparation.');used=true;publish(candidate,{durable:true});return accepted();}catch(e){return refusal(e.code||'COMMIT_FAILED',e.message);}},dispose(){used=true;}};}catch(e){return refusal(e.code||'FOLIAGE_REFUSED',e.message);}},
+    scene:{content:clone(identity),actorIds:['player'],actionProviders:[actions],read(){const s=connector.readForActor('player'),v=s.vehicle;return {version:1,actorId:'player',mode:s.mode,contextId:s.contextId,walkingAllowed:!retired&&s.walkingAllowed,position:clone(state.actor.position),transport:v?{kind:'road-vehicle',connectorId:connector.id,vehicleId:v.id,seatId:s.seatId}:null,cameraFrame:v?{version:1,kind:'road-vehicle',connectorId:connector.id,vehicleId:v.id,centre:clone(v.position),headingRad:v.headingRad,bounds:vehicleBounds(v)}:null,status:['health','ap','stamina'].map(id=>({id,label:id,value:String(Math.round(state.resources[id]*100)/100)}))};},subscribe(fn){listeners.add(fn);return ()=>listeners.delete(fn);}},
     walking:{request(intent){if(intent.version!==1)return refusal('COMMAND_VERSION','Use a versioned walking intent.');return walk(intent.actorId,intent.vector,intent.seconds);}},
     passage(slotId){const slot=slotById(slotId);insist(slot,'UNKNOWN_PLOT','Select a known plot.');const {x,y}=slot.origin;return clone(queries(state).walk({state:state.interactions,actor:state.actor,from:{x:x+8,y:y+13.4,h:0},to:{x:x+8,y:y+10.4,h:0}}));},
-    advance(seconds=0){insist(!retired,'HOST_RETIRED','Host retired.');if(state.recipe.probe!=='acknowledge-without-motion'){const r=connector.advance(seconds);if(!r.ok)return r;}const next=clone(state);next.traversal.steps++;publish(next);return accepted();},dispose(){if(retired)return;retired=true;connector.dispose();listeners.clear();}};
+    advance(seconds=0){insist(!retired,'HOST_RETIRED','Host retired.');if(state.recipe.probe!=='acknowledge-without-motion'){const r=connector.advance(seconds);if(!r.ok)return r;}const next=clone(state);if(next.stealth)stagePlotTick(next,seconds,foliageQuery());next.traversal.steps++;publish(next);return accepted();},dispose(){if(retired)return;retired=true;connector.dispose();listeners.clear();}};
   return Object.freeze(host);
 }

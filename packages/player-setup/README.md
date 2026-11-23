@@ -4,6 +4,18 @@ Public entries are `@nautilus-engine/map-core/player-setup` (headless) and `/pla
 
 ## New game
 
+An optional flat goat crawl profile is now explicit through
+`createCrawlSetupConfiguration`, `validateCrawlPlayerSetup`, `CRAWL_SETUP_PORTS`
+and `mountCrawlPlayerSetup` from the existing browser entry. Its setup v2 recipe,
+crawl pose/native schemas and `nautilus-crawl-player-setup-checkpoint` are distinct
+from legacy v1 and `NativePoseCheckpoint`. Bind the retained host's complete
+world and confirmed crawl samples; the existing `setup.actor` lifecycle owns
+native preparation/restore/disposal. This profile accepts normal goat, hands or
+rifle, and the floor-0 flat plane at zero metres only. It refuses borrowed native
+providers, foot support, custom registries/factories and train/vehicle components. Stage the whole matching
+host before mounting a saved candidate; setup does not restore retained host
+state for the app. See the optional-profile section of the integration guide.
+
 ```js
 import {mountPlayerSetup, createSetupConfiguration, flatYardContent}
   from '@nautilus-engine/map-core/player-setup/browser';

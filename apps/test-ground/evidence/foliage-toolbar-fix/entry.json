@@ -1,0 +1,1077 @@
+{
+  "fix": "1eb842f906a17346ed2f327dcae0f681bff412d1",
+  "tree": "8b83a9394920edf6fda25cba2230c817b611e0c5",
+  "sourceBinding": "Entry input hashes and the recorded staged tree equal the exact fix commit; no source changed between the entry run and commit.",
+  "status": "pass",
+  "inputs": [
+    {
+      "file": "apps/editor/editor.js",
+      "sha256": "def7fcfabd5249fd4093a9c2c06799467d28316a81193c81a11ebbbf9abbe194"
+    },
+    {
+      "file": "apps/editor/editor.css",
+      "sha256": "5c9a8bd95b09e6c9bc71da385979c063aac948682a949675de54f6a2cc9f0b89"
+    },
+    {
+      "file": "tools/build.mjs",
+      "sha256": "273b2d57f6713a088f5b6d094c93d803939f79d9f2c42b4b80e3414cf1fb2ebf"
+    },
+    {
+      "file": "tools/art-review-browser.mjs",
+      "sha256": "21d9e69d02b0509ea0bd6dec798c685f965e63a5a9c407e434f74187dd23f978"
+    },
+    {
+      "file": "tools/review-tile-workshop-entry.mjs",
+      "sha256": "21f193e9eaf43eacde3c2a6bb1162b5cfe5b768e73a7758102614755b0a0c8d5"
+    },
+    {
+      "file": "examples/tile-workshop.html",
+      "sha256": "51fde34a149477edb386cdecca9c6501ef493ceb8fd678922f6c37a9fc3abb2e"
+    },
+    {
+      "file": "examples/tile-stack-editor.html",
+      "sha256": "7efc9bd8da15cda676a773e9925ab610951f8e06721b2540ab91cc05930fca0c"
+    },
+    {
+      "file": "examples/tile-stack-editor.js",
+      "sha256": "82f50522ad4c513b47f7bb20abf3b09d62597eb90930e60e9e2b6c7493addcda"
+    },
+    {
+      "file": "examples/tile-authoring-editor.html",
+      "sha256": "2afeb0e7efe83372f3b6802d5693916a2fd0484a5796aa5201023ec0d342b803"
+    },
+    {
+      "file": "examples/tile-authoring-editor.js",
+      "sha256": "faa8d3b49a610997f04edc551c7ed1e32e672d4f418b168e7021995e80e37d09"
+    }
+  ],
+  "checks": [
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "status": "pass",
+      "pageURL": "http://127.0.0.1:52504/index.html",
+      "baseURI": "http://127.0.0.1:52504/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/",
+      "entryURL": "http://127.0.0.1:52504/examples/tile-workshop.html",
+      "currentMapPreserved": true,
+      "mapBytes": 817268,
+      "mapSha256": "ff8b383124f997b02b25fff88b0cd72c69fa4835cac9be1be8d10e077caf0785",
+      "correctEntry": true,
+      "layout": {
+        "width": 1440,
+        "header": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 72,
+          "top": 0,
+          "right": 1440,
+          "bottom": 72,
+          "left": 0
+        },
+        "controls": [
+          {
+            "id": "nautilus-buildings",
+            "rect": {
+              "x": 653.34375,
+              "y": 17,
+              "width": 107.734375,
+              "height": 36,
+              "top": 17,
+              "right": 761.078125,
+              "bottom": 53,
+              "left": 653.34375
+            }
+          },
+          {
+            "id": "nautilus-assets",
+            "rect": {
+              "x": 771.078125,
+              "y": 17,
+              "width": 92.6875,
+              "height": 36,
+              "top": 17,
+              "right": 863.765625,
+              "bottom": 53,
+              "left": 771.078125
+            }
+          },
+          {
+            "id": "nautilus-example",
+            "rect": {
+              "x": 873.765625,
+              "y": 17,
+              "width": 98.703125,
+              "height": 36,
+              "top": 17,
+              "right": 972.46875,
+              "bottom": 53,
+              "left": 873.765625
+            }
+          },
+          {
+            "id": "nautilus-tiles",
+            "rect": {
+              "x": 982.46875,
+              "y": 17.5,
+              "width": 101.484375,
+              "height": 35,
+              "top": 17.5,
+              "right": 1083.953125,
+              "bottom": 52.5,
+              "left": 982.46875
+            }
+          },
+          {
+            "id": "nautilus-help",
+            "rect": {
+              "x": 1093.953125,
+              "y": 17,
+              "width": 125.515625,
+              "height": 36,
+              "top": 17,
+              "right": 1219.46875,
+              "bottom": 53,
+              "left": 1093.953125
+            }
+          }
+        ],
+        "foliage": {
+          "label": "Foliage playtest",
+          "open": false,
+          "rect": {
+            "x": 1295.40625,
+            "y": 14.40625,
+            "width": 117,
+            "height": 41.1875,
+            "top": 14.40625,
+            "right": 1412.40625,
+            "bottom": 55.59375,
+            "left": 1295.40625
+          },
+          "actions": [
+            {
+              "label": "Open foliage test ground",
+              "type": "button"
+            },
+            {
+              "label": "Load connected foliage blueprint",
+              "type": "button"
+            },
+            {
+              "label": "Preflight connected game",
+              "type": "button"
+            }
+          ],
+          "keyboardOrder": [
+            "Open foliage test ground",
+            "Load connected foliage blueprint",
+            "Preflight connected game"
+          ],
+          "openControls": [
+            {
+              "label": "Open foliage test ground",
+              "visible": true,
+              "rect": {
+                "x": 1179,
+                "y": 69.875,
+                "width": 226.8125,
+                "height": 36,
+                "top": 69.875,
+                "right": 1405.8125,
+                "bottom": 105.875,
+                "left": 1179
+              }
+            },
+            {
+              "label": "Load connected foliage blueprint",
+              "visible": true,
+              "rect": {
+                "x": 1179,
+                "y": 108.671875,
+                "width": 226.8125,
+                "height": 36,
+                "top": 108.671875,
+                "right": 1405.8125,
+                "bottom": 144.671875,
+                "left": 1179
+              }
+            },
+            {
+              "label": "Preflight connected game",
+              "visible": true,
+              "rect": {
+                "x": 1179,
+                "y": 147.46875,
+                "width": 226.8125,
+                "height": 36,
+                "top": 147.46875,
+                "right": 1405.8125,
+                "bottom": 183.46875,
+                "left": 1179
+              }
+            }
+          ],
+          "mapPreserved": true
+        },
+        "unmodeledActions": []
+      },
+      "chooser": {
+        "viewport": 1440,
+        "clientWidth": 1440,
+        "scrollWidth": 1440,
+        "cards": [
+          {
+            "id": "stacked-tiles",
+            "href": "tile-stack-editor.html",
+            "target": null,
+            "labelledBy": "stacked-title",
+            "label": "Stacked tiles",
+            "describedBy": "stacked-description",
+            "description": "Build across native floors and choose surface finishes.",
+            "rect": {
+              "x": 224,
+              "y": 200.078125,
+              "width": 486,
+              "height": 240,
+              "top": 200.078125,
+              "right": 710,
+              "bottom": 440.078125,
+              "left": 224
+            }
+          },
+          {
+            "id": "custom-tile-library",
+            "href": "tile-authoring-editor.html",
+            "target": null,
+            "labelledBy": "custom-title",
+            "label": "Custom tile library",
+            "describedBy": "custom-description",
+            "description": "Create reusable rectangle tiles, save versions and place independent copies.",
+            "rect": {
+              "x": 730,
+              "y": 200.078125,
+              "width": 486,
+              "height": 240,
+              "top": 200.078125,
+              "right": 1216,
+              "bottom": 440.078125,
+              "left": 730
+            }
+          }
+        ],
+        "keyboard": {
+          "order": [
+            "stacked-tiles",
+            "custom-tile-library"
+          ],
+          "reverseReturnsFirst": true,
+          "focus": {
+            "id": "stacked-tiles",
+            "focusVisible": true,
+            "outlineStyle": "solid",
+            "outlineWidth": "3px"
+          }
+        }
+      },
+      "chooserCapture": {
+        "file": "artifacts/tile-workshop-entry/chooser-1440.png",
+        "sha256": "7e85efa0269030a081618d7808748c61926879b2494bcf045bbcd2f9215cdc10"
+      },
+      "workspaces": [
+        {
+          "id": "stacked-tiles",
+          "url": "http://127.0.0.1:52504/examples/tile-stack-editor.html",
+          "status": "pass",
+          "sameChooserPage": true,
+          "currentMapPreserved": true,
+          "tileState": {
+            "ready": true,
+            "version": 2,
+            "phase": "draft",
+            "visual": "accepted",
+            "readiness": {
+              "authoring": {
+                "state": "saveable"
+              },
+              "shape": {
+                "state": "resolved"
+              },
+              "visual": {
+                "state": "accepted",
+                "revision": 0
+              },
+              "query": {
+                "state": "unbound"
+              },
+              "support": {
+                "state": "unbound"
+              },
+              "navigation": {
+                "state": "unbound"
+              },
+              "fire": {
+                "state": "unbound"
+              },
+              "water": {
+                "state": "unbound"
+              },
+              "game": {
+                "state": "unbound"
+              }
+            },
+            "drawCalls": 2,
+            "disposed": false,
+            "counts": {
+              "prepare": 0,
+              "apply": 0
+            },
+            "native": {
+              "drawingFloorId": "F00",
+              "inspection": {
+                "mode": "selected-floor",
+                "cutawayFloorId": null
+              },
+              "pool": {
+                "closed": false,
+                "disposed": false,
+                "ownedMaterials": 0,
+                "leases": 0,
+                "maxMaterials": 64,
+                "newTextures": 0,
+                "ownedGeometry": 0
+              },
+              "resources": {
+                "closing": false,
+                "atlasReleased": false,
+                "baseReleased": false,
+                "retirementErrors": []
+              },
+              "views": [
+                {
+                  "role": "accepted",
+                  "visible": true,
+                  "retiring": false,
+                  "provider": {
+                    "disposed": false,
+                    "instances": 0,
+                    "interfaces": 0,
+                    "ownedGeometry": 0,
+                    "triangles": 0,
+                    "quantizationLimitedRefinements": 0,
+                    "scope": "Native flat surfaces only; body/support/gameplay unbound",
+                    "appearance": {
+                      "disposed": true,
+                      "owners": 0,
+                      "bindings": 0
+                    },
+                    "retirement": {
+                      "appearance": "active",
+                      "geometry": "active",
+                      "reservedGeometry": 0,
+                      "reservedTriangles": 0,
+                      "reservedCells": 0
+                    }
+                  },
+                  "cellCount": 0,
+                  "cells": [],
+                  "instances": []
+                }
+              ]
+            },
+            "resources": {
+              "accepted": 1,
+              "candidate": 0,
+              "acquiring": 0,
+              "retiring": 0,
+              "roots": 1,
+              "triangles": 0,
+              "cells": 0,
+              "maxRoots": 2,
+              "maxTriangles": 50000,
+              "maxCells": 1024
+            },
+            "owners": [],
+            "checkpointDigest": "112a1e2998280b1ab96ed094722b76cf18a6af7dc3af9c43b688f138e0439ef4",
+            "canvas": {
+              "width": 984,
+              "height": 568
+            },
+            "checkpointSha256": "2e242041d92f223f40ffe92664030d68af86bda0f452573aee22f801b829dd85",
+            "checkpointBytes": 990848
+          },
+          "capture": {
+            "file": "artifacts/tile-workshop-entry/stacked-tiles-1440.png",
+            "sha256": "0d6993cc1bf8fcc2c13226ff4279a64ea733a817bf7575ec308e30369d2883b4"
+          }
+        },
+        {
+          "id": "custom-tile-library",
+          "url": "http://127.0.0.1:52504/examples/tile-authoring-editor.html",
+          "status": "pass",
+          "sameChooserPage": true,
+          "currentMapPreserved": true,
+          "tileState": {
+            "ready": true,
+            "version": 3,
+            "phase": "idle",
+            "visual": "accepted",
+            "readiness": {
+              "authoring": {
+                "state": "saveable"
+              },
+              "shape": {
+                "state": "resolved"
+              },
+              "visual": {
+                "state": "accepted",
+                "revision": 0
+              },
+              "query": {
+                "state": "unbound"
+              },
+              "support": {
+                "state": "unbound"
+              },
+              "navigation": {
+                "state": "unbound"
+              },
+              "fire": {
+                "state": "unbound"
+              },
+              "water": {
+                "state": "unbound"
+              },
+              "game": {
+                "state": "unbound"
+              },
+              "resources": {
+                "state": "host-bound",
+                "missingBindings": []
+              }
+            },
+            "drawCalls": 2,
+            "disposed": false,
+            "counts": {
+              "prepare": 0,
+              "apply": 0
+            },
+            "native": {
+              "drawingFloorId": "F00",
+              "inspection": {
+                "mode": "selected-floor",
+                "cutawayFloorId": null
+              },
+              "pool": {
+                "closed": false,
+                "disposed": false,
+                "ownedMaterials": 0,
+                "leases": 0,
+                "maxMaterials": 64,
+                "newTextures": 0,
+                "ownedGeometry": 0
+              },
+              "resources": {
+                "closing": false,
+                "atlasReleased": false,
+                "baseReleased": false,
+                "retirementErrors": []
+              },
+              "views": [
+                {
+                  "role": "accepted",
+                  "visible": true,
+                  "retiring": false,
+                  "provider": {
+                    "disposed": false,
+                    "instances": 0,
+                    "interfaces": 0,
+                    "ownedGeometry": 0,
+                    "triangles": 0,
+                    "quantizationLimitedRefinements": 0,
+                    "scope": "Native flat surfaces only; body/support/gameplay unbound",
+                    "appearance": {
+                      "disposed": true,
+                      "owners": 0,
+                      "bindings": 0
+                    },
+                    "retirement": {
+                      "appearance": "active",
+                      "geometry": "active",
+                      "reservedGeometry": 0,
+                      "reservedTriangles": 0,
+                      "reservedCells": 0
+                    }
+                  },
+                  "cellCount": 0,
+                  "cells": [],
+                  "instances": []
+                }
+              ]
+            },
+            "resources": {
+              "accepted": 1,
+              "candidate": 0,
+              "acquiring": 0,
+              "retiring": 0,
+              "roots": 1,
+              "triangles": 0,
+              "cells": 0,
+              "maxRoots": 2,
+              "maxTriangles": 50000,
+              "maxCells": 1024
+            },
+            "owners": [],
+            "checkpointDigest": "e3b87c487e43009d577f4158db328f11028d0197ea52ae2c24ebaa959a933968",
+            "canvas": {
+              "width": 944,
+              "height": 568
+            },
+            "checkpointSha256": "b88c72e9853781b3874e3d9c557cd62ae33cb501956265843586a7df1794e67d",
+            "checkpointBytes": 527207
+          },
+          "capture": {
+            "file": "artifacts/tile-workshop-entry/custom-tile-library-1440.png",
+            "sha256": "97c2420cf91f74b0b025827697ba73f13fd7e55de94612557ba92f5062aef0f0"
+          }
+        }
+      ],
+      "capture": {
+        "file": "artifacts/tile-workshop-entry/entry-1440.png",
+        "sha256": "0e718ab74bdeb4d9f785fe2b8842339d5828efbbdf4d853e1f0806778bbed4b0"
+      }
+    },
+    {
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "status": "pass",
+      "pageURL": "http://127.0.0.1:52504/index.html",
+      "baseURI": "http://127.0.0.1:52504/vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/",
+      "entryURL": "http://127.0.0.1:52504/examples/tile-workshop.html",
+      "currentMapPreserved": true,
+      "mapBytes": 817268,
+      "mapSha256": "779eaaa22f2c35edabf9ced901e7c55f0e7001e71619f1e6d8c103d6dd0c3cd4",
+      "correctEntry": true,
+      "layout": {
+        "width": 320,
+        "header": {
+          "x": 0,
+          "y": 0,
+          "width": 320,
+          "height": 132,
+          "top": 0,
+          "right": 320,
+          "bottom": 132,
+          "left": 0
+        },
+        "controls": [
+          {
+            "id": "nautilus-buildings",
+            "rect": {
+              "x": 8,
+              "y": 49,
+              "width": 73,
+              "height": 34,
+              "top": 49,
+              "right": 81,
+              "bottom": 83,
+              "left": 8
+            }
+          },
+          {
+            "id": "nautilus-assets",
+            "rect": {
+              "x": 85,
+              "y": 49,
+              "width": 73,
+              "height": 34,
+              "top": 49,
+              "right": 158,
+              "bottom": 83,
+              "left": 85
+            }
+          },
+          {
+            "id": "nautilus-example",
+            "rect": {
+              "x": 162,
+              "y": 49,
+              "width": 73,
+              "height": 34,
+              "top": 49,
+              "right": 235,
+              "bottom": 83,
+              "left": 162
+            }
+          },
+          {
+            "id": "nautilus-options",
+            "rect": {
+              "x": 239,
+              "y": 49,
+              "width": 73,
+              "height": 34,
+              "top": 49,
+              "right": 312,
+              "bottom": 83,
+              "left": 239
+            }
+          },
+          {
+            "id": "nautilus-tiles",
+            "rect": {
+              "x": 8,
+              "y": 87,
+              "width": 73,
+              "height": 34,
+              "top": 87,
+              "right": 81,
+              "bottom": 121,
+              "left": 8
+            }
+          },
+          {
+            "id": "nautilus-help",
+            "rect": {
+              "x": 85,
+              "y": 87,
+              "width": 73,
+              "height": 34,
+              "top": 87,
+              "right": 158,
+              "bottom": 121,
+              "left": 85
+            }
+          }
+        ],
+        "foliage": {
+          "label": "Foliage playtest",
+          "open": false,
+          "rect": {
+            "x": 162,
+            "y": 87,
+            "width": 73,
+            "height": 34,
+            "top": 87,
+            "right": 235,
+            "bottom": 121,
+            "left": 162
+          },
+          "actions": [
+            {
+              "label": "Open foliage test ground",
+              "type": "button"
+            },
+            {
+              "label": "Load connected foliage blueprint",
+              "type": "button"
+            },
+            {
+              "label": "Preflight connected game",
+              "type": "button"
+            }
+          ],
+          "keyboardOrder": [
+            "Open foliage test ground",
+            "Load connected foliage blueprint",
+            "Preflight connected game"
+          ],
+          "openControls": [
+            {
+              "label": "Open foliage test ground",
+              "visible": true,
+              "rect": {
+                "x": 78.59375,
+                "y": 147.390625,
+                "width": 226.8125,
+                "height": 44,
+                "top": 147.390625,
+                "right": 305.40625,
+                "bottom": 191.390625,
+                "left": 78.59375
+              }
+            },
+            {
+              "label": "Load connected foliage blueprint",
+              "visible": true,
+              "rect": {
+                "x": 78.59375,
+                "y": 194.1875,
+                "width": 226.8125,
+                "height": 44,
+                "top": 194.1875,
+                "right": 305.40625,
+                "bottom": 238.1875,
+                "left": 78.59375
+              }
+            },
+            {
+              "label": "Preflight connected game",
+              "visible": true,
+              "rect": {
+                "x": 78.59375,
+                "y": 240.984375,
+                "width": 226.8125,
+                "height": 44,
+                "top": 240.984375,
+                "right": 305.40625,
+                "bottom": 284.984375,
+                "left": 78.59375
+              }
+            }
+          ],
+          "mapPreserved": true
+        },
+        "unmodeledActions": []
+      },
+      "chooser": {
+        "viewport": 320,
+        "clientWidth": 320,
+        "scrollWidth": 320,
+        "cards": [
+          {
+            "id": "stacked-tiles",
+            "href": "tile-stack-editor.html",
+            "target": null,
+            "labelledBy": "stacked-title",
+            "label": "Stacked tiles",
+            "describedBy": "stacked-description",
+            "description": "Build across native floors and choose surface finishes.",
+            "rect": {
+              "x": 16,
+              "y": 189.578125,
+              "width": 288,
+              "height": 200,
+              "top": 189.578125,
+              "right": 304,
+              "bottom": 389.578125,
+              "left": 16
+            }
+          },
+          {
+            "id": "custom-tile-library",
+            "href": "tile-authoring-editor.html",
+            "target": null,
+            "labelledBy": "custom-title",
+            "label": "Custom tile library",
+            "describedBy": "custom-description",
+            "description": "Create reusable rectangle tiles, save versions and place independent copies.",
+            "rect": {
+              "x": 16,
+              "y": 405.578125,
+              "width": 288,
+              "height": 214.375,
+              "top": 405.578125,
+              "right": 304,
+              "bottom": 619.953125,
+              "left": 16
+            }
+          }
+        ],
+        "keyboard": {
+          "order": [
+            "stacked-tiles",
+            "custom-tile-library"
+          ],
+          "reverseReturnsFirst": true,
+          "focus": {
+            "id": "stacked-tiles",
+            "focusVisible": true,
+            "outlineStyle": "solid",
+            "outlineWidth": "3px"
+          }
+        }
+      },
+      "chooserCapture": {
+        "file": "artifacts/tile-workshop-entry/chooser-320.png",
+        "sha256": "4a243f78d1ad67ef95dc39f3b1380041c13e32d0e909771c7a653b1ce65c6901"
+      },
+      "workspaces": [
+        {
+          "id": "stacked-tiles",
+          "url": "http://127.0.0.1:52504/examples/tile-stack-editor.html",
+          "status": "pass",
+          "sameChooserPage": true,
+          "currentMapPreserved": true,
+          "tileState": {
+            "ready": true,
+            "version": 2,
+            "phase": "draft",
+            "visual": "accepted",
+            "readiness": {
+              "authoring": {
+                "state": "saveable"
+              },
+              "shape": {
+                "state": "resolved"
+              },
+              "visual": {
+                "state": "accepted",
+                "revision": 0
+              },
+              "query": {
+                "state": "unbound"
+              },
+              "support": {
+                "state": "unbound"
+              },
+              "navigation": {
+                "state": "unbound"
+              },
+              "fire": {
+                "state": "unbound"
+              },
+              "water": {
+                "state": "unbound"
+              },
+              "game": {
+                "state": "unbound"
+              }
+            },
+            "drawCalls": 2,
+            "disposed": false,
+            "counts": {
+              "prepare": 0,
+              "apply": 0
+            },
+            "native": {
+              "drawingFloorId": "F00",
+              "inspection": {
+                "mode": "selected-floor",
+                "cutawayFloorId": null
+              },
+              "pool": {
+                "closed": false,
+                "disposed": false,
+                "ownedMaterials": 0,
+                "leases": 0,
+                "maxMaterials": 64,
+                "newTextures": 0,
+                "ownedGeometry": 0
+              },
+              "resources": {
+                "closing": false,
+                "atlasReleased": false,
+                "baseReleased": false,
+                "retirementErrors": []
+              },
+              "views": [
+                {
+                  "role": "accepted",
+                  "visible": true,
+                  "retiring": false,
+                  "provider": {
+                    "disposed": false,
+                    "instances": 0,
+                    "interfaces": 0,
+                    "ownedGeometry": 0,
+                    "triangles": 0,
+                    "quantizationLimitedRefinements": 0,
+                    "scope": "Native flat surfaces only; body/support/gameplay unbound",
+                    "appearance": {
+                      "disposed": true,
+                      "owners": 0,
+                      "bindings": 0
+                    },
+                    "retirement": {
+                      "appearance": "active",
+                      "geometry": "active",
+                      "reservedGeometry": 0,
+                      "reservedTriangles": 0,
+                      "reservedCells": 0
+                    }
+                  },
+                  "cellCount": 0,
+                  "cells": [],
+                  "instances": []
+                }
+              ]
+            },
+            "resources": {
+              "accepted": 1,
+              "candidate": 0,
+              "acquiring": 0,
+              "retiring": 0,
+              "roots": 1,
+              "triangles": 0,
+              "cells": 0,
+              "maxRoots": 2,
+              "maxTriangles": 50000,
+              "maxCells": 1024
+            },
+            "owners": [],
+            "checkpointDigest": "112a1e2998280b1ab96ed094722b76cf18a6af7dc3af9c43b688f138e0439ef4",
+            "canvas": {
+              "width": 294,
+              "height": 338
+            },
+            "checkpointSha256": "2e242041d92f223f40ffe92664030d68af86bda0f452573aee22f801b829dd85",
+            "checkpointBytes": 990848
+          },
+          "capture": {
+            "file": "artifacts/tile-workshop-entry/stacked-tiles-320.png",
+            "sha256": "427ee8491d5d46a1b93f9cae9ec10e0ef306990a54e90c65fda6362e991146d7"
+          }
+        },
+        {
+          "id": "custom-tile-library",
+          "url": "http://127.0.0.1:52504/examples/tile-authoring-editor.html",
+          "status": "pass",
+          "sameChooserPage": true,
+          "currentMapPreserved": true,
+          "tileState": {
+            "ready": true,
+            "version": 3,
+            "phase": "idle",
+            "visual": "accepted",
+            "readiness": {
+              "authoring": {
+                "state": "saveable"
+              },
+              "shape": {
+                "state": "resolved"
+              },
+              "visual": {
+                "state": "accepted",
+                "revision": 0
+              },
+              "query": {
+                "state": "unbound"
+              },
+              "support": {
+                "state": "unbound"
+              },
+              "navigation": {
+                "state": "unbound"
+              },
+              "fire": {
+                "state": "unbound"
+              },
+              "water": {
+                "state": "unbound"
+              },
+              "game": {
+                "state": "unbound"
+              },
+              "resources": {
+                "state": "host-bound",
+                "missingBindings": []
+              }
+            },
+            "drawCalls": 2,
+            "disposed": false,
+            "counts": {
+              "prepare": 0,
+              "apply": 0
+            },
+            "native": {
+              "drawingFloorId": "F00",
+              "inspection": {
+                "mode": "selected-floor",
+                "cutawayFloorId": null
+              },
+              "pool": {
+                "closed": false,
+                "disposed": false,
+                "ownedMaterials": 0,
+                "leases": 0,
+                "maxMaterials": 64,
+                "newTextures": 0,
+                "ownedGeometry": 0
+              },
+              "resources": {
+                "closing": false,
+                "atlasReleased": false,
+                "baseReleased": false,
+                "retirementErrors": []
+              },
+              "views": [
+                {
+                  "role": "accepted",
+                  "visible": true,
+                  "retiring": false,
+                  "provider": {
+                    "disposed": false,
+                    "instances": 0,
+                    "interfaces": 0,
+                    "ownedGeometry": 0,
+                    "triangles": 0,
+                    "quantizationLimitedRefinements": 0,
+                    "scope": "Native flat surfaces only; body/support/gameplay unbound",
+                    "appearance": {
+                      "disposed": true,
+                      "owners": 0,
+                      "bindings": 0
+                    },
+                    "retirement": {
+                      "appearance": "active",
+                      "geometry": "active",
+                      "reservedGeometry": 0,
+                      "reservedTriangles": 0,
+                      "reservedCells": 0
+                    }
+                  },
+                  "cellCount": 0,
+                  "cells": [],
+                  "instances": []
+                }
+              ]
+            },
+            "resources": {
+              "accepted": 1,
+              "candidate": 0,
+              "acquiring": 0,
+              "retiring": 0,
+              "roots": 1,
+              "triangles": 0,
+              "cells": 0,
+              "maxRoots": 2,
+              "maxTriangles": 50000,
+              "maxCells": 1024
+            },
+            "owners": [],
+            "checkpointDigest": "e3b87c487e43009d577f4158db328f11028d0197ea52ae2c24ebaa959a933968",
+            "canvas": {
+              "width": 294,
+              "height": 338
+            },
+            "checkpointSha256": "b88c72e9853781b3874e3d9c557cd62ae33cb501956265843586a7df1794e67d",
+            "checkpointBytes": 527207
+          },
+          "capture": {
+            "file": "artifacts/tile-workshop-entry/custom-tile-library-320.png",
+            "sha256": "5dd1c6bb990d491f41d006a1c32259a3a3d1e736fd97532c50a95d2bd34480cd"
+          }
+        }
+      ],
+      "capture": {
+        "file": "artifacts/tile-workshop-entry/entry-320.png",
+        "sha256": "84a57c81337dc9033cd0467de536f26c788fddc787565bc67ca2a07c4e881a0d"
+      }
+    }
+  ],
+  "cleanup": {
+    "owner": "01a1811b-5974-7d83-8cff-136a1d8b02ab",
+    "purpose": "Built map workshop opens either tile workspace through its chooser without replacing the map",
+    "stoppedAt": "2026-11-16T23:07:54.401Z",
+    "process": {
+      "pid": 60460,
+      "creationFiletime": "134393440555921226",
+      "executable": "C:\\Program Files\\nodejs\\node.exe"
+    },
+    "browser": {
+      "pid": 52508,
+      "creationFiletime": "134393440559420659",
+      "executable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+    },
+    "port": 52504,
+    "httpClosed": true,
+    "browserClosed": true,
+    "method": "Supported Playwright browser close and HTTP close in finally"
+  },
+  "scope": "Built1440/320px navigation, chooser keyboard/layout and actual unedited B2/C1 ready/draw-call/native-counter observations; byte-exact main map retained. Separate full host/package/renderer proofs own authoring/adoption/retirement acceptance. Isolated helper cleanup is recorded; no physical-device or performance claim."
+}

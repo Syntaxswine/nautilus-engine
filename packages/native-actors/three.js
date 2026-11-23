@@ -10,13 +10,13 @@ async function resource(record,signal,resolve,fetchResource){const url=new URL(r
   const hash=[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(x=>x.toString(16).padStart(2,'0')).join('');
   if(bytes.byteLength!==record.bytes||hash!==record.sha256)throw Error('ACTOR_RESOURCE_HASH: '+record.path);return bytes;}
 
-export async function prepareNativeActor({renderer,model='goat',actorId,roles=['idle','walk'],motion='native-gait',checkpoint,footSupport,signal,resourceURL=url=>url,fetchResource=globalThis.fetch}={}){
+export async function prepareNativeActor({renderer,model='goat',actorId,roles=['idle','walk'],motion='native-gait',checkpoint,footSupport,crawl,signal,resourceURL=url=>url,fetchResource=globalThis.fetch}={}){
   const spec=nativeActor(model,roles);if(!(renderer instanceof T.WebGLRenderer)||typeof fetchResource!=='function')throw Error('ACTOR_RENDERER_REQUIRED: supply the existing shared Three renderer.');abort(signal);
   const parentSignal=signal,controller=new AbortController(),cancel=()=>controller.abort();parentSignal?.addEventListener('abort',cancel,{once:true});signal=controller.signal;
   let body,paint,texture,blob;const [dataRecord,paintRecord]=nativeActorResources(model);
   try{
     const [dataBytes,paintBytes]=await Promise.all([resource(dataRecord,signal,resourceURL,fetchResource),resource(paintRecord,signal,resourceURL,fetchResource)]);abort(signal);
-    body=createNativeBody({model,actorId,data:JSON.parse(new TextDecoder().decode(dataBytes)),motion,footSupport,...(checkpoint?{checkpoint}:{})});
+    body=createNativeBody({model,actorId,data:JSON.parse(new TextDecoder().decode(dataBytes)),motion,footSupport,crawl,...(checkpoint?{checkpoint}:{})});
     blob=URL.createObjectURL(new Blob([paintBytes],{type:'image/png'}));texture=await new T.TextureLoader().loadAsync(blob);abort(signal);
     const target=renderer.getRenderTarget(),viewport=renderer.getViewport(new T.Vector4()),scissor=renderer.getScissor(new T.Vector4()),scissorTest=renderer.getScissorTest();
     try{paint=await createAnimalPaint(renderer,body.worker,{id:model,paint:blob,frame:spec.frame},{loadAsync:async url=>{if(url!==blob)throw Error('ACTOR_ROLE_RESOURCE_UNAVAILABLE: undeclared outfit/animation resource.');return texture;}},'normal',true);}
