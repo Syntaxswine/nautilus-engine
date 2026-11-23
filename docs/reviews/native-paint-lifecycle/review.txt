@@ -1,0 +1,32 @@
+Native paint lifecycle repair — finished implementation scope
+Baseline: 5ee0faf833b2b44dd2a74cf1222f9721ecb5497b, tree a3f85afe5c9bc6d4ea5d18790588649fcf782c6c.
+Builder: existing Coder, Nautilus Engine. Architect owns review and integration.
+
+Production behavior
+The native factory owns its original image placeholder immediately. Abort settles without waiting for TextureLoader's unabortable callback. Late success has no publication rights. Resource fetches remain concurrent within one native candidate. The retained-yard owner registers generations before invoking observers and waits for predecessor settlement/cleanup before conflicting acquisition. The accepted scene remains installed and frozen until the complete candidate commits. Failed or cancelled candidates retain the exact accepted checkpoint. Successful host restore deliberately invalidates train control/lease revisions; no save is rewritten to claim whole-host equality.
+
+A private once-only ownership journal drains every registered resource and every synchronous disposal listener, including Three renderer listeners, before reporting AggregateError. It preserves original failures alongside cleanup errors. Per-instance event dispatch wrapping uses the pinned Three r180 EventDispatcher contract; it is not a global runtime patch or public service. Parent target/depth cleanup completes before nested errors escape. Body/crawl cleanup includes detached original weapons and late skeleton textures; motion/pose math and supported profiles are unchanged.
+
+The private paint adaptation is reproducible from the exact existing AFT Git object. Original vendor bytes remain unchanged. Projection shader expressions, program keys, full image resolution and 2048×1024 projection dimensions are preserved. A synchronous state guard captures/restores target face/mip, default logical and currently bound physical viewport/scissor/test, output space/tone mapping and clear colour/alpha. Borrowed targets are never owned, mutated or disposed. Unsupported finite/FBO/XR/colour configurations refuse before projection. The guard attempts every restoration even if one setter throws; it cannot promise physical recovery from a renderer implementation whose own restoration API refuses the saved state, and reports those failures.
+
+Evidence and reproduction
+Focused Node tests: tests/native-owned-cleanup.test.mjs, tests/native-paint-renderer.test.mjs, tests/native-paint-registration.test.mjs. Shader parity compares the untouched original for both goat and donkey. Existing native-crawl and player-setup tests cover unchanged checkpoint/pose behavior; no broad pose sweep is claimed.
+
+node tools/prepare-native-paint-review.mjs --baseline
+node tools/review-native-paint-lifecycle.mjs --old --draft
+node tools/review-native-paint-lifecycle.mjs --draft
+node tools/prepare-native-paint-review.mjs --draft
+node tools/review-native-paint-lifecycle.mjs --installed --draft
+node tools/review-native-paint-lifecycle.mjs --built --draft
+Final frozen-commit source/built/installed evidence omits --draft. Four delivery gates and their exact source index are carried in the immutable delivery packet, not inferred from this document.
+
+Browser fixtures use the real createTrainYardApplication, its existing renderer/input/clock owners and autoClock:false. They cover input-before-renderer throwing observers; simultaneous target/depth/material/mask/input/body errors and reentry; concurrent independent native actors; second projection draw failure and production-only retry; primary plus cleanup aggregate; real borrowed cube face/mip and separate logical/physical rectangles; partial body/image acquisition; unsupported state; held callbacks that never deliver until after cancellation; rapid and synchronous reentrant supersession; an all-cancel chain; second-actor authenticated hash failure; native phase/physical/resource preservation; and ordinary input after recovery. No orphan cleanup or renderer repair is used by the new-path fixture. Old-path defects are observed in separate disposable contexts and those contexts close without pretending to recover them.
+
+Package proof installs the compatibility tarball offline with scripts disabled, verifies every payload byte against provenance and current source, and imports bare public package paths. The ordinary application/host/CSS are separately hashed consumer fixtures, not represented as published package files. Browser request receipts require runtime modules to come from the selected source, build or installed payload. Helpers are hidden, bounded by a real timer, closed in finally, and accompanied by process/port cleanup receipts. Failed draft harness runs remain recorded; final results have distinct output directories.
+
+Design evaluation (docs/design-evaluation.md)
+Accuracy: private transactional cleanup/state restoration is preferable to the original unguarded sequential cleanup because failures leave neither a partially retired actor nor corrupted borrowed renderer state. This is demonstrated lifecycle correctness, not a physics/visual realism improvement. Shader parity and unchanged motion equations preserve the accepted visual/profile behavior; earlier accepted native pose captures remain the pose evidence.
+Efficiency: the repair adds bounded per-actor journals, listener snapshots at terminal disposal, state reads and latest-generation retirement ordering. These are code-based costs; no CPU/GPU timing, FPS gain or memory-saving claim is made. Serializing conflicting generations can delay replacement until cleanup ends, while safe candidate-local resource/actor preparation remains independent. The unsupported-state refusal avoids silently normalizing a host's renderer.
+Narrative: retaining the complete accepted yard during preparation and refusing partial publication is preferable for the ordinary retained-town/native-asset use case because operators, equipment, settings and resources stay coherent. Whole-host restore keeps its intentional control lease invalidation rather than forging equality. Existing explicit native profiles and full-resolution paints are retained for game compatibility.
+
+Recommendation: integrate this bounded lifecycle repair after Architect review. Source sharing remains a separate measured proposal; finite heat/publication, native disc, overmap, Artist/UI/Editor and consumer pins remain outside this assignment.

@@ -17,7 +17,7 @@ export function createTrainYardApplication({container,canvas,autoClock=true,reso
   const scene=new T.Scene();scene.background=new T.Color(0x8eafac);scene.fog=new T.Fog(0x8eafac,160,390);scene.add(new T.HemisphereLight(0xe8f1dc,0x354a32,2));const sun=new T.DirectionalLight(0xffdeb0,3);sun.position.set(80,110,-30);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);Object.assign(sun.shadow.camera,{left:-150,right:150,top:150,bottom:-150,far:400});scene.add(sun);
   const groundGeometry=new T.PlaneGeometry(280,220),groundMaterial=new T.MeshStandardMaterial({color:0x75815a,roughness:1}),ground=new T.Mesh(groundGeometry,groundMaterial);ground.rotation.x=-Math.PI/2;ground.position.set(120,-.015,85);ground.receiveShadow=true;scene.add(ground);
   const platformGeometry=new T.BoxGeometry(76,.05,4),platformMaterial=new T.MeshStandardMaterial({color:0xc3af83,roughness:.9});for(const x of [64,176]){const p=new T.Mesh(platformGeometry,platformMaterial);p.position.set(x,-.02,35.5);p.receiveShadow=true;scene.add(p);}
-  let current=null,pending=null,ticket=0,transaction=false,retired=false,disposing=false,frame=0,previous=0,disposePromise=null;const jobs=new Set();
+  let current=null,pending=null,frozen=null,ticket=0,transaction=false,retired=false,disposing=false,frame=0,previous=0,disposePromise=null;const jobs=new Set();
   const live=s=>!retired&&current===s&&s.active,show=(s,text)=>{if(s?.feedback)s.feedback.textContent=text;};
   function resize(camera){const r=canvas.getBoundingClientRect(),ratio=renderer.getPixelRatio();if(canvas.width!==Math.floor(r.width*ratio)||canvas.height!==Math.floor(r.height*ratio))renderer.setSize(Math.max(1,r.width),Math.max(1,r.height),false);camera.aspect=Math.max(1,r.width)/Math.max(1,r.height);camera.updateProjectionMatrix();return r;}
   function cameraBinding(s){let settings={mode:'follow',zoom:1};return {prepare(next,{signal}){abort(signal);const value={...next};return {commit(){settings=value;},dispose(){}};},draw(){const r=resize(s.camera),p=s.host.connector.readForActor('player').position,distance=34/settings.zoom;if(settings.mode==='overview'){s.camera.position.set(120,220,220);s.camera.lookAt(120,0,86);}else{s.camera.position.set(p.x+distance*.5,p.h+distance*.8,p.y+distance*.85);s.camera.lookAt(p.x,p.h+1,p.y);}s.camera.clearViewOffset();const safe=s.hud?.safe;if(safe?.width>0&&safe?.height>0)s.camera.setViewOffset(r.width,r.height,r.width/2-(safe.x+safe.width/2-r.x),r.height/2-(safe.y+safe.height/2-r.y),r.width,r.height);s.camera.updateProjectionMatrix();s.camera.updateMatrixWorld();}};}
@@ -35,14 +35,53 @@ export function createTrainYardApplication({container,canvas,autoClock=true,reso
       const surface={renderer,scene:s.group,camera:s.camera,canvas,resize:()=>{if(live(s))resize(s.camera);},draw:()=>{s.dirty=true;}},provider=retainTrainYard({host:guarded,content:content.identity,surface,clock:s.frames,setUIPaused:value=>{s.paused=value;},camera:s.cameraPort,onHudBounds:bounds=>{s.hud=bounds;}});
       let configuration=value&&!value.legacy?value.setup.configuration:current?.setup.readConfiguration()||createSetupConfiguration({content:content.identity,trains:true});configuration=bindSetupProvider(configuration,provider);
       s.setup=await mountPlayerSetup(s.layer,{content,configuration,providers:[provider],signal,resourceURL,...(value&&!value.legacy?{checkpoint:value.setup}:{}),onError:error=>show(s,error.message),onConfigurationChange:()=>{if(live(s))mountTools(s);}});s.setup.dispatch({version:1,type:'pause',paused:true});abort(signal);return s;
-    }catch(error){await retire(s);throw error;}}
-  function replace(saved,{signal}={}){if(retired||disposing)return Promise.resolve(result(false,'YARD_RETIRED','The yard is retired.'));const request=++ticket;pending?.abort();const controller=new AbortController();pending=controller;const cancel=()=>controller.abort();signal?.addEventListener('abort',cancel,{once:true});if(signal?.aborted)cancel();const before=current,wasMenu=before?.setup.ui.readContext().mode==='menu';if(before){before.setup.ui.openMenu();before.layer.inert=true;before.setup.ui.element.querySelector('dialog').inert=true;}transaction=true;
-    const job=(async()=>{let candidate=null,committed=false,outcome;try{candidate=await prepare(saved,controller.signal);abort(controller.signal);if(retired||request!==ticket)throw Object.assign(Error('A newer yard owns this load.'),{code:'PREPARATION_CANCELLED'});scene.add(candidate.group);container.append(candidate.layer);abort(controller.signal);if(retired||request!==ticket)throw Object.assign(Error('Yard attachment retired.'),{code:'PREPARATION_CANCELLED'});
-        const old=current,accepted=candidate;if(old){old.active=false;old.group.visible=false;}current=accepted;accepted.active=true;committed=true;candidate=null;pending=null;transaction=false;
-        let observerErrors=0;for(const accept of [()=>old?.setup.dispose(),()=>{accepted.group.visible=true;accepted.layer.style.visibility='';accepted.layer.inert=false;},()=>accepted.setup.dispatch({version:1,type:'pause',paused:false}),()=>accepted.setup.ui.closeMenu(),()=>mountTools(accepted),()=>accepted.setup.ui.refresh(),()=>draw(accepted),()=>show(accepted,'Ready. Walk beside either train to board.')])try{accept();}catch(error){observerErrors++;show(accepted,error.message);}
-        if(old)try{await retire(old);}catch(error){observerErrors++;show(accepted,error.message);}return outcome={...result(true,null,null,true),observerErrors};
-      }catch(error){if(committed){show(current,'Loaded; a presentation or cleanup observer failed: '+error.message);return outcome={...result(true,null,null,true),observerErrors:1};}show(before,error.message);return outcome=result(false,controller.signal.aborted||request!==ticket?'PREPARATION_CANCELLED':error.code||'YARD_PREPARATION_FAILED',error.message);
-      }finally{signal?.removeEventListener('abort',cancel);if(candidate)try{await retire(candidate);}catch(error){if(outcome)outcome.cleanupErrors=1;show(before,'Candidate cleanup reported: '+error.message);}if(pending===controller)pending=null;if(request===ticket&&!committed&&!retired){transaction=false;if(before&&current===before){before.layer.inert=false;before.setup.ui.element.querySelector('dialog').inert=false;if(!wasMenu)before.setup.ui.closeMenu();}}}})();jobs.add(job);job.then(()=>jobs.delete(job),()=>jobs.delete(job));return job;
+    }catch(error){try{await retire(s);}catch(cleanup){throw new AggregateError([error,cleanup],'Yard preparation/cleanup failed.',{cause:error});}throw error;}}
+  function replace(saved,{signal}={}){
+    if(retired||disposing)return Promise.resolve(result(false,'YARD_RETIRED','The yard is retired.'));
+    const request=++ticket,predecessors=[...jobs],previousPending=pending,controller=new AbortController(),before=current,wasMenu=frozen?.scene===before?frozen.wasMenu:before?.setup.ui.readContext().mode==='menu';
+    const cancel=()=>controller.abort();let freezeError;
+    pending=controller;transaction=true;if(before)frozen={scene:before,wasMenu};
+    // Register this generation before invoking any cancellation/UI observer.
+    // Only the latest generation may acquire after all preceding cleanup ends.
+    const job=Promise.resolve().then(async()=>{
+      let candidate=null,committed=false,outcome;
+      try{
+        await Promise.allSettled(predecessors);abort(controller.signal);
+        if(retired||request!==ticket)throw Object.assign(Error('A newer yard owns this load.'),{code:'PREPARATION_CANCELLED'});
+        if(freezeError)throw freezeError;
+        candidate=await prepare(saved,controller.signal);abort(controller.signal);
+        if(retired||request!==ticket)throw Object.assign(Error('A newer yard owns this load.'),{code:'PREPARATION_CANCELLED'});
+        scene.add(candidate.group);container.append(candidate.layer);abort(controller.signal);
+        if(retired||request!==ticket)throw Object.assign(Error('Yard attachment retired.'),{code:'PREPARATION_CANCELLED'});
+        const old=current,accepted=candidate;if(old){old.active=false;old.group.visible=false;}
+        current=accepted;accepted.active=true;accepted.group.visible=true;accepted.layer.style.visibility='';accepted.layer.inert=false;
+        committed=true;candidate=null;if(pending===controller)pending=null;transaction=false;frozen=null;
+        let observerErrors=0;
+        for(const accept of [()=>accepted.setup.dispatch({version:1,type:'pause',paused:false}),()=>accepted.setup.ui.closeMenu(),()=>mountTools(accepted),()=>accepted.setup.ui.refresh(),()=>draw(accepted),()=>show(accepted,'Ready. Walk beside either train to board.')]){
+          if(retired||request!==ticket||current!==accepted)break;
+          try{accept();}catch(error){observerErrors++;show(accepted,error.message);}
+        }
+        if(old)try{await retire(old);}catch(error){observerErrors++;if(current===accepted)show(accepted,error.message);}
+        return outcome={...result(true,null,null,true),observerErrors};
+      }catch(error){
+        if(committed){show(current,'Loaded; a presentation or cleanup observer failed: '+error.message);return outcome={...result(true,null,null,true),observerErrors:1};}
+        if(request===ticket&&!retired)show(before,error.message);
+        return outcome=result(false,controller.signal.aborted||request!==ticket?'PREPARATION_CANCELLED':error.code||'YARD_PREPARATION_FAILED',error.message);
+      }finally{
+        signal?.removeEventListener('abort',cancel);
+        if(candidate)try{await retire(candidate);}catch(error){if(outcome)outcome.cleanupErrors=(outcome.cleanupErrors||0)+1;if(request===ticket&&!retired)show(before,'Candidate cleanup reported: '+error.message);}
+        if(pending===controller)pending=null;
+        if(request===ticket&&!committed&&!retired){transaction=false;frozen=null;if(before&&current===before){
+          for(const restore of [()=>{before.layer.inert=false;},()=>{before.setup.ui.element.querySelector('dialog').inert=false;},()=>{if(!wasMenu)before.setup.ui.closeMenu();}]){if(request!==ticket||retired||current!==before)break;try{restore();}catch(error){if(outcome)outcome.cleanupErrors=(outcome.cleanupErrors||0)+1;}}
+        }}
+      }
+    });
+    jobs.add(job);job.then(()=>jobs.delete(job),()=>jobs.delete(job));
+    signal?.addEventListener('abort',cancel,{once:true});if(signal?.aborted)cancel();
+    previousPending?.abort();
+    // A reentrant cancellation observer may already own the accepted context.
+    if(request===ticket&&!retired&&before)try{before.setup.ui.openMenu();before.layer.inert=true;before.setup.ui.element.querySelector('dialog').inert=true;}catch(error){freezeError=error;}
+    return job;
   }
   function checkpoint(){if(!current||transaction||retired)throw Error('YARD_NOT_READY');const s=current;return {kind:'nautilus-player-yard-save',version:2,host:JSON.parse(s.host.save()),setup:s.setup.checkpoint(),npcNative:Object.fromEntries([...s.npcs].map(([id,v])=>{v.updateConfirmed(pose(s.host,id));return [id,v.checkpoint()];}))};}
   function save(){if(!current||transaction||retired)return result(false,'YARD_NOT_READY','Wait for the current yard.');const s=current,wasMenu=s.setup.ui.readContext().mode==='menu';s.setup.ui.openMenu();try{window.localStorage.setItem(saveKey,JSON.stringify(checkpoint()));show(s,'Saved the complete yard, setup recipe and native poses.');mountTools(s);return result(true,null,null,true);}catch(e){show(s,e.message);return result(false,'YARD_SAVE_FAILED',e.message);}finally{if(!wasMenu)s.setup.ui.closeMenu();}}

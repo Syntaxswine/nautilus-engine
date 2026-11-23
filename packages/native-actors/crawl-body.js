@@ -5,6 +5,7 @@ import {nativeActor} from './index.js';
 import {createWorkerLocomotion} from './locomotion.js';
 import {createCrawlMotion} from './crawl-motion.js';
 import {createCrawlCursor} from './crawl.js';
+import {createOwnedCleanup} from './owned-cleanup.js';
 
 // Goat profile at the completed AFT motion pin. No model/skin substitution.
 const profile=Object.freeze({id:'goat',proneAim:{tuckHem:true}});
@@ -35,12 +36,13 @@ export function createNativeCrawlBody({model,actorId,data,crawl,checkpoint,footS
   // Both the rig's original detached rifle and this carry are owned resources.
   for(const object of [worker.root,worker.rifle.root,weapon.root])object.traverse(n=>{if(n.geometry)resources.add(n.geometry);for(const m of Array.isArray(n.material)?n.material:[n.material])if(m)resources.add(m);});
   for(const m of [worker.grey,worker.material])resources.add(m);
-  const disposed=new Set();for(const r of resources){const original=r.dispose;r.dispose=function(){if(disposed.has(r))return;disposed.add(r);return original.call(r);};}
+  const cleanup=createOwnedCleanup('Native crawl cleanup failed.');for(const r of resources)cleanup.own(r);
   worker.equipWeapon(weapon);
   const surfaces=worker.parts.map(mesh=>({mesh,index:mesh.geometry.index,attributes:Object.fromEntries(['position','normal','skinIndex','skinWeight'].map(k=>[k,{original:mesh.geometry.attributes[k],copy:mesh.geometry.attributes[k].clone()}]))}));
   function restoreSurfaces(){for(const {mesh,index,attributes}of surfaces){mesh.geometry.setIndex(index);for(const [name,{original,copy}]of Object.entries(attributes)){original.array.set(copy.array);original.needsUpdate=true;mesh.geometry.setAttribute(name,original);}}}
   let gait,motion,retired=false,lastResult=null,lastCrawl=false;
-  function dispose(){if(retired)return;retired=true;const errors=[];for(const close of [()=>root.removeFromParent(),()=>motion?.dispose(),restoreSurfaces,()=>gait?.dispose(),()=>weapon.dispose(),()=>worker.skeleton.dispose(),()=>worker.dispose(),...[...resources].map(r=>()=>r.dispose())])try{close();}catch(e){errors.push(e);}root.clear();if(errors.length)throw new AggregateError(errors,'Native crawl cleanup failed.');}
+  cleanup.defer(()=>root.clear());cleanup.defer(()=>worker.dispose());cleanup.defer(()=>{try{worker.skeleton.dispose();}finally{worker.skeleton.boneTexture=null;}});cleanup.defer(()=>weapon.dispose());cleanup.defer(()=>gait?.dispose());cleanup.defer(restoreSurfaces);cleanup.defer(()=>motion?.dispose());cleanup.defer(()=>root.removeFromParent());
+  function dispose(){if(retired)return;retired=true;cleanup.own(worker.skeleton.boneTexture);cleanup.dispose();}
   try{gait=createWorkerLocomotion(worker,profile);tuckShirt(worker);motion=createCrawlMotion(worker,profile,1);motion.suspend();restoreSurfaces();}
   catch(error){try{dispose();}catch(cleanup){throw new AggregateError([error,cleanup],'Native crawl preparation failed.');}throw error;}
   return {root,worker,spec:nativeActor('goat'),checkpoint:()=>cursor.read(),

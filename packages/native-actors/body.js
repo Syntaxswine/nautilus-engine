@@ -5,16 +5,19 @@ import {createWorkerLocomotion} from './locomotion.js';
 import {nativeActor,confirmedActorPose} from './index.js';
 import {plain,fields,number,point,samePoint} from './data.js';
 import {createNativeCrawlBody} from './crawl-body.js';
+import {createOwnedCleanup,nativeFailure} from './owned-cleanup.js';
 export function createNativeBody({model,actorId,data,motion='native-gait',checkpoint,footSupport,crawl}){
   if(motion==='native-crawl-v1')return createNativeCrawlBody({model,actorId,data,crawl,checkpoint,footSupport});
   const spec=nativeActor(model);if(!['native-gait','neutral-only'].includes(motion))throw Error('Choose an implemented native motion profile.');
   const worker=({goat:createGoatWorker,donkey:createDonkeyWorker})[model](data),root=new T.Group();root.name='Native actor '+actorId;root.add(worker.root);
-  const resources=new Set([worker.material,worker.grey]);root.traverse(n=>{if(n.geometry)resources.add(n.geometry);for(const m of Array.isArray(n.material)?n.material:[n.material])if(m)resources.add(m);});
-  const disposedResources=new Set();for(const r of resources){const original=r.dispose;r.dispose=function(){if(disposedResources.has(r))return;disposedResources.add(r);return original.call(r);};}
+  const resources=new Set([worker.material,worker.grey]);for(const object of [root,worker.rifle?.root].filter(Boolean))object.traverse(n=>{if(n.geometry)resources.add(n.geometry);for(const m of Array.isArray(n.material)?n.material:[n.material])if(m)resources.add(m);});
+  const cleanup=createOwnedCleanup('Native actor cleanup failed.');for(const r of resources)cleanup.own(r);
   let driver,retired=false,last=null,distanceM=0,heading=0,blend=0,restored=null,lastSupportId=null;
+  cleanup.defer(()=>root.clear());cleanup.defer(()=>worker.dispose());cleanup.defer(()=>{try{worker.skeleton.dispose();}finally{worker.skeleton.boneTexture=null;}});cleanup.defer(()=>driver?.dispose());cleanup.defer(()=>root.removeFromParent());
+  function dispose(){if(retired)return;retired=true;cleanup.own(worker.skeleton.boneTexture);cleanup.dispose();}
   try{driver=createWorkerLocomotion(worker,{id:model,unarmed:false,footSupport});
     if(checkpoint!==undefined){const c=plain(checkpoint);fields(c,['kind','version','model','actorId','motion','distanceM','heading','blend','last',...(footSupport?['footSupportId']:[])]);if(c.kind!=='nautilus-native-pose'||c.version!==(footSupport?2:1)||footSupport&&c.footSupportId!==footSupport.id||c.model!==model||c.actorId!==actorId||c.motion!==motion)throw Error('Incompatible native actor checkpoint.');number(c.distanceM,0,1e9);number(c.heading,-180,180);number(c.blend,0,1);if(c.last!==null)confirmedActorPose(c.last);distanceM=c.distanceM;heading=c.heading;blend=c.blend;restored=c.last;}
-  }catch(error){try{worker.skeleton.dispose();worker.dispose();}finally{for(const r of resources)r.dispose();}throw error;}
+  }catch(error){let failure;try{dispose();}catch(cause){failure=cause;}throw nativeFailure(error,failure,'Native actor preparation/cleanup failed.');}
   function update(input,{settle=false}={}){if(retired)throw Error('Native actor retired.');const p=confirmedActorPose(input);if(p.actorId!==actorId)throw Error('Native actor identity differs from the retained actor.');
     const restoring=!!restored,prior=restored||last,supportId=footSupport?.id??null;
     if(restored&&(p.revision!==restored.revision||p.mode!==restored.mode||!samePoint(p.position,restored.position)))throw Error('Restored native pose does not match the retained actor.');
@@ -33,5 +36,5 @@ export function createNativeBody({model,actorId,data,motion='native-gait',checkp
     return {actorId,distanceM,heading,role:blend?'walk':'idle',visible:root.visible};
   }
   return {root,worker,spec,update,checkpoint(){return plain({kind:'nautilus-native-pose',version:footSupport?2:1,...(footSupport?{footSupportId:lastSupportId??footSupport.id}:{}),model,actorId,motion,distanceM,heading,blend,last});},
-    dispose(){if(retired)return;retired=true;const errors=[];for(const close of [()=>root.removeFromParent(),()=>driver.dispose(),()=>worker.skeleton.dispose(),()=>worker.dispose(),...[...resources].map(r=>()=>r.dispose())])try{close();}catch(e){errors.push(e);}root.clear();if(errors.length)throw new AggregateError(errors,'Native actor cleanup failed.');}};
+    dispose};
 }

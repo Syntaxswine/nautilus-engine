@@ -65,6 +65,7 @@ export function distribution(profile = 'compatibility') {
   if(profile!=='assets')extras.push('docs/donnelly-interior.md','docs/projects/donnelly-house/resolved-interior-v1.json','docs/donnelly-circulation.md','docs/projects/donnelly-house-interior.md','docs/projects/donnelly-house/plan.json','docs/projects/donnelly-house/ground.svg','docs/projects/donnelly-house/upper.svg','docs/projects/donnelly-house/attic.svg','packages/mount-dora-core/README.md','packages/mount-dora-core/NOTICE.md','packages/mount-dora-core/source.json','packages/mount-dora-core/usage-card.json','docs/mount-dora.md');
   if(profile!=='assets')extras.push('docs/shared-stealth.md','docs/reviews/shared-stealth/sources.json','packages/stealth-core/README.md','packages/stealth-core/index.d.ts','packages/stealth-core/foliage.d.ts','packages/native-actors/crawl.d.ts');
   if(profile==='renderer'||profile==='compatibility')extras.push('packages/native-actors/crawl-three.d.ts');
+  if(profile!=='assets')extras.push('docs/reviews/native-paint-lifecycle/paint-source.json');
   if(profile==='compatibility')extras.push('examples/shared-stealth/index.html','examples/shared-stealth/host.mjs','examples/shared-stealth/main.mjs');
   const files = [...new Set([...moduleClosure(Object.values(exports)), ...extras, ...supportFiles()])].sort();
   if (files.some(file => (file.startsWith('vendor/farmyard-grenades/')||file.startsWith('vendor/farmyard-grenade-visuals/')))) throw Error('Distribution includes test-only Farmyard grenade game sources.');
