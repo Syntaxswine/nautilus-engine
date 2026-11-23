@@ -1,5 +1,9 @@
 # Public native actor startup
 
+Native image waits settle on cancellation even when the image callback never arrives. A late callback cannot publish a retired actor. Projection runs synchronously inside a borrowed renderer-state guard; supported target face/mip, logical and physical viewport/scissor, colour/tone and clear state are restored on success and failure. Unsupported renderer configurations refuse before projection.
+
+Owned paint/input/body cleanup drains all resources and all synchronous Three disposal listeners before reporting an `AggregateError`. Disposal is terminal and reentry/idempotence are bounded. The host still owns its renderer, scene, clock and input. The retained-yard example serializes conflicting generations through cleanup, keeps the accepted scene until a complete candidate commits, and preserves intentional train control/lease revision invalidation on restore.
+
 Headless entry: `@nautilus-engine/map-core/native-actors`. Visual entry: `/native-actors/three`. The adapter hides source catalogue, data, paint and native IK behind a public startup boundary; consuming scene code has no donor/editor imports. Implementation is reviewed at `62f2fe90210b10985f80d75d9e4425f424a51c6b`; recipe compatibility baseline `7f50cb2a48aef87a16fc0465997549be9ed88dc2` is separate from this new API's source/package provenance.
 
 ```js

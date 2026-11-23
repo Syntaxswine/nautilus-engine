@@ -1,0 +1,21 @@
+// Reproduce the private ownership adaptation from the already vendored source.
+// No donor checkout, vendor byte, model, shader expression or resolution changes.
+import fs from 'node:fs';import assert from 'node:assert/strict';import {execFileSync} from 'node:child_process';import {createHash} from 'node:crypto';
+const base='5ee0faf833b2b44dd2a74cf1222f9721ecb5497b',file='vendor/aft/781246a668c723d5a4c5463e70534cc04b6a5641/dist/tactics/horse-model-paint.js',original=execFileSync('git',['show',base+':'+file],{windowsHide:true,maxBuffer:8*1024*1024}),sha=b=>createHash('sha256').update(b).digest('hex');assert.equal(sha(fs.readFileSync(file)),sha(original));
+let source=original.toString();const replace=(before,after)=>{assert.equal(source.split(before).length,2,'One exact native paint adaptation: '+before.slice(0,80));source=source.replace(before,after);};
+replace("import * as THREE from './vendor/three.module.js';","import * as THREE from '../render-effects/three.js';\nimport {abort} from './data.js';");
+const begin=source.indexOf('export async function prepareModelPaintProjection('),end=source.indexOf('export function createModelPaint(',begin);assert(begin>0&&end>begin);source=source.slice(0,begin)+source.slice(end);
+replace('function paintProjection(horse,frame){','function paintProjection(horse,frame,ownership,signal){');
+replace('material=new THREE.ShaderMaterial({','material=ownership.own(new THREE.ShaderMaterial({');
+replace("toneMapped:false});\n  const mesh=", "toneMapped:false}));\n  const mesh=");
+replace('const target=new THREE.WebGLRenderTarget(2048,1024,{minFilter:THREE.NearestFilter,magFilter:THREE.NearestFilter,depthTexture:new THREE.DepthTexture(2048,1024,THREE.UnsignedIntType)});','const depth=ownership.own(new THREE.DepthTexture(2048,1024,THREE.UnsignedIntType));\n const target=ownership.own(new THREE.WebGLRenderTarget(2048,1024,{minFilter:THREE.NearestFilter,magFilter:THREE.NearestFilter,depthTexture:depth}));\n ownership.own(target.texture);');
+replace('function draw(renderer,i){','function draw(renderer,i){\n abort(signal);');
+replace('renderer.render(scene,camera);\n renderer.setRenderTarget(oldTarget);','renderer.render(scene,camera);abort(signal);\n renderer.setRenderTarget(oldTarget);');
+replace('export function createModelPaint(renderer,horse,texture,{species=', 'export function createNativeModelPaint(renderer,horse,texture,{species=');
+replace('sceneLighting=false,preparedProjection=null}={}){','sceneLighting=false,preparedProjection=null,signal}={},ownership){\n abort(signal);');
+replace('const mask=new THREE.DataTexture(textureValidity(texture),image.width,image.height,THREE.RedFormat);','const mask=ownership.own(new THREE.DataTexture(textureValidity(texture),image.width,image.height,THREE.RedFormat));');
+replace('paintProjection(horse,frame);','paintProjection(horse,frame,ownership,signal);');
+replace('const material=sceneLighting?new THREE.MeshStandardMaterial({roughness:1}):new THREE.MeshBasicMaterial({toneMapped:false});','const material=ownership.own(sceneLighting?new THREE.MeshStandardMaterial({roughness:1}):new THREE.MeshBasicMaterial({toneMapped:false}));');
+replace('dispose(){material.dispose();target.dispose();texture.dispose();mask.dispose();paintLayers?.dispose();}','dispose(){ownership.dispose();}');
+source='// Ownership adaptation of '+file+'\n// Original SHA256 '+sha(original)+'. Shader math, dimensions and program keys preserved.\n'+source;
+fs.writeFileSync('packages/native-actors/model-paint.js',source);fs.mkdirSync('docs/reviews/native-paint-lifecycle',{recursive:true});fs.writeFileSync('docs/reviews/native-paint-lifecycle/paint-source.json',JSON.stringify({base,source:file,sha256:sha(original),gitBlob:execFileSync('git',['rev-parse',base+':'+file],{encoding:'utf8',windowsHide:true}).trim(),adapter:'packages/native-actors/model-paint.js',adapterSHA256:sha(source),adaptations:['Shared Three import; cancellation checks','Acquisition-time registration of temporary/main materials, mask, projection target/colour/depth','Private ownership cleanup; input Texture remains the native loader owner','Unused portrait-only async export omitted; native shader expressions/target dimensions/program keys unchanged']},null,2)+'\n');console.log(JSON.stringify({sourceSHA256:sha(original),adapterSHA256:sha(source)}));
