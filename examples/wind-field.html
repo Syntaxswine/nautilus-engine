@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark"><title>Wind field · Nautilus workshop</title>
+  <link rel="icon" href="data:,"><link rel="stylesheet" href="./wind-field.css">
+</head>
+<body>
+  <header class="masthead"><a href="../" aria-label="Nautilus workshop home" class="brand">N<span>NAUTILUS <small>FIELD NOTES / WIND</small></span></a><span class="edition">Where the air goes around what we build.</span></header>
+  <main>
+    <section class="scene-panel" aria-labelledby="title">
+      <div class="intro"><p class="eyebrow">ENGINE STUDY · WIND CORE</p><h1 id="title">Wind around the buildings</h1><p>Nautilus building models become solid cells; the air flows around them. Streaks show the wind moving; click a roof or the ground to release smoke and see where it drifts.</p></div>
+      <div id="stage" role="group" aria-label="Three dimensional site. Drag to turn the view, scroll or pinch to zoom, click to place a smoke source.">
+        <canvas id="scene" tabindex="0" aria-label="Wind field around the selected buildings"></canvas>
+        <svg id="rose" viewBox="-50 -50 100 100" aria-hidden="true"><circle r="44" class="ring"/><path id="rose-north" d="M0-40 L5-26 L-5-26Z" class="north"/><text id="rose-n" x="0" y="-30" class="n">N</text><path id="rose-wind" d="M0-34 L0 22 M-8 12 L0 26 L8 12" class="wind"/></svg>
+        <div class="legend" aria-label="Speed scale"><span class="legend-title">Wind speed</span><canvas id="legend-bar" width="160" height="8"></canvas><div class="legend-ticks"><span>0</span><span id="legend-mid">5</span><span id="legend-max">10 m/s</span></div></div>
+        <span class="scale-note" id="scale-note">Ground grid · 1 metre</span>
+        <div id="scene-fallback" hidden>3D is unavailable on this device, so the wind cannot be drawn. The solver and its numbers still run.</div>
+      </div>
+      <p id="status" class="status" role="status" aria-live="polite">Loading the building models…</p>
+      <div class="bottom-tools"><button id="run" aria-pressed="true">Pause wind</button><button id="restart">Restart flow</button><button id="clear-smoke">Clear smoke</button><button id="export">Export mean field</button><span>Drag turn · Right-drag or Shift-drag pan · Scroll zoom · Click smoke</span></div>
+    </section>
+    <aside class="field-panel" aria-label="Site and wind settings">
+      <section class="card">
+        <p class="eyebrow">SITE</p>
+        <label class="row">Layout <select id="preset"></select></label>
+        <ol id="buildings" class="buildings" aria-label="Buildings on the site"></ol>
+        <label class="row">Cell size <select id="cell"><option value="1">1 m (quick)</option><option value="0.5">0.5 m (fine, about 8× slower)</option></select></label>
+        <p class="hint" id="site-note"></p>
+      </section>
+      <section class="card">
+        <p class="eyebrow">WIND</p>
+        <div class="compass"><svg id="dial" viewBox="-60 -60 120 120" role="slider" tabindex="0" aria-label="Wind direction" aria-valuemin="0" aria-valuemax="359" aria-valuenow="225"><circle r="52" class="dial-ring"/><g id="dial-ticks"></g><text x="0" y="-38" class="dial-n">N</text><text x="40" y="4" class="dial-l">E</text><text x="0" y="46" class="dial-l">S</text><text x="-40" y="4" class="dial-l">W</text><path id="dial-arrow" d="M0-48 L7-30 L2-30 L2 30 L-2 30 L-2-30 L-7-30Z" class="dial-arrow"/></svg>
+          <div><p class="bearing"><strong id="bearing">225°</strong> <span id="bearing-name">SW</span></p><p class="hint">The arrow points where the wind comes <em>from</em>. Drag the dial or use the arrow keys.</p></div></div>
+        <label class="row">Speed at 10 m <output id="speed-value">6 m/s</output><input id="speed" type="range" min="1" max="20" step="0.5" value="6"></label>
+        <label class="row">Upwind terrain <select id="terrain"></select></label>
+        <label class="row">Gusts <output id="gust-value">surface layer</output><input id="gust" type="range" min="0" max="1.5" step="0.05" value="1"></label>
+        <p class="hint">Gusts are synthetic turbulence fed in upwind, scaled to the terrain's friction velocity. At 0 the inflow is steady.</p>
+      </section>
+      <section class="card">
+        <p class="eyebrow">SHOW</p>
+        <label class="check"><input id="show-streaks" type="checkbox" checked> Wind streaks</label>
+        <label class="check"><input id="show-mean" type="checkbox"> Streaks follow the mean wind</label>
+        <label class="row">Slice <select id="slice"><option value="off" selected>Off</option><option value="horizontal">Horizontal</option><option value="vertical">Vertical, along the wind</option></select></label>
+        <label class="row" id="slice-height-row">Slice height <output id="slice-height-value">1.5 m</output><input id="slice-height" type="range" min="0.5" max="20" step="0.5" value="1.5"></label>
+        <label class="check"><input id="show-smoke" type="checkbox" checked> Smoke</label>
+      </section>
+      <section class="card solver-card">
+        <p class="eyebrow">SOLVER</p>
+        <dl id="stats"></dl>
+        <p class="hint">Incompressible flow on a staggered grid: MacCormack advection, conjugate-gradient pressure. The streaks and smoke are tracers; they do not push the air.</p>
+      </section>
+    </aside>
+  </main>
+  <footer>A Nautilus reference study · <a href="../docs/wind-field.md">wind core contract, verification and limits</a> · games bind smoke, fire and timing themselves.</footer>
+  <script type="module" src="./wind-field.js"></script>
+</body>
+</html>
