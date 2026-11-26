@@ -13,7 +13,7 @@ const entries=[
   {id:'short-sword',hands:1,modes:[slash(1.1,7,.28),thrust(1.25,7,.27)]},
   {id:'sword',hands:1,modes:[slash(),thrust()]},
   {id:'axe',hands:1,modes:[{...slash(1.2,12,.38),id:'chop'},attack('haft-bash','blunt',.9,90,4,.20,1,4,7,3,8,'heavy-blunt')]},
-  {id:'pick',hands:1,modes:[attack('pick','piercing',1.05,65,12,.4,2,7,9,3,10,'heavy-blunt')]},
+  {id:'pick',hands:2,modes:[attack('pick','piercing',1.05,65,12,.4,2,7,9,3,10,'heavy-blunt')]},
   {id:'blacksmith-hammer',hands:2,modes:[heavy(1.5,16,.6)]},
   {id:'mace',hands:1,modes:[heavy(1.2,10,.45)]},
   {id:'spear',hands:2,modes:[thrust(2.35,10,.35),attack('haft-sweep','blunt',1.6,130,5,.23,1,6,8,3,9,'slash')]},

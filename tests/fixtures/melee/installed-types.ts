@@ -21,6 +21,9 @@ applyTypedMeleeDamage(character,5,'slash',{armour:{id:'typed-flat-v1',version:1,
 equipmentLoadout('riot-shield');
 // @ts-expect-error two-handed hammer cannot gain a shield
 equipmentLoadout('blacksmith-hammer','tower-shield');
+equipmentLoadout('pick');
+// @ts-expect-error accepted two-handed pick cannot gain a shield
+equipmentLoadout('pick','round-wood-shield');
 // @ts-expect-error bow has no melee mode
 meleeMode('bow','thrust');
 // @ts-expect-error no undeclared equipment

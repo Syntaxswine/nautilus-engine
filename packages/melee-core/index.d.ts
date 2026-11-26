@@ -1,7 +1,7 @@
 export type PhysicalDamageType='blunt'|'piercing'|'slash';
 export type ShieldId='round-wood-shield'|'emblem-metal-shield'|'tower-shield'|'riot-shield';
 export type MainEquipmentId='knife'|'short-sword'|'sword'|'axe'|'pick'|'blacksmith-hammer'|'mace'|'spear'|'halberd'|'bow'|'crossbow';
-export type TwoHandedEquipmentId='blacksmith-hammer'|'spear'|'halberd'|'bow'|'crossbow';
+export type TwoHandedEquipmentId='blacksmith-hammer'|'pick'|'spear'|'halberd'|'bow'|'crossbow';
 export type FantasyEquipmentId=MainEquipmentId|ShieldId;
 export type MeleeModeId='slash'|'thrust'|'chop'|'haft-bash'|'pick'|'heavy-blunt'|'haft-sweep';
 export type MeleePose='slash'|'thrust'|'heavy-blunt';

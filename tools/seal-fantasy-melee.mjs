@@ -4,7 +4,9 @@ import fs from 'node:fs';import path from 'node:path';import {fileURLToPath} fro
 import {distribution,moduleClosure} from './distribution.mjs';
 const root=fileURLToPath(new URL('../',import.meta.url)),base='796c1e73644a30a3061d2f38b3bcccab49519453',art='0e3131c4a2becd1c9f2647bcddcaa60eb4e075d9',manifest='docs/reviews/fantasy-equipment/integration/registration.json',checker='tools/fantasy-melee-registration.mjs',sha=b=>createHash('sha256').update(b).digest('hex'),git=args=>execFileSync('git',args,{cwd:root,windowsHide:true,maxBuffer:32*1024*1024}),list=args=>git(args).toString().trim().split(/\r?\n/).filter(Boolean),object=(pin,file)=>git(['show',pin+':'+file]);
 if(!process.argv.includes('--seal'))throw Error('Use --seal deliberately after final task source review.');
-if(git(['rev-parse','HEAD']).toString().trim()!==base)throw Error('Seal the isolated candidate while still on its assigned base.');
+const expectedHead=process.argv.includes('--expected-head')?process.argv[process.argv.indexOf('--expected-head')+1]:base;
+if(!/^[a-f0-9]{40}$/.test(expectedHead)||git(['rev-parse','HEAD']).toString().trim()!==expectedHead||git(['branch','--show-current']).toString().trim()!=='codex/fantasy-close-combat')throw Error('Seal only the explicit isolated task head.');
+git(['merge-base','--is-ancestor',base,expectedHead]);
 const baseFiles=new Set(list(['ls-tree','-r','--name-only',base])),files=[...new Set([...list(['diff','--name-only',base]),...list(['ls-files','--others','--exclude-standard'])])].filter(p=>p!==manifest&&p!==checker).sort();
 const artFiles=list(['diff','--name-only',base,art]).sort(),rows=paths=>paths.map(p=>{const b=fs.readFileSync(path.join(root,p));return {path:p,bytes:b.length,sha256:sha(b),...(baseFiles.has(p)?{beforeSha256:sha(object(base,p))}:{})};});
 const profiles=Object.fromEntries(['core','renderer','assets','compatibility'].map(p=>[p,distribution(p)])),baselineProfiles=JSON.parse(object(base,'docs/reviews/native-paint-lifecycle/registration.json')).profiles;
