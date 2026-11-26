@@ -10,6 +10,7 @@ import {sharedArtworkPayloadPaths} from '../packages/assets/artwork.js';
 import {trainPackageFiles} from './train-registration.mjs';
 import {npmFilePatterns} from './npm-files.mjs';
 import {withVehicleExports,vehiclePackageFiles} from './vehicle-package.mjs';
+import {withFantasyMeleeExports,fantasyMeleePackageFiles} from './fantasy-melee-package.mjs';
 import {withPlayerSetupExports,playerSetupPackageFiles} from './player-setup-registration.mjs';
 import {FARMYARD_DOOR_VISUAL_RESOURCE_PATHS} from '../packages/door-visuals/three.js';
 export const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -61,6 +62,8 @@ export function distribution(profile = 'compatibility') {
   extras.push(...playerSetupPackageFiles(profile));
   exports=withVehicleExports(exports,profile);
   extras.push(...vehiclePackageFiles(profile));
+  exports=withFantasyMeleeExports(exports,profile);
+  extras.push(...fantasyMeleePackageFiles(profile));
   if(profile==='core'||profile==='compatibility')extras.push('packages/traversal-core/index.d.ts','packages/traversal-core/README.md','packages/traversal-core/source.json');
   if(profile!=='assets')extras.push('docs/donnelly-interior.md','docs/projects/donnelly-house/resolved-interior-v1.json','docs/donnelly-circulation.md','docs/projects/donnelly-house-interior.md','docs/projects/donnelly-house/plan.json','docs/projects/donnelly-house/ground.svg','docs/projects/donnelly-house/upper.svg','docs/projects/donnelly-house/attic.svg','packages/mount-dora-core/README.md','packages/mount-dora-core/NOTICE.md','packages/mount-dora-core/source.json','packages/mount-dora-core/usage-card.json','docs/mount-dora.md');
   if(profile!=='assets')extras.push('docs/shared-stealth.md','docs/reviews/shared-stealth/sources.json','packages/stealth-core/README.md','packages/stealth-core/index.d.ts','packages/stealth-core/foliage.d.ts','packages/native-actors/crawl.d.ts');

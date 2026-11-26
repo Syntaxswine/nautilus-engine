@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "author": "Original Nautilus equipment art, Codex artist",
+  "created": "2026-11-26",
+  "geometry": "Original deterministic mesh recipes in packages/fantasy-equipment-art/geometry.js; no donor meshes or textures imported.",
+  "paint": "Original built-in imagegen paint-master with retained exact prompt; deterministic Lanczos resize and RGB565 packing. No third-party art.",
+  "packing": {
+    "width": 512,
+    "height": 512,
+    "kernel": "lanczos3",
+    "encoding": "Little-endian RGB565 expanded to owned RGBA8 pixels",
+    "sharp": "0.35.5",
+    "node": "v24.15.0"
+  },
+  "sourceBase": "796c1e73644a30a3061d2f38b3bcccab49519453",
+  "rebuild": "node tools/fantasy-equipment-art/bake-paint.mjs",
+  "resources": [
+    {
+      "file": "assets/fantasy-equipment/source/paint-master.png",
+      "bytes": 2713596,
+      "sha256": "8dfcbe1255b6bf4ca5f34d628b21036d9699c428d2be36713bc34c0450cd9e86"
+    },
+    {
+      "file": "assets/fantasy-equipment/source/paint-prompt.json",
+      "bytes": 2040,
+      "sha256": "cba0983f50c67e92f3a2a1a7714eefc5b20c3ae3d9ef4d39f825bf58b3f1679e"
+    },
+    {
+      "file": "assets/fantasy-equipment/paint-atlas.png",
+      "bytes": 219365,
+      "sha256": "2e0c986f0a22b32b25d4d26fe1f788a4f9a573c84953fded58e8990131d0b6f7"
+    },
+    {
+      "file": "assets/fantasy-equipment/NOTICE.md",
+      "bytes": 1194,
+      "sha256": "c3329c055f8377385075d5397228e5a4279d5219acdcb676dde3c6d4c8f8bf63"
+    },
+    {
+      "file": "packages/fantasy-equipment-art/paint-data.js",
+      "bytes": 699865,
+      "sha256": "05954b3b3f3cc3487c28046a44bfcaf93d073623d88497881b1b3c44cd9c0bbd"
+    },
+    {
+      "file": "packages/fantasy-equipment-art/geometry.js",
+      "bytes": 19472,
+      "sha256": "5168a67dd4d3bc7b64a1bbc8245b818c003127934d833c1c9dea282cb33a5276"
+    },
+    {
+      "file": "packages/fantasy-equipment-art/specs.js",
+      "bytes": 4294,
+      "sha256": "76e351ab30835c929fe4366cd59c7eed4ac810ba63385e57515222de3c56914d"
+    },
+    {
+      "file": "packages/fantasy-equipment-art/catalogue.js",
+      "bytes": 3723,
+      "sha256": "97a5a2a4bc412e8603af34756b6371caad6b69f728ab5fcbda5a0964d978fd10"
+    },
+    {
+      "file": "packages/fantasy-equipment-art/three.js",
+      "bytes": 5435,
+      "sha256": "c2b61cf98f87867b604d6e2c93a33143dcc1e8066f72feee0519736c0da981d4"
+    },
+    {
+      "file": "tools/fantasy-equipment-art/bake-paint.mjs",
+      "bytes": 3706,
+      "sha256": "1da6222a8a812e5c45897b8a3fe1e5125b468d93c0af7cc90e0396abe2015f5c"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "kind":"nautilus-component-usage-card","version":1,"id":"nautilus.melee","apiVersion":1,
+  "status":"optional tactical close combat; no game adoption or ranged-ballistics claim",
+  "engineBase":{"package":"@nautilus-engine/map-core","version":"0.10.0","sourcePin":"796c1e73644a30a3061d2f38b3bcccab49519453","meaning":"reviewed compatibility lineage, not the introduction commit"},
+  "entries":["@nautilus-engine/map-core/melee","@nautilus-engine/map-core/melee/equipment"],
+  "profiles":["nautilus-melee-training-v1","strength-linear-v1","farmyard-percent-1","typed-flat-v1 (optional)"],
+  "units":{"reach":"native metres","heading":"degrees, world x/y ground","height":"world h metres","time":"50 ms retained host ticks","bounds":"art bounds are visual only; no collision authority"},
+  "requires":["existing character-v1 participants","saved uint32 random stream","current world/body/facing identities","read-only inventory and permission queries","current host wall-clearance query","retained host atomic commit and persistence","all resource actions respect reservations"],
+  "provides":["15-item typed equipment definitions","pure previews","reserved windup, one impact sample and recovery","active directional guard","grouped character/seed/event plans","durable command/event IDs","mid-action sidecar restore"],
+  "hostOwns":["cast and inventory","geometry and movement","clock and pause","commit and storage","content pins and balance choice","presentation and cleanup"],
+  "lifecycle":{"create":"createMeleeState","advance":"stageMeleeCommand / stageMeleeTick; host publishes complete plans","restore":"openMeleeState plus unchanged full character records and host world","interrupt":"explicit command, free before impact with recovery","dispose":"plain data; discard only after the retained encounter is explicitly retired"},
+  "unsupported":["weapon-mesh physics","multiple target sweep hits","new ranged ballistics","new stats/classes/species","automatic migrations or resource refill"],
+  "limits":{"actors":8,"acceptedCommands":512,"events":4096},
+  "guide":"packages/melee-core/README.md","design":"docs/fantasy-melee.md","example":"apps/test-ground/melee/host.js",
+  "checks":["tests/melee-core.test.mjs","tests/melee-yard.test.mjs","tools/fantasy-melee-browser.mjs","tools/fantasy-melee-package-proof.mjs"]
+}
