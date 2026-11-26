@@ -1,0 +1,5 @@
+import {applyDamage} from '../rules-core/index.js';
+import {PHYSICAL_DAMAGE_TYPES,damageType} from './equipment.js';
+import {record,number,insist} from './data.js';
+export function typedArmour(value=null){if(value===null)return null;record(value,['id','version','reduction']);insist(value.id==='typed-flat-v1'&&value.version===1,'MELEE_ARMOUR_PROFILE','Select explicit typed-flat-v1 armour.');record(value.reduction,PHYSICAL_DAMAGE_TYPES);for(const type of PHYSICAL_DAMAGE_TYPES)number(value.reduction[type],0,1000,'typed armour reduction');return structuredClone(value);}
+export function applyTypedMeleeDamage(character,rawDamage,type,{armour=null,resistance='endurance'}={}){damageType(type);number(rawDamage,0,1e9,'raw damage');const profile=typedArmour(armour),armourReduction=Math.min(rawDamage,profile?.reduction[type]??0),result=applyDamage(character,rawDamage-armourReduction,{resistance});return {character:result.character,damageType:type,rawDamage,armourReduction,enduranceResistance:result.resistance,hpLost:result.applied,hpBefore:result.hpBefore,hpAfter:result.hpAfter};}

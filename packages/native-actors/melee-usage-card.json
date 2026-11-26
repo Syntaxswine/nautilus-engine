@@ -1,0 +1,11 @@
+{
+  "kind":"nautilus-component-usage-card","version":1,"id":"nautilus.native-melee-view","apiVersion":1,
+  "entry":"@nautilus-engine/map-core/native-actors/melee/three","status":"optional standing native goat equipment/pose adapter",
+  "profiles":["goat native-gait","goat neutral-only"],"units":{"model":"native metres","art":"+Y long axis; +Z shield/projectile front","world":"x/y/h retained physical position"},
+  "requires":["existing shared Nautilus Three WebGLRenderer","retained physical pose","confirmed MeleePresentation query","same-origin authenticated native resources","host scene attachment and lifecycle"],
+  "provides":["native character view/checkpoint","actual reviewed equipment models and moving socket grips","visible windup/impact/recovery and guard","bounded partial-acquisition rollback and terminal cleanup"],
+  "hostOwns":["every gameplay action, roll, hit, cost and save","clock and world","renderer and scene lifetime","presentation error reporting"],
+  "unsupported":["donkey or crawl hand rig","weapon-mesh collision","third hand","ranged ballistics","new native actor public checkpoint version"],
+  "lifecycle":{"prepare":"await prepareNativeMeleeActor(options); initially inactive","update":"updateConfirmed(hostPose); no gameplay callback","save":"checkpoint() plus host-owned combat/world records","retire":"dispose() drains owned equipment and native resources, preserves borrowed renderer"},
+  "artPin":"0e3131c4a2becd1c9f2647bcddcaa60eb4e075d9","guide":"packages/native-actors/MELEE.md","example":"apps/test-ground/melee/main.js","checks":["tests/native-melee-pose.test.mjs","tests/native-melee-view.test.mjs","tools/fantasy-melee-browser.mjs"]
+}
