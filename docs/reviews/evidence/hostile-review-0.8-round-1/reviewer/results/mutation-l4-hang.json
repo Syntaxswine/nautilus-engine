@@ -1,0 +1,30 @@
+{
+  "generatedAt": "2026-10-30T03:37:12.239Z",
+  "tree": {
+    "head": "f6caeef309e56423fea5e32eb717533f33b59cbb",
+    "statusShort": []
+  },
+  "rig": {
+    "node": "v24.15.0",
+    "platform": "win32 10.0.26200",
+    "cpu": "AMD Ryzen 7 5800X 8-Core Processor",
+    "logicalCpus": 16,
+    "totalMemGiB": 64,
+    "loadNote": "Shared machine: another session runs a rendering benchmark concurrently; wall-clock timings are indicative only."
+  },
+  "mutant": "L4",
+  "file": "packages/runtime-core/lifecycle.js",
+  "needle": "if(!stopPromise){state=",
+  "replace": "if(true){state=",
+  "observed": {
+    "lineage": "mutate.mjs (pid 68552) -> node --test runtime-modules + modular-headless (pid 51880) -> runtime-modules.test.mjs runner (pid 67952)",
+    "runningMinutesWhenObserved": 3,
+    "normalTargetedRunSeconds": "about 3-10 (L1-L3 targeted runs)",
+    "childWorkingSetMiB": [
+      410,
+      436
+    ],
+    "action": "Stopped pid 67952 only (Stop-Process -Id, after verifying its parent chain). node --test then reported the file as failed (2 fail), which the harness recorded as killed.",
+    "meaning": "Under this mutant the suite hangs instead of failing. CI job map-workshop has no timeout-minutes (default 360) and npm test sets no --test-timeout."
+  }
+}
