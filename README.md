@@ -4,6 +4,8 @@ A shared foundation for Animal Factory Tactics 3D, Farmyard Commando and Tinderb
 
 Optional [fantasy equipment and close combat](docs/fantasy-melee.md) adds a headless deterministic melee boundary, explicit physical damage modes and directional shield guard. The [component guide](packages/melee-core/README.md) and [native held-view adapter](packages/native-actors/MELEE.md) connect retained game services. Night Ledger's separate “Steel in the yard” fixture proves native models, keyboard/touch attacks and mid-action reload; bow/crossbow support is visual equip/draw/load only.
 
+The [current painted equipment guide](docs/fantasy-equipment-painted.md) identifies the accepted skins, installed provenance and storage tradeoff while preserving those gameplay and native pose contracts.
+
 The workshop reuses AFT's working editor and Farmyard's painted industrial control materials. It supports map and reusable-block editing, six authored layers, object and character placement, undo/redo, browser-local saves, portable JSON, connection rules, seeded block assembly, feature-line plans and sector presets.
 
 The [modular engine blueprint](docs/engine-blueprint.md) defines the remaining work for selecting systems individually or composing a new game, with Farmyard Commando as the first production adoption target and separate PC/phone profiles.

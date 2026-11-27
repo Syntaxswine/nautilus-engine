@@ -1,0 +1,23 @@
+# Current fantasy equipment: painted v2
+
+Current optional art is the exact Architect-accepted Artist commit `700bc3e93de495400bb74a6b3b7618b1426fb1f3`, tree `58e21be2a00f52a3f9eacf28fc2d24de6f875683`, based on reviewed main `5d19e6198b25e14ef98caf8dbad04ba739f96506`. Its painterly skins replace small modeled wraps, seams, fasteners, grain and insignia. Silhouettes, functional depth, grips and articulated parts retain geometry. The original 15 IDs, finishes, factory/pose ownership and socket transforms remain the same public contract. Art declarations/specs and all combat, costs, timing, balance, native motion and save versions are unchanged; the pick still requires both hands.
+
+## Installed entry points and provenance
+
+Use `@nautilus-engine/map-core/fantasy-equipment-art` for headless metadata and `/fantasy-equipment-art/three` for `createFantasyEquipmentModel(THREE,{id,finish?})`. Supply the existing host Three namespace. Catalogue `handoff.guide` points to the current Artist guide; `handoff.provenance` points to `assets/fantasy-equipment/painted-v2/provenance.json`. That record and its adjacent `NOTICE.md` ship with the supported package profiles. The melee and native-view usage cards link here for current integration status.
+
+There are 18 dedicated 512-square pages across model/finish combinations. Pixels are losslessly decoded from the embedded JS source; no page PNG, source master or source-checkout fallback is fetched. A model owns one 512×512 RGBA texture (1,048,576 decoded bytes), with its own sampler/transform/colour-space/material state and normal factory disposal. No texture/source pooling, new shader or second lifecycle owner is introduced. `paint-layout.js` is a private runtime dependency; it is packaged in the actual module closure, not added as a public API.
+
+Authoring masters, UV studies, page PNGs and review images remain source-only. Their hashes and reproducible crop/packing inputs are preserved in the accepted Artist commit and current provenance. Earlier v1 notices, source records and integration ledgers stay at their historical paths. A new authenticated outer successor checks current bytes, the approved Artist Git objects and protected runtime contracts before supplying exact accepted `5d19` preimages/profiles to the earlier checks. It never indexes historical bytes as current source.
+
+## Accepted design/storage decision
+
+For the requested painterly tactical appearance, painting small surface detail is preferable to modeling it. The standard roster falls from 24,142 to 7,050 triangles and 88 to 73 batches. These are geometry inventory measurements. One 512-square texture per instance remains unchanged, while embedded source grows from 699,865 to 3,459,139 bytes and deterministic gzip from 249,685 to 2,413,233 bytes. Architect accepted that storage increase for richer skins. The revision keeps physical silhouettes and grip/articulation semantics while moving visual detail into UV islands. This is the narrative/appearance preference for this use case, not a realism, FPS, hardware-GPU or performance-saving claim.
+
+The game still owns contacts, guards, inventory, clock, costs and commits. Painted details, alpha, art bounds and sockets grant no gameplay effect. Clear and opaque riot finishes change appearance only. Bow/crossbow draw/load remains visual support rather than new ballistics. Native held views retain the existing standing-goat profile and conservative melee contact limits.
+
+The optional Night Ledger fixture keeps the native held riot shield's default clear finish. Its clear/opaque finish control uses a small inspection stand in the existing scene and renderer; it does not add a native held-finish API, change equipped items, or persist cosmetic stand state in the combat save.
+
+## Integration proof
+
+The final checkpoint records public installed JS/types, Node headless separation, all 18 decoded pixel hashes and matching live buffer/UV bytes against the fixed accepted source. Runtime package inventories reject authoring/review payloads. A narrow retained Night Ledger workflow covers one-hand plus shield, the two-handed pick and hammer, bow/crossbow draw/load, clear/opaque riot appearance, ordinary controls and intact mid-action save/reload. Existing authenticated gameplay and other art evidence is reused where bytes are unchanged. All four required engine gates run on the finished combined tree; helper records include bounded expiry, exact process lifetimes, cleanup and released ports. The fixed commit/PR and immutable delivery packet identify the introduction revision separately from the compatibility base.

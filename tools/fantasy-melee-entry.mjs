@@ -2,7 +2,7 @@ import fs from 'node:fs';import path from 'node:path';import {fileURLToPath} fro
 import {writeTestGroundEntry} from './test-ground-entry.mjs';
 const root=fileURLToPath(new URL('../',import.meta.url)),sha=b=>createHash('sha256').update(b).digest('hex');
 export const FANTASY_MELEE_RUNTIME=['host.js','main.js','melee.css'];
-export const FANTASY_ART_PIN='0e3131c4a2becd1c9f2647bcddcaa60eb4e075d9';
+export const FANTASY_ART_PIN='700bc3e93de495400bb74a6b3b7618b1426fb1f3';
 export function writeFantasyMeleeEntry(outputRoot,{source=false,packageBase,packageProof}={}){
  if(source)writeTestGroundEntry(outputRoot,{source:true});
  const folder=path.join(outputRoot,source?'artifacts/fantasy-melee-source':'apps/test-ground/melee');fs.mkdirSync(folder,{recursive:true});

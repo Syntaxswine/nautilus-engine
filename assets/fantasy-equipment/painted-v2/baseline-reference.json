@@ -1,0 +1,3165 @@
+{
+  "baseline": "5d19e6198b25e14ef98caf8dbad04ba739f96506",
+  "source": {
+    "commit": "5d19e6198b25e14ef98caf8dbad04ba739f96506",
+    "tree": "4504277cc6576a7c425c1c6668aa82041403c4bc",
+    "purpose": "Read-only matched-camera source review; not runtime package content",
+    "files": [
+      {
+        "source": "packages/fantasy-equipment-art/catalogue.js",
+        "sha256": "97a5a2a4bc412e8603af34756b6371caad6b69f728ab5fcbda5a0964d978fd10",
+        "bytes": 3723
+      },
+      {
+        "source": "packages/fantasy-equipment-art/geometry.js",
+        "sha256": "5168a67dd4d3bc7b64a1bbc8245b818c003127934d833c1c9dea282cb33a5276",
+        "bytes": 19472
+      },
+      {
+        "source": "packages/fantasy-equipment-art/specs.js",
+        "sha256": "76e351ab30835c929fe4366cd59c7eed4ac810ba63385e57515222de3c56914d",
+        "bytes": 4294
+      },
+      {
+        "source": "packages/fantasy-equipment-art/three.js",
+        "sha256": "c2b61cf98f87867b604d6e2c93a33143dcc1e8066f72feee0519736c0da981d4",
+        "bytes": 5435
+      },
+      {
+        "source": "packages/fantasy-equipment-art/paint-data.js",
+        "sha256": "05954b3b3f3cc3487c28046a44bfcaf93d073623d88497881b1b3c44cd9c0bbd",
+        "bytes": 699865
+      }
+    ]
+  },
+  "models": [
+    {
+      "id": "knife",
+      "metadata": {
+        "id": "knife",
+        "version": 1,
+        "axes": {
+          "up": "+Y",
+          "right": "+X",
+          "front": "+Z",
+          "projectileForward": null,
+          "longWeapon": "+Y"
+        },
+        "grip": {
+          "main": {
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "socket": "grip.main",
+            "moves": false
+          },
+          "off": null
+        },
+        "sockets": [
+          {
+            "id": "grip.main",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "grasp"
+          },
+          {
+            "id": "edge",
+            "position": [
+              0,
+              0.24,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "descriptive-part-marker"
+          },
+          {
+            "id": "tip",
+            "position": [
+              0,
+              0.32,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "descriptive-part-marker"
+          }
+        ],
+        "finishes": [
+          "standard"
+        ],
+        "parts": [
+          "blade",
+          "guard",
+          "grip",
+          "pommel"
+        ],
+        "articulation": {
+          "fields": {},
+          "defaults": {},
+          "patch": false,
+          "combinations": "Only an empty object is supported."
+        },
+        "units": "metres",
+        "nativeScale": 1
+      },
+      "bounds": {
+        "min": [
+          -0.045,
+          -0.1,
+          -0.02016
+        ],
+        "max": [
+          0.045,
+          0.32,
+          0.02016
+        ]
+      },
+      "resources": {
+        "textures": 1,
+        "textureSize": [
+          512,
+          512
+        ],
+        "textureBytes": 1048576,
+        "gpuTextureBytesWithMipmaps": 1398100,
+        "asynchronousLoads": 0,
+        "triangles": 776,
+        "meshBatches": 5,
+        "materials": 5,
+        "byFinish": {
+          "standard": {
+            "triangles": 776,
+            "meshBatches": 5,
+            "materials": 5
+          }
+        }
+      },
+      "anchorsAt0": {
+        "grip.main": [
+          0,
+          0,
+          0
+        ],
+        "edge": [
+          0,
+          0.24,
+          0
+        ],
+        "tip": [
+          0,
+          0.32,
+          0
+        ]
+      },
+      "anchorsAt1": {
+        "grip.main": [
+          0,
+          0,
+          0
+        ],
+        "edge": [
+          0,
+          0.24,
+          0
+        ],
+        "tip": [
+          0,
+          0.32,
+          0
+        ]
+      }
+    },
+    {
+      "id": "short-sword",
+      "metadata": {
+        "id": "short-sword",
+        "version": 1,
+        "axes": {
+          "up": "+Y",
+          "right": "+X",
+          "front": "+Z",
+          "projectileForward": null,
+          "longWeapon": "+Y"
+        },
+        "grip": {
+          "main": {
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "socket": "grip.main",
+            "moves": false
+          },
+          "off": null
+        },
+        "sockets": [
+          {
+            "id": "grip.main",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "grasp"
+          },
+          {
+            "id": "edge",
+            "position": [
+              0.035,
+              0.43,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "descriptive-part-marker"
+          },
+          {
+            "id": "tip",
+            "position": [
+              0,
+              0.67,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "descriptive-part-marker"
+          }
+        ],
+        "finishes": [
+          "standard"
+        ],
+        "parts": [
+          "blade",
+          "fuller",
+          "guard",
+          "grip",
+          "pommel"
+        ],
+        "articulation": {
+          "fields": {},
+          "defaults": {},
+          "patch": false,
+          "combinations": "Only an empty object is supported."
+        },
+        "units": "metres",
+        "nativeScale": 1
+      },
+      "bounds": {
+        "min": [
+          -0.108,
+          -0.159,
+          -0.032
+        ],
+        "max": [
+          0.108,
+          0.67,
+          0.04
+        ]
+      },
+      "resources": {
+        "textures": 1,
+        "textureSize": [
+          512,
+          512
+        ],
+        "textureBytes": 1048576,
+        "gpuTextureBytesWithMipmaps": 1398100,
+        "asynchronousLoads": 0,
+        "triangles": 1240,
+        "meshBatches": 4,
+        "materials": 4,
+        "byFinish": {
+          "standard": {
+            "triangles": 1240,
+            "meshBatches": 4,
+            "materials": 4
+          }
+        }
+      },
+      "anchorsAt0": {
+        "grip.main": [
+          0,
+          0,
+          0
+        ],
+        "edge": [
+          0.035,
+          0.43,
+          0
+        ],
+        "tip": [
+          0,
+          0.67,
+          0
+        ]
+      },
+      "anchorsAt1": {
+        "grip.main": [
+          0,
+          0,
+          0
+        ],
+        "edge": [
+          0.035,
+          0.43,
+          0
+        ],
+        "tip": [
+          0,
+          0.67,
+          0
+        ]
+      }
+    },
+    {
+      "id": "sword",
+      "metadata": {
+        "id": "sword",
+        "version": 1,
+        "axes": {
+          "up": "+Y",
+          "right": "+X",
+          "front": "+Z",
+          "projectileForward": null,
+          "longWeapon": "+Y"
+        },
+        "grip": {
+          "main": {
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "socket": "grip.main",
+            "moves": false
+          },
+          "off": null
+        },
+        "sockets": [
+          {
+            "id": "grip.main",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "grasp"
+          },
+          {
+            "id": "edge",
+            "position": [
+              0.037,
+              0.61,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "descriptive-part-marker"
+          },
+          {
+            "id": "tip",
+            "position": [
+              0,
+              1.02,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "descriptive-part-marker"
+          }
+        ],
+        "finishes": [
+          "standard"
+        ],
+        "parts": [
+          "blade",
+          "fuller",
+          "guard",
+          "grip",
+          "pommel"
+        ],
+        "articulation": {
+          "fields": {},
+          "defaults": {},
+          "patch": false,
+          "combinations": "Only an empty object is supported."
+        },
+        "units": "metres",
+        "nativeScale": 1
+      },
+      "bounds": {
+        "min": [
+          -0.153,
+          -0.165,
+          -0.038
+        ],
+        "max": [
+          0.153,
+          1.02,
+          0.04
+        ]
+      },
+      "resources": {
+        "textures": 1,
+        "textureSize": [
+          512,
+          512
+        ],
+        "textureBytes": 1048576,
+        "gpuTextureBytesWithMipmaps": 1398100,
+        "asynchronousLoads": 0,
+        "triangles": 1240,
+        "meshBatches": 4,
+        "materials": 4,
+        "byFinish": {
+          "standard": {
+            "triangles": 1240,
+            "meshBatches": 4,
+            "materials": 4
+          }
+        }
+      },
+      "anchorsAt0": {
+        "grip.main": [
+          0,
+          0,
+          0
+        ],
+        "edge": [
+          0.037,
+          0.61,
+          0
+        ],
+        "tip": [
+          0,
+          1.02,
+          0
+        ]
+      },
+      "anchorsAt1": {
+        "grip.main": [
+          0,
+          0,
+          0
+        ],
+        "edge": [
+          0.037,
+          0.61,
+          0
+        ],
+        "tip": [
+          0,
+          1.02,
+          0
+        ]
+      }
+    },
+    {
+      "id": "axe",
+      "metadata": {
+        "id": "axe",
+        "version": 1,
+        "axes": {
+          "up": "+Y",
+          "right": "+X",
+          "front": "+Z",
+          "projectileForward": null,
+          "longWeapon": "+Y"
+        },
+        "grip": {
+          "main": {
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "socket": "grip.main",
+            "moves": false
+          },
+          "off": null
+        },
+        "sockets": [
+          {
+            "id": "grip.main",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "grasp"
+          },
+          {
+            "id": "edge",
+            "position": [
+              0.225,
+              0.58,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "descriptive-part-marker"
+          },
+          {
+            "id": "poll",
+            "position": [
+              -0.075,
+              0.64,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "descriptive-part-marker"
+          }
+        ],
+        "finishes": [
+          "standard"
+        ],
+        "parts": [
+          "haft",
+          "eye",
+          "head",
+          "edge",
+          "grip"
+        ],
+        "articulation": {
+          "fields": {},
+          "defaults": {},
+          "patch": false,
+          "combinations": "Only an empty object is supported."
+        },
+        "units": "metres",
+        "nativeScale": 1
+      },
+      "bounds": {
+        "min": [
+          -0.07,
+          -0.13,
+          -0.041
+        ],
+        "max": [
+          0.267,
+          0.768,
+          0.05365739561406607
+        ]
+      },
+      "resources": {
+        "textures": 1,
+        "textureSize": [
+          512,
+          512
+        ],
+        "textureBytes": 1048576,
+        "gpuTextureBytesWithMipmaps": 1398100,
+        "asynchronousLoads": 0,
+        "triangles": 1438,
+        "meshBatches": 5,
+        "materials": 5,
+        "byFinish": {
+          "standard": {
+            "triangles": 1438,
+            "meshBatches": 5,
+            "materials": 5
+          }
+        }
+      },
+      "anchorsAt0": {
+        "grip.main": [
+          0,
+          0,
+          0
+        ],
+        "edge": [
+          0.225,
+          0.58,
+          0
+        ],
+        "poll": [
+          -0.075,
+          0.64,
+          0
+        ]
+      },
+      "anchorsAt1": {
+        "grip.main": [
+          0,
+          0,
+          0
+        ],
+        "edge": [
+          0.225,
+          0.58,
+          0
+        ],
+        "poll": [
+          -0.075,
+          0.64,
+          0
+        ]
+      }
+    },
+    {
+      "id": "pick",
+      "metadata": {
+        "id": "pick",
+        "version": 1,
+        "axes": {
+          "up": "+Y",
+          "right": "+X",
+          "front": "+Z",
+          "projectileForward": null,
+          "longWeapon": "+Y"
+        },
+        "grip": {
+          "main": {
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "socket": "grip.main",
+            "moves": false
+          },
+          "off": {
+            "position": [
+              0,
+              0.3,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "socket": "grip.off",
+            "moves": false
+          }
+        },
+        "sockets": [
+          {
+            "id": "grip.main",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "grasp"
+          },
+          {
+            "id": "grip.off",
+            "position": [
+              0,
+              0.3,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "grasp"
+          },
+          {
+            "id": "tip",
+            "position": [
+              -0.4,
+              0.61,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "descriptive-part-marker"
+          },
+          {
+            "id": "poll",
+            "position": [
+              0.24,
+              0.74,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "descriptive-part-marker"
+          }
+        ],
+        "finishes": [
+          "standard"
+        ],
+        "parts": [
+          "haft",
+          "eye",
+          "pick",
+          "poll",
+          "grip"
+        ],
+        "articulation": {
+          "fields": {},
+          "defaults": {},
+          "patch": false,
+          "combinations": "Only an empty object is supported."
+        },
+        "units": "metres",
+        "nativeScale": 1
+      },
+      "bounds": {
+        "min": [
+          -0.4,
+          -0.35,
+          -0.046
+        ],
+        "max": [
+          0.2595,
+          0.82,
+          0.05365739561406607
+        ]
+      },
+      "resources": {
+        "textures": 1,
+        "textureSize": [
+          512,
+          512
+        ],
+        "textureBytes": 1048576,
+        "gpuTextureBytesWithMipmaps": 1398100,
+        "asynchronousLoads": 0,
+        "triangles": 2200,
+        "meshBatches": 5,
+        "materials": 5,
+        "byFinish": {
+          "standard": {
+            "triangles": 2200,
+            "meshBatches": 5,
+            "materials": 5
+          }
+        }
+      },
+      "anchorsAt0": {
+        "grip.main": [
+          0,
+          0,
+          0
+        ],
+        "grip.off": [
+          0,
+          0.3,
+          0
+        ],
+        "tip": [
+          -0.4,
+          0.61,
+          0
+        ],
+        "poll": [
+          0.24,
+          0.74,
+          0
+        ]
+      },
+      "anchorsAt1": {
+        "grip.main": [
+          0,
+          0,
+          0
+        ],
+        "grip.off": [
+          0,
+          0.3,
+          0
+        ],
+        "tip": [
+          -0.4,
+          0.61,
+          0
+        ],
+        "poll": [
+          0.24,
+          0.74,
+          0
+        ]
+      }
+    },
+    {
+      "id": "blacksmith-hammer",
+      "metadata": {
+        "id": "blacksmith-hammer",
+        "version": 1,
+        "axes": {
+          "up": "+Y",
+          "right": "+X",
+          "front": "+Z",
+          "projectileForward": null,
+          "longWeapon": "+Y"
+        },
+        "grip": {
+          "main": {
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "socket": "grip.main",
+            "moves": false
+          },
+          "off": {
+            "position": [
+              0,
+              0.32,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "socket": "grip.off",
+            "moves": false
+          }
+        },
+        "sockets": [
+          {
+            "id": "grip.main",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "grasp"
+          },
+          {
+            "id": "grip.off",
+            "position": [
+              0,
+              0.32,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "grasp"
+          },
+          {
+            "id": "face.left",
+            "position": [
+              -0.23,
+              0.73,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "descriptive-part-marker"
+          },
+          {
+            "id": "face.right",
+            "position": [
+              0.23,
+              0.73,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "descriptive-part-marker"
+          }
+        ],
+        "finishes": [
+          "standard"
+        ],
+        "parts": [
+          "haft",
+          "eye",
+          "head",
+          "face.left",
+          "face.right",
+          "grip"
+        ],
+        "articulation": {
+          "fields": {},
+          "defaults": {},
+          "patch": false,
+          "combinations": "Only an empty object is supported."
+        },
+        "units": "metres",
+        "nativeScale": 1
+      },
+      "bounds": {
+        "min": [
+          -0.235,
+          -0.39,
+          -0.103
+        ],
+        "max": [
+          0.235,
+          0.845,
+          0.103
+        ]
+      },
+      "resources": {
+        "textures": 1,
+        "textureSize": [
+          512,
+          512
+        ],
+        "textureBytes": 1048576,
+        "gpuTextureBytesWithMipmaps": 1398100,
+        "asynchronousLoads": 0,
+        "triangles": 2320,
+        "meshBatches": 5,
+        "materials": 5,
+        "byFinish": {
+          "standard": {
+            "triangles": 2320,
+            "meshBatches": 5,
+            "materials": 5
+          }
+        }
+      },
+      "anchorsAt0": {
+        "grip.main": [
+          0,
+          0,
+          0
+        ],
+        "grip.off": [
+          0,
+          0.32,
+          0
+        ],
+        "face.left": [
+          -0.23,
+          0.73,
+          0
+        ],
+        "face.right": [
+          0.23,
+          0.73,
+          0
+        ]
+      },
+      "anchorsAt1": {
+        "grip.main": [
+          0,
+          0,
+          0
+        ],
+        "grip.off": [
+          0,
+          0.32,
+          0
+        ],
+        "face.left": [
+          -0.23,
+          0.73,
+          0
+        ],
+        "face.right": [
+          0.23,
+          0.73,
+          0
+        ]
+      }
+    },
+    {
+      "id": "mace",
+      "metadata": {
+        "id": "mace",
+        "version": 1,
+        "axes": {
+          "up": "+Y",
+          "right": "+X",
+          "front": "+Z",
+          "projectileForward": null,
+          "longWeapon": "+Y"
+        },
+        "grip": {
+          "main": {
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "socket": "grip.main",
+            "moves": false
+          },
+          "off": null
+        },
+        "sockets": [
+          {
+            "id": "grip.main",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "grasp"
+          },
+          {
+            "id": "head",
+            "position": [
+              0,
+              0.55,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "descriptive-part-marker"
+          }
+        ],
+        "finishes": [
+          "standard"
+        ],
+        "parts": [
+          "shaft",
+          "flanges",
+          "collar",
+          "grip",
+          "pommel"
+        ],
+        "articulation": {
+          "fields": {},
+          "defaults": {},
+          "patch": false,
+          "combinations": "Only an empty object is supported."
+        },
+        "units": "metres",
+        "nativeScale": 1
+      },
+      "bounds": {
+        "min": [
+          -0.119,
+          -0.16140000000000002,
+          -0.10305702305034818
+        ],
+        "max": [
+          0.119,
+          0.6878000000000001,
+          0.1030570230503482
+        ]
+      },
+      "resources": {
+        "textures": 1,
+        "textureSize": [
+          512,
+          512
+        ],
+        "textureBytes": 1048576,
+        "gpuTextureBytesWithMipmaps": 1398100,
+        "asynchronousLoads": 0,
+        "triangles": 1492,
+        "meshBatches": 4,
+        "materials": 4,
+        "byFinish": {
+          "standard": {
+            "triangles": 1492,
+            "meshBatches": 4,
+            "materials": 4
+          }
+        }
+      },
+      "anchorsAt0": {
+        "grip.main": [
+          0,
+          0,
+          0
+        ],
+        "head": [
+          0,
+          0.55,
+          0
+        ]
+      },
+      "anchorsAt1": {
+        "grip.main": [
+          0,
+          0,
+          0
+        ],
+        "head": [
+          0,
+          0.55,
+          0
+        ]
+      }
+    },
+    {
+      "id": "spear",
+      "metadata": {
+        "id": "spear",
+        "version": 1,
+        "axes": {
+          "up": "+Y",
+          "right": "+X",
+          "front": "+Z",
+          "projectileForward": null,
+          "longWeapon": "+Y"
+        },
+        "grip": {
+          "main": {
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "socket": "grip.main",
+            "moves": false
+          },
+          "off": {
+            "position": [
+              0,
+              0.42,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "socket": "grip.off",
+            "moves": false
+          }
+        },
+        "sockets": [
+          {
+            "id": "grip.main",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "grasp"
+          },
+          {
+            "id": "grip.off",
+            "position": [
+              0,
+              0.42,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "grasp"
+          },
+          {
+            "id": "tip",
+            "position": [
+              0,
+              1.4,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "descriptive-part-marker"
+          },
+          {
+            "id": "butt",
+            "position": [
+              0,
+              -0.85,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "descriptive-part-marker"
+          }
+        ],
+        "finishes": [
+          "standard"
+        ],
+        "parts": [
+          "haft",
+          "socket",
+          "blade",
+          "butt",
+          "grip"
+        ],
+        "articulation": {
+          "fields": {},
+          "defaults": {},
+          "patch": false,
+          "combinations": "Only an empty object is supported."
+        },
+        "units": "metres",
+        "nativeScale": 1
+      },
+      "bounds": {
+        "min": [
+          -0.05978,
+          -0.85,
+          -0.027
+        ],
+        "max": [
+          0.05978,
+          1.4,
+          0.027
+        ]
+      },
+      "resources": {
+        "textures": 1,
+        "textureSize": [
+          512,
+          512
+        ],
+        "textureBytes": 1048576,
+        "gpuTextureBytesWithMipmaps": 1398100,
+        "asynchronousLoads": 0,
+        "triangles": 1944,
+        "meshBatches": 5,
+        "materials": 5,
+        "byFinish": {
+          "standard": {
+            "triangles": 1944,
+            "meshBatches": 5,
+            "materials": 5
+          }
+        }
+      },
+      "anchorsAt0": {
+        "grip.main": [
+          0,
+          0,
+          0
+        ],
+        "grip.off": [
+          0,
+          0.42,
+          0
+        ],
+        "tip": [
+          0,
+          1.4,
+          0
+        ],
+        "butt": [
+          0,
+          -0.85,
+          0
+        ]
+      },
+      "anchorsAt1": {
+        "grip.main": [
+          0,
+          0,
+          0
+        ],
+        "grip.off": [
+          0,
+          0.42,
+          0
+        ],
+        "tip": [
+          0,
+          1.4,
+          0
+        ],
+        "butt": [
+          0,
+          -0.85,
+          0
+        ]
+      }
+    },
+    {
+      "id": "halberd",
+      "metadata": {
+        "id": "halberd",
+        "version": 1,
+        "axes": {
+          "up": "+Y",
+          "right": "+X",
+          "front": "+Z",
+          "projectileForward": null,
+          "longWeapon": "+Y"
+        },
+        "grip": {
+          "main": {
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "socket": "grip.main",
+            "moves": false
+          },
+          "off": {
+            "position": [
+              0,
+              0.44,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "socket": "grip.off",
+            "moves": false
+          }
+        },
+        "sockets": [
+          {
+            "id": "grip.main",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "grasp"
+          },
+          {
+            "id": "grip.off",
+            "position": [
+              0,
+              0.44,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "grasp"
+          },
+          {
+            "id": "tip",
+            "position": [
+              0,
+              1.46,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "descriptive-part-marker"
+          },
+          {
+            "id": "edge",
+            "position": [
+              0.25,
+              1.06,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "descriptive-part-marker"
+          },
+          {
+            "id": "hook",
+            "position": [
+              -0.25,
+              1.1,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "descriptive-part-marker"
+          }
+        ],
+        "finishes": [
+          "standard"
+        ],
+        "parts": [
+          "haft",
+          "langets",
+          "axe",
+          "hook",
+          "spike",
+          "butt",
+          "grip"
+        ],
+        "articulation": {
+          "fields": {},
+          "defaults": {},
+          "patch": false,
+          "combinations": "Only an empty object is supported."
+        },
+        "units": "metres",
+        "nativeScale": 1
+      },
+      "bounds": {
+        "min": [
+          -0.28,
+          -0.9,
+          -0.029
+        ],
+        "max": [
+          0.29,
+          1.46,
+          0.039657395614066074
+        ]
+      },
+      "resources": {
+        "textures": 1,
+        "textureSize": [
+          512,
+          512
+        ],
+        "textureBytes": 1048576,
+        "gpuTextureBytesWithMipmaps": 1398100,
+        "asynchronousLoads": 0,
+        "triangles": 2382,
+        "meshBatches": 5,
+        "materials": 5,
+        "byFinish": {
+          "standard": {
+            "triangles": 2382,
+            "meshBatches": 5,
+            "materials": 5
+          }
+        }
+      },
+      "anchorsAt0": {
+        "grip.main": [
+          0,
+          0,
+          0
+        ],
+        "grip.off": [
+          0,
+          0.44,
+          0
+        ],
+        "tip": [
+          0,
+          1.46,
+          0
+        ],
+        "edge": [
+          0.25,
+          1.06,
+          0
+        ],
+        "hook": [
+          -0.25,
+          1.1,
+          0
+        ]
+      },
+      "anchorsAt1": {
+        "grip.main": [
+          0,
+          0,
+          0
+        ],
+        "grip.off": [
+          0,
+          0.44,
+          0
+        ],
+        "tip": [
+          0,
+          1.46,
+          0
+        ],
+        "edge": [
+          0.25,
+          1.06,
+          0
+        ],
+        "hook": [
+          -0.25,
+          1.1,
+          0
+        ]
+      }
+    },
+    {
+      "id": "bow",
+      "metadata": {
+        "id": "bow",
+        "version": 1,
+        "axes": {
+          "up": "+Y",
+          "right": "+X",
+          "front": "+Z",
+          "projectileForward": "+Z",
+          "longWeapon": "+Y"
+        },
+        "grip": {
+          "main": {
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "socket": "grip.main",
+            "moves": false
+          },
+          "off": {
+            "position": [
+              0,
+              0.11,
+              -0.15
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "socket": "grip.off",
+            "moves": true
+          }
+        },
+        "sockets": [
+          {
+            "id": "limb.upper",
+            "position": [
+              0,
+              0.72,
+              -0.11699999999999999
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "moves": true,
+            "role": "articulation-marker"
+          },
+          {
+            "id": "limb.lower",
+            "position": [
+              0,
+              -0.72,
+              -0.11699999999999999
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "moves": true,
+            "role": "articulation-marker"
+          },
+          {
+            "id": "string.nock",
+            "position": [
+              0,
+              0.11,
+              -0.15
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "moves": true,
+            "role": "articulation-marker"
+          },
+          {
+            "id": "projectile.nock",
+            "position": [
+              0,
+              0.11,
+              -0.15
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "moves": true,
+            "role": "projectile-marker"
+          },
+          {
+            "id": "projectile.tip",
+            "position": [
+              0,
+              0.11,
+              0.57
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "moves": true,
+            "role": "projectile-marker"
+          },
+          {
+            "id": "grip.main",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "moves": false,
+            "role": "grasp"
+          },
+          {
+            "id": "grip.off",
+            "position": [
+              0,
+              0.11,
+              -0.15
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "moves": true,
+            "role": "grasp"
+          },
+          {
+            "id": "aim",
+            "position": [
+              0,
+              0.11,
+              0.2
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "moves": false,
+            "role": "descriptive-part-marker"
+          }
+        ],
+        "finishes": [
+          "standard"
+        ],
+        "parts": [
+          "riser",
+          "grip",
+          "limb.upper",
+          "limb.lower",
+          "string.upper",
+          "string.lower",
+          "projectile",
+          "arrow-rest"
+        ],
+        "articulation": {
+          "fields": {
+            "draw": {
+              "type": "finite-number",
+              "min": 0,
+              "max": 1
+            },
+            "loaded": {
+              "type": "boolean"
+            }
+          },
+          "defaults": {
+            "draw": 0,
+            "loaded": false
+          },
+          "patch": true,
+          "combinations": "All draw/loaded combinations supported, including empty drawing. Loaded controls only the projectile visibility. Gameplay owns dry-fire policy.",
+          "movingParts": [
+            "limb.upper",
+            "limb.lower",
+            "string.upper",
+            "string.lower",
+            "projectile"
+          ],
+          "stableNodes": true
+        },
+        "units": "metres",
+        "nativeScale": 1
+      },
+      "bounds": {
+        "min": [
+          -0.037000000000000005,
+          -0.7220550482441032,
+          -0.5832718037529128
+        ],
+        "max": [
+          0.039,
+          0.7220748514361045,
+          0.572
+        ]
+      },
+      "resources": {
+        "textures": 1,
+        "textureSize": [
+          512,
+          512
+        ],
+        "textureBytes": 1048576,
+        "gpuTextureBytesWithMipmaps": 1398100,
+        "asynchronousLoads": 0,
+        "triangles": 1070,
+        "meshBatches": 14,
+        "materials": 6,
+        "byFinish": {
+          "standard": {
+            "triangles": 1070,
+            "meshBatches": 14,
+            "materials": 6
+          }
+        }
+      },
+      "anchorsAt0": {
+        "limb.upper": [
+          0,
+          0.72,
+          -0.11699999999999999
+        ],
+        "limb.lower": [
+          0,
+          -0.72,
+          -0.11699999999999999
+        ],
+        "string.nock": [
+          0,
+          0.11,
+          -0.15
+        ],
+        "projectile.nock": [
+          0,
+          0.11,
+          -0.15
+        ],
+        "projectile.tip": [
+          0,
+          0.11,
+          0.57
+        ],
+        "grip.main": [
+          0,
+          0,
+          0
+        ],
+        "grip.off": [
+          0,
+          0.11,
+          -0.15
+        ],
+        "aim": [
+          0,
+          0.11,
+          0.2
+        ]
+      },
+      "anchorsAt1": {
+        "limb.upper": [
+          0,
+          0.6599999999999999,
+          -0.247
+        ],
+        "limb.lower": [
+          0,
+          -0.6599999999999999,
+          -0.247
+        ],
+        "string.nock": [
+          0,
+          0.11,
+          -0.58
+        ],
+        "projectile.nock": [
+          0,
+          0.11,
+          -0.58
+        ],
+        "projectile.tip": [
+          0,
+          0.11,
+          0.14
+        ],
+        "grip.main": [
+          0,
+          0,
+          0
+        ],
+        "grip.off": [
+          0,
+          0.11,
+          -0.58
+        ],
+        "aim": [
+          0,
+          0.11,
+          0.2
+        ]
+      }
+    },
+    {
+      "id": "crossbow",
+      "metadata": {
+        "id": "crossbow",
+        "version": 1,
+        "axes": {
+          "up": "+Y",
+          "right": "+X",
+          "front": "+Z",
+          "projectileForward": "+Z",
+          "longWeapon": "+Y"
+        },
+        "grip": {
+          "main": {
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "socket": "grip.main",
+            "moves": false
+          },
+          "off": {
+            "position": [
+              0,
+              0.105,
+              0.32
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "socket": "grip.off",
+            "moves": false
+          }
+        },
+        "sockets": [
+          {
+            "id": "limb.left",
+            "position": [
+              -0.43,
+              0.15,
+              0.4600000000000001
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "moves": true,
+            "role": "articulation-marker"
+          },
+          {
+            "id": "limb.right",
+            "position": [
+              0.43,
+              0.15,
+              0.4600000000000001
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "moves": true,
+            "role": "articulation-marker"
+          },
+          {
+            "id": "string.nock",
+            "position": [
+              0,
+              0.18,
+              0.415
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "moves": true,
+            "role": "articulation-marker"
+          },
+          {
+            "id": "projectile.nock",
+            "position": [
+              0,
+              0.18,
+              0.415
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "moves": true,
+            "role": "projectile-marker"
+          },
+          {
+            "id": "projectile.tip",
+            "position": [
+              0,
+              0.18,
+              0.9949999999999999
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "moves": true,
+            "role": "projectile-marker"
+          },
+          {
+            "id": "grip.main",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "moves": false,
+            "role": "grasp"
+          },
+          {
+            "id": "grip.off",
+            "position": [
+              0,
+              0.105,
+              0.32
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "moves": false,
+            "role": "grasp"
+          },
+          {
+            "id": "aim",
+            "position": [
+              0,
+              0.16,
+              0.7
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "moves": false,
+            "role": "descriptive-part-marker"
+          }
+        ],
+        "finishes": [
+          "standard"
+        ],
+        "parts": [
+          "stock",
+          "grip",
+          "prod",
+          "limb.left",
+          "limb.right",
+          "string.left",
+          "string.right",
+          "projectile",
+          "rail",
+          "trigger",
+          "stirrup"
+        ],
+        "articulation": {
+          "fields": {
+            "draw": {
+              "type": "finite-number",
+              "min": 0,
+              "max": 1
+            },
+            "loaded": {
+              "type": "boolean"
+            }
+          },
+          "defaults": {
+            "draw": 0,
+            "loaded": false
+          },
+          "patch": true,
+          "combinations": "All draw/loaded combinations supported, including empty drawing. Loaded controls only the projectile visibility. Gameplay owns dry-fire policy.",
+          "movingParts": [
+            "limb.left",
+            "limb.right",
+            "string.left",
+            "string.right",
+            "projectile"
+          ],
+          "stableNodes": true
+        },
+        "units": "metres",
+        "nativeScale": 1
+      },
+      "bounds": {
+        "min": [
+          -0.43224900636130026,
+          -0.07200000000000001,
+          -0.438
+        ],
+        "max": [
+          0.43224900636130026,
+          0.202,
+          0.9969999999999999
+        ]
+      },
+      "resources": {
+        "textures": 1,
+        "textureSize": [
+          512,
+          512
+        ],
+        "textureBytes": 1048576,
+        "gpuTextureBytesWithMipmaps": 1398100,
+        "asynchronousLoads": 0,
+        "triangles": 756,
+        "meshBatches": 12,
+        "materials": 6,
+        "byFinish": {
+          "standard": {
+            "triangles": 756,
+            "meshBatches": 12,
+            "materials": 6
+          }
+        }
+      },
+      "anchorsAt0": {
+        "limb.left": [
+          -0.43,
+          0.15,
+          0.4600000000000001
+        ],
+        "limb.right": [
+          0.43,
+          0.15,
+          0.4600000000000001
+        ],
+        "string.nock": [
+          0,
+          0.18,
+          0.415
+        ],
+        "projectile.nock": [
+          0,
+          0.18,
+          0.415
+        ],
+        "projectile.tip": [
+          0,
+          0.18,
+          0.9949999999999999
+        ],
+        "grip.main": [
+          0,
+          0,
+          0
+        ],
+        "grip.off": [
+          0,
+          0.105,
+          0.32
+        ],
+        "aim": [
+          0,
+          0.16,
+          0.7
+        ]
+      },
+      "anchorsAt1": {
+        "limb.left": [
+          -0.395,
+          0.15,
+          0.4050000000000001
+        ],
+        "limb.right": [
+          0.395,
+          0.15,
+          0.4050000000000001
+        ],
+        "string.nock": [
+          0,
+          0.18,
+          0.15999999999999998
+        ],
+        "projectile.nock": [
+          0,
+          0.18,
+          0.15999999999999998
+        ],
+        "projectile.tip": [
+          0,
+          0.18,
+          0.74
+        ],
+        "grip.main": [
+          0,
+          0,
+          0
+        ],
+        "grip.off": [
+          0,
+          0.105,
+          0.32
+        ],
+        "aim": [
+          0,
+          0.16,
+          0.7
+        ]
+      }
+    },
+    {
+      "id": "round-wood-shield",
+      "metadata": {
+        "id": "round-wood-shield",
+        "version": 1,
+        "axes": {
+          "up": "+Y",
+          "right": "+X",
+          "front": "+Z",
+          "projectileForward": null,
+          "longWeapon": "+Y"
+        },
+        "grip": {
+          "main": {
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "socket": "grip.main",
+            "moves": false
+          },
+          "off": {
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "socket": "grip.off",
+            "moves": false
+          }
+        },
+        "sockets": [
+          {
+            "id": "grip.main",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "grasp"
+          },
+          {
+            "id": "grip.off",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "grasp"
+          },
+          {
+            "id": "face",
+            "position": [
+              0,
+              0,
+              0.19
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "descriptive-part-marker"
+          },
+          {
+            "id": "back",
+            "position": [
+              0,
+              0,
+              -0.045
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "descriptive-part-marker"
+          }
+        ],
+        "finishes": [
+          "standard",
+          "teal"
+        ],
+        "parts": [
+          "planks",
+          "rim",
+          "boss",
+          "rivets",
+          "back-braces",
+          "grip"
+        ],
+        "articulation": {
+          "fields": {},
+          "defaults": {},
+          "patch": false,
+          "combinations": "Only an empty object is supported."
+        },
+        "units": "metres",
+        "nativeScale": 1
+      },
+      "bounds": {
+        "min": [
+          -0.35200000000000004,
+          -0.35200000000000004,
+          -0.017
+        ],
+        "max": [
+          0.35200000000000004,
+          0.35200000000000004,
+          0.1926
+        ]
+      },
+      "resources": {
+        "textures": 1,
+        "textureSize": [
+          512,
+          512
+        ],
+        "textureBytes": 1048576,
+        "gpuTextureBytesWithMipmaps": 1398100,
+        "asynchronousLoads": 0,
+        "triangles": 3636,
+        "meshBatches": 4,
+        "materials": 4,
+        "byFinish": {
+          "standard": {
+            "triangles": 3636,
+            "meshBatches": 4,
+            "materials": 4
+          },
+          "teal": {
+            "triangles": 3636,
+            "meshBatches": 5,
+            "materials": 5
+          }
+        }
+      },
+      "anchorsAt0": {
+        "grip.main": [
+          0,
+          0,
+          0
+        ],
+        "grip.off": [
+          0,
+          0,
+          0
+        ],
+        "face": [
+          0,
+          0,
+          0.19
+        ],
+        "back": [
+          0,
+          0,
+          -0.045
+        ]
+      },
+      "anchorsAt1": {
+        "grip.main": [
+          0,
+          0,
+          0
+        ],
+        "grip.off": [
+          0,
+          0,
+          0
+        ],
+        "face": [
+          0,
+          0,
+          0.19
+        ],
+        "back": [
+          0,
+          0,
+          -0.045
+        ]
+      }
+    },
+    {
+      "id": "emblem-metal-shield",
+      "metadata": {
+        "id": "emblem-metal-shield",
+        "version": 1,
+        "axes": {
+          "up": "+Y",
+          "right": "+X",
+          "front": "+Z",
+          "projectileForward": null,
+          "longWeapon": "+Y"
+        },
+        "grip": {
+          "main": {
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "socket": "grip.main",
+            "moves": false
+          },
+          "off": {
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "socket": "grip.off",
+            "moves": false
+          }
+        },
+        "sockets": [
+          {
+            "id": "grip.main",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "grasp"
+          },
+          {
+            "id": "grip.off",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "grasp"
+          },
+          {
+            "id": "face",
+            "position": [
+              0,
+              0.03,
+              0.165
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "descriptive-part-marker"
+          },
+          {
+            "id": "back",
+            "position": [
+              0,
+              0,
+              -0.045
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "descriptive-part-marker"
+          }
+        ],
+        "finishes": [
+          "standard",
+          "red"
+        ],
+        "parts": [
+          "shell",
+          "rim",
+          "emblem",
+          "rivets",
+          "arm-pad",
+          "arm-strap",
+          "grip"
+        ],
+        "articulation": {
+          "fields": {},
+          "defaults": {},
+          "patch": false,
+          "combinations": "Only an empty object is supported."
+        },
+        "units": "metres",
+        "nativeScale": 1
+      },
+      "bounds": {
+        "min": [
+          -0.222,
+          -0.305,
+          -0.051000000000000004
+        ],
+        "max": [
+          0.222,
+          0.305,
+          0.1703
+        ]
+      },
+      "resources": {
+        "textures": 1,
+        "textureSize": [
+          512,
+          512
+        ],
+        "textureBytes": 1048576,
+        "gpuTextureBytesWithMipmaps": 1398100,
+        "asynchronousLoads": 0,
+        "triangles": 1328,
+        "meshBatches": 5,
+        "materials": 5,
+        "byFinish": {
+          "standard": {
+            "triangles": 1328,
+            "meshBatches": 5,
+            "materials": 5
+          },
+          "red": {
+            "triangles": 1328,
+            "meshBatches": 5,
+            "materials": 5
+          }
+        }
+      },
+      "anchorsAt0": {
+        "grip.main": [
+          0,
+          0,
+          0
+        ],
+        "grip.off": [
+          0,
+          0,
+          0
+        ],
+        "face": [
+          0,
+          0.03,
+          0.165
+        ],
+        "back": [
+          0,
+          0,
+          -0.045
+        ]
+      },
+      "anchorsAt1": {
+        "grip.main": [
+          0,
+          0,
+          0
+        ],
+        "grip.off": [
+          0,
+          0,
+          0
+        ],
+        "face": [
+          0,
+          0.03,
+          0.165
+        ],
+        "back": [
+          0,
+          0,
+          -0.045
+        ]
+      }
+    },
+    {
+      "id": "tower-shield",
+      "metadata": {
+        "id": "tower-shield",
+        "version": 1,
+        "axes": {
+          "up": "+Y",
+          "right": "+X",
+          "front": "+Z",
+          "projectileForward": null,
+          "longWeapon": "+Y"
+        },
+        "grip": {
+          "main": {
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "socket": "grip.main",
+            "moves": false
+          },
+          "off": {
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "socket": "grip.off",
+            "moves": false
+          }
+        },
+        "sockets": [
+          {
+            "id": "grip.main",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "grasp"
+          },
+          {
+            "id": "grip.off",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "grasp"
+          },
+          {
+            "id": "face",
+            "position": [
+              0,
+              0.19,
+              0.18
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "descriptive-part-marker"
+          },
+          {
+            "id": "back",
+            "position": [
+              0,
+              0,
+              -0.045
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "descriptive-part-marker"
+          }
+        ],
+        "finishes": [
+          "standard"
+        ],
+        "parts": [
+          "boards",
+          "rim",
+          "spine",
+          "foot",
+          "back-braces",
+          "arm-pad",
+          "arm-strap",
+          "grip"
+        ],
+        "articulation": {
+          "fields": {},
+          "defaults": {},
+          "patch": false,
+          "combinations": "Only an empty object is supported."
+        },
+        "units": "metres",
+        "nativeScale": 1
+      },
+      "bounds": {
+        "min": [
+          -0.31,
+          -0.4975,
+          -0.051000000000000004
+        ],
+        "max": [
+          0.31,
+          0.8,
+          0.214
+        ]
+      },
+      "resources": {
+        "textures": 1,
+        "textureSize": [
+          512,
+          512
+        ],
+        "textureBytes": 1048576,
+        "gpuTextureBytesWithMipmaps": 1398100,
+        "asynchronousLoads": 0,
+        "triangles": 1244,
+        "meshBatches": 6,
+        "materials": 6,
+        "byFinish": {
+          "standard": {
+            "triangles": 1244,
+            "meshBatches": 6,
+            "materials": 6
+          }
+        }
+      },
+      "anchorsAt0": {
+        "grip.main": [
+          0,
+          0,
+          0
+        ],
+        "grip.off": [
+          0,
+          0,
+          0
+        ],
+        "face": [
+          0,
+          0.19,
+          0.18
+        ],
+        "back": [
+          0,
+          0,
+          -0.045
+        ]
+      },
+      "anchorsAt1": {
+        "grip.main": [
+          0,
+          0,
+          0
+        ],
+        "grip.off": [
+          0,
+          0,
+          0
+        ],
+        "face": [
+          0,
+          0.19,
+          0.18
+        ],
+        "back": [
+          0,
+          0,
+          -0.045
+        ]
+      }
+    },
+    {
+      "id": "riot-shield",
+      "metadata": {
+        "id": "riot-shield",
+        "version": 1,
+        "axes": {
+          "up": "+Y",
+          "right": "+X",
+          "front": "+Z",
+          "projectileForward": null,
+          "longWeapon": "+Y"
+        },
+        "grip": {
+          "main": {
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "socket": "grip.main",
+            "moves": false
+          },
+          "off": {
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "socket": "grip.off",
+            "moves": false
+          }
+        },
+        "sockets": [
+          {
+            "id": "grip.main",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "grasp"
+          },
+          {
+            "id": "grip.off",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "grasp"
+          },
+          {
+            "id": "face",
+            "position": [
+              0,
+              0.14,
+              0.17
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "descriptive-part-marker"
+          },
+          {
+            "id": "back",
+            "position": [
+              0,
+              0,
+              -0.045
+            ],
+            "quaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "role": "descriptive-part-marker"
+          }
+        ],
+        "finishes": [
+          "standard",
+          "opaque"
+        ],
+        "parts": [
+          "panel",
+          "edge",
+          "view-band",
+          "bolts",
+          "arm-pad",
+          "arm-strap",
+          "grip"
+        ],
+        "articulation": {
+          "fields": {},
+          "defaults": {},
+          "patch": false,
+          "combinations": "Only an empty object is supported."
+        },
+        "units": "metres",
+        "nativeScale": 1
+      },
+      "bounds": {
+        "min": [
+          -0.31,
+          -0.47000000000000003,
+          -0.051000000000000004
+        ],
+        "max": [
+          0.31,
+          0.7,
+          0.1725595086466564
+        ]
+      },
+      "resources": {
+        "textures": 1,
+        "textureSize": [
+          512,
+          512
+        ],
+        "textureBytes": 1048576,
+        "gpuTextureBytesWithMipmaps": 1398100,
+        "asynchronousLoads": 0,
+        "triangles": 1076,
+        "meshBatches": 5,
+        "materials": 5,
+        "byFinish": {
+          "standard": {
+            "triangles": 1076,
+            "meshBatches": 5,
+            "materials": 5
+          },
+          "opaque": {
+            "triangles": 1140,
+            "meshBatches": 5,
+            "materials": 5
+          }
+        }
+      },
+      "anchorsAt0": {
+        "grip.main": [
+          0,
+          0,
+          0
+        ],
+        "grip.off": [
+          0,
+          0,
+          0
+        ],
+        "face": [
+          0,
+          0.14,
+          0.17
+        ],
+        "back": [
+          0,
+          0,
+          -0.045
+        ]
+      },
+      "anchorsAt1": {
+        "grip.main": [
+          0,
+          0,
+          0
+        ],
+        "grip.off": [
+          0,
+          0,
+          0
+        ],
+        "face": [
+          0,
+          0.14,
+          0.17
+        ],
+        "back": [
+          0,
+          0,
+          -0.045
+        ]
+      }
+    }
+  ]
+}
