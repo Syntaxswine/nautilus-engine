@@ -1,0 +1,566 @@
+{
+  "version": 2,
+  "base": "5d19e6198b25e14ef98caf8dbad04ba739f96506",
+  "author": "Original Nautilus Artist painterly skin revision",
+  "method": "Original built-in imagegen bitmap edits against authored UV registration; fixed cell crops and per-model page packing; deterministic palette/LZ storage. No external art.",
+  "rebuild": "node tools/fantasy-equipment-art/painted-v2/guides.mjs && node tools/fantasy-equipment-art/painted-v2/bake.mjs",
+  "sharp": "0.35.5",
+  "pages": [
+    {
+      "key": "knife/standard",
+      "file": "assets/fantasy-equipment/painted-v2/pages/knife-standard.png",
+      "usedRegions": [
+        "front",
+        "back",
+        "iron",
+        "grip",
+        "shaft"
+      ],
+      "rgbaBytes": 1048576,
+      "rgbaSHA256": "c9f5d1ae6f7baad83b144870178c33ee7053b757f17436734916accd68078cd9",
+      "paletteColours": 256,
+      "compressedBytes": 159935,
+      "paletteBytes": 1024,
+      "base64Characters": 214616
+    },
+    {
+      "key": "short-sword/standard",
+      "file": "assets/fantasy-equipment/painted-v2/pages/short-sword-standard.png",
+      "usedRegions": [
+        "front",
+        "back",
+        "iron",
+        "grip",
+        "brass"
+      ],
+      "rgbaBytes": 1048576,
+      "rgbaSHA256": "ee788d6f7373537de29da52e42857b7e384a7b13978f45f75cb71a9f25a03f47",
+      "paletteColours": 256,
+      "compressedBytes": 148239,
+      "paletteBytes": 1024,
+      "base64Characters": 199020
+    },
+    {
+      "key": "sword/standard",
+      "file": "assets/fantasy-equipment/painted-v2/pages/sword-standard.png",
+      "usedRegions": [
+        "front",
+        "back",
+        "iron",
+        "grip",
+        "brass"
+      ],
+      "rgbaBytes": 1048576,
+      "rgbaSHA256": "f8fadbd71d88ced3c48f2e4d29bf292fd0d23ea5519c6465b74c1fc3cca57623",
+      "paletteColours": 256,
+      "compressedBytes": 148173,
+      "paletteBytes": 1024,
+      "base64Characters": 198932
+    },
+    {
+      "key": "axe/standard",
+      "file": "assets/fantasy-equipment/painted-v2/pages/axe-standard.png",
+      "usedRegions": [
+        "shaft",
+        "grip",
+        "front",
+        "back",
+        "iron"
+      ],
+      "rgbaBytes": 1048576,
+      "rgbaSHA256": "57233c894b4a7c980a1ec631f053c4283459095f393d52917cbd2cd6e3a7e76a",
+      "paletteColours": 256,
+      "compressedBytes": 162380,
+      "paletteBytes": 1024,
+      "base64Characters": 217876
+    },
+    {
+      "key": "pick/standard",
+      "file": "assets/fantasy-equipment/painted-v2/pages/pick-standard.png",
+      "usedRegions": [
+        "shaft",
+        "grip",
+        "front",
+        "back",
+        "iron"
+      ],
+      "rgbaBytes": 1048576,
+      "rgbaSHA256": "f1f1b3784dc4b5eda0d2eb3597a9f83540945bc75c260383297de3ac190dbc17",
+      "paletteColours": 256,
+      "compressedBytes": 161813,
+      "paletteBytes": 1024,
+      "base64Characters": 217120
+    },
+    {
+      "key": "blacksmith-hammer/standard",
+      "file": "assets/fantasy-equipment/painted-v2/pages/blacksmith-hammer-standard.png",
+      "usedRegions": [
+        "shaft",
+        "grip",
+        "front",
+        "iron"
+      ],
+      "rgbaBytes": 1048576,
+      "rgbaSHA256": "ea4f1dd85c9b424fa59284ee6a5296d13ff13d5cbd4941e6bbbadf161cc65c3d",
+      "paletteColours": 256,
+      "compressedBytes": 113381,
+      "paletteBytes": 1024,
+      "base64Characters": 152544
+    },
+    {
+      "key": "mace/standard",
+      "file": "assets/fantasy-equipment/painted-v2/pages/mace-standard.png",
+      "usedRegions": [
+        "iron",
+        "grip",
+        "brass",
+        "front",
+        "back"
+      ],
+      "rgbaBytes": 1048576,
+      "rgbaSHA256": "e31c068334c754ae9508d45a43f376a18d8440c0cb342cc6bffeb60f9c0be63f",
+      "paletteColours": 256,
+      "compressedBytes": 98680,
+      "paletteBytes": 1024,
+      "base64Characters": 132944
+    },
+    {
+      "key": "spear/standard",
+      "file": "assets/fantasy-equipment/painted-v2/pages/spear-standard.png",
+      "usedRegions": [
+        "shaft",
+        "iron",
+        "grip",
+        "front",
+        "back"
+      ],
+      "rgbaBytes": 1048576,
+      "rgbaSHA256": "d51158cd479ceafa874c28306d1ebf3554d4775ecd4d8d17ed4a5717e815214c",
+      "paletteColours": 256,
+      "compressedBytes": 114005,
+      "paletteBytes": 1024,
+      "base64Characters": 153376
+    },
+    {
+      "key": "halberd/standard",
+      "file": "assets/fantasy-equipment/painted-v2/pages/halberd-standard.png",
+      "usedRegions": [
+        "shaft",
+        "iron",
+        "aux",
+        "pad",
+        "grip",
+        "front",
+        "back"
+      ],
+      "rgbaBytes": 1048576,
+      "rgbaSHA256": "a6ddc752f2cd8f014edb2b5a4a27a69289520c318d891ee7094550557e4276a8",
+      "paletteColours": 255,
+      "compressedBytes": 138976,
+      "paletteBytes": 1020,
+      "base64Characters": 186664
+    },
+    {
+      "key": "bow/standard",
+      "file": "assets/fantasy-equipment/painted-v2/pages/bow-standard.png",
+      "usedRegions": [
+        "shaft",
+        "grip",
+        "iron",
+        "front",
+        "back",
+        "pad"
+      ],
+      "rgbaBytes": 1048576,
+      "rgbaSHA256": "6ce7df82dd0dc924a81b23125278eaca5f2474fcd7b04f6978ffdfa104308f59",
+      "paletteColours": 256,
+      "compressedBytes": 190428,
+      "paletteBytes": 1024,
+      "base64Characters": 255272
+    },
+    {
+      "key": "crossbow/standard",
+      "file": "assets/fantasy-equipment/painted-v2/pages/crossbow-standard.png",
+      "usedRegions": [
+        "shaft",
+        "aux",
+        "iron",
+        "brass",
+        "grip",
+        "front",
+        "back",
+        "pad"
+      ],
+      "rgbaBytes": 1048576,
+      "rgbaSHA256": "f0bef896b70c2144986a0554db3c7493cc503ee82a9d4534e74bbf7f0125dfc2",
+      "paletteColours": 256,
+      "compressedBytes": 157934,
+      "paletteBytes": 1024,
+      "base64Characters": 211948
+    },
+    {
+      "key": "round-wood-shield/standard",
+      "file": "assets/fantasy-equipment/painted-v2/pages/round-wood-shield-standard.png",
+      "usedRegions": [
+        "front",
+        "back",
+        "iron",
+        "grip"
+      ],
+      "rgbaBytes": 1048576,
+      "rgbaSHA256": "3c0e42ccddc8354711dd7f3a9bafefd0666404f6545b17d75d8226b7fe4ed93c",
+      "paletteColours": 256,
+      "compressedBytes": 141216,
+      "paletteBytes": 1024,
+      "base64Characters": 189656
+    },
+    {
+      "key": "round-wood-shield/teal",
+      "file": "assets/fantasy-equipment/painted-v2/pages/round-wood-shield-teal.png",
+      "usedRegions": [
+        "front",
+        "back",
+        "iron",
+        "grip"
+      ],
+      "rgbaBytes": 1048576,
+      "rgbaSHA256": "06dbf9f31404ea48c2bfbec7cc6591911231678962c5829a0eeed01601281e48",
+      "paletteColours": 256,
+      "compressedBytes": 133635,
+      "paletteBytes": 1024,
+      "base64Characters": 179548
+    },
+    {
+      "key": "emblem-metal-shield/standard",
+      "file": "assets/fantasy-equipment/painted-v2/pages/emblem-metal-shield-standard.png",
+      "usedRegions": [
+        "front",
+        "back",
+        "iron",
+        "brass",
+        "grip",
+        "pad"
+      ],
+      "rgbaBytes": 1048576,
+      "rgbaSHA256": "aee0f43366da9a2842bc1b6a7d2b719fd514e8063c2eed61443f13160d394ef2",
+      "paletteColours": 256,
+      "compressedBytes": 156973,
+      "paletteBytes": 1024,
+      "base64Characters": 210668
+    },
+    {
+      "key": "emblem-metal-shield/red",
+      "file": "assets/fantasy-equipment/painted-v2/pages/emblem-metal-shield-red.png",
+      "usedRegions": [
+        "front",
+        "back",
+        "iron",
+        "brass",
+        "grip",
+        "pad"
+      ],
+      "rgbaBytes": 1048576,
+      "rgbaSHA256": "629994a68c9d2007414d3529e5ca8fa466684202acca67e9957f340f0a287062",
+      "paletteColours": 256,
+      "compressedBytes": 160521,
+      "paletteBytes": 1024,
+      "base64Characters": 215396
+    },
+    {
+      "key": "tower-shield/standard",
+      "file": "assets/fantasy-equipment/painted-v2/pages/tower-shield-standard.png",
+      "usedRegions": [
+        "front",
+        "back",
+        "aux",
+        "iron",
+        "grip",
+        "pad"
+      ],
+      "rgbaBytes": 1048576,
+      "rgbaSHA256": "fe64839100a939ccf38cea6769a8a15c2cd5ded4af8418154f5fede9c49ee422",
+      "paletteColours": 256,
+      "compressedBytes": 153946,
+      "paletteBytes": 1024,
+      "base64Characters": 206632
+    },
+    {
+      "key": "riot-shield/standard",
+      "file": "assets/fantasy-equipment/painted-v2/pages/riot-shield-standard.png",
+      "usedRegions": [
+        "front",
+        "back",
+        "glass",
+        "iron",
+        "grip",
+        "pad"
+      ],
+      "rgbaBytes": 1048576,
+      "rgbaSHA256": "00e52b7619c0da3fb8e4e19ac057fc119b057504a93866ba5add92962d79c47d",
+      "paletteColours": 255,
+      "compressedBytes": 72884,
+      "paletteBytes": 1020,
+      "base64Characters": 98540
+    },
+    {
+      "key": "riot-shield/opaque",
+      "file": "assets/fantasy-equipment/painted-v2/pages/riot-shield-opaque.png",
+      "usedRegions": [
+        "front",
+        "back",
+        "iron",
+        "glass",
+        "grip",
+        "pad"
+      ],
+      "rgbaBytes": 1048576,
+      "rgbaSHA256": "ef9d967d977f7057a9852a02e8e7ef6e8208fd645d4b5a3871adab72b7c874c0",
+      "paletteColours": 256,
+      "compressedBytes": 161469,
+      "paletteBytes": 1024,
+      "base64Characters": 216660
+    }
+  ],
+  "resources": [
+    {
+      "file": "packages/fantasy-equipment-art/catalogue.js",
+      "bytes": 3745,
+      "sha256": "f70769728690a7d33960ef770902a02f94fe83958a8655beeb3cf0f39856f921"
+    },
+    {
+      "file": "packages/fantasy-equipment-art/specs.js",
+      "bytes": 4294,
+      "sha256": "76e351ab30835c929fe4366cd59c7eed4ac810ba63385e57515222de3c56914d"
+    },
+    {
+      "file": "packages/fantasy-equipment-art/paint-data.js",
+      "bytes": 3459139,
+      "sha256": "7cae5997bef5d52c53be3dcb4912d287ee1159fc98083743a8d6301eb373efd5"
+    },
+    {
+      "file": "packages/fantasy-equipment-art/paint-layout.js",
+      "bytes": 714,
+      "sha256": "026875d9e862e655c9c2de9922562249ed6099020b5aab0bb207f1c671397dc7"
+    },
+    {
+      "file": "packages/fantasy-equipment-art/geometry.js",
+      "bytes": 18098,
+      "sha256": "509ab22b77c7603be9fa28acbf2fea7de5ba688f2517970177b4ff17f55bf94a"
+    },
+    {
+      "file": "packages/fantasy-equipment-art/three.js",
+      "bytes": 5472,
+      "sha256": "70c4eb51377dea02fe2277c49ca9b3948e87e33368feca3304a752a284d24e55"
+    },
+    {
+      "file": "tools/fantasy-equipment-art/painted-v2/bake.mjs",
+      "bytes": 9368,
+      "sha256": "63e038bd99b58f969126e271a01672dd34eab282e81d01a3c68d3d8884719edb"
+    },
+    {
+      "file": "tools/fantasy-equipment-art/painted-v2/guides.mjs",
+      "bytes": 6788,
+      "sha256": "3d37be2edb7a4ba7be794f36e30ce01c776dc37d11128ee9fea73d60e874e367"
+    },
+    {
+      "file": "assets/fantasy-equipment/painted-v2/NOTICE.md",
+      "bytes": 1792,
+      "sha256": "eec028c381f8aeb94680e4bdd4fc8f39cf0eaefb783cfb2c381ec9402395fed0"
+    },
+    {
+      "file": "assets/fantasy-equipment/painted-v2/baseline-reference.json",
+      "bytes": 61628,
+      "sha256": "c4fce2ac6a1f4802508f7f1df76c959ef2518a9f4ee363cf64f9e20aa4f319ff"
+    },
+    {
+      "file": "assets/fantasy-equipment/painted-v2/uv-layout.json",
+      "bytes": 21535,
+      "sha256": "e45f02edff1ec64eb94a8e5b578682361b179bd97c7040228d606fde2d3f6969"
+    },
+    {
+      "file": "assets/fantasy-equipment/painted-v2/source/heads-master.png",
+      "bytes": 2254788,
+      "sha256": "2cfbc0e49ef11b08e5fec7c9e65e829cea22a8017fdd88508a519016c63d2f69"
+    },
+    {
+      "file": "assets/fantasy-equipment/painted-v2/source/heads-prompt.json",
+      "bytes": 2573,
+      "sha256": "b0cc1297d28e997dbdb286f6903a85e508116664fa5cfe5157e32685759227f5"
+    },
+    {
+      "file": "assets/fantasy-equipment/painted-v2/source/heads-uv.png",
+      "bytes": 93897,
+      "sha256": "b7f21332ace937ede444705c26133aeacb397a1a40960af9b5bcb7fdafce3201"
+    },
+    {
+      "file": "assets/fantasy-equipment/painted-v2/source/heads-uv.svg",
+      "bytes": 7639,
+      "sha256": "bb908acc056aa34987d5d0c87ccb9ae853ce7789f67aeba337b199b91df62449"
+    },
+    {
+      "file": "assets/fantasy-equipment/painted-v2/source/riot-clear-master.png",
+      "bytes": 1207250,
+      "sha256": "af3beccbab766ae04d078d9dc2886b9db8333e94e6d616cb4ad5120dffb527bb"
+    },
+    {
+      "file": "assets/fantasy-equipment/painted-v2/source/riot-clear-prompt.json",
+      "bytes": 1290,
+      "sha256": "bd8e6be6f022203ee0b42044311159ce731ba019f1e73dee2c69349c46b67fc9"
+    },
+    {
+      "file": "assets/fantasy-equipment/painted-v2/source/riot-clear-uv.png",
+      "bytes": 7829,
+      "sha256": "b5b5aa18d5e448fec61848675f13cbaac70782f31b61847edb28248459a2f5f4"
+    },
+    {
+      "file": "assets/fantasy-equipment/painted-v2/source/riot-clear-uv.svg",
+      "bytes": 476,
+      "sha256": "d903aeb267134b805005d825ab7b65501885d90b8e3a0ce4f79824c5c5669678"
+    },
+    {
+      "file": "assets/fantasy-equipment/painted-v2/source/shields-back-master.png",
+      "bytes": 2206342,
+      "sha256": "39346a5b06532cf118d097b660182bb3b4075265c469e247ae10259cf6bba454"
+    },
+    {
+      "file": "assets/fantasy-equipment/painted-v2/source/shields-back-prompt.json",
+      "bytes": 1101,
+      "sha256": "b9b15c303876d0d04dcabfabb796de059c4db5ba0e94f2378f1d48675a6ec334"
+    },
+    {
+      "file": "assets/fantasy-equipment/painted-v2/source/shields-master.png",
+      "bytes": 2679663,
+      "sha256": "eaed958ca3d49380e2e760e6e3eebf5b045fe889a1e2502720f2bdb1b8c671e8"
+    },
+    {
+      "file": "assets/fantasy-equipment/painted-v2/source/shields-prompt.json",
+      "bytes": 3118,
+      "sha256": "1295ef63de6fb8ee248e2b22dab7ed7671a8ad2fcd1426412454e7a58ad522c0"
+    },
+    {
+      "file": "assets/fantasy-equipment/painted-v2/source/shields-uv.png",
+      "bytes": 92158,
+      "sha256": "87d14221a8d5372b3e557db01a7e3bcf25bcdd4061544d51052dc22c60484244"
+    },
+    {
+      "file": "assets/fantasy-equipment/painted-v2/source/shields-uv.svg",
+      "bytes": 11714,
+      "sha256": "21c49fa709a05361753d1a13c4dcfef4854ca2b772f0c79fe4ee81fa15c58356"
+    },
+    {
+      "file": "assets/fantasy-equipment/painted-v2/source/supports-master.png",
+      "bytes": 2960307,
+      "sha256": "8b16b80d523a3b9cab88464d89d0be7affddddabaf792690afe555f4d4a974a4"
+    },
+    {
+      "file": "assets/fantasy-equipment/painted-v2/source/supports-prompt.json",
+      "bytes": 3253,
+      "sha256": "202b97b761a00b8fb776dd55d8bc64ebd189c7017f74107adfdfdebd5e00aa1b"
+    },
+    {
+      "file": "assets/fantasy-equipment/painted-v2/source/supports-uv.png",
+      "bytes": 53394,
+      "sha256": "5e86e2f034afddc1c7878ddb881192c0f6553f0813274ab5f7db0a948fed4fad"
+    },
+    {
+      "file": "assets/fantasy-equipment/painted-v2/source/supports-uv.svg",
+      "bytes": 4895,
+      "sha256": "d39ce1ba18bee600a2b72305e29025d67a1581f9e91a2550f1a6e931b4165ba7"
+    },
+    {
+      "file": "assets/fantasy-equipment/painted-v2/source/uv-legend.json",
+      "bytes": 8149,
+      "sha256": "4720680566d20d79b66e8b5c6e06ed6f2a2a1b629c171d39cf600efec8dfdb5d"
+    },
+    {
+      "file": "assets/fantasy-equipment/painted-v2/pages/knife-standard.png",
+      "bytes": 117590,
+      "sha256": "570222c933d31a2aefe50587450104be2a5425d42f6daba010d895729709290f"
+    },
+    {
+      "file": "assets/fantasy-equipment/painted-v2/pages/short-sword-standard.png",
+      "bytes": 108828,
+      "sha256": "b54441de2de1fe92e27fe1bd850cfcf453f4337d086f73fa42a9706f31507623"
+    },
+    {
+      "file": "assets/fantasy-equipment/painted-v2/pages/sword-standard.png",
+      "bytes": 109843,
+      "sha256": "f666a35c65c27035cdedc85ab464561b9fc55090a455e7291a2eaac5646134ca"
+    },
+    {
+      "file": "assets/fantasy-equipment/painted-v2/pages/axe-standard.png",
+      "bytes": 120761,
+      "sha256": "025a5f5b45941267ca4811bdcbe5032007c49c3549ee180fe02fdf60dcad3145"
+    },
+    {
+      "file": "assets/fantasy-equipment/painted-v2/pages/pick-standard.png",
+      "bytes": 120827,
+      "sha256": "c98f020ec4b69012c51b8b241c54a2c3f7d2839861d130d89543696fadecc9a9"
+    },
+    {
+      "file": "assets/fantasy-equipment/painted-v2/pages/blacksmith-hammer-standard.png",
+      "bytes": 85323,
+      "sha256": "fff96b76dd6b4730b274bdd04f84bfe94a5c762bfba681ecdc93c89efe856192"
+    },
+    {
+      "file": "assets/fantasy-equipment/painted-v2/pages/mace-standard.png",
+      "bytes": 75038,
+      "sha256": "7b5d1707437447c1a1b863f6fced871def0aba5f1a815b8ae9610796352b437a"
+    },
+    {
+      "file": "assets/fantasy-equipment/painted-v2/pages/spear-standard.png",
+      "bytes": 85890,
+      "sha256": "0697486bed6fc158413ad0869d2c4061daba07d8d6876fe42cce24c5db3c2c69"
+    },
+    {
+      "file": "assets/fantasy-equipment/painted-v2/pages/halberd-standard.png",
+      "bytes": 106714,
+      "sha256": "b9ca23c446d7f7ff2522ff319488415c42a991f4f7075b8beb1cb9683967e470"
+    },
+    {
+      "file": "assets/fantasy-equipment/painted-v2/pages/bow-standard.png",
+      "bytes": 153331,
+      "sha256": "c43c451f3507c224882b297468640649b21cc532d39d078403704aede1ba2122"
+    },
+    {
+      "file": "assets/fantasy-equipment/painted-v2/pages/crossbow-standard.png",
+      "bytes": 121458,
+      "sha256": "3c557a3984f19c95c50cbe9c92ec825606c6f2e32303be3a6cfce331ee94bdb2"
+    },
+    {
+      "file": "assets/fantasy-equipment/painted-v2/pages/round-wood-shield-standard.png",
+      "bytes": 115498,
+      "sha256": "c26c4364cfc3a48fc96dfa6753a77fad9a518f048aaf90b0df6a66067dec2f6c"
+    },
+    {
+      "file": "assets/fantasy-equipment/painted-v2/pages/round-wood-shield-teal.png",
+      "bytes": 104416,
+      "sha256": "a9f98f6fa04108384991a850bc9f842d531be61e0b3f4e3ad2c2acb525436cda"
+    },
+    {
+      "file": "assets/fantasy-equipment/painted-v2/pages/emblem-metal-shield-standard.png",
+      "bytes": 118396,
+      "sha256": "2d8be75f67422ddaa1a986d6542e04e09d1f2857be72a19e203f5404ae764596"
+    },
+    {
+      "file": "assets/fantasy-equipment/painted-v2/pages/emblem-metal-shield-red.png",
+      "bytes": 121795,
+      "sha256": "d48d4e7ad75eff297386a959eb6e414c127bb206d80f0033c7500da899b0e1c1"
+    },
+    {
+      "file": "assets/fantasy-equipment/painted-v2/pages/tower-shield-standard.png",
+      "bytes": 117906,
+      "sha256": "62a2a6dfa5514e78389461281940c7e36d6d8a60d5c4169c427112c688741035"
+    },
+    {
+      "file": "assets/fantasy-equipment/painted-v2/pages/riot-shield-standard.png",
+      "bytes": 53366,
+      "sha256": "abfd09b3e8c0ac0d9c460cf90bfe3f2ef2857406f98bf5b96fc1f0447fd88dd2"
+    },
+    {
+      "file": "assets/fantasy-equipment/painted-v2/pages/riot-shield-opaque.png",
+      "bytes": 126086,
+      "sha256": "0b445727a3ae33b90d9499f450c79ba2ef51486760c15e8fb11dea985ec7f611"
+    }
+  ]
+}

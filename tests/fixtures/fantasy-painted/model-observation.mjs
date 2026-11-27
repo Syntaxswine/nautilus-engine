@@ -1,0 +1,7 @@
+import assert from 'node:assert/strict';import {createHash}from'node:crypto';
+const sha=bytes=>createHash('sha256').update(bytes).digest('hex'),arrayHash=a=>sha(Buffer.from(a.buffer,a.byteOffset,a.byteLength));
+export function observePaintedModel(THREE,factory,id,finish='standard'){
+ const model=factory(THREE,{id,finish}),maps=new Set(),meshes=[];
+ try{model.root.traverse(n=>{if(!n.isMesh)return;const m=n.material;assert(m.map,'Painted mesh has no map.');maps.add(m.map);meshes.push({name:n.name,vertices:n.geometry.attributes.position.count,position:arrayHash(n.geometry.attributes.position.array),normal:arrayHash(n.geometry.attributes.normal.array),uv:arrayHash(n.geometry.attributes.uv.array),material:m.name,transparent:m.transparent,opacity:m.opacity,depthWrite:m.depthWrite,roughness:m.roughness,metalness:m.metalness});});assert.equal(maps.size,1);const texture=[...maps][0];assert.equal(texture.image.width,512);assert.equal(texture.image.height,512);assert.equal(texture.image.data.byteLength,1048576);const pixels=texture.image.data;let nonOpaque=0;for(let i=3;i<pixels.length;i+=4)if(pixels[i]<255)nonOpaque++;return {id,finish,meshes,texture:{width:512,height:512,bytes:pixels.byteLength,sha256:arrayHash(pixels),nonOpaquePixels:nonOpaque,colorSpace:texture.colorSpace,flipY:texture.flipY,generateMipmaps:texture.generateMipmaps},sockets:Object.fromEntries(Object.entries(model.sockets).map(([k,v])=>[k,{position:v.position.toArray(),quaternion:v.quaternion.toArray()}]))};}
+ finally{model.dispose();}
+}
