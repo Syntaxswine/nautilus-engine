@@ -1,0 +1,6 @@
+// Review-only fixed Git-object extraction; never reads a moving worker checkout.
+import fs from 'node:fs';import path from 'node:path';import{fileURLToPath}from'node:url';import{execFileSync}from'node:child_process';import{createHash}from'node:crypto';
+export const baselinePin='5d19e6198b25e14ef98caf8dbad04ba739f96506';
+export const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../../..');
+export const baselineRoot=path.join(root,'artifacts/fantasy-painted-weapons-baseline');
+export function prepareBaseline(){fs.mkdirSync(baselineRoot,{recursive:true});const files=['catalogue.js','geometry.js','specs.js','three.js','paint-data.js'],records=[];for(const file of files){const source='packages/fantasy-equipment-art/'+file,bytes=execFileSync('git',['show',baselinePin+':'+source],{cwd:root,maxBuffer:16*1024*1024});fs.writeFileSync(path.join(baselineRoot,file),bytes);records.push({source,sha256:createHash('sha256').update(bytes).digest('hex'),bytes:bytes.length});}fs.writeFileSync(path.join(baselineRoot,'source.json'),JSON.stringify({commit:baselinePin,tree:'4504277cc6576a7c425c1c6668aa82041403c4bc',purpose:'Read-only matched-camera source review; not runtime package content',files:records},null,2)+'\n');return records;}

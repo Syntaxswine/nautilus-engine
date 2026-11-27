@@ -5,7 +5,9 @@ import {createHash} from 'node:crypto';
 import * as T from '../packages/render-effects/three.js';
 import {fantasyEquipmentArt,listFantasyEquipmentArt} from '../packages/fantasy-equipment-art/catalogue.js';
 import {createFantasyEquipmentModel} from '../packages/fantasy-equipment-art/three.js';
-import {buildEquipmentGeometry,equipmentGeometryBounds,PAINT_CELLS} from '../packages/fantasy-equipment-art/geometry.js';
+import {buildEquipmentGeometry,equipmentGeometryBounds} from '../packages/fantasy-equipment-art/geometry.js';
+import {EQUIPMENT_PAINT_REGIONS,PAINT_GUTTER} from '../packages/fantasy-equipment-art/paint-layout.js';
+import {equipmentPaintPixels} from '../packages/fantasy-equipment-art/paint-data.js';
 const roster=['knife','short-sword','sword','axe','pick','blacksmith-hammer','mace','spear','halberd','bow','crossbow','round-wood-shield','emblem-metal-shield','tower-shield','riot-shield'];
 const resources=root=>{const r=new Set();root.traverse(n=>{if(n.geometry)r.add(n.geometry);if(n.material){r.add(n.material);if(n.material.map)r.add(n.material.map);}});return r;};
 const geometryState=root=>{const a=[];root.traverse(n=>{if(n.geometry)a.push({uuid:n.uuid,position:Array.from(n.geometry.attributes.position.array)});});return a;};
@@ -17,7 +19,7 @@ test('headless catalogue has exactly the canonical roster, independent copies an
 
 for(const id of roster)test(id+': deterministic finite geometry, exact rest bounds, native sockets and resource budget',()=>{
  const spec=fantasyEquipmentArt(id),a=buildEquipmentGeometry(id),b=buildEquipmentGeometry(id);assert.deepEqual(a,b);let triangles=0;
- for(const batch of a.batches){assert.equal(batch.positions.length%9,0);assert.equal(batch.positions.length,batch.normals.length);assert.equal(batch.uvs.length,batch.positions.length/3*2);assert(batch.positions.every(Number.isFinite));assert(batch.normals.every(Number.isFinite));const cell=PAINT_CELLS[batch.material],x=cell%4,y=Math.floor(cell/4);for(let k=0;k<batch.uvs.length;k+=2){assert(batch.uvs[k]>=(x+.04)/4&&batch.uvs[k]<=(x+.96)/4);assert(batch.uvs[k+1]>=1-(y+.96)/2&&batch.uvs[k+1]<=1-(y+.04)/2);}triangles+=batch.positions.length/9;}
+ for(const batch of a.batches){assert.equal(batch.positions.length%9,0);assert.equal(batch.positions.length,batch.normals.length);assert.equal(batch.uvs.length,batch.positions.length/3*2);assert(batch.positions.every(Number.isFinite));assert(batch.normals.every(Number.isFinite));for(let k=0;k<batch.uvs.length;k+=2)assert(batch.paintRegions.some(name=>{const [x,y,w,h]=EQUIPMENT_PAINT_REGIONS[name],g=PAINT_GUTTER,u=batch.uvs[k],v=batch.uvs[k+1];return u>=(x+g)/512-1e-10&&u<=(x+w-g)/512+1e-10&&v>=1-(y+h-g)/512-1e-10&&v<=1-(y+g)/512+1e-10;}));triangles+=batch.positions.length/9;}
  assert.equal(triangles,spec.resources.triangles);assert.deepEqual(equipmentGeometryBounds(a,{includeHidden:false}),spec.restBounds);
  const model=createFantasyEquipmentModel(T,{id});assert(model.root instanceof T.Group);assert.equal(Object.getPrototypeOf(model.sockets),Object.prototype);assert.equal(model.root.scale.x,1);assert.deepEqual(Object.keys(model.sockets).sort(),spec.sockets.map(x=>x.id).sort());for(const s of spec.sockets){assert(model.sockets[s.id] instanceof T.Object3D);assert.deepEqual(model.sockets[s.id].position.toArray(),s.position);assert.deepEqual(model.sockets[s.id].quaternion.toArray(),s.quaternion);}
  const own=resources(model.root),textures=[...own].filter(r=>r.isTexture);assert.equal(textures.length,1);assert.equal(textures[0].image.width,512);assert.equal(textures[0].image.data.byteLength,1048576);assert.equal([...own].filter(x=>x.isBufferGeometry).length,spec.resources.meshBatches);assert.equal([...own].filter(x=>x.isMaterial).length,spec.resources.materials);model.dispose();model.dispose();assert.throws(()=>model.setArticulation({}),/EQUIPMENT_RETIRED/);
@@ -54,7 +56,12 @@ test('partial allocation failure rolls back every allocated native geometry/mate
 });
 
 test('retained original paint source and packed outputs match provenance hashes',()=>{
- const manifest=JSON.parse(fs.readFileSync(new URL('../assets/fantasy-equipment/provenance.json',import.meta.url)));for(const r of manifest.resources){const bytes=fs.readFileSync(new URL('../'+r.file,import.meta.url));assert.equal(bytes.length,r.bytes);assert.equal(createHash('sha256').update(bytes).digest('hex'),r.sha256);}
+ const manifest=JSON.parse(fs.readFileSync(new URL('../assets/fantasy-equipment/painted-v2/provenance.json',import.meta.url)));for(const r of manifest.resources){const bytes=fs.readFileSync(new URL('../'+r.file,import.meta.url));assert.equal(bytes.length,r.bytes);assert.equal(createHash('sha256').update(bytes).digest('hex'),r.sha256);}
+});
+
+test('dedicated painted pages are deterministic, instance-owned and genuinely distinct, with glass alpha',()=>{
+ const manifest=JSON.parse(fs.readFileSync(new URL('../assets/fantasy-equipment/painted-v2/provenance.json',import.meta.url))),hashes=new Set();for(const spec of listFantasyEquipmentArt())for(const finish of spec.finishes){const a=equipmentPaintPixels(spec.id,finish),b=equipmentPaintPixels(spec.id,finish);assert.notEqual(a,b);assert.deepEqual(a,b);assert.equal(a.byteLength,1048576);const hash=createHash('sha256').update(a).digest('hex');assert.equal(hash,manifest.pages.find(p=>p.key===spec.id+'/'+finish).rgbaSHA256);hashes.add(hash);if(spec.id==='riot-shield'){const alphas=[];for(let y=4;y<252;y++)for(let x=4;x<252;x++)alphas.push(a[(y*512+x)*4+3]);if(finish==='standard'){assert(Math.min(...alphas)<100);assert(Math.max(...alphas)>200);}else assert.equal(Math.min(...alphas),255);}}
+ assert.equal(hashes.size,18);assert.throws(()=>equipmentPaintPixels('not-a-model'),/EQUIPMENT_PAINT/);
 });
 
 test('ranged limb shells face outward and static construction leaves the real projectile path clear',()=>{
