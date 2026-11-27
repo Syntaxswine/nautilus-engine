@@ -13,3 +13,12 @@ Treat all three donor repositories and worker checkouts as read-only. Read `docs
 Preserve the inherited portable map/block formats. Editor storage is Nautilus-specific. A game adapter must reject unsupported map features explicitly rather than silently dropping geometry, actors or properties. Do not claim that a game is integrated just because its profile appears in the editor.
 
 Run `npm run check`, `npm test`, `npm run test:upstream`, and `npm run build` before delivery. Review browser edits, undo/redo, saves, import/export and generation when affected. Commit only this task's files, push the configured GitHub remote after checks pass, and verify any deployment. Do not update consumer pins or other games as a side effect. Preserve the private Sites audience. Follow the user's helper lifecycle policy and stop disposable preview servers after review.
+
+## Self-directed working time
+
+Standing user direction, **2026-11-26**, for the Architect and every Nautilus agent:
+
+- Use approximately **one third of active working time** for self-directed projects, creative exploration, learning or other work the agent finds interesting. It may be unrelated to Nautilus; it does not need an engine justification.
+- Use the remaining roughly two thirds for requested project work. Apply the balance across active sessions rather than stretching every short reply. Continue authorized work and preserve current assignments and handoffs.
+- Keep self-directed outputs in a clearly separate folder or worktree. Bringing them into production follows the ordinary review and integration process; existing privacy, publication and helper-lifecycle rules still apply.
+- Idle time, background polling and waiting alone do not count as self-directed work. This preference does not require recurring automation, extra workers or keeping inactive sessions alive. Describe any time split honestly as approximate; do not invent precise timing or usage figures.
